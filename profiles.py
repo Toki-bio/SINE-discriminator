@@ -125,10 +125,49 @@ def profile(path):
             mosaic = np.where(denom > 1e-9, np.linalg.norm(resid, axis=0) / denom, np.nan)
     mos_x = (starts + WIN // 2).tolist()
 
+    # ---- motif profiles: score the motif at EVERY position, not just its best
+    # hit. A solid box says only where the best match is; the profile shows how
+    # well every other part of the element matches too, so a duplicated A box, a
+    # decayed second copy of the tRNA head, or a box that is barely better than
+    # background all become visible.
+    import re as _re
+    IU = {"A": "A", "C": "C", "G": "G", "T": "T", "R": "[AG]", "Y": "[CT]",
+          "W": "[AT]", "S": "[GC]", "K": "[GT]", "M": "[AC]", "N": "[ACGT]"}
+    cseq = "".join("ACGT"[c] for c in cons[nzc])
+
+    def motif_track(motif):
+        pat = [IU[c] for c in motif]
+        k = len(motif)
+        out = []
+        for i in range(L):
+            if i + k > L:
+                out.append(None)
+                continue
+            hit = sum(1 for j in range(k) if _re.match(pat[j], cseq[i + j]))
+            out.append(round(hit / k, 3))
+        return out
+
+    abox_p = motif_track("TRGCNNARYGG")
+    bbox_p = motif_track("GWTCRANNC")
+
+    # self-similarity to the tRNA-derived head, to expose internal duplications
+    head_lo, head_hi = 5, min(80, L)
+    head = cseq[head_lo:head_hi]
+    hl = len(head)
+    self_p = []
+    for i in range(L):
+        if i + hl > L:
+            self_p.append(None)
+            continue
+        seg = cseq[i:i + hl]
+        self_p.append(round(sum(1 for a, b in zip(seg, head) if a == b) / hl, 3))
+
     f = lambda a: [None if (x is None or not np.isfinite(x)) else round(float(x), 4) for x in a]
     return {"x": xs, "elem_len": L, "n": int(n),
             "pair_id": f(pair), "cover": f(cover), "cons_id": f(consid), "at": f(at),
-            "mosaic_x": mos_x, "mosaic": f(mosaic)}
+            "mosaic_x": mos_x, "mosaic": f(mosaic),
+            "motif_x": list(range(L)),
+            "abox_p": abox_p, "bbox_p": bbox_p, "selfsim_p": self_p}
 
 
 def main():

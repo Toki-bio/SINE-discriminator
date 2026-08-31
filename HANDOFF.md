@@ -633,3 +633,82 @@ the never-contaminated original. It converges on the right answer.
 - Contaminants here are *random genomic loci*, the easy case. A contaminant that
   is a diverged member of a related family will sit much closer to the cut and
   has not been tested.
+
+---
+
+## 18. Weighted verdict with named sub-cases (`verdict.py`)
+
+Three changes Sergei asked for, all built.
+
+### A weighted score, not a binary call
+
+Four evidence groups, each 0–1, combined **geometrically** with stated weights:
+element 0.45, homogeneity 0.25, uniqueness 0.20, and insertion 0.10 applied as a
+one-sided bonus (it can lift a borderline score, never reject — as spec §1.2
+requires). Geometric rather than a weighted sum, because a sum lets one strong
+group mask a fatal weakness: a set with no element is not a family however unique
+its flanks are. Every component is shown in the report so a disagreement can be
+traced to the variable that caused it.
+
+**The weights are stated, not fitted.** Fitting now would fit the synthetic
+negatives.
+
+| class | score | element | homogeneity | uniqueness | insertion |
+|---|---|---|---|---|---|
+| POS | 96.7 | 0.93 | 0.99 | 0.92 | 0.78 |
+| MIXED10 | 97.5 | 0.88 | 0.97 | 0.94 | 0.86 |
+| MIXED30 | 87.7 | 0.68 | 0.95 | 0.96 | 0.89 |
+| MIXSUBFAM | 94.5 | 0.93 | 0.91 | 0.94 | — |
+| NEGTRUNC5 | 69.0 | 0.71 | 0.60 | 0.89 | 0.00 |
+| NEGRAND | **0.1** | 0.00 | 0.62 | 1.00 | 0.18 |
+
+**A circularity caught while building this.** The first version scored random
+loci at 66.8, because the cliff was measured over the *core* copies — the ones
+selected for matching the consensus. Selecting copies by identity and then
+measuring their identity is the same trap that made the gap-based pruning rule
+manufacture families out of noise (§17). The cliff is now measured over all
+copies, and the mean rather than the median, since with 30 % contamination the
+median is still a real copy.
+
+### Sub-cases, because "negative" is not one thing
+
+| flag | meaning | POS | MIXED30 | MIXSUBFAM | NEGRAND |
+|---|---|---|---|---|---|
+| `NO_ELEMENT` | nothing above background | 0/28 | 0/28 | 0/8 | **20/20** |
+| `CONTAMINATED` | element present, some copies do not support it | 2/28 | **28/28** | 0/8 | 16/20 |
+| `SUBFAMILY_STRUCTURE` | supported copies split into structurally different groups | **0/28** | 0/28 | **6/8** | 0/8 |
+| `NESTED_COPIES` | copies share flanking sequence — inside another repeat, a duplication, or a satellite | 5/28 | 3/28 | 2/8 | 0/20 |
+| `RECOVERABLE_CORE` | poor set, but ≥ 20 copies look genuine | — | — | — | — |
+
+`RECOVERABLE_CORE` is Sergei's point that 20–30 real-looking copies inside a
+heavily polluted candidate are worth reporting, because that is where the next
+clean family comes from. **`n_core` — copies that both support the consensus and
+sit in unique genomic sequence — is reported for every set regardless of
+verdict.**
+
+### The missing negative, built and used to calibrate
+
+`SUBFAMILY_STRUCTURE` had nothing to fire on, so `kit/mixsubfam.py` builds it:
+8 sets of 50 copies from subfamily A plus 50 from subfamily B of the same
+species, searched with A's consensus only. Detector: copy × copy identity inside
+the element, split on the leading eigenvector, scored as within-group minus
+between-group identity.
+
+Calibrated against the control rather than guessed — clean families reach a gap
+of at most 0.018 (median 0.007); mixtures run 0.011–0.126 (median 0.071). The
+threshold is 0.03: **6/8 mixtures caught, 0/28 clean families falsely flagged.**
+The two misses (`ccr g1+g6` at 0.011, `dmo d3+d5` at 0.022) are pairs whose
+subfamilies are genuinely close in structure — this statistic cannot separate
+subfamilies that differ only by age.
+
+### Motif profiles instead of solid boxes
+
+Sergei's third point: a solid box says only where the best match is. The A box,
+B box and tRNA-head similarity are now scored **at every position** and drawn as
+lines, so a duplicated box, a decayed second copy of the head, or a box barely
+better than background are all visible. On `POS__saq__s5_5seqs` the A box scores
+1.00 at position 12 with the next-best peak at 0.64, and the tRNA head has no
+second peak above 0.37 — i.e. no internal duplication of the head in that family.
+
+The boxes are kept as well: the profile shows the landscape, the box marks the
+call. Both are individually toggleable.
