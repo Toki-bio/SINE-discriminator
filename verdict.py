@@ -326,6 +326,7 @@ def verdict(path):
     # notes heterogeneity without destroying the verdict; at 0.05-0.25 it drove
     # the truncated class to a mean of 9.7.
     g_homog = 1 - sat(cv_core, 0.10, 0.50)
+    uniq_measured = True
     if dec:
         # BOTH parts of the decay curve matter. Distance alone rates a LINE
         # fragment as isolated, because its shared flank runs only ~50-75 bp
@@ -333,8 +334,18 @@ def verdict(path):
         # which says the element does not end there at all.
         g_uniq = (1 - sat(dec["decay_max"], 75, 300)) *                  (1 - sat(dec.get("edge_max") or 0.0, 0.45, 0.85))
     else:
-        g_uniq = np.mean([1 - sat(n_shared / max(1, n), 0.05, 0.60),
-                          1 - sat(global_elev - BG, 0.05, 0.30)])
+        # No 400 bp decay data. The within-set flank-sharing test that used to
+        # stand in here is measured over ~50-70 bp and is documented above as
+        # producing false nesting calls at that width. Measured across the whole
+        # corpus it turned out to carry NO discriminating power: every genuine
+        # negative (NEGRAND, NEGSAT, NEGSEGDUP, NEGLINEORF, 30 sets) scores 0.0
+        # both with and without it - the element gate does all the rejecting.
+        # Its only measurable effect was to suppress real SINEs, including three
+        # Timema candidates an expert confirmed by eye (38.6/29.3/71.3 ->
+        # 61.9/44.5/100.0). An absent measurement must not be scored as guilt,
+        # so uniqueness is neutral here and the absence is reported instead.
+        g_uniq = 1.0
+        uniq_measured = False
     g_ins = sat(tsd_frac, 0.10, 0.60)
 
     # The element group GATES the score rather than voting in it. As a co-equal
@@ -397,12 +408,18 @@ def verdict(path):
                                   % (sub["sizes"][0], sub["sizes"][1], sub["within"],
                                      sub["between"], sub.get("gap_excess", 0))})
         if (not dec) and n_shared / max(1, n) > 0.15:
-            kind = ("satellite or segmental duplication" if global_elev - BG > 0.15
+            kind = ("a satellite or segmental duplication" if global_elev - BG > 0.15
                     else "another repeat or a duplication")
-            flags.append({"code": "NESTED_COPIES", "n": n_shared,
-                          "text": "%d of %d copies share flanking sequence with each other — they "
-                                  "sit inside %s. Set them aside; they do not disqualify the "
-                                  "family." % (n_shared, n, kind)})
+            flags.append({"code": "FLANKS_UNMEASURED", "n": n_shared,
+                          "text": "%d of %d copies appear to share flanking sequence, which "
+                                  "would put them inside %s - but this set has no 400 bp "
+                                  "flank-decay data, and over the ~50-70 bp actually present "
+                                  "that reading is not reliable: adjacent context and true "
+                                  "nesting look identical at this width. Uniqueness is scored "
+                                  "as neutral rather than penalised, and this is reported as "
+                                  "an unmade measurement, not as evidence against the family. "
+                                  "Re-run with 400 bp flanks to settle it."
+                                  % (n_shared, n, kind)})
     if cv_core > 0.18 and n_core >= 15:
         flags.append({"code": "TRUNCATED_COPIES", "n": round(cv_core, 3),
                       "text": "Copy length varies widely (CV %.2f against 0.05 for a clean "
@@ -423,6 +440,7 @@ def verdict(path):
 
     return {"set": os.path.basename(path).replace(".aln.fa", ""),
             "score": round(float(score), 1),
+            "uniqueness_measured": bool(uniq_measured),
             "groups": {"element": round(float(g_elem), 3),
                        "homogeneity": round(float(g_homog), 3),
                        "uniqueness": round(float(g_uniq), 3),
