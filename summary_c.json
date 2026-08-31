@@ -1,0 +1,276 @@
+{
+ "auc": {
+  "cliff": [
+   0.617,
+   0.621,
+   0.968,
+   0.919,
+   1.0,
+   0.689
+  ],
+  "cons_identity_med": [
+   0.593,
+   0.631,
+   0.963,
+   0.913,
+   1.0,
+   0.573
+  ],
+  "frac_supported": [
+   0.996,
+   0.998,
+   0.995,
+   0.608,
+   1.0,
+   0.559
+  ],
+  "elem_len_cv": [
+   0.058,
+   0.008,
+   0.0,
+   0.323,
+   0.002,
+   0.213
+  ],
+  "frac_full": [
+   0.575,
+   0.687,
+   1.0,
+   0.393,
+   0.945,
+   0.943
+  ],
+  "res_asymmetry": [
+   0.499,
+   0.448,
+   0.001,
+   0.528,
+   0.438,
+   0.52
+  ],
+  "tsd_frac": [
+   0.714,
+   0.88,
+   0.97,
+   0.934,
+   0.962,
+   0.924
+  ],
+  "tsd_len_med": [
+   0.56,
+   0.542,
+   0.931,
+   0.956,
+   0.829,
+   0.618
+  ],
+  "rank1_excess": [
+   0.0,
+   0.0,
+   0.0,
+   0.31,
+   0.0,
+   0.466
+  ],
+  "flank_id": [
+   0.453,
+   0.558,
+   0.635,
+   0.55,
+   0.961,
+   0.262
+  ],
+  "cons_identity_iqr": [
+   0.294,
+   0.0,
+   0.002,
+   0.305,
+   0.173,
+   0.405
+  ],
+  "arich_score": [
+   0.587,
+   0.744,
+   0.999,
+   0.581,
+   0.996,
+   0.423
+  ],
+  "polyA_score": [
+   0.435,
+   0.573,
+   0.42,
+   0.614,
+   0.975,
+   0.476
+  ],
+  "cons_stretch": [
+   0.128,
+   0.047,
+   0.193,
+   0.459,
+   0.068,
+   0.379
+  ]
+ },
+ "med": {
+  "cliff": {
+   "POS": 0.563,
+   "SQ": 0.572,
+   "MIXED10": 0.548,
+   "MIXED30": 0.542,
+   "NEGTRUNC5": 0.398,
+   "NEGSPLICE": 0.472,
+   "NEGRAND": -0.089,
+   "NEGJITTER": 0.532
+  },
+  "cons_identity_med": {
+   "POS": 0.87,
+   "SQ": 0.877,
+   "MIXED10": 0.855,
+   "MIXED30": 0.846,
+   "NEGTRUNC5": 0.691,
+   "NEGSPLICE": 0.77,
+   "NEGRAND": 0.184,
+   "NEGJITTER": 0.852
+  },
+  "frac_supported": {
+   "POS": 1.0,
+   "SQ": 1.0,
+   "MIXED10": 0.91,
+   "MIXED30": 0.73,
+   "NEGTRUNC5": 0.86,
+   "NEGSPLICE": 1.0,
+   "NEGRAND": 0.11,
+   "NEGJITTER": 1.0
+  },
+  "elem_len_cv": {
+   "POS": 0.052,
+   "SQ": 0.051,
+   "MIXED10": 0.107,
+   "MIXED30": 0.144,
+   "NEGTRUNC5": 0.271,
+   "NEGSPLICE": 0.062,
+   "NEGRAND": 0.18,
+   "NEGJITTER": 0.072
+  },
+  "frac_full": {
+   "POS": 0.98,
+   "SQ": 0.975,
+   "MIXED10": 0.97,
+   "MIXED30": 0.96,
+   "NEGTRUNC5": 0.545,
+   "NEGSPLICE": 0.98,
+   "NEGRAND": 0.82,
+   "NEGJITTER": 0.907
+  },
+  "res_asymmetry": {
+   "POS": 0.0,
+   "SQ": 0.0,
+   "MIXED10": 0.0,
+   "MIXED30": 0.0,
+   "NEGTRUNC5": 4.926,
+   "NEGSPLICE": 0.0,
+   "NEGRAND": 0.18,
+   "NEGJITTER": 0.0
+  },
+  "tsd_frac": {
+   "POS": 0.74,
+   "SQ": 0.775,
+   "MIXED10": 0.68,
+   "MIXED30": 0.545,
+   "NEGTRUNC5": 0.04,
+   "NEGSPLICE": 0.3,
+   "NEGRAND": 0.07,
+   "NEGJITTER": 0.427
+  },
+  "tsd_len_med": {
+   "POS": 9.0,
+   "SQ": 9.0,
+   "MIXED10": 9.0,
+   "MIXED30": 9.0,
+   "NEGTRUNC5": 6.0,
+   "NEGSPLICE": 6.0,
+   "NEGRAND": 7.0,
+   "NEGJITTER": 8.25
+  },
+  "rank1_excess": {
+   "POS": 0.002,
+   "SQ": 0.001,
+   "MIXED10": 0.022,
+   "MIXED30": 0.056,
+   "NEGTRUNC5": 0.01,
+   "NEGSPLICE": 0.002,
+   "NEGRAND": 0.135,
+   "NEGJITTER": 0.001
+  },
+  "flank_id": {
+   "POS": 0.309,
+   "SQ": 0.305,
+   "MIXED10": 0.31,
+   "MIXED30": 0.304,
+   "NEGTRUNC5": 0.298,
+   "NEGSPLICE": 0.304,
+   "NEGRAND": 0.27,
+   "NEGJITTER": 0.324
+  },
+  "cons_identity_iqr": {
+   "POS": 0.055,
+   "SQ": 0.053,
+   "MIXED10": 0.065,
+   "MIXED30": 0.507,
+   "NEGTRUNC5": 0.133,
+   "NEGSPLICE": 0.072,
+   "NEGRAND": 0.078,
+   "NEGJITTER": 0.059
+  },
+  "arich_score": {
+   "POS": 0.716,
+   "SQ": 0.716,
+   "MIXED10": 0.71,
+   "MIXED30": 0.699,
+   "NEGTRUNC5": 0.592,
+   "NEGSPLICE": 0.711,
+   "NEGRAND": 0.6,
+   "NEGJITTER": 0.725
+  },
+  "polyA_score": {
+   "POS": 0.579,
+   "SQ": 0.548,
+   "MIXED10": 0.558,
+   "MIXED30": 0.536,
+   "NEGTRUNC5": 0.571,
+   "NEGSPLICE": 0.47,
+   "NEGRAND": 0.319,
+   "NEGJITTER": 0.564
+  },
+  "cons_stretch": {
+   "POS": 2.117,
+   "SQ": 1.657,
+   "MIXED10": 2.894,
+   "MIXED30": 3.562,
+   "NEGTRUNC5": 2.545,
+   "NEGSPLICE": 1.809,
+   "NEGRAND": 3.406,
+   "NEGJITTER": 1.962
+  }
+ },
+ "neg": [
+  "MIXED10",
+  "MIXED30",
+  "NEGTRUNC5",
+  "NEGSPLICE",
+  "NEGRAND",
+  "NEGJITTER"
+ ],
+ "counts": {
+  "POS": 28,
+  "SQ": 400,
+  "MIXED10": 28,
+  "MIXED30": 28,
+  "NEGTRUNC5": 28,
+  "NEGSPLICE": 20,
+  "NEGRAND": 20,
+  "NEGJITTER": 28
+ }
+}
