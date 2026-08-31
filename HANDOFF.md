@@ -473,3 +473,55 @@ insertion signature is a per-copy feature and a candidate discriminating
 variable in its own right — real families have it, random loci do not. It should
 be added to `annotate.py` as a scored motif and to `measure_c.py` as a one-sided
 bonus, replacing the current crude `arich_score`.
+
+---
+
+## 15. v2 adopted corpus-wide; report restructured (Sergei confirmed)
+
+`justify_all.py` applied the v2 strategy to all 580 alignments → `aln_v2/`,
+which is now the current corpus. `aln_c/` is kept as the pre-justification
+source (the element alignment is byte-identical between them; only the flanks
+differ). Everything downstream was re-run on `aln_v2`:
+`features_v2c.jsonl`, `profiles.json`, `annotations.json`, `commentary.json`.
+The repo's `alignments/` directory now holds the v2 files, so all MSA-viewer
+links serve the justified alignments.
+
+The report is now a **vertical list** — one panel per alignment, each with the
+positional profile, the structural feature track in distinct hues, the measured
+parameters, a link into MSA-viewer for all copies, the alignment itself
+collapsed, and per-set notes on what works and what does not.
+
+`commentary.py` generates those notes **from the measured values**, so they
+cannot drift away from the data. One bug found and fixed while checking the
+output: the "3′ edge wants to move outward → poly-A" note fired on the
+random-locus set, where there is no poly-A and no element. It is now gated on
+`cliff > 0.3`. Generated prose still has to be read against the data it
+describes.
+
+## 16. SCOPE — everything here is ONE SINE family type
+
+Sergei's caution, and it qualifies every biological claim in this document:
+**the entire corpus is Tal, a tRNA-derived SINE, in four talpid genomes.**
+Biology differs between SINE families, so the following are family-specific
+findings and must not be stated as general properties of SINEs:
+
+- the Pol III A box at 12–22 and B box at 64–75 — positions are family-specific,
+  and a 5S-derived or non-tRNA-derived SINE differs entirely;
+- the T-tract/A-tract L1 endonuclease insertion signature 10–17 bp upstream —
+  families mobilised by a different LINE partner have a different target site,
+  and the spec already notes that many SINEs lack TSDs altogether;
+- TSD frequency ~0.74 and median length 9–14 bp;
+- the ~7 bp 3′ consensus under-call, which is an artifact of how these
+  particular consensuses were built;
+- element length ~250–280 bp.
+
+What should generalise, because it is geometry rather than biology: the
+consensus-row boundary anchor, short flanks, ungapped edge-anchored flank
+statistics, and de-gap-and-justify display.
+
+**The obvious next test is a second family.** The Tal repo already carries
+Erinaceidae (e1/e2, hedgehog), scorpion and Timema sets with their own
+consensuses and run directories. Running the same pipeline on Erinaceidae would
+show which of the numbers above are properties of SINEs and which are properties
+of Tal. Until that is done, no threshold derived here should be applied to
+another family.
