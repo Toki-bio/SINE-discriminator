@@ -1507,3 +1507,68 @@ carried false NESTED_COPIES. The two that genuinely are satellite/duplication
 **All four natural non-SINE classes now reject: random loci, satellites,
 segmental duplications and LINEs.** The remaining grey zone is entirely
 NEGTRUNC5 and NEGCHIM - the two classes Sergei has already judged to be SINEs.
+
+---
+
+## 37. Align wholly when there are no true flanks — and the cleanest separator so far
+
+Sergei, on three rejected sets: *"you provided badly aligned files, they should
+be aligned wholly because there are no true flanks."*
+
+He is right, and it exposes an assumption baked into the v2 justify step: that
+flanking sequence is non-homologous and must not be aligned. True for a SINE,
+whose neighbours are unrelated genomic DNA. **Exactly false for a satellite, a
+duplication or a LINE fragment**, where the "flank" is more of the same element —
+justifying it splits one continuous alignment into three pieces and makes the
+result look broken.
+
+**Rule now applied:** when flank decay reports NOT_ISOLATED or
+FRAGMENT_OF_LONGER, re-align end to end (`kit/whole.py`, output in
+`aln_whole/`).
+
+### The separator that falls out
+
+With 400 bp either side and everything aligned end to end, measure the conserved
+region: columns with identity > 0.6 among the copies present.
+
+| set | conserved element | % of the alignment |
+|---|---|---|
+| POS saq s5 — real SINE | **277 bp** | 4 % |
+| ERI e2-3 — real SINE | **263 bp** | 4 % |
+| ERI e1-4 | 1097 bp | 74 % |
+| ERI e2-2 | 1100 bp | 45 % |
+| NEGSAT satellite | 1173 bp | 23 % |
+| NEGSEGDUP duplication | 1182 bp | 71 % |
+| NEGLINEORF LINE | 975 bp | 41 % |
+
+**No overlap.** Real SINEs hold at 263-277 bp; every non-SINE class runs
+975-1182 bp. This is the Tier-2 boundary test done properly: a SINE has a
+definite length that does **not grow when you look further out**, while a
+satellite, a duplication and a LINE fragment all expand to fill whatever window
+they are given. It only becomes visible once the flanks are generous AND aligned
+rather than justified — neither alone is enough.
+
+It also confirms Sergei's read that e1-4 is "too long for a SINE": 1097 bp.
+
+### An idea that did not survive its own test
+
+Seeing variable occupancy across e1-4, I expected patchy occupancy within the
+conserved region to be the mosaic signature — different copies carrying different
+blocks. Measured, it does not separate: 8 % of columns below 0.8 occupancy in a
+real SINE, 10 % in e1-4, 8 % in the satellite. Whatever Sergei is seeing as
+mosaic structure in e1-4, it is not variable occupancy, and I should not claim it
+is. e1-4's actual distinguishing property is simply that it is a 1.1 kb
+conserved repeat.
+
+### Sergei's judgements this round, for the record
+
+- three rejected sets (LINE, satellite, hedgehog e1-4): **confirmed negative**
+- `ERI__eri__e1-4`: a good example of mosaic once wholly aligned, and too long
+  for a SINE — the first mosaic identified in real data
+- `NEGCHIM__dmo__d4_266seqs`: a SINE after realignment, but greyish, right end
+  wobbly
+- `NEGTRUNC5__ccr__g5_7seqs`: right end fine, left end really bad — **looks more
+  like a LINE**, which is exactly right, since heavy 5' truncation is what a LINE
+  fragment looks like
+- `ERI__eri__e2-2`: not grey at all, a mixture of LINEs or other repeats,
+  definitely not a SINE — agrees with the algorithm's rejection
