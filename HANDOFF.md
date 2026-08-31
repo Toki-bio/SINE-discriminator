@@ -712,3 +712,92 @@ second peak above 0.37 — i.e. no internal duplication of the head in that fami
 
 The boxes are kept as well: the profile shows the landscape, the box marks the
 call. Both are individually toggleable.
+
+---
+
+## 19. NEGSPLICE was never a negative; the real chimera and the real mosaic
+
+Sergei, on `NEGSPLICE__saq_s5_5seqs__saq_s8_225seqs__02`: "very clear SINE,
+almost perfect — reconsider your criteria." The criteria were right; the class
+label was wrong.
+
+**Every one of the 20 NEGSPLICE sets joins two Tal SUBFAMILIES.** All consensuses
+in this corpus are Tal, so splicing s5 to s8 produces a within-family
+recombinant — a real biological entity that *should* score as a SINE. Scoring it
+~100 is the correct answer. The class has been reporting a success as a failure
+since build 1, and every earlier statement that "chimeras are not caught" was
+measuring the wrong thing.
+
+`kit/negchim.py` builds the two cases it should have been:
+
+- **NEGCHIM** — the 3′ half of each copy replaced with random genomic sequence,
+  breakpoint varying per copy. Half element, half non-element.
+- **NEGMOSAIC** — two subfamilies with the breakpoint varying **per copy**, so
+  different copies genuinely carry different blocks. This is the spec's Tier-3
+  kaleidoscope, which the old fixed-midpoint splice never produced.
+
+| class | score | n_core | flags |
+|---|---|---|---|
+| POS | 96.7 | 89 | — |
+| NEGSPLICE (recombinant, not a negative) | 96.7 | 47 | — |
+| **NEGMOSAIC** | **97.6** | 91 | none |
+| **NEGCHIM** | **19.1** | 14 | NO_ELEMENT 12/16 |
+| NEGRAND | 0.1 | 10 | NO_ELEMENT 20/20 |
+
+**Good news: a genuine chimera is rejected.** NEGCHIM scores 19.1 with
+NO_ELEMENT on 12 of 16. The criteria do catch half-element/half-junk; they were
+simply never shown one.
+
+**Bad news, and this is the clean negative result: a real mosaic is NOT
+detected.** NEGMOSAIC scores 97.6, indistinguishable from a clean family, and
+neither statistic sees it:
+
+| class | rank1_excess | rank2_frac | elem_len_cv |
+|---|---|---|---|
+| POS | 0.0017 | 0.0022 | 0.052 |
+| **NEGMOSAIC** | **0.0017** | 0.0032 | 0.053 |
+| NEGCHIM | 0.0071 | 0.0135 | 0.094 |
+| NEGRAND | 0.1352 | 0.0246 | 0.180 |
+
+`rank1_excess` on a real mosaic is **identical to a clean family to four decimal
+places**. So spec §2's central Tier-3 idea — SVD rank as the mosaicism detector —
+now has a properly constructed test and **fails it**. Earlier builds recorded
+Tier 3 as "untested because the negative was mis-designed"; it is now tested, and
+the statistic does not work as specified.
+
+A likely reason, worth checking before discarding the idea: every NEGMOSAIC copy
+is still a valid Tal element, so the copy × window identity matrix stays nearly
+rank 1 — a copy that is 40 % subfamily A and 60 % B matches the A consensus at a
+level that still looks like "an older copy". Separability may need the matrix
+built against *two* candidate consensuses rather than one, or a phylogenetic
+incongruence test (the PHI/GARD route the spec also lists) rather than SVD.
+
+**Also note NEGMOSAIC is arguably not a negative either** — subfamily
+recombinants occur. The right output for it is probably `SUBFAMILY_STRUCTURE`
+with a note that the breakpoint varies, not rejection. That distinction has not
+been built.
+
+## 20. Motif tracks were plotting the chance baseline
+
+Sergei: "in all cases what I see in small tRNA/boxes tracks they look as pure
+noise." Correct, and measurably so. Raw fraction-of-positions-matched for a
+degenerate motif containing `N` and `R/Y` sits at **median 0.45, IQR 0.33–0.56**
+across the whole element — the eye sees that band, and the one real hit is a
+single point at 1.0.
+
+Now scored as a **z against the same motif scanned over shuffled versions of the
+same consensus**, which puts background at 0:
+
+| track | before (raw fraction) | after (z vs shuffled null) |
+|---|---|---|
+| A box | median 0.46, IQR 0.36–0.55, max 1.00 | median −0.01, IQR −0.74–0.73, **max 4.4** |
+| B box | median 0.44, IQR 0.33–0.56, max 1.00 | median −0.13, IQR −0.96–0.70, **max 4.0** |
+| tRNA-head self-similarity | median 0.29, max 1.00 (trivial self-match) | median −0.24, **max 2.4**, self-match region masked |
+
+Only 0.4 % of positions now exceed |z| > 3. Two things this makes readable:
+
+- the boxes are real but modest — z ≈ 4 for an 11 bp degenerate motif is a
+  genuine signal, not an overwhelming one, and it should not be oversold;
+- **no internal duplication of the tRNA head** in these families: the
+  self-similarity track peaks at z ≈ 2.4 off-target, which is not significant.
+  That is now a stateable negative result rather than an unreadable band.

@@ -135,17 +135,33 @@ def profile(path):
           "W": "[AT]", "S": "[GC]", "K": "[GT]", "M": "[AC]", "N": "[ACGT]"}
     cseq = "".join("ACGT"[c] for c in cons[nzc])
 
-    def motif_track(motif):
+    def raw_scan(seq, motif):
         pat = [IU[c] for c in motif]
         k = len(motif)
-        out = []
-        for i in range(L):
-            if i + k > L:
-                out.append(None)
-                continue
-            hit = sum(1 for j in range(k) if _re.match(pat[j], cseq[i + j]))
-            out.append(round(hit / k, 3))
-        return out
+        return [sum(1 for j in range(k) if _re.match(pat[j], seq[i + j]))
+                for i in range(len(seq) - k + 1)]
+
+    _rng = np.random.default_rng(0)
+
+    def motif_track(motif, n_null=120):
+        """Raw fraction-matched is useless as a track: a motif carrying N and
+        R/Y matches ~45 % of random positions, so the whole element sits in a
+        noisy 0.33-0.56 band with the real hit a single spike. Score instead as
+        a z against the same motif scanned over shuffled versions of this
+        consensus, which puts background at 0 and leaves only real matches."""
+        k = len(motif)
+        if L < k + 5:
+            return [None] * L
+        obs = raw_scan(cseq, motif)
+        arr = np.frombuffer(cseq.encode(), dtype="S1")
+        null = []
+        for _ in range(n_null):
+            sh = arr.copy()
+            _rng.shuffle(sh)
+            null.extend(raw_scan(sh.tobytes().decode(), motif))
+        mu, sd = float(np.mean(null)), float(np.std(null)) or 1.0
+        z = [(v - mu) / sd for v in obs]
+        return [round(float(x), 3) for x in z] + [None] * (L - len(z))
 
     abox_p = motif_track("TRGCNNARYGG")
     bbox_p = motif_track("GWTCRANNC")
@@ -154,13 +170,24 @@ def profile(path):
     head_lo, head_hi = 5, min(80, L)
     head = cseq[head_lo:head_hi]
     hl = len(head)
-    self_p = []
+    raw_self = []
     for i in range(L):
         if i + hl > L:
-            self_p.append(None)
+            raw_self.append(None)
             continue
         seg = cseq[i:i + hl]
-        self_p.append(round(sum(1 for a, b in zip(seg, head) if a == b) / hl, 3))
+        raw_self.append(sum(1 for a, b in zip(seg, head) if a == b) / hl)
+    _v = [x for x in raw_self if x is not None]
+    # centre on the off-target background, so only a genuine second copy rises;
+    # the trivial self-match at the head is masked rather than shown as a peak
+    _bg = float(np.median(_v)) if _v else 0.25
+    _sd = float(np.std([x for x in _v if x < _bg + 0.15])) or 0.05
+    self_p = []
+    for i, x in enumerate(raw_self):
+        if x is None or (head_lo - hl // 2 <= i <= head_hi):
+            self_p.append(None)
+        else:
+            self_p.append(round((x - _bg) / _sd, 3))
 
     f = lambda a: [None if (x is None or not np.isfinite(x)) else round(float(x), 4) for x in a]
     return {"x": xs, "elem_len": L, "n": int(n),
