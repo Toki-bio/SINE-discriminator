@@ -36,68 +36,51 @@ def load(path):
 
 def main():
     feats = {}
-    for line in open("features_c.jsonl"):
+    for line in open("features_all.jsonl"):
         r = json.loads(line)
         feats[r["set"]] = r
-    ok = [r for r in feats.values() if "error" not in r]
-    bycls = {}
-    for r in ok:
-        bycls.setdefault(r["set"].split("__")[0], []).append(r)
+    V = json.load(open("verdicts.json"))
 
-    picks = []
-
-    def add(r, why, tag):
-        picks.append({"set": r["set"], "why": why, "tag": tag})
-
-    # clean, typical members of each class - one per species where possible
-    for sp in ("saq", "ccr", "teu", "dmo"):
-        c = [r for r in bycls["POS"] if r["set"].split("__")[1] == sp]
-        if c:
-            best = max(c, key=lambda r: r.get("cliff", 0))
-            add(best, "typical real family, %s" % sp, "good")
-    for cls, why in (("NEGRAND", "random genomic loci - the pure null"),
-                     ("NEGTRUNC5", "5'-truncated, LINE-fragment mimic"),
-                     ("MIXED30", "30 % random-locus contamination"),
-                     ("MIXED10", "10 % random-locus contamination"),
-                     ("NEGSPLICE", "chimera of two families"),
-                     ("NEGJITTER", "edges displaced 20-100 bp")):
-        c = bycls.get(cls, [])
-        if c:
-            add(sorted(c, key=lambda r: r.get("cliff", 0))[len(c) // 2], why, "bad")
-
-    # the borderline cases - where the numbers and the eye may disagree
-    pos = bycls["POS"]
-    add(min(pos, key=lambda r: r.get("cliff", 9)),
-        "REAL family with the weakest cliff - does it still look real?", "edge")
-    add(max(pos, key=lambda r: r.get("elem_len_cv", 0)),
-        "REAL family with the most variable copy length", "edge")
-    add(min(pos, key=lambda r: r.get("tsd_frac", 9)),
-        "REAL family with the fewest detected TSDs", "edge")
-    for cls in ("MIXED10", "NEGTRUNC5", "NEGSPLICE"):
-        c = bycls.get(cls, [])
-        if c:
-            add(max(c, key=lambda r: r.get("cliff", 0)),
-                "%s that most resembles a real family" % cls, "edge")
-    # subsampling stability: same family, smallest and largest n
-    sq = bycls.get("SQ", [])
-    for n in (25, 200):
-        c = [r for r in sq if "__n%d__" % n in r["set"] and "s1_30seqs" in r["set"]]
-        if c:
-            add(c[0], "side quest: saq/s1 at n=%d - same family, resampled" % n, "sq")
-
-    out = []
-    seen = set()
-    for p in picks:
-        if p["set"] in seen:
+    # Deliberately weighted toward negatives and the grey zone, which is where
+    # judgement is actually needed - a page of clean positives proves nothing.
+    PICKS = [
+        ("POS__saq__s5_5seqs", "clear SINE, a curated family", "good"),
+        ("POS__teu__t2_75seqs", "clear SINE, a second genome", "good"),
+        ("SIMCLEAN__age005", "clear SINE, simulated, young", "good"),
+        ("SIMCLEAN__age030", "simulated CLEAN family at high age - scored down, and "
+                             "flagged contaminated, purely because it is old", "edge"),
+        ("POS__ccr__a_ccr", "a curated family that lands in the grey zone", "edge"),
+        ("POS__ccr__g7_3seqs", "curated, grey zone, flagged contaminated", "edge"),
+        ("NEGTRUNC5__saq__s5_5seqs", "grey zone: 5'-truncated copies", "edge"),
+        ("NEGTRUNC5__teu__t1_45seqs", "grey zone: truncation plus other flags", "edge"),
+        ("MIXED30__saq__s3_43seqs", "a real family under 30 % contamination - "
+                                    "recoverable, and the pruning loop recovers it", "edge"),
+        ("MIXED10__ccr__g6_58seqs", "10 % contamination, grey zone", "edge"),
+        ("NEGRAND__dmo__r00", "clear non-SINE: random genomic loci", "bad"),
+        ("NEGRAND__saq__r00", "clear non-SINE, second genome", "bad"),
+        ("NEGCHIM__saq__s3_43seqs", "clear non-SINE: half element, half foreign DNA", "bad"),
+        ("NEGCHIM__ccr__g5_7seqs", "grey zone chimera - scores far higher than it should", "edge"),
+        ("MIXSUBFAM__saq__s1_30seqs_s8_225seqs", "two subfamilies mixed - a SINE, but "
+                                                 "one that should be split", "edge"),
+        ("NEGMOSAIC__saq__s1_30seqs_s8_225seqs", "per-copy recombinants - scores as a "
+                                                 "clean family, undetected", "edge"),
+        ("SIMSCRAM__swap__f100", "segments swapped between slots - the mosaic Sergei means", "edge"),
+        ("SIMDEL__one__f050", "half the copies missing the same 50 bp block", "edge"),
+        ("SIMNEST__f050", "half the copies sharing a host flank", "edge"),
+        ("SIMTRUNC__r060", "simulated heavy truncation", "bad"),
+    ]
+    out, seen = [], set()
+    for st, why, tag in PICKS:
+        if st in seen:
             continue
-        seen.add(p["set"])
-        f = os.path.join("aln_c", p["set"] + ".aln.fa")
-        if not os.path.exists(f):
+        f = os.path.join("aln_v2", st + ".aln.fa")
+        if not os.path.exists(f) or st not in feats:
+            print("  missing:", st)
             continue
+        seen.add(st)
         d = load(f)
-        d.update(p)
-        d["feat"] = {k: v for k, v in feats[p["set"]].items()
-                     if isinstance(v, (int, float))}
+        d.update({"set": st, "why": why, "tag": tag})
+        d["feat"] = {k: v for k, v in feats[st].items() if isinstance(v, (int, float))}
         out.append(d)
     json.dump(out, open("viewer_data.json", "w"))
     print("packed %d alignments, %.0f KB"

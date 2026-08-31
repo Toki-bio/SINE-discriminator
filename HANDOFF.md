@@ -1151,3 +1151,76 @@ may be indistinguishable from two young subfamilies.
 
 Data: `grad_response.json` (the full rho matrix), `grad_stats.json` (every
 statistic on every set), `grad_truth.json` (labels), `grad_report.txt`.
+
+---
+
+## 29. Combination sweep: the confounds are false-positive generators, not signal killers
+
+Six factorial 10 × 10 grids (`kit/combos.py`), 600 sets, chosen around the
+confounds of §28. For each, the target statistic's Spearman rho against the
+parameter it is supposed to detect, over the whole grid and within the lowest
+quartile of the confounding parameter.
+
+| grid | target statistic | ρ with its own parameter | ρ with the confounder | ρ within low confounder |
+|---|---|---|---|---|
+| AGE × SUBDIV | `sub_gap` | +0.73 | −0.48 | **+0.95** |
+| NCOPIES × SUBDIV | `sub_gap` | +0.92 | −0.23 | +0.93 |
+| AGE × CONTAM | `frac_supported` | −0.72 | −0.40 | **−0.95** |
+| AGE × TRUNC | `res_asymmetry` | +0.69 | **−0.08** | +0.71 |
+| AGE × POLYA | `cliff` | −0.39 | −0.86 | −0.80 |
+| CONTAM × SCRAM | `seg_diag` | −0.61 | −0.39 | **−0.92** |
+
+**This corrects §28's flat statement that these statistics are "confounded".**
+The single-parameter sweeps varied the confounder *while the real effect was
+absent*, so what they measured was **spurious signal generation**: age alone
+drives `sub_gap` to +0.99 in a family that has no subfamily structure at all.
+The factorial grids vary both, and there the picture is different — when real
+subfamily structure is present, `sub_gap` tracks it at +0.73 overall and +0.95
+once age is held low. Age *attenuates* the true signal; it does not destroy it.
+
+Both failure modes are real and they need different fixes:
+
+- **False positives** (age or small n creating structure where none exists) →
+  the threshold must be a function of age and n, not a constant.
+- **Attenuation** (contamination masking a scramble, −0.61 → −0.92 once
+  contamination is low) → prune first, then test for structure. The pipeline
+  order matters, and currently the structure tests run on the unpruned set.
+
+**`res_asymmetry` is the one clean diagnostic:** ρ = −0.08 with age. Truncation
+is detectable independently of family age, which none of the other statistics
+manage.
+
+**`cliff` is worse than §28 suggested, differently.** Over the joint grid age
+dominates it (−0.86) and poly-A's apparent −0.99 shrinks to −0.39. So the poly-A
+effect is second-order; the first-order problem is that the headline Tier-2
+statistic is substantially an age measure.
+
+### A fifth confound, seen in the examples rather than the sweep
+
+`SIMCLEAN__age030` — a simulated family that is clean by construction — scores
+80.0 and is flagged `CONTAMINATED`. The per-copy support threshold is a constant
+0.55, so in an old family genuine copies fall below it and are counted as
+contaminants. **The support threshold must scale with the family's own
+divergence.** This is on the report page as a worked example.
+
+## 30. Report rebuilt around the question, not the machinery
+
+Restructured on Sergei's request:
+
+- **The problem stated first** — what is being decided, the three tiers, and why
+  the output is a score plus named sub-cases rather than accept/reject.
+- **Method as five steps**, each with the reason it is done that way.
+- **A variable glossary**: every variable, what it measures, what it detects, and
+  its measured specificity — how many of the 14 gradients it responds to, with
+  the strongest responses named. Sorted by specificity, so the diagnostics sit at
+  the top and the general quality scores at the bottom.
+- **Twenty worked examples, weighted toward negatives and the grey zone.** Each
+  panel carries a verdict chip — SINE / SINE with caveats / GREY ZONE / NOT A
+  SINE — with the score and the leading reason.
+
+The selection is deliberately unflattering: four clear SINEs, four clear
+non-SINEs, and twelve that are borderline or carry a sub-case, including
+`POS__ccr__a_ccr` (a curated family in the grey zone), `SIMCLEAN__age030` (clean
+but penalised for age), `NEGCHIM__ccr__g5_7seqs` (a chimera scoring far higher
+than it should), and `NEGMOSAIC` (per-copy recombinants that score as a clean
+family and are still undetected).
