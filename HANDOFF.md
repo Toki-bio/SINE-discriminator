@@ -341,3 +341,71 @@ Listed in each record's `not_attempted` field rather than faked:
 Sergei asked that important points be written into the documentation as part of
 each exchange rather than batched at the end. Findings go here (state) and into
 `FINDINGS.md` (chronological), then get committed and pushed in the same turn.
+
+---
+
+## 14. Flank handling — variants tested, and why step 2 turned out unnecessary
+
+Sergei raised this on `POS__ccr__g5_7seqs`: the flanks are genuinely
+non-alignable, so MAFFT scatters them and their properties cannot be read off
+the alignment. Measured on that set: **70 bp of flank per copy spread over 219
+columns, 32 % occupancy, 3.1 columns per base**, against 1.74 for the element.
+
+He proposed (1) de-gap and justify the flanks, then (2) re-align them with very
+high gap-open penalties so gaps appear only when certain. Six strategies were
+built and scored (`make_variants.py`).
+
+**Scoring criterion.** The honest reference is flank identity measured ungapped,
+walking outward from each copy's own edge — no aligner involved. A strategy is
+good when identity measured *on its alignment* matches that reference rather
+than exceeding it, while the element stays compact and well aligned.
+
+| variant | width | flank cols/base | flank id (aligned) | ungapped truth | element id |
+|---|---|---|---|---|---|
+| **POS__ccr__g5_7seqs** | | | | | |
+| v1_current | 867 | 2.89 | 0.351 | 0.344 | 0.929 |
+| **v2_justify** | **610** | **1.05** | **0.344** | 0.344 | **0.929** |
+| v3_op3 | 643 | 1.29 | 0.359 | 0.344 | 0.929 |
+| v4_op10 | 630 | 1.19 | 0.357 | 0.344 | 0.929 |
+| v5_op20 | 620 | 1.12 | 0.347 | 0.344 | 0.929 |
+| v6_whole_op10 | 604 | 1.11 | 0.333 | 0.336 | 0.892 |
+| **POS__saq__s5_5seqs** | | | | | |
+| v1_current | 836 | 2.92 | 0.334 | 0.289 | 0.864 |
+| **v2_justify** | **578** | **1.09** | **0.287** | 0.289 | **0.864** |
+| v6_whole_op10 | 476 | 1.07 | 0.291 | 0.293 | 0.879 |
+| **NEGRAND__dmo__r00** | | | | | |
+| v1_current | 1783 | 7.12 | 0.346 | 0.270 | 0.331 |
+| **v2_justify** | **1379** | **4.18** | **0.263** | 0.270 | 0.331 |
+| v6_whole_op10 | 617 | 2.55 | 0.264 | 0.264 | 0.265 |
+
+**Conclusion: v2 (de-gap and justify, no re-alignment) wins on every criterion.**
+It reproduces the ungapped truth almost exactly (0.344 vs 0.344; 0.287 vs 0.289;
+0.263 vs 0.270), compacts the display by ~30 %, leaves the element alignment
+byte-identical, and has no parameters to tune.
+
+**Step 2 is unnecessary, and the data show why.** Re-aligning the de-gapped
+flanks (v3–v5) is strictly worse than not re-aligning them: it puts columns back
+(1.29 → 1.19 → 1.12 as the penalty rises) and slightly re-inflates identity
+(0.359 → 0.357 → 0.347 against a truth of 0.344). The trend with increasing gap
+penalty points straight at v2 — the limit of "very high gap penalty" *is* pure
+justification. There is nothing homologous in the flanks to align, so any
+alignment there manufactures similarity.
+
+**How much the old geometry was lying.** The inflation is worst exactly where it
+matters most — the null. `NEGRAND` read 0.346 aligned against 0.270 ungapped,
++0.076. Real families were inflated less (+0.007 and +0.045). So aligned-flank
+statistics systematically flatter the negatives, narrowing the very gap the
+discriminator depends on.
+
+**Note.** `measure_c.py` already computes flank identity ungapped and
+edge-anchored, so no published statistic is affected by this. It is a display
+and re-alignment problem, and it matters for manual checking — which is the
+point of the viewer.
+
+**v6 (re-align everything at high gap penalty) is not recommended but is not
+uninteresting:** it improved the element alignment for saq/s5 (identity
+0.864 → 0.879, width 836 → 476) while degrading it for ccr/g5 (0.929 → 0.892).
+Inconsistent across sets; would need a proper test on the whole corpus before
+adopting. It is a question about the *element* alignment, separate from flanks.
+
+Files: `variants/<set>__<variant>.aln.fa` in the repo, viewable in MSA-viewer.
