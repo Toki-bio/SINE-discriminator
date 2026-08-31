@@ -1951,3 +1951,59 @@ element. One of the two is wrong and neither has been checked. This is the
 strongest open lead in the Timema leg - it is a disagreement between two
 independent methods on the same data, which is exactly where a real bug lives.
 Do not assume the score is the wrong one.
+
+## 46. A second "absent measurement scored as guilt" bug - the contamination guard was one-sided
+
+Chasing §45's open lead (three `matched` sets scoring 0.0) found a real bug, and
+the route to it is worth recording because the first hypothesis was wrong.
+
+**Wrong first guess**: `verdict.py:147` forces `ident = 0.0` for any copy
+covering fewer than 30 element columns, which would be the same
+absent-measurement-as-guilt error fixed in §43. Checked directly: **zero** of
+`SINE_42`'s copies cover under 30 columns (minimum is 128 of 270). The line
+never fires here. Retracted before acting on it.
+
+**The actual cause.** `measure_c` said 75% of copies supported; `verdict` said
+1 of 32. `contamination_split` returned a cut of 0.895 - the largest gap in the
+sorted identity distribution sat just below a lone copy at identity 1.0, so that
+single copy became the "clean family" and the other 31 were labelled
+contamination. Under the ordinary support threshold (0.483) **24 of 32 copies
+qualify - exactly the 0.75 `measure_c` reported.**
+
+The guard was asymmetric:
+
+```python
+if gap < min_gap or below < max(3, min_frac * n):   # only the LOWER mode
+```
+
+It required the contaminant mode to be substantial but never checked the mode it
+KEEPS. Fixed to `min(below, above)`, so both modes must be real. This is the
+"gap rule manufactures families from noise" failure already on record - the
+guard against it was simply only applied to one side.
+
+`SINE_42`: **0.0 -> 99.8**, 32/32 supported, no flags, now agreeing with its
+`matched` label. `SINE_21` (10 copies at 0.42 identity) and `SINE_43` (cliff
+0.095) stay at 0.0 and are defensible as genuinely weak.
+
+### Regression, including the cost
+
+| class | n | mean | note |
+|---|---|---|---|
+| NEGRAND | 20 | 0.0 | unchanged |
+| NEGSAT | 3 | 0.0 | unchanged |
+| NEGLINEORF | 4 | 0.2 | unchanged |
+| **NEGSEGDUP** | 3 | **15.7** | was 0.0 - one set rose to 47.0 |
+| MIXED30 | 28 | 91.1 | unchanged - contamination detection intact |
+| MIXED10 | 28 | 99.6 | unchanged |
+| POS | 28 | 99.5 | unchanged |
+| TIMB | 55 | 93.1 | up from 91.7 |
+
+No true negative crosses 50 (max 47.0). The `MIXED30`/`MIXED10` sets are
+deliberately contaminated and are unmoved, which is the evidence that the fix
+removed only the one-copy-family case and not contamination detection itself.
+
+The honest cost is that one `NEGSEGDUP` set now scores 47 instead of 0, so the
+rejection margin there is thin. Worth noting that this is the set Sergei called
+"unclear situation with left end... more like grey zone or technically badly
+prepared" - a 47 may represent his reading better than a 0 did, but that is his
+call to make, not an assumption to bank.

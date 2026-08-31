@@ -85,7 +85,15 @@ def contamination_split(ident, bg, min_gap=0.10, min_frac=0.05):
     gap = float(gaps[j])
     cut = float((d[lo + j] + d[lo + j + 1]) / 2)
     below = int(np.sum(ident < cut))
-    if gap < min_gap or below < max(3, min_frac * n):
+    above = n - below
+    # BOTH modes must be real. Guarding only the lower one lets a single
+    # high-identity outlier stand as an entire "clean family": on Timema
+    # SINE_42 (32 copies) the largest gap sat just under a lone copy at
+    # identity 1.0, so one copy became the family and the other 31 - which
+    # 24 of, by the support threshold, genuinely support the consensus -
+    # were called contamination. That collapsed n_supported to 1 and the
+    # set scored 0.0 NO_ELEMENT despite a cliff of 0.32.
+    if gap < min_gap or min(below, above) < max(3, min_frac * n):
         return None                       # unimodal: a diverged family, not a mixture
     if np.median(d[d >= cut]) - bg < 0.20:
         return None                       # the upper mode is not an element either
