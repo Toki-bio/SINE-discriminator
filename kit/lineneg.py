@@ -44,8 +44,15 @@ sh("blastn -query %s -db %s -outfmt '6 sseqid sstart send pident length bitscore
    "-evalue 1e-10 -num_threads 16 -max_target_seqs 20000 > %s/tmp/line_hits.tsv"
    % (q, g, OUT))
 rows = [l.split("\t") for l in open(OUT + "/tmp/line_hits.tsv") if l.strip()]
-rows = [r for r in rows if int(r[4]) >= 150]
-print("LINE 3' hits with >=150 bp: %d" % len(rows))
+# Keep the WHOLE length distribution. Filtering to >=150 bp of a 260 bp
+# consensus kept only the least-truncated fragments and then defined each
+# element as its own hit, so completeness was baked in and the ragged 5' edge -
+# the actual LINE signature - was removed by the extraction itself.
+rows = [r for r in rows if int(r[4]) >= 50]
+import collections
+_ln = [int(r[4]) for r in rows]
+print("LINE 3' hits >=50 bp: %d  (length pct 10/50/90: %s)"
+      % (len(rows), [int(x) for x in __import__("numpy").percentile(_ln, [10, 50, 90])]))
 sh("cut -f1,2 %s.fai > %s/tmp/teu.gsize" % (g, OUT))
 if len(rows) > 600:
     rows = rng.sample(rows, 600)
@@ -59,13 +66,13 @@ with open(bd, "w") as fh:
 sh("bedtools slop -i %s -g %s/tmp/teu.gsize -b %d > %s.fl" % (bd, OUT, FL, bd))
 sh("bedtools getfasta -fi %s -bed %s.fl -s -name+ -fo %s.fa" % (g, bd, bd))
 seqs = [(k, v) for k, v in read_fa(bd + ".fa").items()
-        if len(v) >= 200 and v.upper().count("N") < 0.1 * len(v)]
+        if len(v) >= 2 * FL + 40 and v.upper().count("N") < 0.1 * len(v)]
 print("usable LINE loci: %d" % len(seqs))
 made = 0
-for i in range(5):
+for i in range(5, 10):
     if len(seqs) < 60:
         break
-    with open("%s/sets_c/NEGLINE__teu__r%02d.fa" % (OUT, i), "w") as fh:
+    with open("%s/sets_c/NEGLINE2__teu__r%02d.fa" % (OUT, i), "w") as fh:
         fh.write(">CONSENSUS_LINE3p\n%s\n" % tail)
         for k, v in rng.sample(seqs, min(100, len(seqs))):
             fh.write(">%s\n%s\n" % (k, v))

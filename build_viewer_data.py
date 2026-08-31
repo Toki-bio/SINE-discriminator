@@ -68,9 +68,11 @@ def main():
         ("SIMDEL__one__f050", "half the copies missing the same 50 bp block", "edge"),
         ("SIMNEST__f050", "half the copies sharing a host flank", "edge"),
         ("SIMTRUNC__r060", "simulated heavy truncation", "bad"),
-        ("NEGLINE__teu__r00", "REAL LINE 3' ends — a natural non-SINE that scores 99 "
-                              "and is not caught by anything here", "bad"),
-        ("NEGLINE__teu__r03", "LINE 3' ends, second sample", "bad"),
+        ("NEGLINEORF__teu__r00", "a REAL LINE, queried from its interior — scores 54, "
+                                 "no TSDs at all, flanks shared", "bad"),
+        ("NEGLINE__teu__r00", "queried with a LINE 3-prime terminus, but 66 % of these loci "
+                              "are known Tal SINEs — the shared 3-prime end. Scoring it 99 "
+                              "is correct", "edge"),
         ("ERI__eri__e1-1", "a second SINE family: hedgehog, clean", "good"),
         ("ERI__eri__e1-4", "hedgehog subfamily whose copies all share flanking "
                            "sequence — not independent insertions", "bad"),

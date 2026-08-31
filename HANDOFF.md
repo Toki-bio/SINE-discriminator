@@ -1344,3 +1344,64 @@ end. That is the honest headline.
 thing standing between this and a usable classifier; (2) satellites and
 processed pseudogenes as further natural negatives; (3) only then fit
 thresholds, on natural negatives rather than synthetic ones.
+
+---
+
+## 35. RETRACTION of §32 — the "LINE that scored 99" was two-thirds SINEs
+
+Sergei opened `NEGLINE__teu__r00` in the MSA viewer and said: these are clear
+SINEs, what made you think it is a LINE. He was right, and §32's headline is
+withdrawn.
+
+**What went wrong.** The negative was built by querying the genome with the last
+260 bp of a 15.4 kb LINE. That segment is exactly what a SINE mobilised by that
+LINE also carries — shared 3′ ends are the normal relationship between a SINE
+and its partner LINE. Checked against the curated Tal annotation for the same
+genome: **397 of 600 hits (66 %) overlap a known Tal SINE locus by half their
+length or more.** The set was mostly SINEs. Scoring it 98–99 was correct
+behaviour, not a failure to reject a LINE.
+
+**The check that should have been run first** is one line of bedtools against
+the existing annotation, and it was not run because the set *looked* like a
+negative by construction. A negative built from a query is only as good as the
+query's specificity, and specificity has to be measured, not assumed.
+
+**The real test.** Querying the LINE **interior** instead (position 7000–7260,
+ORF territory, which no SINE carries) gives 526 hits, **0 of which overlap a
+known SINE**. Those score:
+
+| set | score | frac_supported | cliff | tsd_frac | flags |
+|---|---|---|---|---|---|
+| `POS__saq__s5_5seqs` (real SINE) | 100.0 | 1.00 | 0.636 | **0.83** | — |
+| old `NEGLINE` (66 % SINEs) | 99.0 | 1.00 | 0.457 | 0.77 | NESTED_COPIES |
+| **`NEGLINEORF` (real LINE)** | **53–58** | 1.00 | 0.36 | **0.00** | SHARED_FLANKS |
+
+**So the discriminator does separate a genuine LINE, by two independent
+signals:**
+
+1. **`tsd_frac` = 0.00 against 0.83.** A LINE *interior* fragment is not an
+   insertion boundary, so there is no target-site duplication to find. This is
+   the spec's one-sided TSD evidence working exactly as designed — and it is the
+   cleanest single discriminator found in the whole project.
+2. **`SHARED_FLANKS` on all four sets.** The sequence flanking a LINE interior
+   fragment is more LINE, not independent genomic DNA.
+
+`cliff` and `frac_supported` do *not* separate it — a LINE interior is a real
+conserved element, so of course the copies support their consensus. The
+separation comes entirely from the insertion evidence and the flank context.
+
+**Corrections to the record.** §32 is withdrawn in full. §34's "does not
+distinguish a SINE from another retrotransposon's 3′ end" is too pessimistic:
+the pipeline separates a LINE *interior* cleanly. What remains genuinely
+undecidable is a **LINE 3′ terminus**, and that is not a defect — a SINE and its
+partner LINE's 3′ end are the same sequence, carried by the same insertion
+machinery, with the same TSDs and poly-A. No alignment-based method can
+separate them, because at that locus there is nothing to separate: the question
+"SINE or LINE 3′ end" is answered by whether the copy continues upstream into
+ORF sequence, which means looking beyond the aligned window.
+
+**Practical consequence for use.** When a candidate set scores high and shows
+TSDs, that is a real insertion — but if the query came from a region shared with
+a LINE, the set may contain both SINEs and LINE 3′ ends. Intersecting the loci
+against an existing repeat annotation is a cheap disambiguation and should be a
+standard step, not an afterthought.
