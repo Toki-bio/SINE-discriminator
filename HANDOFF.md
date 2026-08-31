@@ -1638,3 +1638,79 @@ drops to 39.0.
 | NEGRAND (15) | **0.0** | NO_ELEMENT 15 |
 
 All five natural non-SINE classes reject; both real-SINE classes score ~100.
+
+---
+
+## 39. Human and Timema benchmarks — first pass, and a correction to my own tooling claim
+
+Sergei asked for hard autonomous work on the two cross-tool benchmark legs, and
+corrected me: my earlier claim that glm/autoclaw "can't do this" was wrong and I
+should read the local docs rather than assert. He was right.
+
+**What the docs actually say** (`GLM_PLAYBOOK.md`, `AIDER-PLAYBOOK.md`,
+`ORCHESTRATION-MANUAL.md`, none of which I had read - only the short skill
+summary):
+
+- `glm.js` is read-only with no shell, suited to narrow single-claim
+  verification. That part of my claim was right but incomplete.
+- **`aider-chat` targets the same glm-5.2 endpoint with full read/write and
+  shell access.** It is a real agent. This is the piece I asserted did not
+  exist.
+- `ORCHESTRATION-MANUAL.md` exists precisely for this: GLM as the worker,
+  Claude as a thin verifier, because Claude's tokens are the scarce resource.
+  The pattern is one worktree + one task file + one progress file +
+  `aider-loop.sh`, with a **deterministic check script as the completion gate** -
+  a "done" claim is never honoured without a fresh passing check in the same
+  run.
+
+Now in use: worktree at `C:/work/SINE-bench-worktree` (branch `bench-analysis`),
+task `tasks/bench-analysis.md`, gate `checks/bench-check.js`, which refuses
+completion unless the output table has 119 rows, every required column and all
+four label values.
+
+### The benchmark data
+
+Both legs are already in the Tal repo as alignments with the consensus as row 1:
+64 human Dfam consensuses and all 55 Timema AnnoSINE_v2 candidates. Timema is
+the more valuable test because it carries **independent labels**: 40 candidates
+matched a curated subfamily, and of the 15 that did not, Sergei's own analysis
+calls 3 real (`SINE_25`, `SINE_47`, `SINE_17`) and 12 noise.
+
+### First-pass result — inverted, with a known confound
+
+| Sergei's label | n | my mean score |
+|---|---|---|
+| matched a curated subfamily | 40 | 85.5 |
+| unmatched, judged **real** | 3 | **46.4** |
+| unmatched, judged **noisy** | 12 | **96.3** |
+
+**Do not read this as a refutation either way yet.** Two reasons:
+
+1. **These alignments carry only 50/70 bp of flank**, which is exactly the range
+   where the within-set nesting test false-fires - the failure the 400 bp decay
+   statistic was built to fix (§36-36a). All three candidates judged real carry
+   `NESTED_COPIES`, so their low scores are the suspect ones.
+2. **The two measures may be orthogonal by construction.** Sergei's "noisy"
+   judgement came from leak/ambiguity in the *subfamily assignment* - those
+   candidates' copies also match other subfamilies. By his own rule from the
+   previous round, "subfamily ambiguity doesn't matter, we answer
+   sine/not-sine". A candidate can be assignment-ambiguous and still be a
+   perfectly good SINE. If that is what is happening, the two scales measure
+   different things and the inversion is expected rather than wrong.
+
+Distinguishing those two explanations needs the 400 bp re-extraction, which is
+why it is running.
+
+### In flight
+
+- Timema genome `GCA_050494535.1` downloaded to KIT (1.24 GB); all 55 sets being
+  re-extracted at 400 bp flanks with element coordinates **derived from the
+  alignment** (the consensus row marks the element, so a copy's true start is
+  its header start plus its own bases left of the consensus span - no guessing
+  which flank convention each file used).
+- hg38 downloading to KIT for the human leg.
+- Human coordinates located on DRAGEN at `/staging/tmp/rmsk_compare/` - the path
+  is named in `hum/LOG.md` line 169, which is where I should have looked before
+  searching by hand. It holds `sinederella_hum.bed` (394,901 hits with subfamily
+  names) and, more valuably, **`rmsk_sine.bed` (1,910,631 RepeatMasker SINE
+  annotations)** - a completely independent ground truth for the human leg.
