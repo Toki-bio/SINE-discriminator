@@ -552,3 +552,84 @@ Three problems Sergei reported on the vertical list, all fixed:
 
    Feature slots are fixed per type and never cycled, so a feature keeps its
    colour across panels.
+
+---
+
+## 17. MIXED is a verdict, not a negative — the refinement loop (spec §4.3)
+
+Sergei, on `MIXED30__saq__s3_43seqs`: it should come out clearly positive,
+because a real SINE is recoverable from that alignment. He is right, and the
+error was in framing, not in the statistics.
+
+Spec §1 asks for **two** failure modes with separate verdicts — "not a family at
+all" and "a mixture: real copies plus contaminants" — and §4.3's required output
+for the second is the family, refined bounds, and a *cleaned copy list*. Builds 1
+and 2 instead scored MIXED as a negative class to be separated from POS, which
+answers the wrong question. The statistics were already saying the right thing:
+that set has `cliff` 0.559 (**above** the POS median of 0.563 by a hair, i.e.
+squarely in the real range) and `frac_supported` 0.740 against a planted truth of
+70 % real. The family was never in doubt; only the reporting was.
+
+`prune.py` implements the loop: measure per-copy identity to the known consensus,
+drop the copies that do not support it, re-measure, repeat to three passes.
+
+### Which cut rule — and a dangerous one to avoid
+
+Two rules were compared against ground truth (planted contaminants carry
+`contam` in the name, so precision and recall are measurable, not assumed):
+
+| rule | class | removed | precision | recall | identity of kept |
+|---|---|---|---|---|---|
+| **mad** (median − 3·MAD) | POS | **0.2** | — | — | 0.832 |
+| | MIXED10 | 9.2 | 0.973 | 0.893 | 0.850 |
+| | MIXED30 | 26.9 | **0.993** | 0.892 | 0.863 |
+| | NEGRAND | **0.1** | — | — | **0.178** |
+| gap (largest gap in sorted identity) | POS | 6.0 | — | — | 0.836 |
+| | NEGRAND | **89.4** | — | — | **0.803** |
+
+**Use the MAD rule.** The gap rule fails in the worst possible way: on random
+loci it removes 89 of 100 copies and leaves a residue with median identity 0.803,
+i.e. **it manufactures an apparent family out of noise**. Any pruning rule that
+splits on the data's own largest gap will do this, because a large enough random
+set always contains a few loci that resemble the query. The MAD rule leaves
+random loci alone (0.1 copies removed, identity stays 0.178) and leaves clean
+families alone (0.2 copies removed). Not manufacturing families from noise is the
+property to protect; recall is secondary.
+
+### Result — pruning recovers the family
+
+| class | cliff | cons_identity | frac_supported | elem_len_cv | tsd_frac |
+|---|---|---|---|---|---|
+| POS (control) | 0.563 → 0.563 | 0.870 → 0.870 | 1.000 → 1.000 | 0.052 → 0.052 | 0.740 → 0.740 |
+| MIXED10 | 0.548 → 0.551 | 0.855 → 0.865 | 0.910 → **1.000** | 0.107 → **0.059** | 0.680 → **0.741** |
+| MIXED30 | 0.542 → 0.555 | 0.846 → 0.871 | 0.730 → **1.000** | 0.144 → **0.069** | 0.545 → **0.729** |
+| NEGRAND | −0.089 → −0.089 | 0.184 → 0.184 | 0.110 → 0.110 | 0.180 → 0.180 | 0.070 → 0.070 |
+
+After one pass both MIXED classes are statistically indistinguishable from clean
+families, POS is untouched, and random loci are untouched — they stay junk.
+
+The specific set: 100 copies → 74 kept; `frac_supported` 0.740 → 1.000,
+`elem_len_cv` 0.137 → 0.065, `tsd_frac` 0.60 → 0.78, against 0.041 and 0.85 for
+the never-contaminated original. It converges on the right answer.
+
+### Consequences for the earlier reporting
+
+- **The AUC tables in §3 treat MIXED10/MIXED30 as negatives. That framing is
+  wrong** and should be read as "how well contamination is *detected*", not as
+  "how well a bad set is rejected". The correct pipeline output for these sets is
+  SINE + cleaned copy list, and `frac_supported` is the detector.
+- §7's readiness table listed the pruning loop as "not built". It is built and
+  validated now.
+
+### Honest limits
+
+- **Recall is 0.89**, so roughly one contaminant in ten survives — about 3 of 30
+  in a MIXED30 set. Precision 0.99 means almost nothing real is thrown away,
+  which is the right trade for a cleaned copy list.
+- **Rows are dropped without re-aligning.** Spec §4.3 says prune, realign,
+  rescore. The element alignment is anchored on the unchanged consensus row so
+  re-measuring on the remaining rows is defensible, but the fuller version needs
+  a MAFFT round on KIT per pass.
+- Contaminants here are *random genomic loci*, the easy case. A contaminant that
+  is a diverged member of a related family will sit much closer to the cut and
+  has not been tested.
