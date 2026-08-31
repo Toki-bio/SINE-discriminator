@@ -1895,3 +1895,59 @@ Two process notes worth keeping:
 - The guard `if "_R_" in src` false-positived on an unrelated pre-existing use
   of `_R_` at line 107. Guard on the specific patch text, not a substring that
   can occur elsewhere.
+
+## 45. Timema at 400 bp - the nesting signal was entirely an artifact
+
+53 of 55 sets re-extracted with 400 bp flanks (the `_R_` fix in §44 made this
+possible at all) and passed through `flankdecay.py`. **Every single one
+classifies `ISOLATED_INSERTION`**: flanks decay to background within 0-75 bp,
+edge identity 0.27-0.45 against a 0.25 background. There is no nesting in this
+species' candidate set. The 50 bp signal that was driving `NESTED_COPIES` on
+essentially every Timema set was measurement noise, as §41-43 predicted.
+
+`flankdecay.json` now holds 117 entries (64 talpid + 53 Timema). Note the run
+OVERWRITES rather than merges - it was merged back by hand here, and a future
+run must do the same or the talpid entries are silently lost.
+
+### The three candidates Sergei confirmed by eye, now genuinely measured
+
+| candidate | before | now | uniqueness | flags |
+|---|---|---|---|---|
+| `SINE_17` | 71.3 | **100.0** | 1.00 | none at all |
+| `SINE_25` | 38.6 | 46.7 | 0.54 | `FRAGMENT_OF_LONGER`, `SUBFAMILY_NOTE` |
+| `SINE_47` | 29.3 | 44.4 | 0.99 | `RECOVERABLE_CORE` |
+
+`SINE_17` is fully resolved and now scores as the clean SINE he said it was.
+
+The other two are **no longer failing for the reason they were failing**.
+`SINE_47`'s uniqueness is 0.99 - the flank problem is gone entirely, and what
+remains is an element-side weakness (only 56% of copies support the consensus).
+`SINE_25` now carries a measured `FRAGMENT_OF_LONGER` on real 400 bp data. These
+are findings to put to him, not defects to quietly tune away: with 15,940 and
+13,262 copies at ~0% leak, if the tool says "fragment of something longer" and
+"most copies don't support the consensus", that may be true and interesting
+rather than wrong.
+
+### Label comparison, honestly
+
+| label | n | mean | median |
+|---|---|---|---|
+| matched | 40 | 90.7 | 100.0 |
+| unmatched, judged real | 3 | 63.7 | 46.7 |
+| unmatched, judged noisy | 12 | **99.9** | 100.0 |
+
+The 12 "noisy" still score at ceiling. Per §39 this is expected and is NOT an
+inversion to fix: that label records subfamily-assignment *leak*, and Sergei's
+own instruction is "subfamily ambiguity doesn't matter, we answer
+sine/not-sine". A fragment overlapping an existing family is a real SINE that
+fails as a distinct subfamily.
+
+### NEW and unexplained - three "matched" sets score 0.0
+
+`SINE_21`, `SINE_42`, `SINE_43` are all labelled *matched* (they converged on a
+curated `tim/` subfamily by reciprocal blastn) yet score **0.0 with
+`NO_ELEMENT`**. A set cannot both match a curated subfamily and contain no
+element. One of the two is wrong and neither has been checked. This is the
+strongest open lead in the Timema leg - it is a disagreement between two
+independent methods on the same data, which is exactly where a real bug lives.
+Do not assume the score is the wrong one.
