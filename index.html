@@ -8,6 +8,7 @@
   --muted:#68766f;--rule:#d6dcd4;--rule-2:#c2cbc0;--accent:#1f6f5c;--accent-soft:#e2efe9;
   --warn:#a8501d;--warn-soft:#f6e8de;--edge:#7a5c12;--edge-soft:#f5eed8;
   --bA:#2f7d5c;--bC:#2b6b96;--bG:#9a6a12;--bT:#a4453c;--mism:#c94f3d;
+  --div-lo:#2a78d6;--div-mid:#b9bcb6;--div-hi:#eb6834;
   --f1:#2a78d6;--f2:#eb6834;--f3:#1baf7a;--f4:#eda100;--f5:#e87ba4;--f6:#008300;--f7:#4a3aa7;--f8:#e34948;
   --t1:#1baf7a;--t2:#2a78d6;--t3:#eda100;--t4:#4a3aa7;--t5:#e34948;
   --band:#e9efe9;--grid:#e2e7e0;
@@ -17,6 +18,7 @@
   --muted:#8a9992;--rule:#27332f;--rule-2:#35443f;--accent:#57c1a2;--accent-soft:#173029;
   --warn:#dd8a4e;--warn-soft:#2e2015;--edge:#d9b64e;--edge-soft:#2a2413;
   --bA:#5fc08a;--bC:#6bb4de;--bG:#d6a748;--bT:#e07f74;--mism:#e8705c;
+  --div-lo:#3987e5;--div-mid:#5e6b66;--div-hi:#d95926;
   --f1:#3987e5;--f2:#d95926;--f3:#199e70;--f4:#c98500;--f5:#d55181;--f6:#008300;--f7:#9085e9;--f8:#e66767;
   --t1:#199e70;--t2:#3987e5;--t3:#c98500;--t4:#9085e9;--t5:#e66767;
   --band:#1b2523;--grid:#212c29;}}
@@ -25,6 +27,7 @@
   --muted:#8a9992;--rule:#27332f;--rule-2:#35443f;--accent:#57c1a2;--accent-soft:#173029;
   --warn:#dd8a4e;--warn-soft:#2e2015;--edge:#d9b64e;--edge-soft:#2a2413;
   --bA:#5fc08a;--bC:#6bb4de;--bG:#d6a748;--bT:#e07f74;--mism:#e8705c;
+  --div-lo:#3987e5;--div-mid:#5e6b66;--div-hi:#d95926;
   --f1:#3987e5;--f2:#d95926;--f3:#199e70;--f4:#c98500;--f5:#d55181;--f6:#008300;--f7:#9085e9;--f8:#e66767;
   --t1:#199e70;--t2:#3987e5;--t3:#c98500;--t4:#9085e9;--t5:#e66767;
   --band:#1b2523;--grid:#212c29;}
@@ -111,7 +114,7 @@ td.f{font-family:"IBM Plex Mono",monospace;font-size:12.5px;text-align:left}
 .legend i{font-style:normal}
 .controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:10px;font-size:12.5px}
 .controls label{display:flex;gap:5px;align-items:center;color:var(--ink-2);cursor:pointer}
-.chartbox{border:1px solid var(--rule);border-radius:2px;background:var(--ground);padding:8px 6px;margin-bottom:12px}
+.chartbox{border:1px solid var(--rule);border-radius:2px;background:var(--ground);padding:8px 6px 8px 2px;margin-bottom:12px;overflow-x:auto}
 .controlbar{position:sticky;top:0;z-index:5;background:var(--surface);border:1px solid var(--rule-2);
   border-radius:3px;padding:11px 14px;margin:18px 0 22px;box-shadow:0 2px 8px -6px rgba(0,0,0,.4)}
 .controlbar h4{margin:0 0 8px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;
@@ -439,10 +442,40 @@ function pathFor(xs, ys, sx, sy) {
   return d;
 }
 
+/* A heat row reads better than a line for anything whose SHAPE matters more
+   than its exact value - motif scores and base composition especially, where
+   three overlapping noisy lines are far harder to read than three stacked
+   bands. Sequential ramp for magnitude (one hue, light to dark); diverging for
+   A+T, which has a meaningful midpoint at the genomic background. */
+function heatRow(xs, vals, sx, y, h, opts) {
+  const {lo, hi, hue, diverge, mid} = opts;
+  let out = "";
+  for (let i = 0; i < xs.length - 1; i++) {
+    const v = vals[i];
+    if (v === null || v === undefined) continue;
+    const x0 = sx(xs[i]), x1 = sx(xs[i + 1]);
+    let col, a;
+    if (diverge) {
+      const t = (v - mid) / (v >= mid ? (hi - mid) : (mid - lo));
+      a = Math.min(1, Math.abs(t));
+      col = v >= mid ? "var(--div-hi)" : "var(--div-lo)";
+      if (a < 0.06) { col = "var(--div-mid)"; a = 1; }
+    } else {
+      a = Math.min(1, Math.max(0, (v - lo) / (hi - lo)));
+      col = hue;
+      if (a <= 0.02) continue;
+    }
+    out += '<rect x="' + x0.toFixed(1) + '" y="' + y + '" width="' +
+           Math.max(0.8, x1 - x0).toFixed(1) + '" height="' + h +
+           '" fill="' + col + '" fill-opacity="' + a.toFixed(2) + '"/>';
+  }
+  return out;
+}
+
 function drawProfile(setName, host) {
   const p = PROFILES[setName];
   if (!p) { host.innerHTML = "<p class='why'>No profile for this set.</p>"; return; }
-  const W = 900, H = 210, PADL = 44, PADR = 12, PADT = 12, PADB = 26;
+  const W = 900, H = 210, PADL = 60, PADR = 12, PADT = 12, PADB = 26;
   const MH = 54;                                  // mosaic strip height
   const xs = p.x, L = p.elem_len;
   const x0 = xs[0], x1 = xs[xs.length - 1];
@@ -511,33 +544,47 @@ function drawProfile(setName, host) {
        'font-family="monospace">mosaicism — residual after rank-1 fit (high = a copy subset ' +
        'carries its own block here)</text>';
   // ---- motif score strip: every position scored, not just the best hit ----
-  const MOTIFS = [["abox_p", "A box match", "var(--f1)"],
-                  ["bbox_p", "B box match", "var(--f2)"],
-                  ["selfsim_p", "similarity to tRNA head", "var(--f3)"]];
+  const MOTIFS = [["abox_p", "A box", "var(--f1)"],
+                  ["bbox_p", "B box", "var(--f2)"],
+                  ["selfsim_p", "tRNA rpt", "var(--f3)"]];
   const anyMotif = MOTIFS.some(([k]) => p[k] && FEATON(k));
   let motifH = 0;
   if (anyMotif) {
-    const y0 = H + MH + 4, mh2 = 34;
-    motifH = mh2 + 16;
-    s += '<rect x="' + sx(0) + '" y="' + y0 + '" width="' + (sx(L - 1) - sx(0)) +
-         '" height="' + mh2 + '" fill="var(--band)"/>';
-    const smy2 = v => y0 + (1 - v) * mh2;
-    [0.5, 1].forEach(g => {
-      s += '<line x1="' + sx(0) + '" y1="' + smy2(g) + '" x2="' + sx(L - 1) + '" y2="' +
-           smy2(g) + '" stroke="var(--grid)" stroke-width="1"/>';
-    });
+    const y0 = H + MH + 10, mh2 = 46;
+    motifH = mh2 + 22;
+    // These are z-scores against a shuffled-consensus null, not 0-1 fractions.
+    // Mapping them as fractions is what drew z=4.4 above the strip and z=-2.7
+    // a hundred pixels below it, on top of the feature track.
+    const RH = 11, GAP2 = 3;
+    let yy = y0;
     MOTIFS.forEach(([k, lab, col]) => {
       if (!p[k] || !FEATON(k)) return;
-      s += '<path d="' + pathFor(p.motif_x, p[k], sx, smy2) + '" fill="none" stroke="' +
-           col + '" stroke-width="1.4"/>';
+      s += '<rect x="' + sx(0) + '" y="' + yy + '" width="' + (sx(L - 1) - sx(0)) +
+           '" height="' + RH + '" fill="var(--band)"/>';
+      s += heatRow(p.motif_x, p[k], sx, yy, RH, {lo: 1.5, hi: 5, hue: col});
+      s += '<text x="' + (PADL - 6) + '" y="' + (yy + RH - 2) + '" text-anchor="end" ' +
+           'font-size="8.5" fill="var(--ink-2)" font-family="monospace">' + lab + '</text>';
+      yy += RH + GAP2;
     });
-    s += '<text x="' + (PADL - 6) + '" y="' + (y0 + 8) + '" text-anchor="end" font-size="9" ' +
-         'fill="var(--muted)" font-family="monospace">1.0</text>' +
-         '<text x="' + (PADL - 6) + '" y="' + (y0 + mh2) + '" text-anchor="end" font-size="9" ' +
-         'fill="var(--muted)" font-family="monospace">0.0</text>' +
-         '<text x="' + PADL + '" y="' + (y0 + mh2 + 12) + '" font-size="9.5" ' +
-         'fill="var(--ink-2)" font-family="monospace">motif match scored at every ' +
-         'position — a second peak is a duplicated element</text>';
+    if (p.at && FEATON("at_heat")) {
+      const K = 9, sm = [];
+      for (let i = 0; i < p.at.length; i++) {
+        let t = 0, c2 = 0;
+        for (let j = Math.max(0, i - (K >> 1)); j <= Math.min(p.at.length - 1, i + (K >> 1)); j++) {
+          if (p.at[j] !== null && p.at[j] !== undefined) { t += p.at[j]; c2++; }
+        }
+        sm.push(c2 ? t / c2 : null);
+      }
+      s += heatRow(xs, sm, sx, yy, RH, {lo: 0.35, hi: 0.85, mid: 0.62, diverge: true});
+      s += '<text x="' + (PADL - 6) + '" y="' + (yy + RH - 2) + '" text-anchor="end" ' +
+           'font-size="8.5" fill="var(--ink-2)" font-family="monospace">A+T</text>';
+      yy += RH + GAP2;
+    }
+    motifH = (yy - y0) + 14;
+    s += '<text x="' + PADL + '" y="' + (yy + 9) + '" font-size="9" ' +
+         'fill="var(--muted)" font-family="monospace">motif rows: darker = stronger ' +
+         'match (z 1.5–5 vs a shuffled consensus). A+T: blue GC-rich, orange AT-rich, ' +
+         'grey = genomic background 0.62</text>';
   }
   MOTIF_H = motifH;
 
@@ -560,9 +607,13 @@ function drawProfile(setName, host) {
       f._x = x0;
       f._w = wpx;
       f._inside = wpx > lab + 6;
-      f._x1 = x0 + (f._inside ? wpx : wpx + lab);     // right edge including the label
+      // a label that would overflow the right margin is hung to the LEFT of its
+      // block, so lane packing has to consider the left extent too
+      f._hangL = !f._inside && (x0 + wpx + lab > W - PADR);
+      f._x0eff = x0 - (f._hangL ? lab : 0);
+      f._x1 = x0 + wpx + (f._inside || f._hangL ? 0 : lab);
       let ln = 0;
-      while (lanes[ln] !== undefined && lanes[ln] > x0 - 10) ln++;
+      while (lanes[ln] !== undefined && lanes[ln] > f._x0eff - 10) ln++;
       lanes[ln] = f._x1;
       f._lane = ln;
     });
@@ -580,9 +631,8 @@ function drawProfile(setName, host) {
             "/" + f.max_mm + " mismatches" : "") +
            (f.note ? " — " + f.note : "") + "</title></rect>";
       // keep the label on the canvas: past the right margin, hang it to the left
-      const labw = f.type.length * 5.5;
       let lx = f._inside ? x + 4 : x + w + 4, anchor = "start";
-      if (!f._inside && lx + labw > W - PADR) { lx = x - 4; anchor = "end"; }
+      if (f._hangL) { lx = x - 4; anchor = "end"; }
       s += '<text x="' + lx + '" y="' + (y + ah - 3.5) + '" text-anchor="' + anchor +
            '" font-size="8.5" fill="' + (f._inside ? "#fff" : "var(--ink-2)") +
            '" font-family="monospace">' + f.type + "</text>";
@@ -729,7 +779,7 @@ const FEATLIST = [
   ["tail_repeat", "3' tail repeat"], ["internal_dup", "internal duplication"],
   ["tsd", "TSD"],
   ["abox_p", "A box match profile"], ["bbox_p", "B box match profile"],
-  ["selfsim_p", "similarity to tRNA head"]
+  ["selfsim_p", "similarity to tRNA head"], ["at_heat", "A+T composition"]
 ];
 
 function buildTrackLegend() {
@@ -743,7 +793,8 @@ function buildTrackLegend() {
   fh.innerHTML = FEATLIST.map(([k, lab]) =>
     "<label><input type='checkbox' class='ftr' data-k='" + k + "' checked>" +
     "<span class='swb' style='background:" + (FEATCOLOR[k] ||
-      {abox_p: "var(--f1)", bbox_p: "var(--f2)", selfsim_p: "var(--f3)"}[k] ||
+      {abox_p: "var(--f1)", bbox_p: "var(--f2)", selfsim_p: "var(--f3)",
+       at_heat: "linear-gradient(90deg,var(--div-lo),var(--div-mid),var(--div-hi))"}[k] ||
       "var(--muted)") + "'></span>" +
     lab + "</label>").join("");
   document.querySelectorAll(".trk,.ftr").forEach(cb => cb.onchange = redrawAll);

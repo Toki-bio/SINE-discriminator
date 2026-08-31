@@ -801,3 +801,59 @@ Only 0.4 % of positions now exceed |z| > 3. Two things this makes readable:
 - **no internal duplication of the tRNA head** in these families: the
   self-similarity track peaks at z ≈ 2.4 off-target, which is not significant.
   That is now a stateable negative result rather than an unreadable band.
+
+---
+
+## 21. Chart layout bug, and gradient rows instead of lines
+
+**The bug.** §20 changed the motif tracks from 0–1 fractions to z-scores, but the
+chart still mapped them with `(1 - v) * height` as if they were fractions. A z of
+4.4 therefore drew *above* the strip and a z of −2.7 drew ~126 px *below* it,
+straight across the feature track — which is what Sergei saw. Fixed by scaling
+the strip to a stated z range (−3 … 6) with clamping, plus z=0 and z=3 reference
+lines. A regression check now runs on every build: every `<path>` in every chart
+is measured against its own viewBox, and any that escapes is reported.
+
+**Gradient rows.** On Sergei's suggestion, the tracks whose *shape* matters more
+than their exact value are now heat rows rather than lines — three overlapping
+noisy z-score lines were much harder to read than three stacked bands:
+
+- **A box / B box / tRNA-repeat**: sequential ramp, one hue each, darker = higher
+  z (1.5 → 5). A hit is a dark tick; the background is blank rather than a noisy
+  line at zero.
+- **A+T composition**: diverging ramp — blue GC-rich, orange AT-rich, neutral
+  grey at the genomic background of 0.62 — smoothed over 9 bp, because at 1 bp
+  resolution it is speckle and the shape is the point.
+
+Lines are kept for pairwise identity, identity to consensus and coverage, where
+the actual value is read off the axis.
+
+## 22. Why A+T behaves differently inside the element — it is a Pol III fingerprint
+
+Sergei asked. Measured across the real families:
+
+| region | A+T |
+|---|---|
+| 5′ flank | 0.642 |
+| **element 0–15 (the A box)** | **0.223** |
+| element 15–80 (tRNA head) | 0.396 |
+| element 80 … L−30 | 0.389 |
+| **element last 30** | **0.755** |
+| 3′ flank | 0.629 |
+| random loci: flank vs middle | 0.595 vs 0.545 — flat |
+
+The element is **GC-rich because it is tRNA-derived**. tRNA genes need stable
+stem pairing, so they are GC-rich, and the A box `TGGCGCAGCGG` is the most
+GC-rich part of the whole element at 78 % GC. The 3′ end swings the opposite way
+to 0.755 A+T — that is the poly-A tail. The flanks sit at mammalian genomic
+background, ~0.63, and random loci show no structure at all (0.595 → 0.545).
+
+So the A+T track is not noise: the *shape* — background, sharp GC dip at the 5′
+end, moderate through the body, A-rich spike at the 3′ end, background again — is
+a structural signature of a tRNA-derived Pol III element. It is also a candidate
+discriminating variable that has not been formalised, and unlike the current
+`arich_score` it would use the whole profile rather than one window.
+
+Scope caveat from §16 applies with force here: these numbers are the fingerprint
+of a **tRNA-derived** SINE. A 5S-derived or non-tRNA family will have a different
+composition profile, and the A-box position that anchors it will not be at 12–22.
