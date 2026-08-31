@@ -125,6 +125,37 @@ def internal_dups(seq, k=12, min_len=16, max_mm_frac=0.15):
     return out[:6]
 
 
+def terminators(seq, offset=0, tag="terminator"):
+    """RNA Pol III terminates at a run of T on the non-template strand.
+
+    strong    TTTT or longer - the canonical signal
+    moderate  TCTTT / TGTTT / TATTT - a T-run interrupted by one non-T, which
+              still terminates but less efficiently, so read-through is more
+              likely and the element may acquire a 3' extension
+    """
+    out, i = [], 0
+    while i < len(seq) - 3:
+        if seq[i:i + 4] == "TTTT":
+            j = i + 4
+            while j < len(seq) and seq[j] == "T":
+                j += 1
+            out.append({"type": tag, "class": "strong", "start": i + offset,
+                        "end": j - 1 + offset, "seq": seq[i:j], "run": j - i})
+            i = j
+            continue
+        i += 1
+    taken = set()
+    for d in out:
+        taken.update(range(d["start"] - offset, d["end"] - offset + 1))
+    for i in range(len(seq) - 4):
+        w = seq[i:i + 5]
+        if w[0] == "T" and w[1] in "CGA" and w[2:] == "TTT" and not (set(range(i, i + 5)) & taken):
+            out.append({"type": tag, "class": "moderate", "start": i + offset,
+                        "end": i + 4 + offset, "seq": w})
+            taken.update(range(i, i + 5))
+    return sorted(out, key=lambda d: d["start"])
+
+
 def annotate(path, prof=None):
     names, A = M.read_aln(path)
     ci = [i for i, n in enumerate(names) if "CONSENSUS_" in n]
@@ -156,6 +187,9 @@ def annotate(path, prof=None):
     for d in simple_repeats(cseq):
         d["kind"] = "consensus"
         feats.append(d)
+    for d in terminators(cseq):
+        d["kind"] = "consensus"
+        feats.append(d)
     for d in internal_dups(cseq):
         d["kind"] = "consensus"
         feats.append(d)
@@ -182,6 +216,30 @@ def annotate(path, prof=None):
         lefts.append(l[l != M.GAP][::-1])
         r = C[i, hi + 1:]
         rights.append(r[r != M.GAP])
+
+    # per-copy terminator: the functional one is the first T-run at or just past
+    # the element 3' end, so search each copy's own downstream sequence
+    strong = moderate = none_ = 0
+    dists = []
+    for r in rights:
+        sq = "".join("ACGT"[c] for c in r[:40])
+        t = terminators(sq)
+        if not t:
+            none_ += 1
+            continue
+        first = t[0]
+        dists.append(first["start"])
+        if first["class"] == "strong":
+            strong += 1
+        else:
+            moderate += 1
+    tot = max(1, len(rights))
+    feats.append({"type": "terminator_copies", "kind": "copies",
+                  "strong_frac": round(strong / tot, 3),
+                  "moderate_frac": round(moderate / tot, 3),
+                  "none_frac": round(none_ / tot, 3),
+                  "dist_med": int(np.median(dists)) if dists else None,
+                  "note": "first Pol III terminator within 40 bp downstream of each copy"})
 
     tsd = [M.find_tsd(lefts[i][::-1], rights[i]) for i in range(min(n, 120))]
     hits = [t for t in tsd if t > 0]

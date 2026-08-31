@@ -857,3 +857,83 @@ discriminating variable that has not been formalised, and unlike the current
 Scope caveat from §16 applies with force here: these numbers are the fingerprint
 of a **tRNA-derived** SINE. A 5S-derived or non-tRNA family will have a different
 composition profile, and the A-box position that anchors it will not be at 12–22.
+
+---
+
+## 23. How the boxes are searched and drawn, and what the grey in A+T means
+
+Both were fair questions about things the display was getting wrong.
+
+### Searching
+
+The A box pattern is `TRGCNNARYGG` — 11 positions of IUPAC codes, so `R` = A or
+G, `N` = anything. At **every** position in the consensus, count how many of the
+11 positions match their allowed set. That raw count is then converted to a
+z-score against a null built by shuffling the consensus 120 times and rescanning
+the same motif, so composition is controlled for. The track is therefore
+continuous: one value per position, not a set of hits.
+
+### Why they looked like discrete rectangles — a display bug, not the data
+
+The heat row was blanking every cell below z = 1.5. With background at z ≈ 0 ±
+0.8, about **7 % of positions clear 1.5 by chance**, so the row drew the real hit
+plus ~15 chance hits at comparable weight, reading as scattered ticks. The floor
+was hiding the continuity and giving noise the same visual weight as signal.
+
+Now a continuous ramp from z = 0 to z = 5 with a gamma of 2.2, so chance-level
+positions are faint, the real box is solid, and the row reads as a landscape with
+one peak. Nothing about the underlying scan changed.
+
+### The grey in A+T
+
+A+T uses a **diverging** ramp, which has a meaningful midpoint: blue for GC-rich,
+orange for AT-rich, and **grey where the composition sits at the genomic
+background of 0.62** — i.e. grey means "ordinary DNA, no compositional bias".
+That is why the flanks are largely grey and the element is strongly blue: see
+§22. Cells within 8 % of the midpoint are painted neutral, and the row is
+smoothed over 9 bp because at 1 bp resolution it is speckle.
+
+## 24. Pol III terminator (Sergei's bonus feature)
+
+Added to `annotate.py`. RNA Pol III terminates at a run of T on the non-template
+strand:
+
+- **strong** — `TTTT` or longer, the canonical signal
+- **moderate** — `TCTTT` / `TGTTT` / `TATTT`, a T-run interrupted by one non-T,
+  which still terminates but less efficiently, so read-through is likelier and
+  the element can acquire a 3′ extension
+
+Searched both in the consensus and, more usefully, **per copy** in each copy's
+own 40 bp of downstream sequence, since the functional terminator is the first
+one past the element end.
+
+| set | strong | moderate | none | median distance |
+|---|---|---|---|---|
+| POS saq/s5 | 0.23 | 0.11 | 0.66 | 13 bp |
+| POS ccr/g5 | 0.25 | 0.08 | 0.67 | 24 bp |
+| POS teu/t2 | 0.23 | 0.11 | 0.66 | 23 bp |
+| POS dmo/d4 | 0.19 | 0.04 | 0.77 | 24 bp |
+| NEGRAND | 0.13 | 0.10 | 0.77 | 14 bp |
+| NEGTRUNC5 | 0.17 | 0.10 | 0.73 | 20 bp |
+
+**Report this honestly: it discriminates only weakly.** Real families carry a
+strong terminator downstream in 19–25 % of copies against 13 % for random loci —
+a real difference but a small one, nothing like `cliff` or `frac_supported`. Two
+things follow:
+
+1. Two thirds of copies have **no** terminator within 40 bp. That is a
+   biological observation worth checking rather than a detector failure —
+   read-through is expected to be common, and these are old degraded copies.
+2. The search window starts at the consensus 3′ end, which §12 showed is
+   systematically ~7 bp short. The window origin is therefore slightly wrong,
+   and re-running it against the refined 3′ edge is the obvious next test.
+
+### A palette consequence worth recording
+
+The validated categorical palette is capped at eight hues, and the feature track
+was already using all eight. Rather than invent a ninth, `trna_region` — which
+is *defined* by the A and B boxes rather than being independent evidence — is now
+drawn as a faint bracket in the A-box hue, freeing aqua for the terminator. Any
+further feature type (LINE 3′ end, CORE domain, 5S similarity) must either reuse
+a hue within a category or the track must split into rows by category:
+promoter elements / repeats / insertion evidence / termination.
