@@ -1809,3 +1809,28 @@ damage? If neutralising it rescues the three real SINEs while `NEGRAND` /
 negatives climb too, it is doing real work at short flanks and must be repaired
 rather than removed. This needs no genome and no server - it is a counterfactual
 over the local corpus.
+
+## 42. Overnight state, 2026-09-01
+
+**Counterfactual mechanism verified before launch** (no edit to `verdict.py`):
+injecting `_DECAY[set] = {"decay_max": 0, "edge_max": 0.0}` takes the decay
+branch and yields uniqueness exactly 1.0. On the three disputed Timema
+candidates: 38.6 -> 61.9, 29.3 -> 44.5, 71.3 -> **100.0**, uniqueness
+0.35/0.39/0.46 -> 1.00.
+
+So the gate was the entire story for `SINE_17`. It is most of the story for
+`SINE_25`. It is NOT the whole story for `SINE_47`, which has a second
+independent problem - element 0.474 with only 56% of copies supported - that
+neutralising uniqueness does not touch. Do not expect one fix to rescue all
+three.
+
+Running: a GLM loop on `/c/work/SINE-uniq-worktree` (branch
+`uniq-counterfactual`) answering whether the fallback is load-bearing for the
+true negatives, gated by `checks/uniq-check.js` (validated FAIL on untouched
+code first). The 119-row benchmark table is built and passes its gate.
+
+**The KIT 400 bp re-extraction is largely FAILING** - 52 of 55 sets report
+`body/full mismatch` and only 3 files were produced. That is a bug in
+`bench_extend.py`'s coordinate derivation, not a genome problem. It is not
+blocking: the counterfactual question needs no genome. Diagnose the mismatch
+before trusting any 400 bp Timema result.
