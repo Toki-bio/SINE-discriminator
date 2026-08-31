@@ -1405,3 +1405,74 @@ TSDs, that is a real insertion — but if the query came from a region shared wi
 a LINE, the set may contain both SINEs and LINE 3′ ends. Intersecting the loci
 against an existing repeat annotation is a cheap disambiguation and should be a
 standard step, not an afterthought.
+
+---
+
+## 36. Flank decay — the statistic Sergei's "extend it" comment produced
+
+Reviewing six alignments he said the same thing about five of them: *this edge
+looks bad, but extend the sequence and the picture may change*. He was right,
+and acting on it produced the best discriminator in the project.
+
+**Why the flanks were short, and why that no longer matters.** 70 bp was chosen
+in §11a to stop MAFFT smearing unrelated flank across the alignment. But since
+v2 **justifies** flanks rather than aligning them, flank length costs nothing.
+The constraint had outlived its reason. Re-extracted at 400 bp using the
+architecture the Tal repo already uses — align the body with the consensus, then
+attach the flanks as unaligned justified blocks (`kit/extend.py`).
+
+**He was also right that some edges were extraction artefacts.** In
+`NEGTRUNC5__teu__t1_45seqs`, **91 of 100 copies have under 60 bp of 5′ flank,
+median 0** — the ragged left edge he distrusted is substantially missing data
+being aligned. `ERI__eri__e2-3` has 15 such copies.
+
+**The statistic.** A single averaged flank identity blurs two different
+situations. Measuring identity as a function of distance outward separates them:
+
+| set | at edge | 50 bp | 100 bp | 200 bp | 300 bp |
+|---|---|---|---|---|---|
+| real SINE (saq s5) | 0.28 | 0.25 | 0.25 | 0.26 | 0.27 |
+| hedgehog e2-3 | 0.71 | 0.25 | 0.26 | 0.25 | 0.26 |
+| LINE fragment | 0.92 | 0.31 | 0.29 | 0.25 | 0.26 |
+| satellite | 0.87 | 0.73 | 0.61 | 0.52 | 0.48 |
+| segmental duplication | 0.90 | 0.88 | 0.80 | 0.80 | 0.92 |
+
+Two numbers — identity at the edge, and the distance at which it reaches
+background — give a four-way reading (`flankdecay.py`):
+
+| reading | meaning | rule |
+|---|---|---|
+| `ISOLATED_INSERTION` | ends at a real boundary — a SINE | edge < 0.55 |
+| `ADJACENT_SIMILARITY` | ~50 bp of shared context, then background | edge > 0.55, decay < 50 |
+| `ELEMENT_CONTINUES` | a fragment of something longer — a LINE | edge > 0.55, decay ≥ 50 |
+| `SATELLITE_OR_DUPLICATION` | similarity never ends | decay ≥ 300 |
+
+**Across all 56 natural sets:**
+
+| class | reading |
+|---|---|
+| POS (23) | ISOLATED_INSERTION 21, ADJACENT_SIMILARITY 2 |
+| ERI (8) | ISOLATED_INSERTION 6, SATELLITE_OR_DUPLICATION 2 |
+| NEGRAND (15) | ISOLATED_INSERTION 15 |
+| NEGLINEORF (4) | **ELEMENT_CONTINUES 4** |
+| NEGSAT (3) | **SATELLITE_OR_DUPLICATION 3** |
+| NEGSEGDUP (3) | SATELLITE_OR_DUPLICATION 2, ELEMENT_CONTINUES 1 |
+
+**This is the SINE-vs-LINE distinction.** §32 and §35 said it needed information
+from outside the aligned window; this is that information, and it separates
+4/4 LINE sets from 21/23 SINE sets. A LINE fragment's neighbouring sequence is
+more LINE; a SINE's is unrelated genomic DNA.
+
+**It also corrects two flags I had wrong.** `ERI__eri__e2-3` and `e2-4` were
+flagged NESTED_COPIES; both read ISOLATED_INSERTION once extended — their
+elevated flank identity is only 25–50 bp deep, exactly the "adjacent similarity"
+case, not shared genomic context. Sergei's call of "grey zone leaning SINE
+candidate" was right. Meanwhile `e1-4` and `e2-2` genuinely are
+SATELLITE_OR_DUPLICATION, decaying only at 350 bp.
+
+**Note NEGRAND reads ISOLATED_INSERTION**, which is correct and harmless: random
+loci do sit in unique contexts. This statistic answers "is the element isolated",
+not "is there an element" — the two are independent and both are needed.
+
+**Not yet done:** wire the reading into `verdict.py` as a flag, replacing the
+within-set flank-sharing test that produced the false NESTED_COPIES calls.
