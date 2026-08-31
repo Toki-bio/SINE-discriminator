@@ -1066,3 +1066,88 @@ reproduces the truncation signature at a known rate.
 - **Double-click any panel** for a detail dialog: the consensus as nucleotides
   in 60-base lines with coordinates, coloured where a structural feature covers
   it, plus the full feature table and the scalar summary.
+
+---
+
+## 28. Gradient sweep: 1400 sets, one parameter each, and what it exposed
+
+Sergei asked for a synthetic test of every feature on a gradient. Built
+(`kit/gradients.py`): **14 grids × 100 sets**, each sweeping ONE parameter
+continuously with everything else at a realistic default, on real saq genomic
+background. Aligned on KIT in about two minutes.
+
+| grid | parameter | range |
+|---|---|---|
+| AGE | substitution rate | 0.02 → 0.35 |
+| NCOPIES | copies per set | 20 → 200 |
+| TRUNC | 5′ truncation rate | 0 → 0.70 |
+| CONTAM | random-locus fraction | 0 → 0.60 |
+| SUBDIV | subfamily divergence | 0 → 0.30 |
+| SUBFRAC | fraction from the second subfamily | 0 → 0.50 |
+| SCRAM | segment swap fraction | 0 → 1.0 |
+| DUP | segment duplication fraction | 0 → 1.0 |
+| DELSHARED | fraction with the same block deleted | 0 → 0.80 |
+| DELCOPY | fraction with a per-copy block deleted | 0 → 0.80 |
+| NEST | fraction sharing a host flank | 0 → 0.80 |
+| TSD | TSD length | 0 → 22 bp |
+| POLYA | poly-A length | 0 → 40 bp |
+| RECOMB | 2-parent recombinant fraction | 0 → 1.0 |
+
+`gradient_analysis.py` computes Spearman rho between each swept parameter and
+every statistic. This asks a sharper question than "does it separate": is the
+statistic **sensitive** (monotone in the thing it claims to measure) and
+**specific** (flat for everything else)?
+
+### The specific diagnostics — safe to build verdicts on
+
+| statistic | responds to | strongest |
+|---|---|---|
+| `res_asymmetry`, `resL_iqr` | **1** | TRUNC +0.79 |
+| `frac_supported` | 3, dominated by one | **CONTAM −0.96** |
+| `gap_concentration` | **1** | DELSHARED +0.74 |
+| `long_gap_frac` | 6 | DELCOPY +0.98, DELSHARED +0.98 |
+| `seg_diag` | 5 | **SCRAM −0.88, DUP −0.85** |
+| `tsd_len_med` | 2 | TSD +0.84 |
+
+### Four confounds this exposed, all of which invalidate current claims
+
+**1. `rank1_frac` is a measure of AGE, not mosaicism.** rho = **−1.00 with
+AGE** — a perfect rank correlation. `rank1_excess` +0.99, `rank1_null` −1.00.
+Earlier sections recorded that the spec's Tier-3 SVD statistic "fails to detect
+a mosaic". The sweep says why: it is an age meter. Any apparent mosaicism signal
+from it is age leaking through. §19's conclusion stands but the reason is now
+established, and the statistic should be dropped rather than repaired.
+
+**2. `sub_gap` — my own subfamily detector — is confounded by age and sample
+size.** AGE +0.99, NCOPIES **−0.97**, against SUBFRAC +0.94. So
+`SUBFAMILY_STRUCTURE` will fire on an old family, and will quietly stop firing
+as copy number grows. The 6/8 detection and 0/28 false-positive rate in §18 were
+measured at fixed n = 100 and similar ages, which hid both. **This flag must not
+be trusted until it is normalised for age and n.**
+
+**3. `cliff` is confounded by poly-A length.** POLYA **−0.99**, as strong as its
+AGE −0.99. A longer poly-A tail extends past the consensus 3′ end into the flank
+window, raising measured flank identity and shrinking the cliff. Since §12 showed
+the consensus 3′ end is systematically ~7 bp short, this is not hypothetical.
+
+**4. `arich_score` measures the TSD, not the A-rich zone.** Its only strong
+response is TSD −0.85. It should be dropped in favour of the insertion-site
+motif described in §14a.
+
+### Which statistics are diagnostics and which are quality scores
+
+`g_element` responds to 9 of 14 gradients, `score` and `rank1_frac` to 7, and
+`g_homogeneity` to 6. These are general quality measures — useful for ranking
+candidates, useless for saying *what is wrong*. The named sub-case flags in
+`verdict.py` must be driven only by the specific statistics in the table above.
+
+### Next
+
+Single-feature gradients are done. The combination sweep is the obvious
+follow-up: pairs of parameters on a factorial grid, to find where two
+perturbations are mistaken for a third — the case that matters most is
+age × subfamily divergence, since confound 2 above means an old single family
+may be indistinguishable from two young subfamilies.
+
+Data: `grad_response.json` (the full rho matrix), `grad_stats.json` (every
+statistic on every set), `grad_truth.json` (labels), `grad_report.txt`.

@@ -1,0 +1,8402 @@
+{
+"GRAD_AGE_000": {
+"grid": "AGE",
+"param": "age",
+"value": 0.02,
+"step": 0
+},
+"GRAD_AGE_001": {
+"grid": "AGE",
+"param": "age",
+"value": 0.023333333333333334,
+"step": 1
+},
+"GRAD_AGE_002": {
+"grid": "AGE",
+"param": "age",
+"value": 0.026666666666666665,
+"step": 2
+},
+"GRAD_AGE_003": {
+"grid": "AGE",
+"param": "age",
+"value": 0.03,
+"step": 3
+},
+"GRAD_AGE_004": {
+"grid": "AGE",
+"param": "age",
+"value": 0.03333333333333333,
+"step": 4
+},
+"GRAD_AGE_005": {
+"grid": "AGE",
+"param": "age",
+"value": 0.03666666666666667,
+"step": 5
+},
+"GRAD_AGE_006": {
+"grid": "AGE",
+"param": "age",
+"value": 0.039999999999999994,
+"step": 6
+},
+"GRAD_AGE_007": {
+"grid": "AGE",
+"param": "age",
+"value": 0.043333333333333335,
+"step": 7
+},
+"GRAD_AGE_008": {
+"grid": "AGE",
+"param": "age",
+"value": 0.04666666666666666,
+"step": 8
+},
+"GRAD_AGE_009": {
+"grid": "AGE",
+"param": "age",
+"value": 0.05,
+"step": 9
+},
+"GRAD_AGE_010": {
+"grid": "AGE",
+"param": "age",
+"value": 0.05333333333333333,
+"step": 10
+},
+"GRAD_AGE_011": {
+"grid": "AGE",
+"param": "age",
+"value": 0.05666666666666666,
+"step": 11
+},
+"GRAD_AGE_012": {
+"grid": "AGE",
+"param": "age",
+"value": 0.06,
+"step": 12
+},
+"GRAD_AGE_013": {
+"grid": "AGE",
+"param": "age",
+"value": 0.06333333333333332,
+"step": 13
+},
+"GRAD_AGE_014": {
+"grid": "AGE",
+"param": "age",
+"value": 0.06666666666666667,
+"step": 14
+},
+"GRAD_AGE_015": {
+"grid": "AGE",
+"param": "age",
+"value": 0.06999999999999999,
+"step": 15
+},
+"GRAD_AGE_016": {
+"grid": "AGE",
+"param": "age",
+"value": 0.07333333333333333,
+"step": 16
+},
+"GRAD_AGE_017": {
+"grid": "AGE",
+"param": "age",
+"value": 0.07666666666666666,
+"step": 17
+},
+"GRAD_AGE_018": {
+"grid": "AGE",
+"param": "age",
+"value": 0.08,
+"step": 18
+},
+"GRAD_AGE_019": {
+"grid": "AGE",
+"param": "age",
+"value": 0.08333333333333333,
+"step": 19
+},
+"GRAD_AGE_020": {
+"grid": "AGE",
+"param": "age",
+"value": 0.08666666666666667,
+"step": 20
+},
+"GRAD_AGE_021": {
+"grid": "AGE",
+"param": "age",
+"value": 0.09,
+"step": 21
+},
+"GRAD_AGE_022": {
+"grid": "AGE",
+"param": "age",
+"value": 0.09333333333333332,
+"step": 22
+},
+"GRAD_AGE_023": {
+"grid": "AGE",
+"param": "age",
+"value": 0.09666666666666666,
+"step": 23
+},
+"GRAD_AGE_024": {
+"grid": "AGE",
+"param": "age",
+"value": 0.09999999999999999,
+"step": 24
+},
+"GRAD_AGE_025": {
+"grid": "AGE",
+"param": "age",
+"value": 0.10333333333333332,
+"step": 25
+},
+"GRAD_AGE_026": {
+"grid": "AGE",
+"param": "age",
+"value": 0.10666666666666666,
+"step": 26
+},
+"GRAD_AGE_027": {
+"grid": "AGE",
+"param": "age",
+"value": 0.10999999999999999,
+"step": 27
+},
+"GRAD_AGE_028": {
+"grid": "AGE",
+"param": "age",
+"value": 0.11333333333333333,
+"step": 28
+},
+"GRAD_AGE_029": {
+"grid": "AGE",
+"param": "age",
+"value": 0.11666666666666665,
+"step": 29
+},
+"GRAD_AGE_030": {
+"grid": "AGE",
+"param": "age",
+"value": 0.12,
+"step": 30
+},
+"GRAD_AGE_031": {
+"grid": "AGE",
+"param": "age",
+"value": 0.12333333333333332,
+"step": 31
+},
+"GRAD_AGE_032": {
+"grid": "AGE",
+"param": "age",
+"value": 0.12666666666666665,
+"step": 32
+},
+"GRAD_AGE_033": {
+"grid": "AGE",
+"param": "age",
+"value": 0.12999999999999998,
+"step": 33
+},
+"GRAD_AGE_034": {
+"grid": "AGE",
+"param": "age",
+"value": 0.13333333333333333,
+"step": 34
+},
+"GRAD_AGE_035": {
+"grid": "AGE",
+"param": "age",
+"value": 0.13666666666666666,
+"step": 35
+},
+"GRAD_AGE_036": {
+"grid": "AGE",
+"param": "age",
+"value": 0.13999999999999999,
+"step": 36
+},
+"GRAD_AGE_037": {
+"grid": "AGE",
+"param": "age",
+"value": 0.1433333333333333,
+"step": 37
+},
+"GRAD_AGE_038": {
+"grid": "AGE",
+"param": "age",
+"value": 0.14666666666666664,
+"step": 38
+},
+"GRAD_AGE_039": {
+"grid": "AGE",
+"param": "age",
+"value": 0.15,
+"step": 39
+},
+"GRAD_AGE_040": {
+"grid": "AGE",
+"param": "age",
+"value": 0.15333333333333332,
+"step": 40
+},
+"GRAD_AGE_041": {
+"grid": "AGE",
+"param": "age",
+"value": 0.15666666666666662,
+"step": 41
+},
+"GRAD_AGE_042": {
+"grid": "AGE",
+"param": "age",
+"value": 0.15999999999999998,
+"step": 42
+},
+"GRAD_AGE_043": {
+"grid": "AGE",
+"param": "age",
+"value": 0.1633333333333333,
+"step": 43
+},
+"GRAD_AGE_044": {
+"grid": "AGE",
+"param": "age",
+"value": 0.16666666666666663,
+"step": 44
+},
+"GRAD_AGE_045": {
+"grid": "AGE",
+"param": "age",
+"value": 0.16999999999999996,
+"step": 45
+},
+"GRAD_AGE_046": {
+"grid": "AGE",
+"param": "age",
+"value": 0.1733333333333333,
+"step": 46
+},
+"GRAD_AGE_047": {
+"grid": "AGE",
+"param": "age",
+"value": 0.17666666666666664,
+"step": 47
+},
+"GRAD_AGE_048": {
+"grid": "AGE",
+"param": "age",
+"value": 0.17999999999999997,
+"step": 48
+},
+"GRAD_AGE_049": {
+"grid": "AGE",
+"param": "age",
+"value": 0.1833333333333333,
+"step": 49
+},
+"GRAD_AGE_050": {
+"grid": "AGE",
+"param": "age",
+"value": 0.18666666666666662,
+"step": 50
+},
+"GRAD_AGE_051": {
+"grid": "AGE",
+"param": "age",
+"value": 0.18999999999999997,
+"step": 51
+},
+"GRAD_AGE_052": {
+"grid": "AGE",
+"param": "age",
+"value": 0.1933333333333333,
+"step": 52
+},
+"GRAD_AGE_053": {
+"grid": "AGE",
+"param": "age",
+"value": 0.19666666666666663,
+"step": 53
+},
+"GRAD_AGE_054": {
+"grid": "AGE",
+"param": "age",
+"value": 0.19999999999999996,
+"step": 54
+},
+"GRAD_AGE_055": {
+"grid": "AGE",
+"param": "age",
+"value": 0.2033333333333333,
+"step": 55
+},
+"GRAD_AGE_056": {
+"grid": "AGE",
+"param": "age",
+"value": 0.20666666666666664,
+"step": 56
+},
+"GRAD_AGE_057": {
+"grid": "AGE",
+"param": "age",
+"value": 0.20999999999999996,
+"step": 57
+},
+"GRAD_AGE_058": {
+"grid": "AGE",
+"param": "age",
+"value": 0.2133333333333333,
+"step": 58
+},
+"GRAD_AGE_059": {
+"grid": "AGE",
+"param": "age",
+"value": 0.21666666666666665,
+"step": 59
+},
+"GRAD_AGE_060": {
+"grid": "AGE",
+"param": "age",
+"value": 0.21999999999999997,
+"step": 60
+},
+"GRAD_AGE_061": {
+"grid": "AGE",
+"param": "age",
+"value": 0.2233333333333333,
+"step": 61
+},
+"GRAD_AGE_062": {
+"grid": "AGE",
+"param": "age",
+"value": 0.22666666666666663,
+"step": 62
+},
+"GRAD_AGE_063": {
+"grid": "AGE",
+"param": "age",
+"value": 0.22999999999999998,
+"step": 63
+},
+"GRAD_AGE_064": {
+"grid": "AGE",
+"param": "age",
+"value": 0.2333333333333333,
+"step": 64
+},
+"GRAD_AGE_065": {
+"grid": "AGE",
+"param": "age",
+"value": 0.2366666666666666,
+"step": 65
+},
+"GRAD_AGE_066": {
+"grid": "AGE",
+"param": "age",
+"value": 0.23999999999999996,
+"step": 66
+},
+"GRAD_AGE_067": {
+"grid": "AGE",
+"param": "age",
+"value": 0.2433333333333333,
+"step": 67
+},
+"GRAD_AGE_068": {
+"grid": "AGE",
+"param": "age",
+"value": 0.24666666666666665,
+"step": 68
+},
+"GRAD_AGE_069": {
+"grid": "AGE",
+"param": "age",
+"value": 0.24999999999999994,
+"step": 69
+},
+"GRAD_AGE_070": {
+"grid": "AGE",
+"param": "age",
+"value": 0.2533333333333333,
+"step": 70
+},
+"GRAD_AGE_071": {
+"grid": "AGE",
+"param": "age",
+"value": 0.25666666666666665,
+"step": 71
+},
+"GRAD_AGE_072": {
+"grid": "AGE",
+"param": "age",
+"value": 0.26,
+"step": 72
+},
+"GRAD_AGE_073": {
+"grid": "AGE",
+"param": "age",
+"value": 0.2633333333333333,
+"step": 73
+},
+"GRAD_AGE_074": {
+"grid": "AGE",
+"param": "age",
+"value": 0.26666666666666666,
+"step": 74
+},
+"GRAD_AGE_075": {
+"grid": "AGE",
+"param": "age",
+"value": 0.26999999999999996,
+"step": 75
+},
+"GRAD_AGE_076": {
+"grid": "AGE",
+"param": "age",
+"value": 0.2733333333333333,
+"step": 76
+},
+"GRAD_AGE_077": {
+"grid": "AGE",
+"param": "age",
+"value": 0.27666666666666667,
+"step": 77
+},
+"GRAD_AGE_078": {
+"grid": "AGE",
+"param": "age",
+"value": 0.28,
+"step": 78
+},
+"GRAD_AGE_079": {
+"grid": "AGE",
+"param": "age",
+"value": 0.2833333333333333,
+"step": 79
+},
+"GRAD_AGE_080": {
+"grid": "AGE",
+"param": "age",
+"value": 0.2866666666666667,
+"step": 80
+},
+"GRAD_AGE_081": {
+"grid": "AGE",
+"param": "age",
+"value": 0.29,
+"step": 81
+},
+"GRAD_AGE_082": {
+"grid": "AGE",
+"param": "age",
+"value": 0.2933333333333333,
+"step": 82
+},
+"GRAD_AGE_083": {
+"grid": "AGE",
+"param": "age",
+"value": 0.29666666666666663,
+"step": 83
+},
+"GRAD_AGE_084": {
+"grid": "AGE",
+"param": "age",
+"value": 0.3,
+"step": 84
+},
+"GRAD_AGE_085": {
+"grid": "AGE",
+"param": "age",
+"value": 0.30333333333333334,
+"step": 85
+},
+"GRAD_AGE_086": {
+"grid": "AGE",
+"param": "age",
+"value": 0.30666666666666664,
+"step": 86
+},
+"GRAD_AGE_087": {
+"grid": "AGE",
+"param": "age",
+"value": 0.31,
+"step": 87
+},
+"GRAD_AGE_088": {
+"grid": "AGE",
+"param": "age",
+"value": 0.3133333333333333,
+"step": 88
+},
+"GRAD_AGE_089": {
+"grid": "AGE",
+"param": "age",
+"value": 0.31666666666666665,
+"step": 89
+},
+"GRAD_AGE_090": {
+"grid": "AGE",
+"param": "age",
+"value": 0.31999999999999995,
+"step": 90
+},
+"GRAD_AGE_091": {
+"grid": "AGE",
+"param": "age",
+"value": 0.3233333333333333,
+"step": 91
+},
+"GRAD_AGE_092": {
+"grid": "AGE",
+"param": "age",
+"value": 0.32666666666666666,
+"step": 92
+},
+"GRAD_AGE_093": {
+"grid": "AGE",
+"param": "age",
+"value": 0.33,
+"step": 93
+},
+"GRAD_AGE_094": {
+"grid": "AGE",
+"param": "age",
+"value": 0.3333333333333333,
+"step": 94
+},
+"GRAD_AGE_095": {
+"grid": "AGE",
+"param": "age",
+"value": 0.33666666666666667,
+"step": 95
+},
+"GRAD_AGE_096": {
+"grid": "AGE",
+"param": "age",
+"value": 0.33999999999999997,
+"step": 96
+},
+"GRAD_AGE_097": {
+"grid": "AGE",
+"param": "age",
+"value": 0.3433333333333333,
+"step": 97
+},
+"GRAD_AGE_098": {
+"grid": "AGE",
+"param": "age",
+"value": 0.3466666666666666,
+"step": 98
+},
+"GRAD_AGE_099": {
+"grid": "AGE",
+"param": "age",
+"value": 0.35,
+"step": 99
+},
+"GRAD_NCOPIES_000": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 20,
+"step": 0
+},
+"GRAD_NCOPIES_001": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 22,
+"step": 1
+},
+"GRAD_NCOPIES_002": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 24,
+"step": 2
+},
+"GRAD_NCOPIES_003": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 25,
+"step": 3
+},
+"GRAD_NCOPIES_004": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 27,
+"step": 4
+},
+"GRAD_NCOPIES_005": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 29,
+"step": 5
+},
+"GRAD_NCOPIES_006": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 31,
+"step": 6
+},
+"GRAD_NCOPIES_007": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 33,
+"step": 7
+},
+"GRAD_NCOPIES_008": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 35,
+"step": 8
+},
+"GRAD_NCOPIES_009": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 36,
+"step": 9
+},
+"GRAD_NCOPIES_010": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 38,
+"step": 10
+},
+"GRAD_NCOPIES_011": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 40,
+"step": 11
+},
+"GRAD_NCOPIES_012": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 42,
+"step": 12
+},
+"GRAD_NCOPIES_013": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 44,
+"step": 13
+},
+"GRAD_NCOPIES_014": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 45,
+"step": 14
+},
+"GRAD_NCOPIES_015": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 47,
+"step": 15
+},
+"GRAD_NCOPIES_016": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 49,
+"step": 16
+},
+"GRAD_NCOPIES_017": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 51,
+"step": 17
+},
+"GRAD_NCOPIES_018": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 53,
+"step": 18
+},
+"GRAD_NCOPIES_019": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 55,
+"step": 19
+},
+"GRAD_NCOPIES_020": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 56,
+"step": 20
+},
+"GRAD_NCOPIES_021": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 58,
+"step": 21
+},
+"GRAD_NCOPIES_022": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 60,
+"step": 22
+},
+"GRAD_NCOPIES_023": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 62,
+"step": 23
+},
+"GRAD_NCOPIES_024": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 64,
+"step": 24
+},
+"GRAD_NCOPIES_025": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 65,
+"step": 25
+},
+"GRAD_NCOPIES_026": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 67,
+"step": 26
+},
+"GRAD_NCOPIES_027": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 69,
+"step": 27
+},
+"GRAD_NCOPIES_028": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 71,
+"step": 28
+},
+"GRAD_NCOPIES_029": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 73,
+"step": 29
+},
+"GRAD_NCOPIES_030": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 75,
+"step": 30
+},
+"GRAD_NCOPIES_031": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 76,
+"step": 31
+},
+"GRAD_NCOPIES_032": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 78,
+"step": 32
+},
+"GRAD_NCOPIES_033": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 80,
+"step": 33
+},
+"GRAD_NCOPIES_034": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 82,
+"step": 34
+},
+"GRAD_NCOPIES_035": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 84,
+"step": 35
+},
+"GRAD_NCOPIES_036": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 85,
+"step": 36
+},
+"GRAD_NCOPIES_037": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 87,
+"step": 37
+},
+"GRAD_NCOPIES_038": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 89,
+"step": 38
+},
+"GRAD_NCOPIES_039": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 91,
+"step": 39
+},
+"GRAD_NCOPIES_040": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 93,
+"step": 40
+},
+"GRAD_NCOPIES_041": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 95,
+"step": 41
+},
+"GRAD_NCOPIES_042": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 96,
+"step": 42
+},
+"GRAD_NCOPIES_043": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 98,
+"step": 43
+},
+"GRAD_NCOPIES_044": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 100,
+"step": 44
+},
+"GRAD_NCOPIES_045": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 102,
+"step": 45
+},
+"GRAD_NCOPIES_046": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 104,
+"step": 46
+},
+"GRAD_NCOPIES_047": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 105,
+"step": 47
+},
+"GRAD_NCOPIES_048": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 107,
+"step": 48
+},
+"GRAD_NCOPIES_049": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 109,
+"step": 49
+},
+"GRAD_NCOPIES_050": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 111,
+"step": 50
+},
+"GRAD_NCOPIES_051": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 113,
+"step": 51
+},
+"GRAD_NCOPIES_052": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 115,
+"step": 52
+},
+"GRAD_NCOPIES_053": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 116,
+"step": 53
+},
+"GRAD_NCOPIES_054": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 118,
+"step": 54
+},
+"GRAD_NCOPIES_055": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 120,
+"step": 55
+},
+"GRAD_NCOPIES_056": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 122,
+"step": 56
+},
+"GRAD_NCOPIES_057": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 124,
+"step": 57
+},
+"GRAD_NCOPIES_058": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 125,
+"step": 58
+},
+"GRAD_NCOPIES_059": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 127,
+"step": 59
+},
+"GRAD_NCOPIES_060": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 129,
+"step": 60
+},
+"GRAD_NCOPIES_061": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 131,
+"step": 61
+},
+"GRAD_NCOPIES_062": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 133,
+"step": 62
+},
+"GRAD_NCOPIES_063": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 135,
+"step": 63
+},
+"GRAD_NCOPIES_064": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 136,
+"step": 64
+},
+"GRAD_NCOPIES_065": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 138,
+"step": 65
+},
+"GRAD_NCOPIES_066": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 140,
+"step": 66
+},
+"GRAD_NCOPIES_067": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 142,
+"step": 67
+},
+"GRAD_NCOPIES_068": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 144,
+"step": 68
+},
+"GRAD_NCOPIES_069": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 145,
+"step": 69
+},
+"GRAD_NCOPIES_070": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 147,
+"step": 70
+},
+"GRAD_NCOPIES_071": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 149,
+"step": 71
+},
+"GRAD_NCOPIES_072": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 151,
+"step": 72
+},
+"GRAD_NCOPIES_073": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 153,
+"step": 73
+},
+"GRAD_NCOPIES_074": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 155,
+"step": 74
+},
+"GRAD_NCOPIES_075": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 156,
+"step": 75
+},
+"GRAD_NCOPIES_076": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 158,
+"step": 76
+},
+"GRAD_NCOPIES_077": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 160,
+"step": 77
+},
+"GRAD_NCOPIES_078": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 162,
+"step": 78
+},
+"GRAD_NCOPIES_079": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 164,
+"step": 79
+},
+"GRAD_NCOPIES_080": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 165,
+"step": 80
+},
+"GRAD_NCOPIES_081": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 167,
+"step": 81
+},
+"GRAD_NCOPIES_082": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 169,
+"step": 82
+},
+"GRAD_NCOPIES_083": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 171,
+"step": 83
+},
+"GRAD_NCOPIES_084": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 173,
+"step": 84
+},
+"GRAD_NCOPIES_085": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 175,
+"step": 85
+},
+"GRAD_NCOPIES_086": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 176,
+"step": 86
+},
+"GRAD_NCOPIES_087": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 178,
+"step": 87
+},
+"GRAD_NCOPIES_088": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 180,
+"step": 88
+},
+"GRAD_NCOPIES_089": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 182,
+"step": 89
+},
+"GRAD_NCOPIES_090": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 184,
+"step": 90
+},
+"GRAD_NCOPIES_091": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 185,
+"step": 91
+},
+"GRAD_NCOPIES_092": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 187,
+"step": 92
+},
+"GRAD_NCOPIES_093": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 189,
+"step": 93
+},
+"GRAD_NCOPIES_094": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 191,
+"step": 94
+},
+"GRAD_NCOPIES_095": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 193,
+"step": 95
+},
+"GRAD_NCOPIES_096": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 195,
+"step": 96
+},
+"GRAD_NCOPIES_097": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 196,
+"step": 97
+},
+"GRAD_NCOPIES_098": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 198,
+"step": 98
+},
+"GRAD_NCOPIES_099": {
+"grid": "NCOPIES",
+"param": "n",
+"value": 200,
+"step": 99
+},
+"GRAD_TRUNC_000": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.0,
+"step": 0
+},
+"GRAD_TRUNC_001": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.00707070707070707,
+"step": 1
+},
+"GRAD_TRUNC_002": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.01414141414141414,
+"step": 2
+},
+"GRAD_TRUNC_003": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.02121212121212121,
+"step": 3
+},
+"GRAD_TRUNC_004": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.02828282828282828,
+"step": 4
+},
+"GRAD_TRUNC_005": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.03535353535353535,
+"step": 5
+},
+"GRAD_TRUNC_006": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.04242424242424242,
+"step": 6
+},
+"GRAD_TRUNC_007": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.04949494949494949,
+"step": 7
+},
+"GRAD_TRUNC_008": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.05656565656565656,
+"step": 8
+},
+"GRAD_TRUNC_009": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.06363636363636363,
+"step": 9
+},
+"GRAD_TRUNC_010": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.0707070707070707,
+"step": 10
+},
+"GRAD_TRUNC_011": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.07777777777777777,
+"step": 11
+},
+"GRAD_TRUNC_012": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.08484848484848484,
+"step": 12
+},
+"GRAD_TRUNC_013": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.09191919191919191,
+"step": 13
+},
+"GRAD_TRUNC_014": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.09898989898989898,
+"step": 14
+},
+"GRAD_TRUNC_015": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.10606060606060606,
+"step": 15
+},
+"GRAD_TRUNC_016": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.11313131313131312,
+"step": 16
+},
+"GRAD_TRUNC_017": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.12020202020202019,
+"step": 17
+},
+"GRAD_TRUNC_018": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.12727272727272726,
+"step": 18
+},
+"GRAD_TRUNC_019": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.13434343434343432,
+"step": 19
+},
+"GRAD_TRUNC_020": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.1414141414141414,
+"step": 20
+},
+"GRAD_TRUNC_021": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.14848484848484847,
+"step": 21
+},
+"GRAD_TRUNC_022": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.15555555555555553,
+"step": 22
+},
+"GRAD_TRUNC_023": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.1626262626262626,
+"step": 23
+},
+"GRAD_TRUNC_024": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.16969696969696968,
+"step": 24
+},
+"GRAD_TRUNC_025": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.17676767676767677,
+"step": 25
+},
+"GRAD_TRUNC_026": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.18383838383838383,
+"step": 26
+},
+"GRAD_TRUNC_027": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.1909090909090909,
+"step": 27
+},
+"GRAD_TRUNC_028": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.19797979797979795,
+"step": 28
+},
+"GRAD_TRUNC_029": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.205050505050505,
+"step": 29
+},
+"GRAD_TRUNC_030": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.21212121212121213,
+"step": 30
+},
+"GRAD_TRUNC_031": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.2191919191919192,
+"step": 31
+},
+"GRAD_TRUNC_032": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.22626262626262625,
+"step": 32
+},
+"GRAD_TRUNC_033": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.2333333333333333,
+"step": 33
+},
+"GRAD_TRUNC_034": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.24040404040404037,
+"step": 34
+},
+"GRAD_TRUNC_035": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.2474747474747475,
+"step": 35
+},
+"GRAD_TRUNC_036": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.2545454545454545,
+"step": 36
+},
+"GRAD_TRUNC_037": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.2616161616161616,
+"step": 37
+},
+"GRAD_TRUNC_038": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.26868686868686864,
+"step": 38
+},
+"GRAD_TRUNC_039": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.2757575757575757,
+"step": 39
+},
+"GRAD_TRUNC_040": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.2828282828282828,
+"step": 40
+},
+"GRAD_TRUNC_041": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.2898989898989899,
+"step": 41
+},
+"GRAD_TRUNC_042": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.29696969696969694,
+"step": 42
+},
+"GRAD_TRUNC_043": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.304040404040404,
+"step": 43
+},
+"GRAD_TRUNC_044": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.31111111111111106,
+"step": 44
+},
+"GRAD_TRUNC_045": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.3181818181818181,
+"step": 45
+},
+"GRAD_TRUNC_046": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.3252525252525252,
+"step": 46
+},
+"GRAD_TRUNC_047": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.3323232323232323,
+"step": 47
+},
+"GRAD_TRUNC_048": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.33939393939393936,
+"step": 48
+},
+"GRAD_TRUNC_049": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.3464646464646464,
+"step": 49
+},
+"GRAD_TRUNC_050": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.35353535353535354,
+"step": 50
+},
+"GRAD_TRUNC_051": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.36060606060606054,
+"step": 51
+},
+"GRAD_TRUNC_052": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.36767676767676766,
+"step": 52
+},
+"GRAD_TRUNC_053": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.37474747474747466,
+"step": 53
+},
+"GRAD_TRUNC_054": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.3818181818181818,
+"step": 54
+},
+"GRAD_TRUNC_055": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.3888888888888889,
+"step": 55
+},
+"GRAD_TRUNC_056": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.3959595959595959,
+"step": 56
+},
+"GRAD_TRUNC_057": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.403030303030303,
+"step": 57
+},
+"GRAD_TRUNC_058": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.41010101010101,
+"step": 58
+},
+"GRAD_TRUNC_059": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.41717171717171714,
+"step": 59
+},
+"GRAD_TRUNC_060": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.42424242424242425,
+"step": 60
+},
+"GRAD_TRUNC_061": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.43131313131313126,
+"step": 61
+},
+"GRAD_TRUNC_062": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.4383838383838384,
+"step": 62
+},
+"GRAD_TRUNC_063": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.4454545454545454,
+"step": 63
+},
+"GRAD_TRUNC_064": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.4525252525252525,
+"step": 64
+},
+"GRAD_TRUNC_065": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.4595959595959596,
+"step": 65
+},
+"GRAD_TRUNC_066": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.4666666666666666,
+"step": 66
+},
+"GRAD_TRUNC_067": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.47373737373737373,
+"step": 67
+},
+"GRAD_TRUNC_068": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.48080808080808074,
+"step": 68
+},
+"GRAD_TRUNC_069": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.48787878787878786,
+"step": 69
+},
+"GRAD_TRUNC_070": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.494949494949495,
+"step": 70
+},
+"GRAD_TRUNC_071": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.5020202020202019,
+"step": 71
+},
+"GRAD_TRUNC_072": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.509090909090909,
+"step": 72
+},
+"GRAD_TRUNC_073": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.5161616161616162,
+"step": 73
+},
+"GRAD_TRUNC_074": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.5232323232323232,
+"step": 74
+},
+"GRAD_TRUNC_075": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.5303030303030303,
+"step": 75
+},
+"GRAD_TRUNC_076": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.5373737373737373,
+"step": 76
+},
+"GRAD_TRUNC_077": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.5444444444444444,
+"step": 77
+},
+"GRAD_TRUNC_078": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.5515151515151514,
+"step": 78
+},
+"GRAD_TRUNC_079": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.5585858585858585,
+"step": 79
+},
+"GRAD_TRUNC_080": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.5656565656565656,
+"step": 80
+},
+"GRAD_TRUNC_081": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.5727272727272726,
+"step": 81
+},
+"GRAD_TRUNC_082": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.5797979797979798,
+"step": 82
+},
+"GRAD_TRUNC_083": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.5868686868686868,
+"step": 83
+},
+"GRAD_TRUNC_084": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.5939393939393939,
+"step": 84
+},
+"GRAD_TRUNC_085": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.6010101010101009,
+"step": 85
+},
+"GRAD_TRUNC_086": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.608080808080808,
+"step": 86
+},
+"GRAD_TRUNC_087": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.6151515151515151,
+"step": 87
+},
+"GRAD_TRUNC_088": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.6222222222222221,
+"step": 88
+},
+"GRAD_TRUNC_089": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.6292929292929292,
+"step": 89
+},
+"GRAD_TRUNC_090": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.6363636363636362,
+"step": 90
+},
+"GRAD_TRUNC_091": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.6434343434343434,
+"step": 91
+},
+"GRAD_TRUNC_092": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.6505050505050504,
+"step": 92
+},
+"GRAD_TRUNC_093": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.6575757575757575,
+"step": 93
+},
+"GRAD_TRUNC_094": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.6646464646464646,
+"step": 94
+},
+"GRAD_TRUNC_095": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.6717171717171717,
+"step": 95
+},
+"GRAD_TRUNC_096": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.6787878787878787,
+"step": 96
+},
+"GRAD_TRUNC_097": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.6858585858585857,
+"step": 97
+},
+"GRAD_TRUNC_098": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.6929292929292928,
+"step": 98
+},
+"GRAD_TRUNC_099": {
+"grid": "TRUNC",
+"param": "trunc",
+"value": 0.7,
+"step": 99
+},
+"GRAD_CONTAM_000": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.0,
+"step": 0
+},
+"GRAD_CONTAM_001": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.006060606060606061,
+"step": 1
+},
+"GRAD_CONTAM_002": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.012121212121212121,
+"step": 2
+},
+"GRAD_CONTAM_003": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.01818181818181818,
+"step": 3
+},
+"GRAD_CONTAM_004": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.024242424242424242,
+"step": 4
+},
+"GRAD_CONTAM_005": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.030303030303030304,
+"step": 5
+},
+"GRAD_CONTAM_006": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.03636363636363636,
+"step": 6
+},
+"GRAD_CONTAM_007": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.04242424242424243,
+"step": 7
+},
+"GRAD_CONTAM_008": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.048484848484848485,
+"step": 8
+},
+"GRAD_CONTAM_009": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.05454545454545454,
+"step": 9
+},
+"GRAD_CONTAM_010": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.06060606060606061,
+"step": 10
+},
+"GRAD_CONTAM_011": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.06666666666666667,
+"step": 11
+},
+"GRAD_CONTAM_012": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.07272727272727272,
+"step": 12
+},
+"GRAD_CONTAM_013": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.07878787878787878,
+"step": 13
+},
+"GRAD_CONTAM_014": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.08484848484848485,
+"step": 14
+},
+"GRAD_CONTAM_015": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.09090909090909091,
+"step": 15
+},
+"GRAD_CONTAM_016": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.09696969696969697,
+"step": 16
+},
+"GRAD_CONTAM_017": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.10303030303030303,
+"step": 17
+},
+"GRAD_CONTAM_018": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.10909090909090909,
+"step": 18
+},
+"GRAD_CONTAM_019": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.11515151515151516,
+"step": 19
+},
+"GRAD_CONTAM_020": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.12121212121212122,
+"step": 20
+},
+"GRAD_CONTAM_021": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.12727272727272726,
+"step": 21
+},
+"GRAD_CONTAM_022": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.13333333333333333,
+"step": 22
+},
+"GRAD_CONTAM_023": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.13939393939393938,
+"step": 23
+},
+"GRAD_CONTAM_024": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.14545454545454545,
+"step": 24
+},
+"GRAD_CONTAM_025": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.15151515151515152,
+"step": 25
+},
+"GRAD_CONTAM_026": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.15757575757575756,
+"step": 26
+},
+"GRAD_CONTAM_027": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.16363636363636364,
+"step": 27
+},
+"GRAD_CONTAM_028": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.1696969696969697,
+"step": 28
+},
+"GRAD_CONTAM_029": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.17575757575757575,
+"step": 29
+},
+"GRAD_CONTAM_030": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.18181818181818182,
+"step": 30
+},
+"GRAD_CONTAM_031": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.18787878787878787,
+"step": 31
+},
+"GRAD_CONTAM_032": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.19393939393939394,
+"step": 32
+},
+"GRAD_CONTAM_033": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.2,
+"step": 33
+},
+"GRAD_CONTAM_034": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.20606060606060606,
+"step": 34
+},
+"GRAD_CONTAM_035": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.21212121212121213,
+"step": 35
+},
+"GRAD_CONTAM_036": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.21818181818181817,
+"step": 36
+},
+"GRAD_CONTAM_037": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.22424242424242424,
+"step": 37
+},
+"GRAD_CONTAM_038": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.23030303030303031,
+"step": 38
+},
+"GRAD_CONTAM_039": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.23636363636363636,
+"step": 39
+},
+"GRAD_CONTAM_040": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.24242424242424243,
+"step": 40
+},
+"GRAD_CONTAM_041": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.24848484848484848,
+"step": 41
+},
+"GRAD_CONTAM_042": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.2545454545454545,
+"step": 42
+},
+"GRAD_CONTAM_043": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.2606060606060606,
+"step": 43
+},
+"GRAD_CONTAM_044": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.26666666666666666,
+"step": 44
+},
+"GRAD_CONTAM_045": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.2727272727272727,
+"step": 45
+},
+"GRAD_CONTAM_046": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.27878787878787875,
+"step": 46
+},
+"GRAD_CONTAM_047": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.28484848484848485,
+"step": 47
+},
+"GRAD_CONTAM_048": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.2909090909090909,
+"step": 48
+},
+"GRAD_CONTAM_049": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.29696969696969694,
+"step": 49
+},
+"GRAD_CONTAM_050": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.30303030303030304,
+"step": 50
+},
+"GRAD_CONTAM_051": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.3090909090909091,
+"step": 51
+},
+"GRAD_CONTAM_052": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.3151515151515151,
+"step": 52
+},
+"GRAD_CONTAM_053": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.32121212121212117,
+"step": 53
+},
+"GRAD_CONTAM_054": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.32727272727272727,
+"step": 54
+},
+"GRAD_CONTAM_055": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.3333333333333333,
+"step": 55
+},
+"GRAD_CONTAM_056": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.3393939393939394,
+"step": 56
+},
+"GRAD_CONTAM_057": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.3454545454545454,
+"step": 57
+},
+"GRAD_CONTAM_058": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.3515151515151515,
+"step": 58
+},
+"GRAD_CONTAM_059": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.35757575757575755,
+"step": 59
+},
+"GRAD_CONTAM_060": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.36363636363636365,
+"step": 60
+},
+"GRAD_CONTAM_061": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.3696969696969697,
+"step": 61
+},
+"GRAD_CONTAM_062": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.37575757575757573,
+"step": 62
+},
+"GRAD_CONTAM_063": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.3818181818181818,
+"step": 63
+},
+"GRAD_CONTAM_064": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.3878787878787879,
+"step": 64
+},
+"GRAD_CONTAM_065": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.3939393939393939,
+"step": 65
+},
+"GRAD_CONTAM_066": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.4,
+"step": 66
+},
+"GRAD_CONTAM_067": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.406060606060606,
+"step": 67
+},
+"GRAD_CONTAM_068": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.4121212121212121,
+"step": 68
+},
+"GRAD_CONTAM_069": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.41818181818181815,
+"step": 69
+},
+"GRAD_CONTAM_070": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.42424242424242425,
+"step": 70
+},
+"GRAD_CONTAM_071": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.4303030303030303,
+"step": 71
+},
+"GRAD_CONTAM_072": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.43636363636363634,
+"step": 72
+},
+"GRAD_CONTAM_073": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.4424242424242424,
+"step": 73
+},
+"GRAD_CONTAM_074": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.4484848484848485,
+"step": 74
+},
+"GRAD_CONTAM_075": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.45454545454545453,
+"step": 75
+},
+"GRAD_CONTAM_076": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.46060606060606063,
+"step": 76
+},
+"GRAD_CONTAM_077": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.4666666666666666,
+"step": 77
+},
+"GRAD_CONTAM_078": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.4727272727272727,
+"step": 78
+},
+"GRAD_CONTAM_079": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.47878787878787876,
+"step": 79
+},
+"GRAD_CONTAM_080": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.48484848484848486,
+"step": 80
+},
+"GRAD_CONTAM_081": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.4909090909090909,
+"step": 81
+},
+"GRAD_CONTAM_082": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.49696969696969695,
+"step": 82
+},
+"GRAD_CONTAM_083": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.503030303030303,
+"step": 83
+},
+"GRAD_CONTAM_084": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.509090909090909,
+"step": 84
+},
+"GRAD_CONTAM_085": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5151515151515151,
+"step": 85
+},
+"GRAD_CONTAM_086": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5212121212121212,
+"step": 86
+},
+"GRAD_CONTAM_087": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5272727272727272,
+"step": 87
+},
+"GRAD_CONTAM_088": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5333333333333333,
+"step": 88
+},
+"GRAD_CONTAM_089": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5393939393939394,
+"step": 89
+},
+"GRAD_CONTAM_090": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5454545454545454,
+"step": 90
+},
+"GRAD_CONTAM_091": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5515151515151515,
+"step": 91
+},
+"GRAD_CONTAM_092": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5575757575757575,
+"step": 92
+},
+"GRAD_CONTAM_093": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5636363636363636,
+"step": 93
+},
+"GRAD_CONTAM_094": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5696969696969697,
+"step": 94
+},
+"GRAD_CONTAM_095": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5757575757575758,
+"step": 95
+},
+"GRAD_CONTAM_096": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5818181818181818,
+"step": 96
+},
+"GRAD_CONTAM_097": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5878787878787879,
+"step": 97
+},
+"GRAD_CONTAM_098": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.5939393939393939,
+"step": 98
+},
+"GRAD_CONTAM_099": {
+"grid": "CONTAM",
+"param": "contam",
+"value": 0.6,
+"step": 99
+},
+"GRAD_SUBDIV_000": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.0,
+"step": 0
+},
+"GRAD_SUBDIV_001": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.0030303030303030303,
+"step": 1
+},
+"GRAD_SUBDIV_002": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.006060606060606061,
+"step": 2
+},
+"GRAD_SUBDIV_003": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.00909090909090909,
+"step": 3
+},
+"GRAD_SUBDIV_004": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.012121212121212121,
+"step": 4
+},
+"GRAD_SUBDIV_005": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.015151515151515152,
+"step": 5
+},
+"GRAD_SUBDIV_006": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.01818181818181818,
+"step": 6
+},
+"GRAD_SUBDIV_007": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.021212121212121213,
+"step": 7
+},
+"GRAD_SUBDIV_008": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.024242424242424242,
+"step": 8
+},
+"GRAD_SUBDIV_009": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.02727272727272727,
+"step": 9
+},
+"GRAD_SUBDIV_010": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.030303030303030304,
+"step": 10
+},
+"GRAD_SUBDIV_011": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.03333333333333333,
+"step": 11
+},
+"GRAD_SUBDIV_012": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.03636363636363636,
+"step": 12
+},
+"GRAD_SUBDIV_013": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.03939393939393939,
+"step": 13
+},
+"GRAD_SUBDIV_014": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.04242424242424243,
+"step": 14
+},
+"GRAD_SUBDIV_015": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.045454545454545456,
+"step": 15
+},
+"GRAD_SUBDIV_016": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.048484848484848485,
+"step": 16
+},
+"GRAD_SUBDIV_017": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.051515151515151514,
+"step": 17
+},
+"GRAD_SUBDIV_018": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.05454545454545454,
+"step": 18
+},
+"GRAD_SUBDIV_019": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.05757575757575758,
+"step": 19
+},
+"GRAD_SUBDIV_020": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.06060606060606061,
+"step": 20
+},
+"GRAD_SUBDIV_021": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.06363636363636363,
+"step": 21
+},
+"GRAD_SUBDIV_022": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.06666666666666667,
+"step": 22
+},
+"GRAD_SUBDIV_023": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.06969696969696969,
+"step": 23
+},
+"GRAD_SUBDIV_024": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.07272727272727272,
+"step": 24
+},
+"GRAD_SUBDIV_025": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.07575757575757576,
+"step": 25
+},
+"GRAD_SUBDIV_026": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.07878787878787878,
+"step": 26
+},
+"GRAD_SUBDIV_027": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.08181818181818182,
+"step": 27
+},
+"GRAD_SUBDIV_028": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.08484848484848485,
+"step": 28
+},
+"GRAD_SUBDIV_029": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.08787878787878788,
+"step": 29
+},
+"GRAD_SUBDIV_030": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.09090909090909091,
+"step": 30
+},
+"GRAD_SUBDIV_031": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.09393939393939393,
+"step": 31
+},
+"GRAD_SUBDIV_032": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.09696969696969697,
+"step": 32
+},
+"GRAD_SUBDIV_033": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.1,
+"step": 33
+},
+"GRAD_SUBDIV_034": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.10303030303030303,
+"step": 34
+},
+"GRAD_SUBDIV_035": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.10606060606060606,
+"step": 35
+},
+"GRAD_SUBDIV_036": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.10909090909090909,
+"step": 36
+},
+"GRAD_SUBDIV_037": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.11212121212121212,
+"step": 37
+},
+"GRAD_SUBDIV_038": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.11515151515151516,
+"step": 38
+},
+"GRAD_SUBDIV_039": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.11818181818181818,
+"step": 39
+},
+"GRAD_SUBDIV_040": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.12121212121212122,
+"step": 40
+},
+"GRAD_SUBDIV_041": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.12424242424242424,
+"step": 41
+},
+"GRAD_SUBDIV_042": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.12727272727272726,
+"step": 42
+},
+"GRAD_SUBDIV_043": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.1303030303030303,
+"step": 43
+},
+"GRAD_SUBDIV_044": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.13333333333333333,
+"step": 44
+},
+"GRAD_SUBDIV_045": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.13636363636363635,
+"step": 45
+},
+"GRAD_SUBDIV_046": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.13939393939393938,
+"step": 46
+},
+"GRAD_SUBDIV_047": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.14242424242424243,
+"step": 47
+},
+"GRAD_SUBDIV_048": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.14545454545454545,
+"step": 48
+},
+"GRAD_SUBDIV_049": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.14848484848484847,
+"step": 49
+},
+"GRAD_SUBDIV_050": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.15151515151515152,
+"step": 50
+},
+"GRAD_SUBDIV_051": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.15454545454545454,
+"step": 51
+},
+"GRAD_SUBDIV_052": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.15757575757575756,
+"step": 52
+},
+"GRAD_SUBDIV_053": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.16060606060606059,
+"step": 53
+},
+"GRAD_SUBDIV_054": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.16363636363636364,
+"step": 54
+},
+"GRAD_SUBDIV_055": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.16666666666666666,
+"step": 55
+},
+"GRAD_SUBDIV_056": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.1696969696969697,
+"step": 56
+},
+"GRAD_SUBDIV_057": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.1727272727272727,
+"step": 57
+},
+"GRAD_SUBDIV_058": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.17575757575757575,
+"step": 58
+},
+"GRAD_SUBDIV_059": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.17878787878787877,
+"step": 59
+},
+"GRAD_SUBDIV_060": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.18181818181818182,
+"step": 60
+},
+"GRAD_SUBDIV_061": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.18484848484848485,
+"step": 61
+},
+"GRAD_SUBDIV_062": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.18787878787878787,
+"step": 62
+},
+"GRAD_SUBDIV_063": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.1909090909090909,
+"step": 63
+},
+"GRAD_SUBDIV_064": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.19393939393939394,
+"step": 64
+},
+"GRAD_SUBDIV_065": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.19696969696969696,
+"step": 65
+},
+"GRAD_SUBDIV_066": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.2,
+"step": 66
+},
+"GRAD_SUBDIV_067": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.203030303030303,
+"step": 67
+},
+"GRAD_SUBDIV_068": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.20606060606060606,
+"step": 68
+},
+"GRAD_SUBDIV_069": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.20909090909090908,
+"step": 69
+},
+"GRAD_SUBDIV_070": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.21212121212121213,
+"step": 70
+},
+"GRAD_SUBDIV_071": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.21515151515151515,
+"step": 71
+},
+"GRAD_SUBDIV_072": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.21818181818181817,
+"step": 72
+},
+"GRAD_SUBDIV_073": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.2212121212121212,
+"step": 73
+},
+"GRAD_SUBDIV_074": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.22424242424242424,
+"step": 74
+},
+"GRAD_SUBDIV_075": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.22727272727272727,
+"step": 75
+},
+"GRAD_SUBDIV_076": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.23030303030303031,
+"step": 76
+},
+"GRAD_SUBDIV_077": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.2333333333333333,
+"step": 77
+},
+"GRAD_SUBDIV_078": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.23636363636363636,
+"step": 78
+},
+"GRAD_SUBDIV_079": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.23939393939393938,
+"step": 79
+},
+"GRAD_SUBDIV_080": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.24242424242424243,
+"step": 80
+},
+"GRAD_SUBDIV_081": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.24545454545454545,
+"step": 81
+},
+"GRAD_SUBDIV_082": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.24848484848484848,
+"step": 82
+},
+"GRAD_SUBDIV_083": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.2515151515151515,
+"step": 83
+},
+"GRAD_SUBDIV_084": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.2545454545454545,
+"step": 84
+},
+"GRAD_SUBDIV_085": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.25757575757575757,
+"step": 85
+},
+"GRAD_SUBDIV_086": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.2606060606060606,
+"step": 86
+},
+"GRAD_SUBDIV_087": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.2636363636363636,
+"step": 87
+},
+"GRAD_SUBDIV_088": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.26666666666666666,
+"step": 88
+},
+"GRAD_SUBDIV_089": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.2696969696969697,
+"step": 89
+},
+"GRAD_SUBDIV_090": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.2727272727272727,
+"step": 90
+},
+"GRAD_SUBDIV_091": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.27575757575757576,
+"step": 91
+},
+"GRAD_SUBDIV_092": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.27878787878787875,
+"step": 92
+},
+"GRAD_SUBDIV_093": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.2818181818181818,
+"step": 93
+},
+"GRAD_SUBDIV_094": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.28484848484848485,
+"step": 94
+},
+"GRAD_SUBDIV_095": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.2878787878787879,
+"step": 95
+},
+"GRAD_SUBDIV_096": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.2909090909090909,
+"step": 96
+},
+"GRAD_SUBDIV_097": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.29393939393939394,
+"step": 97
+},
+"GRAD_SUBDIV_098": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.29696969696969694,
+"step": 98
+},
+"GRAD_SUBDIV_099": {
+"grid": "SUBDIV",
+"param": "subdiv",
+"value": 0.3,
+"step": 99
+},
+"GRAD_SUBFRAC_000": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.0,
+"step": 0
+},
+"GRAD_SUBFRAC_001": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.005050505050505051,
+"step": 1
+},
+"GRAD_SUBFRAC_002": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.010101010101010102,
+"step": 2
+},
+"GRAD_SUBFRAC_003": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.015151515151515152,
+"step": 3
+},
+"GRAD_SUBFRAC_004": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.020202020202020204,
+"step": 4
+},
+"GRAD_SUBFRAC_005": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.025252525252525252,
+"step": 5
+},
+"GRAD_SUBFRAC_006": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.030303030303030304,
+"step": 6
+},
+"GRAD_SUBFRAC_007": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.03535353535353535,
+"step": 7
+},
+"GRAD_SUBFRAC_008": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.04040404040404041,
+"step": 8
+},
+"GRAD_SUBFRAC_009": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.045454545454545456,
+"step": 9
+},
+"GRAD_SUBFRAC_010": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.050505050505050504,
+"step": 10
+},
+"GRAD_SUBFRAC_011": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.05555555555555555,
+"step": 11
+},
+"GRAD_SUBFRAC_012": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.06060606060606061,
+"step": 12
+},
+"GRAD_SUBFRAC_013": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.06565656565656566,
+"step": 13
+},
+"GRAD_SUBFRAC_014": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.0707070707070707,
+"step": 14
+},
+"GRAD_SUBFRAC_015": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.07575757575757576,
+"step": 15
+},
+"GRAD_SUBFRAC_016": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.08080808080808081,
+"step": 16
+},
+"GRAD_SUBFRAC_017": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.08585858585858586,
+"step": 17
+},
+"GRAD_SUBFRAC_018": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.09090909090909091,
+"step": 18
+},
+"GRAD_SUBFRAC_019": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.09595959595959595,
+"step": 19
+},
+"GRAD_SUBFRAC_020": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.10101010101010101,
+"step": 20
+},
+"GRAD_SUBFRAC_021": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.10606060606060606,
+"step": 21
+},
+"GRAD_SUBFRAC_022": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.1111111111111111,
+"step": 22
+},
+"GRAD_SUBFRAC_023": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.11616161616161616,
+"step": 23
+},
+"GRAD_SUBFRAC_024": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.12121212121212122,
+"step": 24
+},
+"GRAD_SUBFRAC_025": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.12626262626262627,
+"step": 25
+},
+"GRAD_SUBFRAC_026": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.13131313131313133,
+"step": 26
+},
+"GRAD_SUBFRAC_027": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.13636363636363635,
+"step": 27
+},
+"GRAD_SUBFRAC_028": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.1414141414141414,
+"step": 28
+},
+"GRAD_SUBFRAC_029": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.14646464646464646,
+"step": 29
+},
+"GRAD_SUBFRAC_030": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.15151515151515152,
+"step": 30
+},
+"GRAD_SUBFRAC_031": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.15656565656565657,
+"step": 31
+},
+"GRAD_SUBFRAC_032": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.16161616161616163,
+"step": 32
+},
+"GRAD_SUBFRAC_033": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.16666666666666666,
+"step": 33
+},
+"GRAD_SUBFRAC_034": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.1717171717171717,
+"step": 34
+},
+"GRAD_SUBFRAC_035": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.17676767676767677,
+"step": 35
+},
+"GRAD_SUBFRAC_036": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.18181818181818182,
+"step": 36
+},
+"GRAD_SUBFRAC_037": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.18686868686868688,
+"step": 37
+},
+"GRAD_SUBFRAC_038": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.1919191919191919,
+"step": 38
+},
+"GRAD_SUBFRAC_039": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.19696969696969696,
+"step": 39
+},
+"GRAD_SUBFRAC_040": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.20202020202020202,
+"step": 40
+},
+"GRAD_SUBFRAC_041": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.20707070707070707,
+"step": 41
+},
+"GRAD_SUBFRAC_042": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.21212121212121213,
+"step": 42
+},
+"GRAD_SUBFRAC_043": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.21717171717171718,
+"step": 43
+},
+"GRAD_SUBFRAC_044": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.2222222222222222,
+"step": 44
+},
+"GRAD_SUBFRAC_045": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.22727272727272727,
+"step": 45
+},
+"GRAD_SUBFRAC_046": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.23232323232323232,
+"step": 46
+},
+"GRAD_SUBFRAC_047": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.23737373737373738,
+"step": 47
+},
+"GRAD_SUBFRAC_048": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.24242424242424243,
+"step": 48
+},
+"GRAD_SUBFRAC_049": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.2474747474747475,
+"step": 49
+},
+"GRAD_SUBFRAC_050": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.25252525252525254,
+"step": 50
+},
+"GRAD_SUBFRAC_051": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.25757575757575757,
+"step": 51
+},
+"GRAD_SUBFRAC_052": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.26262626262626265,
+"step": 52
+},
+"GRAD_SUBFRAC_053": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.2676767676767677,
+"step": 53
+},
+"GRAD_SUBFRAC_054": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.2727272727272727,
+"step": 54
+},
+"GRAD_SUBFRAC_055": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.2777777777777778,
+"step": 55
+},
+"GRAD_SUBFRAC_056": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.2828282828282828,
+"step": 56
+},
+"GRAD_SUBFRAC_057": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.2878787878787879,
+"step": 57
+},
+"GRAD_SUBFRAC_058": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.29292929292929293,
+"step": 58
+},
+"GRAD_SUBFRAC_059": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.29797979797979796,
+"step": 59
+},
+"GRAD_SUBFRAC_060": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.30303030303030304,
+"step": 60
+},
+"GRAD_SUBFRAC_061": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.30808080808080807,
+"step": 61
+},
+"GRAD_SUBFRAC_062": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.31313131313131315,
+"step": 62
+},
+"GRAD_SUBFRAC_063": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.3181818181818182,
+"step": 63
+},
+"GRAD_SUBFRAC_064": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.32323232323232326,
+"step": 64
+},
+"GRAD_SUBFRAC_065": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.3282828282828283,
+"step": 65
+},
+"GRAD_SUBFRAC_066": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.3333333333333333,
+"step": 66
+},
+"GRAD_SUBFRAC_067": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.3383838383838384,
+"step": 67
+},
+"GRAD_SUBFRAC_068": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.3434343434343434,
+"step": 68
+},
+"GRAD_SUBFRAC_069": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.3484848484848485,
+"step": 69
+},
+"GRAD_SUBFRAC_070": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.35353535353535354,
+"step": 70
+},
+"GRAD_SUBFRAC_071": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.35858585858585856,
+"step": 71
+},
+"GRAD_SUBFRAC_072": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.36363636363636365,
+"step": 72
+},
+"GRAD_SUBFRAC_073": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.3686868686868687,
+"step": 73
+},
+"GRAD_SUBFRAC_074": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.37373737373737376,
+"step": 74
+},
+"GRAD_SUBFRAC_075": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.3787878787878788,
+"step": 75
+},
+"GRAD_SUBFRAC_076": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.3838383838383838,
+"step": 76
+},
+"GRAD_SUBFRAC_077": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.3888888888888889,
+"step": 77
+},
+"GRAD_SUBFRAC_078": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.3939393939393939,
+"step": 78
+},
+"GRAD_SUBFRAC_079": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.398989898989899,
+"step": 79
+},
+"GRAD_SUBFRAC_080": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.40404040404040403,
+"step": 80
+},
+"GRAD_SUBFRAC_081": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.4090909090909091,
+"step": 81
+},
+"GRAD_SUBFRAC_082": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.41414141414141414,
+"step": 82
+},
+"GRAD_SUBFRAC_083": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.41919191919191917,
+"step": 83
+},
+"GRAD_SUBFRAC_084": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.42424242424242425,
+"step": 84
+},
+"GRAD_SUBFRAC_085": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.4292929292929293,
+"step": 85
+},
+"GRAD_SUBFRAC_086": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.43434343434343436,
+"step": 86
+},
+"GRAD_SUBFRAC_087": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.4393939393939394,
+"step": 87
+},
+"GRAD_SUBFRAC_088": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.4444444444444444,
+"step": 88
+},
+"GRAD_SUBFRAC_089": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.4494949494949495,
+"step": 89
+},
+"GRAD_SUBFRAC_090": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.45454545454545453,
+"step": 90
+},
+"GRAD_SUBFRAC_091": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.4595959595959596,
+"step": 91
+},
+"GRAD_SUBFRAC_092": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.46464646464646464,
+"step": 92
+},
+"GRAD_SUBFRAC_093": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.4696969696969697,
+"step": 93
+},
+"GRAD_SUBFRAC_094": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.47474747474747475,
+"step": 94
+},
+"GRAD_SUBFRAC_095": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.4797979797979798,
+"step": 95
+},
+"GRAD_SUBFRAC_096": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.48484848484848486,
+"step": 96
+},
+"GRAD_SUBFRAC_097": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.4898989898989899,
+"step": 97
+},
+"GRAD_SUBFRAC_098": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.494949494949495,
+"step": 98
+},
+"GRAD_SUBFRAC_099": {
+"grid": "SUBFRAC",
+"param": "subfrac",
+"value": 0.5,
+"step": 99
+},
+"GRAD_SCRAM_000": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.0,
+"step": 0
+},
+"GRAD_SCRAM_001": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.010101010101010102,
+"step": 1
+},
+"GRAD_SCRAM_002": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.020202020202020204,
+"step": 2
+},
+"GRAD_SCRAM_003": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.030303030303030304,
+"step": 3
+},
+"GRAD_SCRAM_004": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.04040404040404041,
+"step": 4
+},
+"GRAD_SCRAM_005": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.050505050505050504,
+"step": 5
+},
+"GRAD_SCRAM_006": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.06060606060606061,
+"step": 6
+},
+"GRAD_SCRAM_007": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.0707070707070707,
+"step": 7
+},
+"GRAD_SCRAM_008": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.08080808080808081,
+"step": 8
+},
+"GRAD_SCRAM_009": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.09090909090909091,
+"step": 9
+},
+"GRAD_SCRAM_010": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.10101010101010101,
+"step": 10
+},
+"GRAD_SCRAM_011": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.1111111111111111,
+"step": 11
+},
+"GRAD_SCRAM_012": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.12121212121212122,
+"step": 12
+},
+"GRAD_SCRAM_013": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.13131313131313133,
+"step": 13
+},
+"GRAD_SCRAM_014": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.1414141414141414,
+"step": 14
+},
+"GRAD_SCRAM_015": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.15151515151515152,
+"step": 15
+},
+"GRAD_SCRAM_016": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.16161616161616163,
+"step": 16
+},
+"GRAD_SCRAM_017": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.1717171717171717,
+"step": 17
+},
+"GRAD_SCRAM_018": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.18181818181818182,
+"step": 18
+},
+"GRAD_SCRAM_019": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.1919191919191919,
+"step": 19
+},
+"GRAD_SCRAM_020": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.20202020202020202,
+"step": 20
+},
+"GRAD_SCRAM_021": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.21212121212121213,
+"step": 21
+},
+"GRAD_SCRAM_022": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.2222222222222222,
+"step": 22
+},
+"GRAD_SCRAM_023": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.23232323232323232,
+"step": 23
+},
+"GRAD_SCRAM_024": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.24242424242424243,
+"step": 24
+},
+"GRAD_SCRAM_025": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.25252525252525254,
+"step": 25
+},
+"GRAD_SCRAM_026": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.26262626262626265,
+"step": 26
+},
+"GRAD_SCRAM_027": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.2727272727272727,
+"step": 27
+},
+"GRAD_SCRAM_028": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.2828282828282828,
+"step": 28
+},
+"GRAD_SCRAM_029": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.29292929292929293,
+"step": 29
+},
+"GRAD_SCRAM_030": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.30303030303030304,
+"step": 30
+},
+"GRAD_SCRAM_031": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.31313131313131315,
+"step": 31
+},
+"GRAD_SCRAM_032": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.32323232323232326,
+"step": 32
+},
+"GRAD_SCRAM_033": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.3333333333333333,
+"step": 33
+},
+"GRAD_SCRAM_034": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.3434343434343434,
+"step": 34
+},
+"GRAD_SCRAM_035": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.35353535353535354,
+"step": 35
+},
+"GRAD_SCRAM_036": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.36363636363636365,
+"step": 36
+},
+"GRAD_SCRAM_037": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.37373737373737376,
+"step": 37
+},
+"GRAD_SCRAM_038": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.3838383838383838,
+"step": 38
+},
+"GRAD_SCRAM_039": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.3939393939393939,
+"step": 39
+},
+"GRAD_SCRAM_040": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.40404040404040403,
+"step": 40
+},
+"GRAD_SCRAM_041": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.41414141414141414,
+"step": 41
+},
+"GRAD_SCRAM_042": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.42424242424242425,
+"step": 42
+},
+"GRAD_SCRAM_043": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.43434343434343436,
+"step": 43
+},
+"GRAD_SCRAM_044": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.4444444444444444,
+"step": 44
+},
+"GRAD_SCRAM_045": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.45454545454545453,
+"step": 45
+},
+"GRAD_SCRAM_046": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.46464646464646464,
+"step": 46
+},
+"GRAD_SCRAM_047": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.47474747474747475,
+"step": 47
+},
+"GRAD_SCRAM_048": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.48484848484848486,
+"step": 48
+},
+"GRAD_SCRAM_049": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.494949494949495,
+"step": 49
+},
+"GRAD_SCRAM_050": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.5050505050505051,
+"step": 50
+},
+"GRAD_SCRAM_051": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.5151515151515151,
+"step": 51
+},
+"GRAD_SCRAM_052": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.5252525252525253,
+"step": 52
+},
+"GRAD_SCRAM_053": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.5353535353535354,
+"step": 53
+},
+"GRAD_SCRAM_054": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.5454545454545454,
+"step": 54
+},
+"GRAD_SCRAM_055": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.5555555555555556,
+"step": 55
+},
+"GRAD_SCRAM_056": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.5656565656565656,
+"step": 56
+},
+"GRAD_SCRAM_057": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.5757575757575758,
+"step": 57
+},
+"GRAD_SCRAM_058": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.5858585858585859,
+"step": 58
+},
+"GRAD_SCRAM_059": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.5959595959595959,
+"step": 59
+},
+"GRAD_SCRAM_060": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.6060606060606061,
+"step": 60
+},
+"GRAD_SCRAM_061": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.6161616161616161,
+"step": 61
+},
+"GRAD_SCRAM_062": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.6262626262626263,
+"step": 62
+},
+"GRAD_SCRAM_063": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.6363636363636364,
+"step": 63
+},
+"GRAD_SCRAM_064": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.6464646464646465,
+"step": 64
+},
+"GRAD_SCRAM_065": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.6565656565656566,
+"step": 65
+},
+"GRAD_SCRAM_066": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.6666666666666666,
+"step": 66
+},
+"GRAD_SCRAM_067": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.6767676767676768,
+"step": 67
+},
+"GRAD_SCRAM_068": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.6868686868686869,
+"step": 68
+},
+"GRAD_SCRAM_069": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.696969696969697,
+"step": 69
+},
+"GRAD_SCRAM_070": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.7070707070707071,
+"step": 70
+},
+"GRAD_SCRAM_071": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.7171717171717171,
+"step": 71
+},
+"GRAD_SCRAM_072": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.7272727272727273,
+"step": 72
+},
+"GRAD_SCRAM_073": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.7373737373737373,
+"step": 73
+},
+"GRAD_SCRAM_074": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.7474747474747475,
+"step": 74
+},
+"GRAD_SCRAM_075": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.7575757575757576,
+"step": 75
+},
+"GRAD_SCRAM_076": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.7676767676767676,
+"step": 76
+},
+"GRAD_SCRAM_077": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.7777777777777778,
+"step": 77
+},
+"GRAD_SCRAM_078": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.7878787878787878,
+"step": 78
+},
+"GRAD_SCRAM_079": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.797979797979798,
+"step": 79
+},
+"GRAD_SCRAM_080": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.8080808080808081,
+"step": 80
+},
+"GRAD_SCRAM_081": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.8181818181818182,
+"step": 81
+},
+"GRAD_SCRAM_082": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.8282828282828283,
+"step": 82
+},
+"GRAD_SCRAM_083": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.8383838383838383,
+"step": 83
+},
+"GRAD_SCRAM_084": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.8484848484848485,
+"step": 84
+},
+"GRAD_SCRAM_085": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.8585858585858586,
+"step": 85
+},
+"GRAD_SCRAM_086": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.8686868686868687,
+"step": 86
+},
+"GRAD_SCRAM_087": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.8787878787878788,
+"step": 87
+},
+"GRAD_SCRAM_088": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.8888888888888888,
+"step": 88
+},
+"GRAD_SCRAM_089": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.898989898989899,
+"step": 89
+},
+"GRAD_SCRAM_090": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.9090909090909091,
+"step": 90
+},
+"GRAD_SCRAM_091": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.9191919191919192,
+"step": 91
+},
+"GRAD_SCRAM_092": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.9292929292929293,
+"step": 92
+},
+"GRAD_SCRAM_093": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.9393939393939394,
+"step": 93
+},
+"GRAD_SCRAM_094": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.9494949494949495,
+"step": 94
+},
+"GRAD_SCRAM_095": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.9595959595959596,
+"step": 95
+},
+"GRAD_SCRAM_096": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.9696969696969697,
+"step": 96
+},
+"GRAD_SCRAM_097": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.9797979797979798,
+"step": 97
+},
+"GRAD_SCRAM_098": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 0.98989898989899,
+"step": 98
+},
+"GRAD_SCRAM_099": {
+"grid": "SCRAM",
+"param": "scram",
+"value": 1.0,
+"step": 99
+},
+"GRAD_DUP_000": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.0,
+"step": 0
+},
+"GRAD_DUP_001": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.010101010101010102,
+"step": 1
+},
+"GRAD_DUP_002": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.020202020202020204,
+"step": 2
+},
+"GRAD_DUP_003": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.030303030303030304,
+"step": 3
+},
+"GRAD_DUP_004": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.04040404040404041,
+"step": 4
+},
+"GRAD_DUP_005": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.050505050505050504,
+"step": 5
+},
+"GRAD_DUP_006": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.06060606060606061,
+"step": 6
+},
+"GRAD_DUP_007": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.0707070707070707,
+"step": 7
+},
+"GRAD_DUP_008": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.08080808080808081,
+"step": 8
+},
+"GRAD_DUP_009": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.09090909090909091,
+"step": 9
+},
+"GRAD_DUP_010": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.10101010101010101,
+"step": 10
+},
+"GRAD_DUP_011": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.1111111111111111,
+"step": 11
+},
+"GRAD_DUP_012": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.12121212121212122,
+"step": 12
+},
+"GRAD_DUP_013": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.13131313131313133,
+"step": 13
+},
+"GRAD_DUP_014": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.1414141414141414,
+"step": 14
+},
+"GRAD_DUP_015": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.15151515151515152,
+"step": 15
+},
+"GRAD_DUP_016": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.16161616161616163,
+"step": 16
+},
+"GRAD_DUP_017": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.1717171717171717,
+"step": 17
+},
+"GRAD_DUP_018": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.18181818181818182,
+"step": 18
+},
+"GRAD_DUP_019": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.1919191919191919,
+"step": 19
+},
+"GRAD_DUP_020": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.20202020202020202,
+"step": 20
+},
+"GRAD_DUP_021": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.21212121212121213,
+"step": 21
+},
+"GRAD_DUP_022": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.2222222222222222,
+"step": 22
+},
+"GRAD_DUP_023": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.23232323232323232,
+"step": 23
+},
+"GRAD_DUP_024": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.24242424242424243,
+"step": 24
+},
+"GRAD_DUP_025": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.25252525252525254,
+"step": 25
+},
+"GRAD_DUP_026": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.26262626262626265,
+"step": 26
+},
+"GRAD_DUP_027": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.2727272727272727,
+"step": 27
+},
+"GRAD_DUP_028": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.2828282828282828,
+"step": 28
+},
+"GRAD_DUP_029": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.29292929292929293,
+"step": 29
+},
+"GRAD_DUP_030": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.30303030303030304,
+"step": 30
+},
+"GRAD_DUP_031": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.31313131313131315,
+"step": 31
+},
+"GRAD_DUP_032": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.32323232323232326,
+"step": 32
+},
+"GRAD_DUP_033": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.3333333333333333,
+"step": 33
+},
+"GRAD_DUP_034": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.3434343434343434,
+"step": 34
+},
+"GRAD_DUP_035": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.35353535353535354,
+"step": 35
+},
+"GRAD_DUP_036": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.36363636363636365,
+"step": 36
+},
+"GRAD_DUP_037": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.37373737373737376,
+"step": 37
+},
+"GRAD_DUP_038": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.3838383838383838,
+"step": 38
+},
+"GRAD_DUP_039": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.3939393939393939,
+"step": 39
+},
+"GRAD_DUP_040": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.40404040404040403,
+"step": 40
+},
+"GRAD_DUP_041": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.41414141414141414,
+"step": 41
+},
+"GRAD_DUP_042": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.42424242424242425,
+"step": 42
+},
+"GRAD_DUP_043": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.43434343434343436,
+"step": 43
+},
+"GRAD_DUP_044": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.4444444444444444,
+"step": 44
+},
+"GRAD_DUP_045": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.45454545454545453,
+"step": 45
+},
+"GRAD_DUP_046": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.46464646464646464,
+"step": 46
+},
+"GRAD_DUP_047": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.47474747474747475,
+"step": 47
+},
+"GRAD_DUP_048": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.48484848484848486,
+"step": 48
+},
+"GRAD_DUP_049": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.494949494949495,
+"step": 49
+},
+"GRAD_DUP_050": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.5050505050505051,
+"step": 50
+},
+"GRAD_DUP_051": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.5151515151515151,
+"step": 51
+},
+"GRAD_DUP_052": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.5252525252525253,
+"step": 52
+},
+"GRAD_DUP_053": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.5353535353535354,
+"step": 53
+},
+"GRAD_DUP_054": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.5454545454545454,
+"step": 54
+},
+"GRAD_DUP_055": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.5555555555555556,
+"step": 55
+},
+"GRAD_DUP_056": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.5656565656565656,
+"step": 56
+},
+"GRAD_DUP_057": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.5757575757575758,
+"step": 57
+},
+"GRAD_DUP_058": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.5858585858585859,
+"step": 58
+},
+"GRAD_DUP_059": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.5959595959595959,
+"step": 59
+},
+"GRAD_DUP_060": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.6060606060606061,
+"step": 60
+},
+"GRAD_DUP_061": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.6161616161616161,
+"step": 61
+},
+"GRAD_DUP_062": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.6262626262626263,
+"step": 62
+},
+"GRAD_DUP_063": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.6363636363636364,
+"step": 63
+},
+"GRAD_DUP_064": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.6464646464646465,
+"step": 64
+},
+"GRAD_DUP_065": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.6565656565656566,
+"step": 65
+},
+"GRAD_DUP_066": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.6666666666666666,
+"step": 66
+},
+"GRAD_DUP_067": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.6767676767676768,
+"step": 67
+},
+"GRAD_DUP_068": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.6868686868686869,
+"step": 68
+},
+"GRAD_DUP_069": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.696969696969697,
+"step": 69
+},
+"GRAD_DUP_070": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.7070707070707071,
+"step": 70
+},
+"GRAD_DUP_071": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.7171717171717171,
+"step": 71
+},
+"GRAD_DUP_072": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.7272727272727273,
+"step": 72
+},
+"GRAD_DUP_073": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.7373737373737373,
+"step": 73
+},
+"GRAD_DUP_074": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.7474747474747475,
+"step": 74
+},
+"GRAD_DUP_075": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.7575757575757576,
+"step": 75
+},
+"GRAD_DUP_076": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.7676767676767676,
+"step": 76
+},
+"GRAD_DUP_077": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.7777777777777778,
+"step": 77
+},
+"GRAD_DUP_078": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.7878787878787878,
+"step": 78
+},
+"GRAD_DUP_079": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.797979797979798,
+"step": 79
+},
+"GRAD_DUP_080": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.8080808080808081,
+"step": 80
+},
+"GRAD_DUP_081": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.8181818181818182,
+"step": 81
+},
+"GRAD_DUP_082": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.8282828282828283,
+"step": 82
+},
+"GRAD_DUP_083": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.8383838383838383,
+"step": 83
+},
+"GRAD_DUP_084": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.8484848484848485,
+"step": 84
+},
+"GRAD_DUP_085": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.8585858585858586,
+"step": 85
+},
+"GRAD_DUP_086": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.8686868686868687,
+"step": 86
+},
+"GRAD_DUP_087": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.8787878787878788,
+"step": 87
+},
+"GRAD_DUP_088": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.8888888888888888,
+"step": 88
+},
+"GRAD_DUP_089": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.898989898989899,
+"step": 89
+},
+"GRAD_DUP_090": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.9090909090909091,
+"step": 90
+},
+"GRAD_DUP_091": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.9191919191919192,
+"step": 91
+},
+"GRAD_DUP_092": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.9292929292929293,
+"step": 92
+},
+"GRAD_DUP_093": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.9393939393939394,
+"step": 93
+},
+"GRAD_DUP_094": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.9494949494949495,
+"step": 94
+},
+"GRAD_DUP_095": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.9595959595959596,
+"step": 95
+},
+"GRAD_DUP_096": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.9696969696969697,
+"step": 96
+},
+"GRAD_DUP_097": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.9797979797979798,
+"step": 97
+},
+"GRAD_DUP_098": {
+"grid": "DUP",
+"param": "dup",
+"value": 0.98989898989899,
+"step": 98
+},
+"GRAD_DUP_099": {
+"grid": "DUP",
+"param": "dup",
+"value": 1.0,
+"step": 99
+},
+"GRAD_DELSHARED_000": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.0,
+"step": 0
+},
+"GRAD_DELSHARED_001": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.00808080808080808,
+"step": 1
+},
+"GRAD_DELSHARED_002": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.01616161616161616,
+"step": 2
+},
+"GRAD_DELSHARED_003": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.024242424242424246,
+"step": 3
+},
+"GRAD_DELSHARED_004": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.03232323232323232,
+"step": 4
+},
+"GRAD_DELSHARED_005": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.04040404040404041,
+"step": 5
+},
+"GRAD_DELSHARED_006": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.04848484848484849,
+"step": 6
+},
+"GRAD_DELSHARED_007": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.05656565656565657,
+"step": 7
+},
+"GRAD_DELSHARED_008": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.06464646464646465,
+"step": 8
+},
+"GRAD_DELSHARED_009": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.07272727272727272,
+"step": 9
+},
+"GRAD_DELSHARED_010": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.08080808080808081,
+"step": 10
+},
+"GRAD_DELSHARED_011": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.08888888888888889,
+"step": 11
+},
+"GRAD_DELSHARED_012": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.09696969696969698,
+"step": 12
+},
+"GRAD_DELSHARED_013": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.10505050505050506,
+"step": 13
+},
+"GRAD_DELSHARED_014": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.11313131313131314,
+"step": 14
+},
+"GRAD_DELSHARED_015": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.12121212121212122,
+"step": 15
+},
+"GRAD_DELSHARED_016": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.1292929292929293,
+"step": 16
+},
+"GRAD_DELSHARED_017": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.1373737373737374,
+"step": 17
+},
+"GRAD_DELSHARED_018": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.14545454545454545,
+"step": 18
+},
+"GRAD_DELSHARED_019": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.15353535353535355,
+"step": 19
+},
+"GRAD_DELSHARED_020": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.16161616161616163,
+"step": 20
+},
+"GRAD_DELSHARED_021": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.1696969696969697,
+"step": 21
+},
+"GRAD_DELSHARED_022": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.17777777777777778,
+"step": 22
+},
+"GRAD_DELSHARED_023": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.1858585858585859,
+"step": 23
+},
+"GRAD_DELSHARED_024": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.19393939393939397,
+"step": 24
+},
+"GRAD_DELSHARED_025": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.20202020202020202,
+"step": 25
+},
+"GRAD_DELSHARED_026": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.21010101010101012,
+"step": 26
+},
+"GRAD_DELSHARED_027": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.2181818181818182,
+"step": 27
+},
+"GRAD_DELSHARED_028": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.22626262626262628,
+"step": 28
+},
+"GRAD_DELSHARED_029": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.23434343434343438,
+"step": 29
+},
+"GRAD_DELSHARED_030": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.24242424242424243,
+"step": 30
+},
+"GRAD_DELSHARED_031": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.2505050505050505,
+"step": 31
+},
+"GRAD_DELSHARED_032": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.2585858585858586,
+"step": 32
+},
+"GRAD_DELSHARED_033": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.26666666666666666,
+"step": 33
+},
+"GRAD_DELSHARED_034": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.2747474747474748,
+"step": 34
+},
+"GRAD_DELSHARED_035": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.2828282828282828,
+"step": 35
+},
+"GRAD_DELSHARED_036": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.2909090909090909,
+"step": 36
+},
+"GRAD_DELSHARED_037": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.29898989898989903,
+"step": 37
+},
+"GRAD_DELSHARED_038": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.3070707070707071,
+"step": 38
+},
+"GRAD_DELSHARED_039": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.3151515151515152,
+"step": 39
+},
+"GRAD_DELSHARED_040": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.32323232323232326,
+"step": 40
+},
+"GRAD_DELSHARED_041": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.33131313131313134,
+"step": 41
+},
+"GRAD_DELSHARED_042": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.3393939393939394,
+"step": 42
+},
+"GRAD_DELSHARED_043": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.34747474747474744,
+"step": 43
+},
+"GRAD_DELSHARED_044": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.35555555555555557,
+"step": 44
+},
+"GRAD_DELSHARED_045": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.36363636363636365,
+"step": 45
+},
+"GRAD_DELSHARED_046": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.3717171717171718,
+"step": 46
+},
+"GRAD_DELSHARED_047": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.3797979797979798,
+"step": 47
+},
+"GRAD_DELSHARED_048": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.38787878787878793,
+"step": 48
+},
+"GRAD_DELSHARED_049": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.395959595959596,
+"step": 49
+},
+"GRAD_DELSHARED_050": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.40404040404040403,
+"step": 50
+},
+"GRAD_DELSHARED_051": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.41212121212121217,
+"step": 51
+},
+"GRAD_DELSHARED_052": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.42020202020202024,
+"step": 52
+},
+"GRAD_DELSHARED_053": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.4282828282828283,
+"step": 53
+},
+"GRAD_DELSHARED_054": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.4363636363636364,
+"step": 54
+},
+"GRAD_DELSHARED_055": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.4444444444444444,
+"step": 55
+},
+"GRAD_DELSHARED_056": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.45252525252525255,
+"step": 56
+},
+"GRAD_DELSHARED_057": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.46060606060606063,
+"step": 57
+},
+"GRAD_DELSHARED_058": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.46868686868686876,
+"step": 58
+},
+"GRAD_DELSHARED_059": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.4767676767676768,
+"step": 59
+},
+"GRAD_DELSHARED_060": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.48484848484848486,
+"step": 60
+},
+"GRAD_DELSHARED_061": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.492929292929293,
+"step": 61
+},
+"GRAD_DELSHARED_062": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.501010101010101,
+"step": 62
+},
+"GRAD_DELSHARED_063": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.5090909090909091,
+"step": 63
+},
+"GRAD_DELSHARED_064": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.5171717171717172,
+"step": 64
+},
+"GRAD_DELSHARED_065": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.5252525252525253,
+"step": 65
+},
+"GRAD_DELSHARED_066": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.5333333333333333,
+"step": 66
+},
+"GRAD_DELSHARED_067": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.5414141414141415,
+"step": 67
+},
+"GRAD_DELSHARED_068": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.5494949494949496,
+"step": 68
+},
+"GRAD_DELSHARED_069": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.5575757575757576,
+"step": 69
+},
+"GRAD_DELSHARED_070": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.5656565656565656,
+"step": 70
+},
+"GRAD_DELSHARED_071": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.5737373737373738,
+"step": 71
+},
+"GRAD_DELSHARED_072": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.5818181818181818,
+"step": 72
+},
+"GRAD_DELSHARED_073": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.5898989898989899,
+"step": 73
+},
+"GRAD_DELSHARED_074": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.5979797979797981,
+"step": 74
+},
+"GRAD_DELSHARED_075": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.6060606060606061,
+"step": 75
+},
+"GRAD_DELSHARED_076": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.6141414141414142,
+"step": 76
+},
+"GRAD_DELSHARED_077": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.6222222222222222,
+"step": 77
+},
+"GRAD_DELSHARED_078": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.6303030303030304,
+"step": 78
+},
+"GRAD_DELSHARED_079": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.6383838383838384,
+"step": 79
+},
+"GRAD_DELSHARED_080": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.6464646464646465,
+"step": 80
+},
+"GRAD_DELSHARED_081": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.6545454545454545,
+"step": 81
+},
+"GRAD_DELSHARED_082": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.6626262626262627,
+"step": 82
+},
+"GRAD_DELSHARED_083": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.6707070707070708,
+"step": 83
+},
+"GRAD_DELSHARED_084": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.6787878787878788,
+"step": 84
+},
+"GRAD_DELSHARED_085": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.6868686868686869,
+"step": 85
+},
+"GRAD_DELSHARED_086": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.6949494949494949,
+"step": 86
+},
+"GRAD_DELSHARED_087": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.7030303030303031,
+"step": 87
+},
+"GRAD_DELSHARED_088": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.7111111111111111,
+"step": 88
+},
+"GRAD_DELSHARED_089": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.7191919191919193,
+"step": 89
+},
+"GRAD_DELSHARED_090": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.7272727272727273,
+"step": 90
+},
+"GRAD_DELSHARED_091": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.7353535353535353,
+"step": 91
+},
+"GRAD_DELSHARED_092": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.7434343434343436,
+"step": 92
+},
+"GRAD_DELSHARED_093": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.7515151515151516,
+"step": 93
+},
+"GRAD_DELSHARED_094": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.7595959595959596,
+"step": 94
+},
+"GRAD_DELSHARED_095": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.7676767676767676,
+"step": 95
+},
+"GRAD_DELSHARED_096": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.7757575757575759,
+"step": 96
+},
+"GRAD_DELSHARED_097": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.7838383838383839,
+"step": 97
+},
+"GRAD_DELSHARED_098": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.791919191919192,
+"step": 98
+},
+"GRAD_DELSHARED_099": {
+"grid": "DELSHARED",
+"param": "delshared",
+"value": 0.8,
+"step": 99
+},
+"GRAD_DELCOPY_000": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.0,
+"step": 0
+},
+"GRAD_DELCOPY_001": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.00808080808080808,
+"step": 1
+},
+"GRAD_DELCOPY_002": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.01616161616161616,
+"step": 2
+},
+"GRAD_DELCOPY_003": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.024242424242424246,
+"step": 3
+},
+"GRAD_DELCOPY_004": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.03232323232323232,
+"step": 4
+},
+"GRAD_DELCOPY_005": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.04040404040404041,
+"step": 5
+},
+"GRAD_DELCOPY_006": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.04848484848484849,
+"step": 6
+},
+"GRAD_DELCOPY_007": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.05656565656565657,
+"step": 7
+},
+"GRAD_DELCOPY_008": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.06464646464646465,
+"step": 8
+},
+"GRAD_DELCOPY_009": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.07272727272727272,
+"step": 9
+},
+"GRAD_DELCOPY_010": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.08080808080808081,
+"step": 10
+},
+"GRAD_DELCOPY_011": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.08888888888888889,
+"step": 11
+},
+"GRAD_DELCOPY_012": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.09696969696969698,
+"step": 12
+},
+"GRAD_DELCOPY_013": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.10505050505050506,
+"step": 13
+},
+"GRAD_DELCOPY_014": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.11313131313131314,
+"step": 14
+},
+"GRAD_DELCOPY_015": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.12121212121212122,
+"step": 15
+},
+"GRAD_DELCOPY_016": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.1292929292929293,
+"step": 16
+},
+"GRAD_DELCOPY_017": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.1373737373737374,
+"step": 17
+},
+"GRAD_DELCOPY_018": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.14545454545454545,
+"step": 18
+},
+"GRAD_DELCOPY_019": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.15353535353535355,
+"step": 19
+},
+"GRAD_DELCOPY_020": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.16161616161616163,
+"step": 20
+},
+"GRAD_DELCOPY_021": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.1696969696969697,
+"step": 21
+},
+"GRAD_DELCOPY_022": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.17777777777777778,
+"step": 22
+},
+"GRAD_DELCOPY_023": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.1858585858585859,
+"step": 23
+},
+"GRAD_DELCOPY_024": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.19393939393939397,
+"step": 24
+},
+"GRAD_DELCOPY_025": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.20202020202020202,
+"step": 25
+},
+"GRAD_DELCOPY_026": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.21010101010101012,
+"step": 26
+},
+"GRAD_DELCOPY_027": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.2181818181818182,
+"step": 27
+},
+"GRAD_DELCOPY_028": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.22626262626262628,
+"step": 28
+},
+"GRAD_DELCOPY_029": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.23434343434343438,
+"step": 29
+},
+"GRAD_DELCOPY_030": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.24242424242424243,
+"step": 30
+},
+"GRAD_DELCOPY_031": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.2505050505050505,
+"step": 31
+},
+"GRAD_DELCOPY_032": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.2585858585858586,
+"step": 32
+},
+"GRAD_DELCOPY_033": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.26666666666666666,
+"step": 33
+},
+"GRAD_DELCOPY_034": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.2747474747474748,
+"step": 34
+},
+"GRAD_DELCOPY_035": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.2828282828282828,
+"step": 35
+},
+"GRAD_DELCOPY_036": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.2909090909090909,
+"step": 36
+},
+"GRAD_DELCOPY_037": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.29898989898989903,
+"step": 37
+},
+"GRAD_DELCOPY_038": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.3070707070707071,
+"step": 38
+},
+"GRAD_DELCOPY_039": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.3151515151515152,
+"step": 39
+},
+"GRAD_DELCOPY_040": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.32323232323232326,
+"step": 40
+},
+"GRAD_DELCOPY_041": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.33131313131313134,
+"step": 41
+},
+"GRAD_DELCOPY_042": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.3393939393939394,
+"step": 42
+},
+"GRAD_DELCOPY_043": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.34747474747474744,
+"step": 43
+},
+"GRAD_DELCOPY_044": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.35555555555555557,
+"step": 44
+},
+"GRAD_DELCOPY_045": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.36363636363636365,
+"step": 45
+},
+"GRAD_DELCOPY_046": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.3717171717171718,
+"step": 46
+},
+"GRAD_DELCOPY_047": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.3797979797979798,
+"step": 47
+},
+"GRAD_DELCOPY_048": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.38787878787878793,
+"step": 48
+},
+"GRAD_DELCOPY_049": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.395959595959596,
+"step": 49
+},
+"GRAD_DELCOPY_050": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.40404040404040403,
+"step": 50
+},
+"GRAD_DELCOPY_051": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.41212121212121217,
+"step": 51
+},
+"GRAD_DELCOPY_052": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.42020202020202024,
+"step": 52
+},
+"GRAD_DELCOPY_053": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.4282828282828283,
+"step": 53
+},
+"GRAD_DELCOPY_054": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.4363636363636364,
+"step": 54
+},
+"GRAD_DELCOPY_055": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.4444444444444444,
+"step": 55
+},
+"GRAD_DELCOPY_056": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.45252525252525255,
+"step": 56
+},
+"GRAD_DELCOPY_057": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.46060606060606063,
+"step": 57
+},
+"GRAD_DELCOPY_058": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.46868686868686876,
+"step": 58
+},
+"GRAD_DELCOPY_059": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.4767676767676768,
+"step": 59
+},
+"GRAD_DELCOPY_060": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.48484848484848486,
+"step": 60
+},
+"GRAD_DELCOPY_061": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.492929292929293,
+"step": 61
+},
+"GRAD_DELCOPY_062": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.501010101010101,
+"step": 62
+},
+"GRAD_DELCOPY_063": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.5090909090909091,
+"step": 63
+},
+"GRAD_DELCOPY_064": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.5171717171717172,
+"step": 64
+},
+"GRAD_DELCOPY_065": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.5252525252525253,
+"step": 65
+},
+"GRAD_DELCOPY_066": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.5333333333333333,
+"step": 66
+},
+"GRAD_DELCOPY_067": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.5414141414141415,
+"step": 67
+},
+"GRAD_DELCOPY_068": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.5494949494949496,
+"step": 68
+},
+"GRAD_DELCOPY_069": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.5575757575757576,
+"step": 69
+},
+"GRAD_DELCOPY_070": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.5656565656565656,
+"step": 70
+},
+"GRAD_DELCOPY_071": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.5737373737373738,
+"step": 71
+},
+"GRAD_DELCOPY_072": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.5818181818181818,
+"step": 72
+},
+"GRAD_DELCOPY_073": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.5898989898989899,
+"step": 73
+},
+"GRAD_DELCOPY_074": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.5979797979797981,
+"step": 74
+},
+"GRAD_DELCOPY_075": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.6060606060606061,
+"step": 75
+},
+"GRAD_DELCOPY_076": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.6141414141414142,
+"step": 76
+},
+"GRAD_DELCOPY_077": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.6222222222222222,
+"step": 77
+},
+"GRAD_DELCOPY_078": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.6303030303030304,
+"step": 78
+},
+"GRAD_DELCOPY_079": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.6383838383838384,
+"step": 79
+},
+"GRAD_DELCOPY_080": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.6464646464646465,
+"step": 80
+},
+"GRAD_DELCOPY_081": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.6545454545454545,
+"step": 81
+},
+"GRAD_DELCOPY_082": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.6626262626262627,
+"step": 82
+},
+"GRAD_DELCOPY_083": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.6707070707070708,
+"step": 83
+},
+"GRAD_DELCOPY_084": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.6787878787878788,
+"step": 84
+},
+"GRAD_DELCOPY_085": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.6868686868686869,
+"step": 85
+},
+"GRAD_DELCOPY_086": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.6949494949494949,
+"step": 86
+},
+"GRAD_DELCOPY_087": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.7030303030303031,
+"step": 87
+},
+"GRAD_DELCOPY_088": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.7111111111111111,
+"step": 88
+},
+"GRAD_DELCOPY_089": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.7191919191919193,
+"step": 89
+},
+"GRAD_DELCOPY_090": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.7272727272727273,
+"step": 90
+},
+"GRAD_DELCOPY_091": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.7353535353535353,
+"step": 91
+},
+"GRAD_DELCOPY_092": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.7434343434343436,
+"step": 92
+},
+"GRAD_DELCOPY_093": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.7515151515151516,
+"step": 93
+},
+"GRAD_DELCOPY_094": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.7595959595959596,
+"step": 94
+},
+"GRAD_DELCOPY_095": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.7676767676767676,
+"step": 95
+},
+"GRAD_DELCOPY_096": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.7757575757575759,
+"step": 96
+},
+"GRAD_DELCOPY_097": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.7838383838383839,
+"step": 97
+},
+"GRAD_DELCOPY_098": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.791919191919192,
+"step": 98
+},
+"GRAD_DELCOPY_099": {
+"grid": "DELCOPY",
+"param": "delcopy",
+"value": 0.8,
+"step": 99
+},
+"GRAD_NEST_000": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.0,
+"step": 0
+},
+"GRAD_NEST_001": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.00808080808080808,
+"step": 1
+},
+"GRAD_NEST_002": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.01616161616161616,
+"step": 2
+},
+"GRAD_NEST_003": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.024242424242424246,
+"step": 3
+},
+"GRAD_NEST_004": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.03232323232323232,
+"step": 4
+},
+"GRAD_NEST_005": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.04040404040404041,
+"step": 5
+},
+"GRAD_NEST_006": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.04848484848484849,
+"step": 6
+},
+"GRAD_NEST_007": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.05656565656565657,
+"step": 7
+},
+"GRAD_NEST_008": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.06464646464646465,
+"step": 8
+},
+"GRAD_NEST_009": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.07272727272727272,
+"step": 9
+},
+"GRAD_NEST_010": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.08080808080808081,
+"step": 10
+},
+"GRAD_NEST_011": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.08888888888888889,
+"step": 11
+},
+"GRAD_NEST_012": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.09696969696969698,
+"step": 12
+},
+"GRAD_NEST_013": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.10505050505050506,
+"step": 13
+},
+"GRAD_NEST_014": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.11313131313131314,
+"step": 14
+},
+"GRAD_NEST_015": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.12121212121212122,
+"step": 15
+},
+"GRAD_NEST_016": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.1292929292929293,
+"step": 16
+},
+"GRAD_NEST_017": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.1373737373737374,
+"step": 17
+},
+"GRAD_NEST_018": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.14545454545454545,
+"step": 18
+},
+"GRAD_NEST_019": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.15353535353535355,
+"step": 19
+},
+"GRAD_NEST_020": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.16161616161616163,
+"step": 20
+},
+"GRAD_NEST_021": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.1696969696969697,
+"step": 21
+},
+"GRAD_NEST_022": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.17777777777777778,
+"step": 22
+},
+"GRAD_NEST_023": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.1858585858585859,
+"step": 23
+},
+"GRAD_NEST_024": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.19393939393939397,
+"step": 24
+},
+"GRAD_NEST_025": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.20202020202020202,
+"step": 25
+},
+"GRAD_NEST_026": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.21010101010101012,
+"step": 26
+},
+"GRAD_NEST_027": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.2181818181818182,
+"step": 27
+},
+"GRAD_NEST_028": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.22626262626262628,
+"step": 28
+},
+"GRAD_NEST_029": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.23434343434343438,
+"step": 29
+},
+"GRAD_NEST_030": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.24242424242424243,
+"step": 30
+},
+"GRAD_NEST_031": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.2505050505050505,
+"step": 31
+},
+"GRAD_NEST_032": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.2585858585858586,
+"step": 32
+},
+"GRAD_NEST_033": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.26666666666666666,
+"step": 33
+},
+"GRAD_NEST_034": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.2747474747474748,
+"step": 34
+},
+"GRAD_NEST_035": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.2828282828282828,
+"step": 35
+},
+"GRAD_NEST_036": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.2909090909090909,
+"step": 36
+},
+"GRAD_NEST_037": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.29898989898989903,
+"step": 37
+},
+"GRAD_NEST_038": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.3070707070707071,
+"step": 38
+},
+"GRAD_NEST_039": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.3151515151515152,
+"step": 39
+},
+"GRAD_NEST_040": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.32323232323232326,
+"step": 40
+},
+"GRAD_NEST_041": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.33131313131313134,
+"step": 41
+},
+"GRAD_NEST_042": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.3393939393939394,
+"step": 42
+},
+"GRAD_NEST_043": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.34747474747474744,
+"step": 43
+},
+"GRAD_NEST_044": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.35555555555555557,
+"step": 44
+},
+"GRAD_NEST_045": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.36363636363636365,
+"step": 45
+},
+"GRAD_NEST_046": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.3717171717171718,
+"step": 46
+},
+"GRAD_NEST_047": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.3797979797979798,
+"step": 47
+},
+"GRAD_NEST_048": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.38787878787878793,
+"step": 48
+},
+"GRAD_NEST_049": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.395959595959596,
+"step": 49
+},
+"GRAD_NEST_050": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.40404040404040403,
+"step": 50
+},
+"GRAD_NEST_051": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.41212121212121217,
+"step": 51
+},
+"GRAD_NEST_052": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.42020202020202024,
+"step": 52
+},
+"GRAD_NEST_053": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.4282828282828283,
+"step": 53
+},
+"GRAD_NEST_054": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.4363636363636364,
+"step": 54
+},
+"GRAD_NEST_055": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.4444444444444444,
+"step": 55
+},
+"GRAD_NEST_056": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.45252525252525255,
+"step": 56
+},
+"GRAD_NEST_057": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.46060606060606063,
+"step": 57
+},
+"GRAD_NEST_058": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.46868686868686876,
+"step": 58
+},
+"GRAD_NEST_059": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.4767676767676768,
+"step": 59
+},
+"GRAD_NEST_060": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.48484848484848486,
+"step": 60
+},
+"GRAD_NEST_061": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.492929292929293,
+"step": 61
+},
+"GRAD_NEST_062": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.501010101010101,
+"step": 62
+},
+"GRAD_NEST_063": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.5090909090909091,
+"step": 63
+},
+"GRAD_NEST_064": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.5171717171717172,
+"step": 64
+},
+"GRAD_NEST_065": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.5252525252525253,
+"step": 65
+},
+"GRAD_NEST_066": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.5333333333333333,
+"step": 66
+},
+"GRAD_NEST_067": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.5414141414141415,
+"step": 67
+},
+"GRAD_NEST_068": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.5494949494949496,
+"step": 68
+},
+"GRAD_NEST_069": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.5575757575757576,
+"step": 69
+},
+"GRAD_NEST_070": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.5656565656565656,
+"step": 70
+},
+"GRAD_NEST_071": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.5737373737373738,
+"step": 71
+},
+"GRAD_NEST_072": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.5818181818181818,
+"step": 72
+},
+"GRAD_NEST_073": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.5898989898989899,
+"step": 73
+},
+"GRAD_NEST_074": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.5979797979797981,
+"step": 74
+},
+"GRAD_NEST_075": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.6060606060606061,
+"step": 75
+},
+"GRAD_NEST_076": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.6141414141414142,
+"step": 76
+},
+"GRAD_NEST_077": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.6222222222222222,
+"step": 77
+},
+"GRAD_NEST_078": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.6303030303030304,
+"step": 78
+},
+"GRAD_NEST_079": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.6383838383838384,
+"step": 79
+},
+"GRAD_NEST_080": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.6464646464646465,
+"step": 80
+},
+"GRAD_NEST_081": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.6545454545454545,
+"step": 81
+},
+"GRAD_NEST_082": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.6626262626262627,
+"step": 82
+},
+"GRAD_NEST_083": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.6707070707070708,
+"step": 83
+},
+"GRAD_NEST_084": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.6787878787878788,
+"step": 84
+},
+"GRAD_NEST_085": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.6868686868686869,
+"step": 85
+},
+"GRAD_NEST_086": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.6949494949494949,
+"step": 86
+},
+"GRAD_NEST_087": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.7030303030303031,
+"step": 87
+},
+"GRAD_NEST_088": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.7111111111111111,
+"step": 88
+},
+"GRAD_NEST_089": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.7191919191919193,
+"step": 89
+},
+"GRAD_NEST_090": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.7272727272727273,
+"step": 90
+},
+"GRAD_NEST_091": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.7353535353535353,
+"step": 91
+},
+"GRAD_NEST_092": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.7434343434343436,
+"step": 92
+},
+"GRAD_NEST_093": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.7515151515151516,
+"step": 93
+},
+"GRAD_NEST_094": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.7595959595959596,
+"step": 94
+},
+"GRAD_NEST_095": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.7676767676767676,
+"step": 95
+},
+"GRAD_NEST_096": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.7757575757575759,
+"step": 96
+},
+"GRAD_NEST_097": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.7838383838383839,
+"step": 97
+},
+"GRAD_NEST_098": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.791919191919192,
+"step": 98
+},
+"GRAD_NEST_099": {
+"grid": "NEST",
+"param": "nest",
+"value": 0.8,
+"step": 99
+},
+"GRAD_TSD_000": {
+"grid": "TSD",
+"param": "tsd",
+"value": 0,
+"step": 0
+},
+"GRAD_TSD_001": {
+"grid": "TSD",
+"param": "tsd",
+"value": 0,
+"step": 1
+},
+"GRAD_TSD_002": {
+"grid": "TSD",
+"param": "tsd",
+"value": 0,
+"step": 2
+},
+"GRAD_TSD_003": {
+"grid": "TSD",
+"param": "tsd",
+"value": 1,
+"step": 3
+},
+"GRAD_TSD_004": {
+"grid": "TSD",
+"param": "tsd",
+"value": 1,
+"step": 4
+},
+"GRAD_TSD_005": {
+"grid": "TSD",
+"param": "tsd",
+"value": 1,
+"step": 5
+},
+"GRAD_TSD_006": {
+"grid": "TSD",
+"param": "tsd",
+"value": 1,
+"step": 6
+},
+"GRAD_TSD_007": {
+"grid": "TSD",
+"param": "tsd",
+"value": 2,
+"step": 7
+},
+"GRAD_TSD_008": {
+"grid": "TSD",
+"param": "tsd",
+"value": 2,
+"step": 8
+},
+"GRAD_TSD_009": {
+"grid": "TSD",
+"param": "tsd",
+"value": 2,
+"step": 9
+},
+"GRAD_TSD_010": {
+"grid": "TSD",
+"param": "tsd",
+"value": 2,
+"step": 10
+},
+"GRAD_TSD_011": {
+"grid": "TSD",
+"param": "tsd",
+"value": 2,
+"step": 11
+},
+"GRAD_TSD_012": {
+"grid": "TSD",
+"param": "tsd",
+"value": 3,
+"step": 12
+},
+"GRAD_TSD_013": {
+"grid": "TSD",
+"param": "tsd",
+"value": 3,
+"step": 13
+},
+"GRAD_TSD_014": {
+"grid": "TSD",
+"param": "tsd",
+"value": 3,
+"step": 14
+},
+"GRAD_TSD_015": {
+"grid": "TSD",
+"param": "tsd",
+"value": 3,
+"step": 15
+},
+"GRAD_TSD_016": {
+"grid": "TSD",
+"param": "tsd",
+"value": 4,
+"step": 16
+},
+"GRAD_TSD_017": {
+"grid": "TSD",
+"param": "tsd",
+"value": 4,
+"step": 17
+},
+"GRAD_TSD_018": {
+"grid": "TSD",
+"param": "tsd",
+"value": 4,
+"step": 18
+},
+"GRAD_TSD_019": {
+"grid": "TSD",
+"param": "tsd",
+"value": 4,
+"step": 19
+},
+"GRAD_TSD_020": {
+"grid": "TSD",
+"param": "tsd",
+"value": 4,
+"step": 20
+},
+"GRAD_TSD_021": {
+"grid": "TSD",
+"param": "tsd",
+"value": 5,
+"step": 21
+},
+"GRAD_TSD_022": {
+"grid": "TSD",
+"param": "tsd",
+"value": 5,
+"step": 22
+},
+"GRAD_TSD_023": {
+"grid": "TSD",
+"param": "tsd",
+"value": 5,
+"step": 23
+},
+"GRAD_TSD_024": {
+"grid": "TSD",
+"param": "tsd",
+"value": 5,
+"step": 24
+},
+"GRAD_TSD_025": {
+"grid": "TSD",
+"param": "tsd",
+"value": 6,
+"step": 25
+},
+"GRAD_TSD_026": {
+"grid": "TSD",
+"param": "tsd",
+"value": 6,
+"step": 26
+},
+"GRAD_TSD_027": {
+"grid": "TSD",
+"param": "tsd",
+"value": 6,
+"step": 27
+},
+"GRAD_TSD_028": {
+"grid": "TSD",
+"param": "tsd",
+"value": 6,
+"step": 28
+},
+"GRAD_TSD_029": {
+"grid": "TSD",
+"param": "tsd",
+"value": 6,
+"step": 29
+},
+"GRAD_TSD_030": {
+"grid": "TSD",
+"param": "tsd",
+"value": 7,
+"step": 30
+},
+"GRAD_TSD_031": {
+"grid": "TSD",
+"param": "tsd",
+"value": 7,
+"step": 31
+},
+"GRAD_TSD_032": {
+"grid": "TSD",
+"param": "tsd",
+"value": 7,
+"step": 32
+},
+"GRAD_TSD_033": {
+"grid": "TSD",
+"param": "tsd",
+"value": 7,
+"step": 33
+},
+"GRAD_TSD_034": {
+"grid": "TSD",
+"param": "tsd",
+"value": 8,
+"step": 34
+},
+"GRAD_TSD_035": {
+"grid": "TSD",
+"param": "tsd",
+"value": 8,
+"step": 35
+},
+"GRAD_TSD_036": {
+"grid": "TSD",
+"param": "tsd",
+"value": 8,
+"step": 36
+},
+"GRAD_TSD_037": {
+"grid": "TSD",
+"param": "tsd",
+"value": 8,
+"step": 37
+},
+"GRAD_TSD_038": {
+"grid": "TSD",
+"param": "tsd",
+"value": 8,
+"step": 38
+},
+"GRAD_TSD_039": {
+"grid": "TSD",
+"param": "tsd",
+"value": 9,
+"step": 39
+},
+"GRAD_TSD_040": {
+"grid": "TSD",
+"param": "tsd",
+"value": 9,
+"step": 40
+},
+"GRAD_TSD_041": {
+"grid": "TSD",
+"param": "tsd",
+"value": 9,
+"step": 41
+},
+"GRAD_TSD_042": {
+"grid": "TSD",
+"param": "tsd",
+"value": 9,
+"step": 42
+},
+"GRAD_TSD_043": {
+"grid": "TSD",
+"param": "tsd",
+"value": 10,
+"step": 43
+},
+"GRAD_TSD_044": {
+"grid": "TSD",
+"param": "tsd",
+"value": 10,
+"step": 44
+},
+"GRAD_TSD_045": {
+"grid": "TSD",
+"param": "tsd",
+"value": 10,
+"step": 45
+},
+"GRAD_TSD_046": {
+"grid": "TSD",
+"param": "tsd",
+"value": 10,
+"step": 46
+},
+"GRAD_TSD_047": {
+"grid": "TSD",
+"param": "tsd",
+"value": 10,
+"step": 47
+},
+"GRAD_TSD_048": {
+"grid": "TSD",
+"param": "tsd",
+"value": 11,
+"step": 48
+},
+"GRAD_TSD_049": {
+"grid": "TSD",
+"param": "tsd",
+"value": 11,
+"step": 49
+},
+"GRAD_TSD_050": {
+"grid": "TSD",
+"param": "tsd",
+"value": 11,
+"step": 50
+},
+"GRAD_TSD_051": {
+"grid": "TSD",
+"param": "tsd",
+"value": 11,
+"step": 51
+},
+"GRAD_TSD_052": {
+"grid": "TSD",
+"param": "tsd",
+"value": 12,
+"step": 52
+},
+"GRAD_TSD_053": {
+"grid": "TSD",
+"param": "tsd",
+"value": 12,
+"step": 53
+},
+"GRAD_TSD_054": {
+"grid": "TSD",
+"param": "tsd",
+"value": 12,
+"step": 54
+},
+"GRAD_TSD_055": {
+"grid": "TSD",
+"param": "tsd",
+"value": 12,
+"step": 55
+},
+"GRAD_TSD_056": {
+"grid": "TSD",
+"param": "tsd",
+"value": 12,
+"step": 56
+},
+"GRAD_TSD_057": {
+"grid": "TSD",
+"param": "tsd",
+"value": 13,
+"step": 57
+},
+"GRAD_TSD_058": {
+"grid": "TSD",
+"param": "tsd",
+"value": 13,
+"step": 58
+},
+"GRAD_TSD_059": {
+"grid": "TSD",
+"param": "tsd",
+"value": 13,
+"step": 59
+},
+"GRAD_TSD_060": {
+"grid": "TSD",
+"param": "tsd",
+"value": 13,
+"step": 60
+},
+"GRAD_TSD_061": {
+"grid": "TSD",
+"param": "tsd",
+"value": 14,
+"step": 61
+},
+"GRAD_TSD_062": {
+"grid": "TSD",
+"param": "tsd",
+"value": 14,
+"step": 62
+},
+"GRAD_TSD_063": {
+"grid": "TSD",
+"param": "tsd",
+"value": 14,
+"step": 63
+},
+"GRAD_TSD_064": {
+"grid": "TSD",
+"param": "tsd",
+"value": 14,
+"step": 64
+},
+"GRAD_TSD_065": {
+"grid": "TSD",
+"param": "tsd",
+"value": 14,
+"step": 65
+},
+"GRAD_TSD_066": {
+"grid": "TSD",
+"param": "tsd",
+"value": 15,
+"step": 66
+},
+"GRAD_TSD_067": {
+"grid": "TSD",
+"param": "tsd",
+"value": 15,
+"step": 67
+},
+"GRAD_TSD_068": {
+"grid": "TSD",
+"param": "tsd",
+"value": 15,
+"step": 68
+},
+"GRAD_TSD_069": {
+"grid": "TSD",
+"param": "tsd",
+"value": 15,
+"step": 69
+},
+"GRAD_TSD_070": {
+"grid": "TSD",
+"param": "tsd",
+"value": 16,
+"step": 70
+},
+"GRAD_TSD_071": {
+"grid": "TSD",
+"param": "tsd",
+"value": 16,
+"step": 71
+},
+"GRAD_TSD_072": {
+"grid": "TSD",
+"param": "tsd",
+"value": 16,
+"step": 72
+},
+"GRAD_TSD_073": {
+"grid": "TSD",
+"param": "tsd",
+"value": 16,
+"step": 73
+},
+"GRAD_TSD_074": {
+"grid": "TSD",
+"param": "tsd",
+"value": 16,
+"step": 74
+},
+"GRAD_TSD_075": {
+"grid": "TSD",
+"param": "tsd",
+"value": 17,
+"step": 75
+},
+"GRAD_TSD_076": {
+"grid": "TSD",
+"param": "tsd",
+"value": 17,
+"step": 76
+},
+"GRAD_TSD_077": {
+"grid": "TSD",
+"param": "tsd",
+"value": 17,
+"step": 77
+},
+"GRAD_TSD_078": {
+"grid": "TSD",
+"param": "tsd",
+"value": 17,
+"step": 78
+},
+"GRAD_TSD_079": {
+"grid": "TSD",
+"param": "tsd",
+"value": 18,
+"step": 79
+},
+"GRAD_TSD_080": {
+"grid": "TSD",
+"param": "tsd",
+"value": 18,
+"step": 80
+},
+"GRAD_TSD_081": {
+"grid": "TSD",
+"param": "tsd",
+"value": 18,
+"step": 81
+},
+"GRAD_TSD_082": {
+"grid": "TSD",
+"param": "tsd",
+"value": 18,
+"step": 82
+},
+"GRAD_TSD_083": {
+"grid": "TSD",
+"param": "tsd",
+"value": 18,
+"step": 83
+},
+"GRAD_TSD_084": {
+"grid": "TSD",
+"param": "tsd",
+"value": 19,
+"step": 84
+},
+"GRAD_TSD_085": {
+"grid": "TSD",
+"param": "tsd",
+"value": 19,
+"step": 85
+},
+"GRAD_TSD_086": {
+"grid": "TSD",
+"param": "tsd",
+"value": 19,
+"step": 86
+},
+"GRAD_TSD_087": {
+"grid": "TSD",
+"param": "tsd",
+"value": 19,
+"step": 87
+},
+"GRAD_TSD_088": {
+"grid": "TSD",
+"param": "tsd",
+"value": 20,
+"step": 88
+},
+"GRAD_TSD_089": {
+"grid": "TSD",
+"param": "tsd",
+"value": 20,
+"step": 89
+},
+"GRAD_TSD_090": {
+"grid": "TSD",
+"param": "tsd",
+"value": 20,
+"step": 90
+},
+"GRAD_TSD_091": {
+"grid": "TSD",
+"param": "tsd",
+"value": 20,
+"step": 91
+},
+"GRAD_TSD_092": {
+"grid": "TSD",
+"param": "tsd",
+"value": 20,
+"step": 92
+},
+"GRAD_TSD_093": {
+"grid": "TSD",
+"param": "tsd",
+"value": 21,
+"step": 93
+},
+"GRAD_TSD_094": {
+"grid": "TSD",
+"param": "tsd",
+"value": 21,
+"step": 94
+},
+"GRAD_TSD_095": {
+"grid": "TSD",
+"param": "tsd",
+"value": 21,
+"step": 95
+},
+"GRAD_TSD_096": {
+"grid": "TSD",
+"param": "tsd",
+"value": 21,
+"step": 96
+},
+"GRAD_TSD_097": {
+"grid": "TSD",
+"param": "tsd",
+"value": 22,
+"step": 97
+},
+"GRAD_TSD_098": {
+"grid": "TSD",
+"param": "tsd",
+"value": 22,
+"step": 98
+},
+"GRAD_TSD_099": {
+"grid": "TSD",
+"param": "tsd",
+"value": 22,
+"step": 99
+},
+"GRAD_POLYA_000": {
+"grid": "POLYA",
+"param": "polya",
+"value": 0,
+"step": 0
+},
+"GRAD_POLYA_001": {
+"grid": "POLYA",
+"param": "polya",
+"value": 0,
+"step": 1
+},
+"GRAD_POLYA_002": {
+"grid": "POLYA",
+"param": "polya",
+"value": 1,
+"step": 2
+},
+"GRAD_POLYA_003": {
+"grid": "POLYA",
+"param": "polya",
+"value": 1,
+"step": 3
+},
+"GRAD_POLYA_004": {
+"grid": "POLYA",
+"param": "polya",
+"value": 2,
+"step": 4
+},
+"GRAD_POLYA_005": {
+"grid": "POLYA",
+"param": "polya",
+"value": 2,
+"step": 5
+},
+"GRAD_POLYA_006": {
+"grid": "POLYA",
+"param": "polya",
+"value": 2,
+"step": 6
+},
+"GRAD_POLYA_007": {
+"grid": "POLYA",
+"param": "polya",
+"value": 3,
+"step": 7
+},
+"GRAD_POLYA_008": {
+"grid": "POLYA",
+"param": "polya",
+"value": 3,
+"step": 8
+},
+"GRAD_POLYA_009": {
+"grid": "POLYA",
+"param": "polya",
+"value": 4,
+"step": 9
+},
+"GRAD_POLYA_010": {
+"grid": "POLYA",
+"param": "polya",
+"value": 4,
+"step": 10
+},
+"GRAD_POLYA_011": {
+"grid": "POLYA",
+"param": "polya",
+"value": 4,
+"step": 11
+},
+"GRAD_POLYA_012": {
+"grid": "POLYA",
+"param": "polya",
+"value": 5,
+"step": 12
+},
+"GRAD_POLYA_013": {
+"grid": "POLYA",
+"param": "polya",
+"value": 5,
+"step": 13
+},
+"GRAD_POLYA_014": {
+"grid": "POLYA",
+"param": "polya",
+"value": 6,
+"step": 14
+},
+"GRAD_POLYA_015": {
+"grid": "POLYA",
+"param": "polya",
+"value": 6,
+"step": 15
+},
+"GRAD_POLYA_016": {
+"grid": "POLYA",
+"param": "polya",
+"value": 6,
+"step": 16
+},
+"GRAD_POLYA_017": {
+"grid": "POLYA",
+"param": "polya",
+"value": 7,
+"step": 17
+},
+"GRAD_POLYA_018": {
+"grid": "POLYA",
+"param": "polya",
+"value": 7,
+"step": 18
+},
+"GRAD_POLYA_019": {
+"grid": "POLYA",
+"param": "polya",
+"value": 8,
+"step": 19
+},
+"GRAD_POLYA_020": {
+"grid": "POLYA",
+"param": "polya",
+"value": 8,
+"step": 20
+},
+"GRAD_POLYA_021": {
+"grid": "POLYA",
+"param": "polya",
+"value": 8,
+"step": 21
+},
+"GRAD_POLYA_022": {
+"grid": "POLYA",
+"param": "polya",
+"value": 9,
+"step": 22
+},
+"GRAD_POLYA_023": {
+"grid": "POLYA",
+"param": "polya",
+"value": 9,
+"step": 23
+},
+"GRAD_POLYA_024": {
+"grid": "POLYA",
+"param": "polya",
+"value": 10,
+"step": 24
+},
+"GRAD_POLYA_025": {
+"grid": "POLYA",
+"param": "polya",
+"value": 10,
+"step": 25
+},
+"GRAD_POLYA_026": {
+"grid": "POLYA",
+"param": "polya",
+"value": 11,
+"step": 26
+},
+"GRAD_POLYA_027": {
+"grid": "POLYA",
+"param": "polya",
+"value": 11,
+"step": 27
+},
+"GRAD_POLYA_028": {
+"grid": "POLYA",
+"param": "polya",
+"value": 11,
+"step": 28
+},
+"GRAD_POLYA_029": {
+"grid": "POLYA",
+"param": "polya",
+"value": 12,
+"step": 29
+},
+"GRAD_POLYA_030": {
+"grid": "POLYA",
+"param": "polya",
+"value": 12,
+"step": 30
+},
+"GRAD_POLYA_031": {
+"grid": "POLYA",
+"param": "polya",
+"value": 13,
+"step": 31
+},
+"GRAD_POLYA_032": {
+"grid": "POLYA",
+"param": "polya",
+"value": 13,
+"step": 32
+},
+"GRAD_POLYA_033": {
+"grid": "POLYA",
+"param": "polya",
+"value": 13,
+"step": 33
+},
+"GRAD_POLYA_034": {
+"grid": "POLYA",
+"param": "polya",
+"value": 14,
+"step": 34
+},
+"GRAD_POLYA_035": {
+"grid": "POLYA",
+"param": "polya",
+"value": 14,
+"step": 35
+},
+"GRAD_POLYA_036": {
+"grid": "POLYA",
+"param": "polya",
+"value": 15,
+"step": 36
+},
+"GRAD_POLYA_037": {
+"grid": "POLYA",
+"param": "polya",
+"value": 15,
+"step": 37
+},
+"GRAD_POLYA_038": {
+"grid": "POLYA",
+"param": "polya",
+"value": 15,
+"step": 38
+},
+"GRAD_POLYA_039": {
+"grid": "POLYA",
+"param": "polya",
+"value": 16,
+"step": 39
+},
+"GRAD_POLYA_040": {
+"grid": "POLYA",
+"param": "polya",
+"value": 16,
+"step": 40
+},
+"GRAD_POLYA_041": {
+"grid": "POLYA",
+"param": "polya",
+"value": 17,
+"step": 41
+},
+"GRAD_POLYA_042": {
+"grid": "POLYA",
+"param": "polya",
+"value": 17,
+"step": 42
+},
+"GRAD_POLYA_043": {
+"grid": "POLYA",
+"param": "polya",
+"value": 17,
+"step": 43
+},
+"GRAD_POLYA_044": {
+"grid": "POLYA",
+"param": "polya",
+"value": 18,
+"step": 44
+},
+"GRAD_POLYA_045": {
+"grid": "POLYA",
+"param": "polya",
+"value": 18,
+"step": 45
+},
+"GRAD_POLYA_046": {
+"grid": "POLYA",
+"param": "polya",
+"value": 19,
+"step": 46
+},
+"GRAD_POLYA_047": {
+"grid": "POLYA",
+"param": "polya",
+"value": 19,
+"step": 47
+},
+"GRAD_POLYA_048": {
+"grid": "POLYA",
+"param": "polya",
+"value": 19,
+"step": 48
+},
+"GRAD_POLYA_049": {
+"grid": "POLYA",
+"param": "polya",
+"value": 20,
+"step": 49
+},
+"GRAD_POLYA_050": {
+"grid": "POLYA",
+"param": "polya",
+"value": 20,
+"step": 50
+},
+"GRAD_POLYA_051": {
+"grid": "POLYA",
+"param": "polya",
+"value": 21,
+"step": 51
+},
+"GRAD_POLYA_052": {
+"grid": "POLYA",
+"param": "polya",
+"value": 21,
+"step": 52
+},
+"GRAD_POLYA_053": {
+"grid": "POLYA",
+"param": "polya",
+"value": 21,
+"step": 53
+},
+"GRAD_POLYA_054": {
+"grid": "POLYA",
+"param": "polya",
+"value": 22,
+"step": 54
+},
+"GRAD_POLYA_055": {
+"grid": "POLYA",
+"param": "polya",
+"value": 22,
+"step": 55
+},
+"GRAD_POLYA_056": {
+"grid": "POLYA",
+"param": "polya",
+"value": 23,
+"step": 56
+},
+"GRAD_POLYA_057": {
+"grid": "POLYA",
+"param": "polya",
+"value": 23,
+"step": 57
+},
+"GRAD_POLYA_058": {
+"grid": "POLYA",
+"param": "polya",
+"value": 23,
+"step": 58
+},
+"GRAD_POLYA_059": {
+"grid": "POLYA",
+"param": "polya",
+"value": 24,
+"step": 59
+},
+"GRAD_POLYA_060": {
+"grid": "POLYA",
+"param": "polya",
+"value": 24,
+"step": 60
+},
+"GRAD_POLYA_061": {
+"grid": "POLYA",
+"param": "polya",
+"value": 25,
+"step": 61
+},
+"GRAD_POLYA_062": {
+"grid": "POLYA",
+"param": "polya",
+"value": 25,
+"step": 62
+},
+"GRAD_POLYA_063": {
+"grid": "POLYA",
+"param": "polya",
+"value": 25,
+"step": 63
+},
+"GRAD_POLYA_064": {
+"grid": "POLYA",
+"param": "polya",
+"value": 26,
+"step": 64
+},
+"GRAD_POLYA_065": {
+"grid": "POLYA",
+"param": "polya",
+"value": 26,
+"step": 65
+},
+"GRAD_POLYA_066": {
+"grid": "POLYA",
+"param": "polya",
+"value": 27,
+"step": 66
+},
+"GRAD_POLYA_067": {
+"grid": "POLYA",
+"param": "polya",
+"value": 27,
+"step": 67
+},
+"GRAD_POLYA_068": {
+"grid": "POLYA",
+"param": "polya",
+"value": 27,
+"step": 68
+},
+"GRAD_POLYA_069": {
+"grid": "POLYA",
+"param": "polya",
+"value": 28,
+"step": 69
+},
+"GRAD_POLYA_070": {
+"grid": "POLYA",
+"param": "polya",
+"value": 28,
+"step": 70
+},
+"GRAD_POLYA_071": {
+"grid": "POLYA",
+"param": "polya",
+"value": 29,
+"step": 71
+},
+"GRAD_POLYA_072": {
+"grid": "POLYA",
+"param": "polya",
+"value": 29,
+"step": 72
+},
+"GRAD_POLYA_073": {
+"grid": "POLYA",
+"param": "polya",
+"value": 29,
+"step": 73
+},
+"GRAD_POLYA_074": {
+"grid": "POLYA",
+"param": "polya",
+"value": 30,
+"step": 74
+},
+"GRAD_POLYA_075": {
+"grid": "POLYA",
+"param": "polya",
+"value": 30,
+"step": 75
+},
+"GRAD_POLYA_076": {
+"grid": "POLYA",
+"param": "polya",
+"value": 31,
+"step": 76
+},
+"GRAD_POLYA_077": {
+"grid": "POLYA",
+"param": "polya",
+"value": 31,
+"step": 77
+},
+"GRAD_POLYA_078": {
+"grid": "POLYA",
+"param": "polya",
+"value": 32,
+"step": 78
+},
+"GRAD_POLYA_079": {
+"grid": "POLYA",
+"param": "polya",
+"value": 32,
+"step": 79
+},
+"GRAD_POLYA_080": {
+"grid": "POLYA",
+"param": "polya",
+"value": 32,
+"step": 80
+},
+"GRAD_POLYA_081": {
+"grid": "POLYA",
+"param": "polya",
+"value": 33,
+"step": 81
+},
+"GRAD_POLYA_082": {
+"grid": "POLYA",
+"param": "polya",
+"value": 33,
+"step": 82
+},
+"GRAD_POLYA_083": {
+"grid": "POLYA",
+"param": "polya",
+"value": 34,
+"step": 83
+},
+"GRAD_POLYA_084": {
+"grid": "POLYA",
+"param": "polya",
+"value": 34,
+"step": 84
+},
+"GRAD_POLYA_085": {
+"grid": "POLYA",
+"param": "polya",
+"value": 34,
+"step": 85
+},
+"GRAD_POLYA_086": {
+"grid": "POLYA",
+"param": "polya",
+"value": 35,
+"step": 86
+},
+"GRAD_POLYA_087": {
+"grid": "POLYA",
+"param": "polya",
+"value": 35,
+"step": 87
+},
+"GRAD_POLYA_088": {
+"grid": "POLYA",
+"param": "polya",
+"value": 36,
+"step": 88
+},
+"GRAD_POLYA_089": {
+"grid": "POLYA",
+"param": "polya",
+"value": 36,
+"step": 89
+},
+"GRAD_POLYA_090": {
+"grid": "POLYA",
+"param": "polya",
+"value": 36,
+"step": 90
+},
+"GRAD_POLYA_091": {
+"grid": "POLYA",
+"param": "polya",
+"value": 37,
+"step": 91
+},
+"GRAD_POLYA_092": {
+"grid": "POLYA",
+"param": "polya",
+"value": 37,
+"step": 92
+},
+"GRAD_POLYA_093": {
+"grid": "POLYA",
+"param": "polya",
+"value": 38,
+"step": 93
+},
+"GRAD_POLYA_094": {
+"grid": "POLYA",
+"param": "polya",
+"value": 38,
+"step": 94
+},
+"GRAD_POLYA_095": {
+"grid": "POLYA",
+"param": "polya",
+"value": 38,
+"step": 95
+},
+"GRAD_POLYA_096": {
+"grid": "POLYA",
+"param": "polya",
+"value": 39,
+"step": 96
+},
+"GRAD_POLYA_097": {
+"grid": "POLYA",
+"param": "polya",
+"value": 39,
+"step": 97
+},
+"GRAD_POLYA_098": {
+"grid": "POLYA",
+"param": "polya",
+"value": 40,
+"step": 98
+},
+"GRAD_POLYA_099": {
+"grid": "POLYA",
+"param": "polya",
+"value": 40,
+"step": 99
+},
+"GRAD_RECOMB_000": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.0,
+"step": 0
+},
+"GRAD_RECOMB_001": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.010101010101010102,
+"step": 1
+},
+"GRAD_RECOMB_002": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.020202020202020204,
+"step": 2
+},
+"GRAD_RECOMB_003": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.030303030303030304,
+"step": 3
+},
+"GRAD_RECOMB_004": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.04040404040404041,
+"step": 4
+},
+"GRAD_RECOMB_005": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.050505050505050504,
+"step": 5
+},
+"GRAD_RECOMB_006": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.06060606060606061,
+"step": 6
+},
+"GRAD_RECOMB_007": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.0707070707070707,
+"step": 7
+},
+"GRAD_RECOMB_008": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.08080808080808081,
+"step": 8
+},
+"GRAD_RECOMB_009": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.09090909090909091,
+"step": 9
+},
+"GRAD_RECOMB_010": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.10101010101010101,
+"step": 10
+},
+"GRAD_RECOMB_011": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.1111111111111111,
+"step": 11
+},
+"GRAD_RECOMB_012": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.12121212121212122,
+"step": 12
+},
+"GRAD_RECOMB_013": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.13131313131313133,
+"step": 13
+},
+"GRAD_RECOMB_014": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.1414141414141414,
+"step": 14
+},
+"GRAD_RECOMB_015": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.15151515151515152,
+"step": 15
+},
+"GRAD_RECOMB_016": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.16161616161616163,
+"step": 16
+},
+"GRAD_RECOMB_017": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.1717171717171717,
+"step": 17
+},
+"GRAD_RECOMB_018": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.18181818181818182,
+"step": 18
+},
+"GRAD_RECOMB_019": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.1919191919191919,
+"step": 19
+},
+"GRAD_RECOMB_020": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.20202020202020202,
+"step": 20
+},
+"GRAD_RECOMB_021": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.21212121212121213,
+"step": 21
+},
+"GRAD_RECOMB_022": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.2222222222222222,
+"step": 22
+},
+"GRAD_RECOMB_023": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.23232323232323232,
+"step": 23
+},
+"GRAD_RECOMB_024": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.24242424242424243,
+"step": 24
+},
+"GRAD_RECOMB_025": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.25252525252525254,
+"step": 25
+},
+"GRAD_RECOMB_026": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.26262626262626265,
+"step": 26
+},
+"GRAD_RECOMB_027": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.2727272727272727,
+"step": 27
+},
+"GRAD_RECOMB_028": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.2828282828282828,
+"step": 28
+},
+"GRAD_RECOMB_029": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.29292929292929293,
+"step": 29
+},
+"GRAD_RECOMB_030": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.30303030303030304,
+"step": 30
+},
+"GRAD_RECOMB_031": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.31313131313131315,
+"step": 31
+},
+"GRAD_RECOMB_032": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.32323232323232326,
+"step": 32
+},
+"GRAD_RECOMB_033": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.3333333333333333,
+"step": 33
+},
+"GRAD_RECOMB_034": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.3434343434343434,
+"step": 34
+},
+"GRAD_RECOMB_035": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.35353535353535354,
+"step": 35
+},
+"GRAD_RECOMB_036": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.36363636363636365,
+"step": 36
+},
+"GRAD_RECOMB_037": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.37373737373737376,
+"step": 37
+},
+"GRAD_RECOMB_038": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.3838383838383838,
+"step": 38
+},
+"GRAD_RECOMB_039": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.3939393939393939,
+"step": 39
+},
+"GRAD_RECOMB_040": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.40404040404040403,
+"step": 40
+},
+"GRAD_RECOMB_041": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.41414141414141414,
+"step": 41
+},
+"GRAD_RECOMB_042": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.42424242424242425,
+"step": 42
+},
+"GRAD_RECOMB_043": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.43434343434343436,
+"step": 43
+},
+"GRAD_RECOMB_044": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.4444444444444444,
+"step": 44
+},
+"GRAD_RECOMB_045": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.45454545454545453,
+"step": 45
+},
+"GRAD_RECOMB_046": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.46464646464646464,
+"step": 46
+},
+"GRAD_RECOMB_047": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.47474747474747475,
+"step": 47
+},
+"GRAD_RECOMB_048": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.48484848484848486,
+"step": 48
+},
+"GRAD_RECOMB_049": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.494949494949495,
+"step": 49
+},
+"GRAD_RECOMB_050": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.5050505050505051,
+"step": 50
+},
+"GRAD_RECOMB_051": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.5151515151515151,
+"step": 51
+},
+"GRAD_RECOMB_052": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.5252525252525253,
+"step": 52
+},
+"GRAD_RECOMB_053": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.5353535353535354,
+"step": 53
+},
+"GRAD_RECOMB_054": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.5454545454545454,
+"step": 54
+},
+"GRAD_RECOMB_055": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.5555555555555556,
+"step": 55
+},
+"GRAD_RECOMB_056": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.5656565656565656,
+"step": 56
+},
+"GRAD_RECOMB_057": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.5757575757575758,
+"step": 57
+},
+"GRAD_RECOMB_058": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.5858585858585859,
+"step": 58
+},
+"GRAD_RECOMB_059": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.5959595959595959,
+"step": 59
+},
+"GRAD_RECOMB_060": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.6060606060606061,
+"step": 60
+},
+"GRAD_RECOMB_061": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.6161616161616161,
+"step": 61
+},
+"GRAD_RECOMB_062": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.6262626262626263,
+"step": 62
+},
+"GRAD_RECOMB_063": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.6363636363636364,
+"step": 63
+},
+"GRAD_RECOMB_064": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.6464646464646465,
+"step": 64
+},
+"GRAD_RECOMB_065": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.6565656565656566,
+"step": 65
+},
+"GRAD_RECOMB_066": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.6666666666666666,
+"step": 66
+},
+"GRAD_RECOMB_067": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.6767676767676768,
+"step": 67
+},
+"GRAD_RECOMB_068": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.6868686868686869,
+"step": 68
+},
+"GRAD_RECOMB_069": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.696969696969697,
+"step": 69
+},
+"GRAD_RECOMB_070": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.7070707070707071,
+"step": 70
+},
+"GRAD_RECOMB_071": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.7171717171717171,
+"step": 71
+},
+"GRAD_RECOMB_072": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.7272727272727273,
+"step": 72
+},
+"GRAD_RECOMB_073": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.7373737373737373,
+"step": 73
+},
+"GRAD_RECOMB_074": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.7474747474747475,
+"step": 74
+},
+"GRAD_RECOMB_075": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.7575757575757576,
+"step": 75
+},
+"GRAD_RECOMB_076": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.7676767676767676,
+"step": 76
+},
+"GRAD_RECOMB_077": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.7777777777777778,
+"step": 77
+},
+"GRAD_RECOMB_078": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.7878787878787878,
+"step": 78
+},
+"GRAD_RECOMB_079": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.797979797979798,
+"step": 79
+},
+"GRAD_RECOMB_080": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.8080808080808081,
+"step": 80
+},
+"GRAD_RECOMB_081": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.8181818181818182,
+"step": 81
+},
+"GRAD_RECOMB_082": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.8282828282828283,
+"step": 82
+},
+"GRAD_RECOMB_083": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.8383838383838383,
+"step": 83
+},
+"GRAD_RECOMB_084": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.8484848484848485,
+"step": 84
+},
+"GRAD_RECOMB_085": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.8585858585858586,
+"step": 85
+},
+"GRAD_RECOMB_086": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.8686868686868687,
+"step": 86
+},
+"GRAD_RECOMB_087": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.8787878787878788,
+"step": 87
+},
+"GRAD_RECOMB_088": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.8888888888888888,
+"step": 88
+},
+"GRAD_RECOMB_089": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.898989898989899,
+"step": 89
+},
+"GRAD_RECOMB_090": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.9090909090909091,
+"step": 90
+},
+"GRAD_RECOMB_091": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.9191919191919192,
+"step": 91
+},
+"GRAD_RECOMB_092": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.9292929292929293,
+"step": 92
+},
+"GRAD_RECOMB_093": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.9393939393939394,
+"step": 93
+},
+"GRAD_RECOMB_094": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.9494949494949495,
+"step": 94
+},
+"GRAD_RECOMB_095": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.9595959595959596,
+"step": 95
+},
+"GRAD_RECOMB_096": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.9696969696969697,
+"step": 96
+},
+"GRAD_RECOMB_097": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.9797979797979798,
+"step": 97
+},
+"GRAD_RECOMB_098": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 0.98989898989899,
+"step": 98
+},
+"GRAD_RECOMB_099": {
+"grid": "RECOMB",
+"param": "recomb",
+"value": 1.0,
+"step": 99
+}
+}
