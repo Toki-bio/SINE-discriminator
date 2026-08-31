@@ -1742,3 +1742,70 @@ really had died. Liveness is now the loop log's mtime (stalled if untouched for
 Worth noting the harness behaved correctly underneath the broken watcher: run 1
 finished, failed the gate, and appended its findings to `PROGRESS-bench.md` for
 run 2 - which is exactly why the gate exists.
+
+## 40. SINEderella run paths - RESOLVED, record these, never re-search
+
+Searching for these cost real time twice. `find /` hangs (documented in the
+server-connections reference, §6) and these runs have **no `manifest.txt` at the
+run root** - assignment output sits at `step2/step2_output/`, so a
+`run_2026*/manifest.txt` glob finds nothing and looks like "not there".
+
+On **DRAGEN** (`copilot@100.104.25.22`), under
+`/staging/tmp/sinederella_benchmark/runs/`:
+
+| leg | path |
+|---|---|
+| human | `.../runs/human/run_20260822_231705` |
+| zebrafish | `.../runs/zebrafish/run_20260822_231705` |
+| Timema benchmark (`timb`) | `.../runs/timema/run_20260822_231705` |
+| Timema curated (`tim`, live v4) | `/staging/tmp/timema_sines/v4_curated/run_20260823_103133` |
+
+On **KIT** (`toki@85.89.102.78`), not DRAGEN - this is why a DRAGEN-only search
+for it finds nothing:
+
+| leg | path |
+|---|---|
+| `eri` | `/data/W/toki/Genomes/Mammalia/Eulipotyphla/Erniacidae/run_20260820_221537` |
+
+Also relevant: `hum/LOG.md` line 13 records the human genome as hg38 from UCSC
+goldenPath, and a run's `manifest.txt` (where one exists, e.g. the saq run)
+records `GENOME_IN` and `FLANK` - the saq run used `FLANK 50`, which is why the
+repo alignments carry ~50 bp flanks. **Read the manifest instead of inferring
+the flank width, and never re-download a genome the run already used.**
+
+## 41. The uniqueness gate contradicts itself - the actual cause of the 3 false negatives
+
+The three Timema candidates Sergei judged real score 38.6 / 29.3 / 71.3. All the
+low scores come from ONE group: `uniqueness` (0.35 / 0.39 / 0.46). Everything
+else is near-perfect - `SINE_17` is element 1.0, homogeneity 1.0,
+frac_supported 0.98, turbulence 0.026, and still only 71.3.
+
+`verdict.py:399` fires `NESTED_COPIES` only `if (not dec)` - i.e. only when
+400 bp flank-decay data is missing - and the comment directly above it
+(lines 114-118) already records that this fallback *"compared copies over 70 bp
+and called adjacent similarity 'nesting', which produced false NESTED_COPIES"*
+and was replaced for that reason. No TIMB set has a decay entry
+(`flankdecay.json` holds 64, all talpid), so every one is judged by the test
+already known to be unreliable at this flank width.
+
+And the two halves of the code disagree with each other: the flag's own text
+says *"Set them aside; they do not disqualify the family"*, while `g_uniq`
+(line 336) drops to 0.35 and multiplies the score down to 38.6. **The prose says
+non-disqualifying; the arithmetic disqualifies.**
+
+### A hypothesis I raised and killed the same hour
+
+I suggested the gate punishes evolutionary success - abundant families have
+neighbours inside 50 bp by arithmetic. **Disproved**: Spearman copies-vs-
+uniqueness is -0.198, copies-vs-score -0.049, and `SINE_18` has 83,906 copies
+with uniqueness 0.99 and no flag at all. Abundance does not drive it. Recorded
+so it is not re-proposed.
+
+### The open, falsifiable question
+
+Is the no-decay fallback **load-bearing for the true negatives**, or pure
+damage? If neutralising it rescues the three real SINEs while `NEGRAND` /
+`NEGSAT` / `NEGSEGDUP` / `NEGLOWBIT` stay rejected, it should go. If the
+negatives climb too, it is doing real work at short flanks and must be repaired
+rather than removed. This needs no genome and no server - it is a counterfactual
+over the local corpus.
