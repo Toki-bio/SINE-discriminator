@@ -409,3 +409,67 @@ Inconsistent across sets; would need a proper test on the whole corpus before
 adopting. It is a question about the *element* alignment, separate from flanks.
 
 Files: `variants/<set>__<variant>.aln.fa` in the repo, viewable in MSA-viewer.
+
+### 14a. Follow-up — the 5′ insertion-site motif, and why it settles v2 vs v4
+
+Sergei spotted that v4 appears to highlight the first two T residues of a
+TTAAAA-like motif in the 5′ flank and asked whether that biological signal
+should decide the choice. It does decide it — for v2.
+
+**The motif is real and specific.** Majority base per offset going 5′ from the
+element edge, four real families and one null:
+
+```
+POS ccr/g5   ATTTAAAAAAAAAAAAAATTTTTTTAATTAAAAAATAAAA
+             3333443435667876544434333343333333333333   <- majority fraction x10
+POS saq/s5   ATATAAAAATAAAAAAATATATAATAAAAATAAAAAATAT
+             3234344343566764433434334334343333343333
+POS dmo/d4   TTTTAAAAAAAAAAATTTTTTTAAAATTTAAAAAATAAAA
+             3434343346677744433333333333333343333343
+NEGRAND dmo  TTAATCTTTTTTTTTTTTTTCTATTTTTTTATTTTTCATT
+             3333333434333333333323233433322343332333   <- flat, no peak
+```
+
+Every real family has a conservation peak at offsets ~10–17 reaching 70–83 %
+majority; the null is flat at ~30 %. Read in genomic 5′→3′ order the ccr/g5
+flank is `…TTTTTTT AAAAAAAAAAAAAA TTTA |element` — a T-tract followed by an
+A-tract. This is almost certainly the L1 endonuclease target site (L1 EN nicks
+at 5′-TT|AAAA-3′, and SINEs mobilised in trans by L1 inherit that preference),
+and it is what spec §1.1 calls "an A-rich zone ~10 bp upstream of the core".
+**It is now confirmed empirically and shown to be absent from random loci.**
+
+**v4 does not resolve this motif better — it resolves it worse.** Column
+composition for the 24 columns before the element:
+
+| | v2_justify | v4_op10 |
+|---|---|---|
+| gaps in the element-adjacent columns | **0 %** | rising to **99 %** |
+| A-tract peak purity | **83 %** | 80 % |
+| T-tract peak purity | **47 %** | 33 % |
+| proximal 20 columns, mean identity | **0.383** | 0.331 |
+| distal flank, mean identity | **0.269** | 0.300 |
+
+v4 inserts a gap block immediately against the element — the last eight columns
+are 88–99 % gaps — which destroys the edge anchoring the motif's position is
+defined against. It simultaneously raises identity in the *distal* flank, where
+there is nothing real to find. So it weakens the true proximal signal and
+manufactures a false distal one: exactly the wrong trade. What looks like a
+cleanly highlighted TT column in the viewer is the aligner gathering T residues
+from different distances into one column.
+
+**A tested alternative that also failed.** If the motif sat at the outer end of
+the TSD, its distance from the element edge would vary with TSD length (median
+14 bp here, IQR 11–15, found in 95/100 copies) and an aligner would beat pure
+justification. Anchoring each copy on its own outer TSD boundary instead of the
+element edge was tried and is worse: peak purity 0.55 against 0.83. So the motif
+is anchored to the **element edge**, not to the TSD — which is precisely the
+anchor v2 preserves exactly and v4 breaks.
+
+**Recommendation: v2.** It shows the biology more sharply, not less, and it is
+the only variant that keeps the element-edge anchoring intact.
+
+**Worth pursuing separately (biology, not display):** the T-tract/A-tract
+insertion signature is a per-copy feature and a candidate discriminating
+variable in its own right — real families have it, random loci do not. It should
+be added to `annotate.py` as a scored motif and to `measure_c.py` as a one-sided
+bonus, replacing the current crude `arich_score`.
