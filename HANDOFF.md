@@ -1714,3 +1714,31 @@ why it is running.
   searching by hand. It holds `sinederella_hum.bed` (394,901 hits with subfamily
   names) and, more valuably, **`rmsk_sine.bed` (1,910,631 RepeatMasker SINE
   annotations)** - a completely independent ground truth for the human leg.
+
+### 39a. "Detached" is not "watched" - how the unattended runs are actually monitored
+
+Sergei asked whether I was really watching the background work. I was not, and
+the distinction matters enough to write down.
+
+Launching with `nohup ... & disown` (locally) or `setsid nohup` (on KIT) makes a
+job survive independently - but **silently**. The servers finish and nothing
+collects the result, because nothing wakes the session. Detached, not watched.
+
+The mechanism that does wake a session is a `run_in_background` Bash task: it
+blocks on a condition and the completion notification re-invokes the session.
+So every unattended job now has a blocking waiter registered:
+
+- `glm-harness/wait_bench.sh` - polls the deterministic gate.
+- `glm-harness/wait_kit.sh` - polls the KIT extraction every 5 min **through
+  the existing port-2223 tunnel**, never a fresh direct connection.
+
+**A liveness check that cannot fail closed is worse than none.** The first
+`wait_bench.sh` used `pgrep -f "aider-loop.sh"`. Under git-bash on Windows that
+never matches a bash script name, so it reported a perfectly healthy loop as
+dead within one poll - and it would have reported "dead" identically if the loop
+really had died. Liveness is now the loop log's mtime (stalled if untouched for
+30 min), which is observable regardless of how the process is named.
+
+Worth noting the harness behaved correctly underneath the broken watcher: run 1
+finished, failed the gate, and appended its findings to `PROGRESS-bench.md` for
+run 2 - which is exactly why the gate exists.
