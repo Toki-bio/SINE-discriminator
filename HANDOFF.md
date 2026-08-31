@@ -1834,3 +1834,64 @@ code first). The 119-row benchmark table is built and passes its gate.
 `bench_extend.py`'s coordinate derivation, not a genome problem. It is not
 blocking: the counterfactual question needs no genome. Diagnose the mismatch
 before trusting any 400 bp Timema result.
+
+## 43. ANSWERED: the no-decay uniqueness fallback is pure damage
+
+Computed directly over the 56 true-negative sets, forcing uniqueness to 1.0
+wherever no 400 bp decay data exists:
+
+```
+class          n   actual  neutral    delta   >50 under neutral
+NEGRAND       20      0.0      0.0     +0.0        0
+NEGSAT         3      0.0      0.0     +0.0        0
+NEGSEGDUP      3      0.0      0.0     +0.0        0
+NEGLINEORF     4      0.2      0.2     +0.0        0
+NEGCHIM       16     56.6     59.8     +3.2       11
+NEGLINE        5     97.1    100.0     +2.9        5
+NEGLINE2       5     91.5    100.0     +8.5        5
+```
+
+**Every genuine negative is unmoved - 0.0 before and after.** They are rejected
+by the element gate; the uniqueness fallback contributes nothing whatsoever to
+rejecting them. It is not load-bearing.
+
+The only classes that rise are `NEGLINE`, `NEGLINE2` and `NEGCHIM` - the three
+Sergei reviewed directly and called real SINEs ("these are clear SINEs, what
+made you think that it is line?", "it's clearly SINE"). Their `NEG` prefixes are
+stale labels from the retracted §32 analysis, not ground truth. Those rises move
+the algorithm toward his judgement, not away.
+
+So the fallback's entire measurable effect on this corpus is to suppress sets
+that are real SINEs, including the three Timema candidates. It should be
+removed, not repaired: when no decay data exists, uniqueness should impose no
+penalty, and the missing measurement should be reported as missing rather than
+silently scored as guilt.
+
+Caveat kept honest: `NEGSAT` and `NEGSEGDUP` are n=3 each. The conclusion rests
+on `NEGRAND` (n=20) and `NEGLINEORF` (n=4) being flat at 0.0, plus all four true
+classes being identical to the decimal - not on the small classes.
+
+## 44. The `_R_` bug - 52 of 55 Timema extractions were failing, and the silent half
+
+`timb/LOG.md` records that all 144 Timema alignments were re-aligned with
+`mafft --adjustdirection` to repair upstream strand tracking. MAFFT prefixes
+`_R_` to every sequence it reverse-complements: **1919 of 5082 Timema headers
+(37.8%) carry it.**
+
+`bench_extend.py`'s `LOC = re.compile(r"([^:]+):...")` swallowed the prefix into
+the contig name, so bedtools rejected `_R_CM115229.1` - 52 of 55 sets died with
+"Chromosome ... doesn't present". That is the loud half.
+
+The silent half matters more: for an `_R_` copy the sequence AS ALIGNED is the
+reverse complement of what its header coordinates describe, so its aligned LEFT
+flank is the genome's RIGHT flank. Stripping the prefix without also flipping
+the strand would have produced plausible-looking sequence with every such copy's
+flanks swapped - a silent corruption of exactly the flank-decay measurement this
+extraction exists to produce. Both halves are fixed; 0 input errors after.
+
+Two process notes worth keeping:
+- `pgrep -fc bench_extend.py` **matches its own command line** and always
+  returns >=1. It reported a dead job as alive. Match the full command string.
+- The guard `if "_R_" in src` false-positived on an unrelated pre-existing use
+  of `_R_` at line 107. Guard on the specific patch text, not a substring that
+  can occur elsewhere.
