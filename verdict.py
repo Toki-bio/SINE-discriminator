@@ -33,6 +33,33 @@ W = {                       # evidence group -> weight
 SUPPORT = 0.55              # legacy constant, kept for reference only
 
 
+def turbulence(el, pres):
+    """How unsettled is the element along its length?
+
+    Sergei on hedgehog e2-3: "can be SINE, but very turbulent at many places,
+    should be regarded as SINE but with caution and need manual reinspection."
+    Measured as the fraction of element columns whose identity falls more than
+    0.25 below the element's own median. A clean family sits at 0.06-0.08;
+    e2-3 is 0.18.
+
+    This does not change the SINE verdict. It marks a set as one a person should
+    look at, which is a different thing from a set being wrong.
+    """
+    idc = []
+    for c in range(el.shape[1]):
+        b = el[:, c][pres[:, c]]
+        if len(b) >= 8:
+            cnt = np.bincount(b, minlength=4)[:4].astype(float)
+            idc.append((cnt * (cnt - 1)).sum() / (len(b) * (len(b) - 1)))
+        else:
+            idc.append(np.nan)
+    idc = np.array(idc, float)
+    if not np.isfinite(idc).sum() > 40:
+        return None
+    med = float(np.nanmedian(idc))
+    return float(np.nanmean(idc < med - 0.25))
+
+
 def contamination_split(ident, bg, min_gap=0.10, min_frac=0.05):
     """Contamination is a SEPARATE MODE, not a low tail.
 
@@ -253,6 +280,7 @@ def verdict(path):
     # scramble - seg_diag against scrambling went from -0.61 on the joint grid
     # to -0.92 once contamination was low - so pruning has to come first.
     sub = subfamily_split(p["el"], p["pres"], ident, thr=thr)
+    turb = turbulence(p["el"], p["pres"])
 
     elen = (p["el"] != M.GAP).sum(axis=1).astype(float)
     # length spread over the SUPPORTED copies, not the core: excluding copies for
@@ -288,8 +316,16 @@ def verdict(path):
     # to 0.55 made the statistic report youth, not existence, and cost a clean
     # 30 %-divergent family a third of its element score.
     g_elem = (sat(id_all - flank_bg, 0.10, 0.30) ** 0.5) *              (sat(n_sup / max(1, n), 0.15, 0.98) ** 0.5)
-    g_homog = np.mean([1 - sat(cv_core, 0.05, 0.25),
-                       1 - (sat(sub.get("gap_excess", sub["gap"]), 0.02, 0.14) if sub else 0.0)])
+    # Subfamily structure is deliberately NOT scored. Sergei: "subfamily
+    # ambiguity doesn't matter, we answer sine/not-sine, not this sine or that
+    # sine." Two subfamilies in one set is still a set of SINEs. It stays as a
+    # note so the copies can be split later, but it must not cost score.
+    # Length spread is softened deliberately. Truncated copies are still copies
+    # of that family - Sergei on the truncated sets: "more like a SINE", "looks
+    # more like a LINE", never "not an element". Scored on a 0.10-0.50 range it
+    # notes heterogeneity without destroying the verdict; at 0.05-0.25 it drove
+    # the truncated class to a mean of 9.7.
+    g_homog = 1 - sat(cv_core, 0.10, 0.50)
     if dec:
         # BOTH parts of the decay curve matter. Distance alone rates a LINE
         # fragment as isolated, because its shared flank runs only ~50-75 bp
@@ -301,15 +337,13 @@ def verdict(path):
                           1 - sat(global_elev - BG, 0.05, 0.30)])
     g_ins = sat(tsd_frac, 0.10, 0.60)
 
-    # Geometric weighting, not a weighted sum: a set with no element is not a
-    # family however unique its flanks are, and a sum lets one strong group mask
-    # a fatal weakness in another. The insertion evidence is a one-sided bonus,
-    # as the spec requires - it can raise a borderline score, never reject.
-    eps = 1e-6
-    base = ((g_elem + eps) ** W["element"] * (g_homog + eps) ** W["homogeneity"] *
-            (g_uniq + eps) ** W["uniqueness"]) ** (1.0 / (W["element"] +
-            W["homogeneity"] + W["uniqueness"]))
-    score = 100 * min(1.0, base * (1 + W["insertion"] * g_ins))
+    # The element group GATES the score rather than voting in it. As a co-equal
+    # geometric term, a set with no element (g_elem 0.31) still scored 56 because
+    # its flanks were unique and its lengths uniform - both true and both
+    # irrelevant when there is nothing there. Uniqueness and homogeneity only
+    # mean something once an element exists.
+    rest = (max(g_homog, 1e-6) ** 0.55) * (max(g_uniq, 1e-6) ** 0.45)
+    score = 100 * min(1.0, g_elem * rest * (1 + W["insertion"] * g_ins))
 
     # ---- sub-cases, not one "negative" bucket ---------------------------
     flags = []
@@ -354,11 +388,12 @@ def verdict(path):
                           "text": "%d of %d copies do not support the consensus; prune them and "
                                   "re-score (see prune.py)." % (n - n_sup, n)})
         if sub and sub.get("gap_excess", sub["gap"]) > 0.03:
-            flags.append({"code": "SUBFAMILY_STRUCTURE", "n": sub["sizes"],
+            flags.append({"code": "SUBFAMILY_NOTE", "n": sub["sizes"],
                           "text": "Supported copies split into structurally different groups of "
                                   "%d and %d (within-group identity %.2f, between %.2f, excess "
-                                  "over a random split %.3f). Separate "
-                                  "them and treat each as its own family."
+                                  "over a random split %.3f). Both are SINEs - this does not "
+                                  "affect the verdict, but the copies can be split if the "
+                                  "subfamilies are wanted separately."
                                   % (sub["sizes"][0], sub["sizes"][1], sub["within"],
                                      sub["between"], sub.get("gap_excess", 0))})
         if (not dec) and n_shared / max(1, n) > 0.15:
@@ -368,6 +403,18 @@ def verdict(path):
                           "text": "%d of %d copies share flanking sequence with each other — they "
                                   "sit inside %s. Set them aside; they do not disqualify the "
                                   "family." % (n_shared, n, kind)})
+    if cv_core > 0.18 and n_core >= 15:
+        flags.append({"code": "TRUNCATED_COPIES", "n": round(cv_core, 3),
+                      "text": "Copy length varies widely (CV %.2f against 0.05 for a clean "
+                              "family). Many copies are 5'-truncated. Still the same family, "
+                              "but the truncated copies may be worth setting aside."
+                              % cv_core})
+    if turb is not None and turb > 0.12 and n_core >= 15:
+        flags.append({"code": "NEEDS_REVIEW", "n": round(turb, 3),
+                      "text": "The element is unsettled along its length: %.0f %% of "
+                              "positions drop well below its own median identity, against "
+                              "6-8 %% in a clean family. Still a SINE, but one to look at "
+                              "by eye before using." % (100 * turb)})
     if n_core >= 20 and score < 55:
         flags.append({"code": "RECOVERABLE_CORE", "n": n_core,
                       "text": "Despite the problems above, %d copies look like genuine elements. "
@@ -386,6 +433,7 @@ def verdict(path):
             "core_len_cv": round(cv_core, 3), "tsd_frac": round(tsd_frac, 3),
             "support_threshold": None if thr is None else round(float(thr), 3),
             "contamination_cut": None if v_cut is None else round(float(v_cut), 3),
+            "turbulence": None if turb is None else round(turb, 3),
             "subfamily": sub and {k: v for k, v in sub.items() if k != "members"},
             "flags": flags}
 

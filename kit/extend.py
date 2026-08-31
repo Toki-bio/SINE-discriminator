@@ -41,6 +41,53 @@ def read_fa(p):
     return dict((k, "".join(v)) for k, v in d.items())
 
 
+# The set headers carry the SLOPPED coordinates written by the original
+# extraction (element + 300 bp either side), not the element itself - a POS
+# header spans ~850 bp for a ~250 bp element. Using them as the body diluted
+# identity to the consensus from 0.85 to 0.30. For sets drawn from a curated
+# run, take the true element coordinates from assignment_full.tsv instead.
+RUNDIR = {"saq": "saq/run_20260425_182219", "ccr": "ccr/run_20260517_205955",
+          "teu": "teu/run_20260427_130055", "dmo": "dmo/run_20260427_103405",
+          "eri": "Erniacidae/run_20260820_221537"}
+_TRUE = {}
+
+
+def true_coords(sp):
+    if sp in _TRUE:
+        return _TRUE[sp]
+    d = {}
+    p = "%s/%s/results/assignment_full.tsv" % (B, RUNDIR[sp])
+    if os.path.exists(p):
+        with open(p) as fh:
+            next(fh)
+            for line in fh:
+                f = line.rstrip("
+").split("	")
+                if len(f) < 5 or f[4] != "assigned":
+                    continue
+                m = LOC.search(f[0].replace("@U@", "_"))
+                if m:
+                    d.setdefault(m.group(1), []).append(
+                        (int(m.group(2)), int(m.group(3)), m.group(4)))
+    for c in d:
+        d[c].sort()
+    _TRUE[sp] = d
+    return d
+
+
+def snap(sp, c, s, e, st):
+    """Map a slopped header span back to the element it was built from: the
+    assigned locus on the same contig whose midpoint is closest."""
+    d = true_coords(sp).get(c)
+    if not d:
+        return None
+    mid = (s + e) // 2
+    best = min(d, key=lambda t: abs((t[0] + t[1]) // 2 - mid))
+    if abs((best[0] + best[1]) // 2 - mid) > 400:
+        return None
+    return best
+
+
 def go(setname, sp):
     src = "%s/sets_c/%s.fa" % (OUT, setname)
     if not os.path.exists(src):
@@ -57,8 +104,14 @@ def go(setname, sp):
         if k.startswith("CONSENSUS_"):
             continue
         m = LOC.search(k)
-        if m:
-            rows.append((m.group(1), int(m.group(2)), int(m.group(3)), m.group(4), k))
+        if not m:
+            continue
+        c, s0, e0, st = m.group(1), int(m.group(2)), int(m.group(3)), m.group(4)
+        if e0 - s0 > 450:                      # a slopped span, not an element
+            t = snap(sp, c, s0, e0, st)
+            if t:
+                s0, e0, st = t
+        rows.append((c, s0, e0, st, k))
     if len(rows) < 20:
         print("  %s: only %d parsable names" % (setname, len(rows)))
         return

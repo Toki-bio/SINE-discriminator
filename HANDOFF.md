@@ -1572,3 +1572,69 @@ conserved repeat.
   fragment looks like
 - `ERI__eri__e2-2`: not grey at all, a mixture of LINEs or other repeats,
   definitely not a SINE — agrees with the algorithm's rejection
+
+---
+
+## 38. A coordinate bug, and three corrections from Sergei's review
+
+### The bug
+
+Set headers carry the **slopped** coordinates written by the original extraction
+(element + 300 bp either side), not the element. A POS header spans ~850 bp for
+a ~250 bp element. `extend.py` treated that as the body and added 400 bp beyond
+it, so identity to the consensus read 0.28 instead of 0.85 and four POS sets were
+reported NO_ELEMENT at 400 bp. Fixed by snapping each header span back to the
+nearest assigned locus in `assignment_full.tsv`. After the fix those four read
+`cons_identity` 0.81-0.95 as they should.
+
+**What survived:** the §37 conserved-length result and the flank-decay
+classification both still hold, because both concern whether similarity persists
+over hundreds of bp - measuring from 300 bp out understated the edge but did not
+change the shape. The "edge identity" figures quoted in §36 were measured 300 bp
+from the true edge and should not be quoted.
+
+### Sergei's corrections, applied
+
+**1. "Subfamily ambiguity doesn't matter — we answer sine/not-sine, not this
+sine or that sine."** `SUBFAMILY_STRUCTURE` no longer contributes to the score;
+it is now `SUBFAMILY_NOTE`, informational only. Confirmed by the AMBIG class -
+real loci a curated run rejected *solely* for a split subfamily vote - which now
+scores 100.0. They are SINEs, and the pipeline that rejected them was answering
+a different question.
+
+**2. Truncated copies are still copies.** Removing the subfamily term had left
+`g_homog` as length-CV alone on a 0.05-0.25 range, which drove the truncated
+class to a mean of 9.7. Softened to 0.10-0.50 plus a `TRUNCATED_COPIES` note.
+The class now sits at 66.8, matching Sergei's reading of "more like a SINE" /
+"more like a LINE" rather than "not an element".
+
+**3. Turbulence deserves its own verdict.** On hedgehog e2-3: *"can be SINE, but
+very turbulent at many places, should be regarded as SINE but with caution and
+need manual reinspection."* Measured as the fraction of element columns dipping
+more than 0.25 below the element's own median identity: clean families 0.06-0.08,
+e2-3 0.18. Now raises `NEEDS_REVIEW`, which does not change the SINE verdict -
+it marks a set for a person to look at, which is a different thing from a set
+being wrong.
+
+### The element now gates the score
+
+`NEGLOWBIT` - loci a real run rejected for low bitscore, which Sergei called "no
+repeat element at all" - scored 56 because its flanks were unique and its lengths
+uniform. Both true, both irrelevant when there is nothing there. The element
+group now multiplies the others rather than voting alongside them, and the class
+drops to 39.0.
+
+### Current state, corrected geometry
+
+| class | mean score | flags |
+|---|---|---|
+| POS (23) | **99.8** | NEEDS_REVIEW 2 |
+| AMBIG (4) | **100.0** | SUBFAMILY_NOTE 3 |
+| ERI (8) | 72.4 | NOT_ISOLATED 2 |
+| NEGLOWBIT (4) | 39.0 | RECOVERABLE_CORE 3 |
+| NEGLINEORF (4) | **0.2** | FRAGMENT_OF_LONGER 4 |
+| NEGSAT (3) | **0.0** | NOT_ISOLATED 3 |
+| NEGSEGDUP (3) | **0.0** | NOT_ISOLATED 2 |
+| NEGRAND (15) | **0.0** | NO_ELEMENT 15 |
+
+All five natural non-SINE classes reject; both real-SINE classes score ~100.
