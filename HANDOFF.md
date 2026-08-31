@@ -937,3 +937,132 @@ drawn as a faint bracket in the A-box hue, freeing aqua for the terminator. Any
 further feature type (LINE 3′ end, CORE domain, 5S similarity) must either reuse
 a hue within a category or the track must split into rows by category:
 promoter elements / repeats / insertion evidence / termination.
+
+---
+
+## 25. What mosaicism actually means here, and how it is estimated
+
+Sergei corrected a misunderstanding that had been running through the whole
+project. Record it before anything else in this section.
+
+**What the code assumed:** two-parent recombination — copies built from
+subfamily A and subfamily B with a breakpoint.
+
+**What Sergei means:**
+
+```
+consensus   a b c d
+copy 1      a b b d      slot 3 carries segment b
+copy 2      a d c d      slot 2 carries segment d
+```
+
+The element's **own** segments reshuffled, duplicated, or **missing** between
+slots, with the affected slot varying from copy to copy. Every copy is still
+made entirely of this element's parts. He notes this is common in non-SINE
+repeats, and that deletions — a long gap where other copies have sequence — are
+as frequent as rearrangements.
+
+### The three estimators, and what each can and cannot see
+
+**1. rank-1 residual (spec §2, `rank1_excess`).** Copy × window identity should
+factor as age × positional conservation. Cannot see any of this: a scrambled
+copy still matches the consensus at roughly the right overall level.
+Measured identical to a clean family (0.0017 both).
+
+**2. partition congruence (tests Sergei's k-mer idea, `mosaic_kmer.py`).** In
+each window, split the copies in two; ask whether the split is the same from
+window to window, by adjusted Rand index. Congruent = one family or clean
+subfamilies; incongruent = block-swapped.
+
+| class | congruence, adjacent windows | all pairs |
+|---|---|---|
+| POS | 0.155 | 0.034 |
+| **MIXSUBFAM** | **0.498** | **0.368** |
+| NEGMOSAIC (2-parent) | 0.194 | 0.042 |
+| NEGRAND | 0.478 | 0.350 |
+
+It is a **good subfamily-structure detector** — 10× separation from clean
+families, independent of the eigenvector-gap detector already in `verdict.py` —
+but it does not detect the mosaic, and it has an artifact on random loci
+(congruence driven by coverage, not sequence) that needs a guard.
+
+**The k-mer SPECTRUM route fails, as expected.** Per-copy k-mer composition
+correlations for k = 4/6/8/10: POS 0.681/0.405/0.272/0.200 against NEGMOSAIC
+0.689/0.412/0.276/0.200 — identical. The spectrum discards position, and
+mosaicism is entirely positional. k-mers are useful here as a way to ask *which
+consensus segment does this slot resemble*, not as a composition summary.
+
+**3. segment mapping (`segmap.py`) — the one that matches Sergei's definition.**
+Split the consensus into segments; for each copy and each slot, ask which segment
+that slot best matches. Clean copies map slot j → segment j.
+
+**And a methodological finding that matters:** the aligner hides this.
+
+| set | diag_frac on aligned columns | on unaligned copies |
+|---|---|---|
+| SIMCLEAN | 0.997 | 0.902 |
+| SIMSCRAM swap f = 0.5 | 0.995 | 0.784 |
+| SIMSCRAM swap f = 1.0 | 0.992 | **0.505** |
+| POS (real family) | 0.999 | 0.808 |
+
+MAFFT aligns a duplicated or swapped segment **back to the segment it came
+from**, converting a slot substitution into an indel pair and destroying the
+positional evidence. Any detector for this must work on unaligned sequence.
+Note the real-family baseline is 0.808 rather than ~0.9, because indels shift
+proportional slot boundaries — the threshold has to be set against real data,
+not against the simulation.
+
+### Deletions, which the alignment does keep
+
+Unlike a swap, a missing segment survives as a shared gap. Two statistics,
+calibrated against real families:
+
+| class | copies with a long internal gap (≥20 bp) | position concentration |
+|---|---|---|
+| SIMCLEAN | 0.013 | 0.10 |
+| **POS** | **0.046** | 0.20 |
+| SIMDEL, same block in every affected copy | 0.26–0.54 | **0.65–0.94** |
+| SIMDEL, a different block per copy | 0.15–0.46 | 0.26 |
+| NEGCHIM | 0.596 | 0.44 |
+| NEGRAND | 0.734 | 0.31 |
+
+Clean families essentially do not carry long internal gaps (4.6 % of copies).
+**Concentration separates the two modes**: one shared deletion concentrates at a
+position (0.65–0.94), while per-copy deletions scatter (0.26). On
+`SIMDEL__one__f050` the block was recovered exactly — position 110, length ~50,
+in 51 of 100 copies, against a planted deletion of 0.2 L at 0.45 L.
+
+This is spec §4.1 G's `big_indel_frac`, which had never been implemented.
+
+## 26. Synthetic corpus (`kit/simulate.py`)
+
+Every negative until now was carved out of real data, and NEGSPLICE showed how
+badly that can go — it was never a negative at all. The generator gives exact
+control and exact labels. Real genomic background from the same species, so
+composition and repeat content are not idealised away.
+
+| grid | parameter swept | sets |
+|---|---|---|
+| `SIMCLEAN` | age 0.05 → 0.30 | 4 |
+| `SIMMOSAIC` | 2-parent recombinant fraction × breakpoint spread | 6 |
+| `SIMSUBFAM` | subfamily divergence 0.05 / 0.12 / 0.25 | 3 |
+| `SIMNEST` | fraction sharing a host flank | 2 |
+| `SIMTRUNC` | 5′ truncation rate | 2 |
+| `SIMSCRAM` | segment swap / duplication, fraction 0.2–1.0 | 6 |
+| `SIMDEL` | segment deletion, same block or per-copy | 4 |
+
+Already earning its keep: `SIMSUBFAM` shows the subfamily detector needs
+divergence ≥ 0.12 to fire (d = 0.05 scores 100 and is missed), and `SIMTRUNC`
+reproduces the truncation signature at a known rate.
+
+## 27. Report UI
+
+- Feature blocks reduced from 13 px to 8 px — they were far heavier than the
+  information they carry.
+- **Tooltips on everything.** Transparent hover columns across the plot report
+  the position and every visible track's value at that point; each heat cell
+  reports its own value and units; each feature block reports its sequence,
+  score and note.
+- **Double-click any panel** for a detail dialog: the consensus as nucleotides
+  in 60-base lines with coordinates, coloured where a structural feature covers
+  it, plus the full feature table and the scalar summary.

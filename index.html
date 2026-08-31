@@ -148,6 +148,25 @@ td.f{font-family:"IBM Plex Mono",monospace;font-size:12.5px;text-align:left}
 .vflags li{margin-bottom:5px;color:var(--ink-2)}
 .vflags b{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--warn);
   letter-spacing:.05em;margin-right:5px}
+dialog.detail{border:1px solid var(--rule-2);border-radius:4px;background:var(--surface);
+  color:var(--ink);max-width:min(1150px,94vw);width:100%;padding:0}
+dialog.detail::backdrop{background:rgba(10,16,15,.55)}
+.dhead{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:16px 20px;border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--surface)}
+.dhead h3{margin:0;font-family:"IBM Plex Mono",monospace;font-size:15px}
+.dclose{border:1px solid var(--rule-2);background:var(--surface-2);color:var(--ink-2);
+  border-radius:3px;padding:5px 11px;cursor:pointer;font-family:"IBM Plex Mono",monospace;font-size:12px}
+.dbody{padding:16px 20px 22px;max-height:76vh;overflow:auto}
+.dseq{font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.75;
+  background:var(--ground);border:1px solid var(--rule);border-radius:3px;padding:12px 14px;
+  overflow-x:auto;white-space:pre}
+.dseq .pos{color:var(--muted)}
+.dseq b{font-weight:600}
+.fA{color:var(--f1)}.fB{color:var(--f2)}.fC{color:var(--f4)}.fR{color:var(--f5)}
+.fT{color:var(--f6)}.fD{color:var(--f7)}.fS{color:var(--f8)}
+.dkey{display:flex;gap:14px;flex-wrap:wrap;font-family:"IBM Plex Mono",monospace;
+  font-size:11.5px;margin:10px 0 0;color:var(--muted)}
+.dhint{font-size:12px;color:var(--muted);margin:0 0 10px}
 article.aset{border:1px solid var(--rule);border-radius:3px;background:var(--surface);
   padding:18px 20px;margin:0 0 26px}
 article.aset h3.setname{font-family:"IBM Plex Mono",monospace;font-size:15px;margin:0 0 4px;
@@ -450,7 +469,7 @@ function pathFor(xs, ys, sx, sy) {
    bands. Sequential ramp for magnitude (one hue, light to dark); diverging for
    A+T, which has a meaningful midpoint at the genomic background. */
 function heatRow(xs, vals, sx, y, h, opts) {
-  const {lo, hi, hue, diverge, mid} = opts;
+  const {lo, hi, hue, diverge, mid, label, unit} = opts;
   let out = "";
   for (let i = 0; i < xs.length - 1; i++) {
     const v = vals[i];
@@ -473,7 +492,9 @@ function heatRow(xs, vals, sx, y, h, opts) {
     }
     out += '<rect x="' + x0.toFixed(1) + '" y="' + y + '" width="' +
            Math.max(0.8, x1 - x0).toFixed(1) + '" height="' + h +
-           '" fill="' + col + '" fill-opacity="' + a.toFixed(2) + '"/>';
+           '" fill="' + col + '" fill-opacity="' + a.toFixed(2) + '">' +
+           '<title>' + (label || "") + " at position " + xs[i] + ": " +
+           v.toFixed(2) + (unit || "") + '</title></rect>';
   }
   return out;
 }
@@ -518,6 +539,22 @@ function drawProfile(setName, host) {
        'fill="var(--muted)" font-family="monospace">5′ flank</text>' +
        '<text x="' + (W - PADR) + '" y="' + (H - PADB + 13) + '" text-anchor="end" font-size="9.5" ' +
        'fill="var(--muted)" font-family="monospace">3′ flank</text>';
+
+  // one transparent column per ~4 px so hovering anywhere in the plot reports
+  // every visible track at that position
+  for (let i = 0; i < xs.length; i += Math.max(1, Math.round(xs.length / 220))) {
+    const xv = xs[i];
+    const parts2 = TRACKS.filter(t => typeof trackOn !== "function" || trackOn(t.k))
+      .map(t => p[t.k] && p[t.k][i] !== null && p[t.k][i] !== undefined
+           ? t.label + " " + p[t.k][i].toFixed(3) : null).filter(Boolean);
+    const where = xv < 0 ? (-xv) + " bp into the 5' flank"
+                : xv >= L ? (xv - L + 1) + " bp into the 3' flank"
+                : "element position " + xv;
+    s += '<rect x="' + (sx(xv) - 2).toFixed(1) + '" y="' + PADT + '" width="5" height="' +
+         (H - PADT - PADB) + '" fill="transparent"><title>' + where +
+         String.fromCharCode(10) + parts2.join(String.fromCharCode(10)) +
+         '</title></rect>';
+  }
 
   TRACKS.forEach(t => {
     if (typeof trackOn === "function" && !trackOn(t.k)) return;
@@ -567,7 +604,8 @@ function drawProfile(setName, host) {
       if (!p[k] || !FEATON(k)) return;
       s += '<rect x="' + sx(0) + '" y="' + yy + '" width="' + (sx(L - 1) - sx(0)) +
            '" height="' + RH + '" fill="var(--band)"/>';
-      s += heatRow(p.motif_x, p[k], sx, yy, RH, {lo: 0, hi: 5, hue: col, gamma: 2.2});
+      s += heatRow(p.motif_x, p[k], sx, yy, RH, {lo: 0, hi: 5, hue: col, gamma: 2.2,
+                   label: lab + ' match', unit: ' (z vs shuffled consensus)'});
       s += '<text x="' + (PADL - 6) + '" y="' + (yy + RH - 2) + '" text-anchor="end" ' +
            'font-size="8.5" fill="var(--ink-2)" font-family="monospace">' + lab + '</text>';
       yy += RH + GAP2;
@@ -581,7 +619,8 @@ function drawProfile(setName, host) {
         }
         sm.push(c2 ? t / c2 : null);
       }
-      s += heatRow(xs, sm, sx, yy, RH, {lo: 0.35, hi: 0.85, mid: 0.62, diverge: true});
+      s += heatRow(xs, sm, sx, yy, RH, {lo: 0.35, hi: 0.85, mid: 0.62, diverge: true,
+                     label: 'A+T fraction', unit: ' (genomic background 0.62)'});
       s += '<text x="' + (PADL - 6) + '" y="' + (yy + RH - 2) + '" text-anchor="end" ' +
            'font-size="8.5" fill="var(--ink-2)" font-family="monospace">A+T</text>';
       yy += RH + GAP2;
@@ -597,7 +636,7 @@ function drawProfile(setName, host) {
   // ---- structural feature track ----------------------------------------
   const ann = (typeof ANNOTATIONS !== "undefined") ? ANNOTATIONS[setName] : null;
   if (ann && ann.features && ann.features.length) {
-    const ay0 = H + MH + 4 + MOTIF_H, ah = 13;
+    const ay0 = H + MH + 4 + MOTIF_H, ah = 8;
     const spans = ann.features.filter(f => f.start !== undefined && f.end !== undefined)
                               .filter(f => FEATON(f.type))
                               .slice().sort((a, b) => a.start - b.start);
@@ -641,7 +680,7 @@ function drawProfile(setName, host) {
       // keep the label on the canvas: past the right margin, hang it to the left
       let lx = f._inside ? x + 4 : x + w + 4, anchor = "start";
       if (f._hangL) { lx = x - 4; anchor = "end"; }
-      s += '<text x="' + lx + '" y="' + (y + ah - 3.5) + '" text-anchor="' + anchor +
+      s += '<text x="' + lx + '" y="' + (y + ah - 1.2) + '" text-anchor="' + anchor +
            '" font-size="8.5" fill="' + (f._inside ? "#fff" : "var(--ink-2)") +
            '" font-family="monospace">' + f.type + "</text>";
       // internal duplications: tie the two halves together
@@ -664,7 +703,7 @@ function drawProfile(setName, host) {
              ' % of copies, median ' + tsd.len_med + ' bp</title></rect>';
       });
       s += '<text x="' + (sx(L - 1 + 2) + Math.max(6, sx(10) - sx(0)) + 5) + '" y="' +
-           (y + ah - 3.5) + '" font-size="8.5" fill="var(--ink-2)" font-family="monospace">' +
+           (y + ah - 1.2) + '" font-size="7.5" fill="var(--ink-2)" font-family="monospace">' +
            'TSD ' + (tsd.frac * 100).toFixed(0) + ' % of copies, ' + tsd.len_med + ' bp</text>';
     }
     // per-copy Pol III terminator: the functional one lies downstream of the
@@ -678,7 +717,7 @@ function drawProfile(setName, host) {
       s += '<rect x="' + sx(L - 1 + 2) + '" y="' + y2 + '" width="' +
            Math.max(6, sx(14) - sx(0)) + '" height="' + ah + '" rx="2" fill="' +
            FEATCOLOR.terminator + '" fill-opacity="0.85"/>' +
-           '<text x="' + (sx(L - 1 + 2) - 5) + '" y="' + (y2 + ah - 3.5) +
+           '<text x="' + (sx(L - 1 + 2) - 5) + '" y="' + (y2 + ah - 1.2) +
            '" text-anchor="end" font-size="8.5" fill="var(--ink-2)" ' +
            'font-family="monospace">Pol III term: ' +
            (tc.strong_frac * 100).toFixed(0) + '% strong, ' +
@@ -843,6 +882,78 @@ function redrawAll() {
   });
 }
 
+const FCLS = {abox: "fA", bbox: "fB", conserved_core: "fC", simple_repeat: "fR",
+              tail_repeat: "fT", internal_dup: "fD", terminator: "fS"};
+
+function detailHTML(set) {
+  const a = ANNOTATIONS[set], d = ALIGNMENTS.find(x => x.set === set);
+  const v = VERDICTS[set], pr = PROFILES[set];
+  if (!a || !d) return "<p>No detail available.</p>";
+  // consensus as nucleotides, coloured by the feature covering each base
+  const cons = d.rows[0].slice(d.lo, d.hi + 1).replace(/-/g, "");
+  const cov = new Array(cons.length).fill(null);
+  (a.features || []).forEach(f => {
+    if (f.start === undefined || !FCLS[f.type]) return;
+    for (let i = f.start; i <= Math.min(f.end, cons.length - 1); i++) {
+      if (i >= 0) cov[i] = f.type;
+    }
+  });
+  let seq = "";
+  for (let i = 0; i < cons.length; i += 60) {
+    seq += "<span class='pos'>" + String(i + 1).padStart(4, " ") + "  </span>";
+    for (let j = i; j < Math.min(i + 60, cons.length); j++) {
+      seq += cov[j] ? "<b class='" + FCLS[cov[j]] + "'>" + cons[j] + "</b>" : cons[j];
+    }
+    seq += "  <span class='pos'>" + Math.min(i + 60, cons.length) + "</span>" +
+           String.fromCharCode(10);
+  }
+  const key = Object.keys(FCLS).filter(k => cov.includes(k))
+    .map(k => "<span class='" + FCLS[k] + "'>■ " + k + "</span>").join("");
+  const scal = [["consensus length", cons.length + " bp"],
+                ["copies", d.n_total],
+                ["score", v ? v.score.toFixed(0) + " / 100" : "-"],
+                ["genuine-looking copies", v ? v.n_core + " of " + v.n : "-"],
+                ["element length, median", d.feat.elem_len_med],
+                ["cliff", d.feat.cliff !== undefined ? d.feat.cliff.toFixed(3) : "-"],
+                ["flank background", d.feat.flank_id !== undefined ? d.feat.flank_id.toFixed(3) : "-"]];
+  const feats = (a.features || []).map(f => {
+    const where = f.start !== undefined ? f.start + "-" + f.end : "per copy";
+    const extra = [f["class"], f.seq, f.mismatches !== undefined ?
+                   f.mismatches + "/" + f.max_mm + " mismatches" : null,
+                   f.unit ? "(" + f.unit + ")x" + f.units : null,
+                   f.frac !== undefined ? (f.frac * 100).toFixed(0) + " % of copies" : null,
+                   f.strong_frac !== undefined ? (f.strong_frac * 100).toFixed(0) +
+                     " % strong / " + (f.moderate_frac * 100).toFixed(0) + " % moderate" : null,
+                   f.note].filter(Boolean).join(", ");
+    return "<tr><td class='f'>" + f.type + "</td><td>" + (f.kind || "") +
+           "</td><td>" + where + "</td><td style='text-align:left'>" + esc(extra) + "</td></tr>";
+  }).join("");
+  return "<p class='dhint'>Consensus shown as nucleotides, coloured where a structural " +
+    "feature covers it. Positions are consensus coordinates, the same axis as the profile.</p>" +
+    "<div class='dseq'>" + seq + "</div><div class='dkey'>" + key + "</div>" +
+    "<div class='scroll' style='margin-top:16px'><table><thead><tr><th>Feature</th>" +
+    "<th>Kind</th><th>Position</th><th>Detail</th></tr></thead><tbody>" + feats +
+    "</tbody></table></div>" +
+    "<div class='scroll' style='margin-top:14px'><table><tbody>" +
+    scal.map(([k, val]) => "<tr><td style='text-align:left'>" + k + "</td><td class='n'>" +
+      val + "</td></tr>").join("") + "</tbody></table></div>";
+}
+
+function openDetail(set) {
+  let dlg = document.getElementById("detaildlg");
+  if (!dlg) {
+    dlg = document.createElement("dialog");
+    dlg.id = "detaildlg";
+    dlg.className = "detail";
+    document.body.appendChild(dlg);
+  }
+  dlg.innerHTML = "<div class='dhead'><h3>" + esc(set) + "</h3>" +
+    "<button class='dclose'>close</button></div><div class='dbody'>" +
+    detailHTML(set) + "</div>";
+  dlg.querySelector(".dclose").onclick = () => dlg.close();
+  dlg.showModal();
+}
+
 function build() {
   buildTables();
   buildTrackLegend();
@@ -883,6 +994,13 @@ function build() {
             "</article>";
   });
   list.innerHTML = html;
+  list.querySelectorAll("article.aset").forEach((el, i) => {
+    el.title = "double-click for the detailed view";
+    el.addEventListener("dblclick", ev => {
+      if (ev.target.closest("a, summary, input, button")) return;
+      openDetail(ALIGNMENTS[i].set);
+    });
+  });
   redrawAll();
 }
 
