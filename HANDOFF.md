@@ -291,3 +291,53 @@ is a second, independent truncation detector alongside `elem_len_cv` and
 re-measure everything against the corrected boundary - and to check whether the
 +7 bp 3' extension improves `tsd_frac` and `polyA_score`, which it should if the
 interpretation is right.
+
+---
+
+## 13. Structural feature annotation (`annotate.py`)
+
+Drawn as a track under the positional profile, colour-coded, hover for sequence
+and score. The important distinction, which the track encodes:
+
+**Consensus features** are properties of the query consensus, not of the copy
+set. Two sets searched with the same consensus get identical boxes, so these
+cannot discriminate between such sets — consistent with the spec treating them
+as one-sided evidence. Confirmed empirically: `NEGRAND__dmo__r00` shows the same
+A and B boxes as the real families, because it inherits the same query.
+
+**Copy features** are properties of the loci and do vary between sets.
+
+### Detected offline and working
+
+| feature | kind | result |
+|---|---|---|
+| `abox` | consensus | Pol III type-2 A box `TRGCNNARYGG`. **Exact match `TGGCGCAGCGG` at position 12–22** in both saq/s5 and teu/t2 — independent genomes, canonical position. |
+| `bbox` | consensus | B box `GWTCRANNC`. Exact `GTTCGACGC` at 64–72, `GTTCGATCC` at 67–75. |
+| `trna_region` | consensus | A-box start to B-box end, i.e. the tRNA-derived head. **Operational definition from the boxes, not a database match to a real tRNA.** |
+| `simple_repeat` | consensus | homopolymer / di- / tri-nucleotide runs. saq/s5 carries (A)13 at 233–245, i.e. the poly-A inside the consensus. |
+| `tail_repeat` | copies | the same scan on the majority base per offset in the copies' 3′ flank. saq/s5: (A)9 and (A)14 beyond the consensus end. |
+| `internal_dup` | consensus | near-identical segment pairs, seed-and-extend on 12-mers, drawn joined by a dashed line. |
+| `conserved_core` | consensus | the most conserved 30 bp. **Empirical — NOT the CORE-SINE domain**, which needs its reference consensus to assert. |
+| `tsd` | copies | 0.83 of copies, median 12 bp in `POS__saq__s5_5seqs`; 0.12 and 6 bp in `NEGRAND__dmo__r00`. The random-locus hits are minimum-length spurious matches. |
+
+The poly-A result corroborates §12 independently: the consensus ends inside a
+poly-A run that continues into the copies' flank, which is exactly why the 3′
+edge search wants ~7 bp more.
+
+### Requires reference data, deliberately not attempted
+
+Listed in each record's `not_attempted` field rather than faked:
+
+- **tRNA / 5S rRNA identity** — needs a tRNA database (tRNAscan-SE, or ssearch36
+  against a tRNA set). The `trna_region` above is the box-derived proxy only.
+- **LINE 3′ end** — needs LINE sequences. Candidates already exist on KIT at
+  `/data/W/toki/Genomes/Mammalia/Eulipotyphla/teu/line/LINE_candidates.fa`, so
+  this is the cheapest of the three to add: ssearch36 the consensus against them
+  and mark the matching span.
+- **CORE-SINE domain** — needs the CORE reference consensus.
+
+### Documentation discipline
+
+Sergei asked that important points be written into the documentation as part of
+each exchange rather than batched at the end. Findings go here (state) and into
+`FINDINGS.md` (chronological), then get committed and pushed in the same turn.
