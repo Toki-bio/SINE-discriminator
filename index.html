@@ -8,8 +8,8 @@
   --muted:#68766f;--rule:#d6dcd4;--rule-2:#c2cbc0;--accent:#1f6f5c;--accent-soft:#e2efe9;
   --warn:#a8501d;--warn-soft:#f6e8de;--edge:#7a5c12;--edge-soft:#f5eed8;
   --bA:#2f7d5c;--bC:#2b6b96;--bG:#9a6a12;--bT:#a4453c;--mism:#c94f3d;
-  --t1:#0b7a6a;--t2:#1f5fa8;--t3:#c2790a;--t4:#8e44ad;--t5:#b03a2e;
-  --f1:#1f6fb2;--f2:#7a3fb0;--f3:#0f8a7a;--f4:#9a7b06;--f5:#d2691e;--f6:#c0392b;--f7:#b5307f;--f8:#2e8b3d;
+  --f1:#2a78d6;--f2:#eb6834;--f3:#1baf7a;--f4:#eda100;--f5:#e87ba4;--f6:#008300;--f7:#4a3aa7;--f8:#e34948;
+  --t1:#1baf7a;--t2:#2a78d6;--t3:#eda100;--t4:#4a3aa7;--t5:#e34948;
   --band:#e9efe9;--grid:#e2e7e0;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -17,16 +17,16 @@
   --muted:#8a9992;--rule:#27332f;--rule-2:#35443f;--accent:#57c1a2;--accent-soft:#173029;
   --warn:#dd8a4e;--warn-soft:#2e2015;--edge:#d9b64e;--edge-soft:#2a2413;
   --bA:#5fc08a;--bC:#6bb4de;--bG:#d6a748;--bT:#e07f74;--mism:#e8705c;
-  --t1:#4fd0b4;--t2:#6aa8f0;--t3:#e8b24a;--t4:#c79ae0;--t5:#f08a6a;
-  --f1:#5aa6e0;--f2:#b98ae0;--f3:#4fc9b4;--f4:#e0c05a;--f5:#f0a05a;--f6:#f07a6a;--f7:#e878b8;--f8:#63c97a;
+  --f1:#3987e5;--f2:#d95926;--f3:#199e70;--f4:#c98500;--f5:#d55181;--f6:#008300;--f7:#9085e9;--f8:#e66767;
+  --t1:#199e70;--t2:#3987e5;--t3:#c98500;--t4:#9085e9;--t5:#e66767;
   --band:#1b2523;--grid:#212c29;}}
 :root[data-theme="dark"]{
   --ground:#0e1413;--surface:#161f1d;--surface-2:#1d2825;--ink:#e4eae6;--ink-2:#b3c0ba;
   --muted:#8a9992;--rule:#27332f;--rule-2:#35443f;--accent:#57c1a2;--accent-soft:#173029;
   --warn:#dd8a4e;--warn-soft:#2e2015;--edge:#d9b64e;--edge-soft:#2a2413;
   --bA:#5fc08a;--bC:#6bb4de;--bG:#d6a748;--bT:#e07f74;--mism:#e8705c;
-  --t1:#4fd0b4;--t2:#6aa8f0;--t3:#e8b24a;--t4:#c79ae0;--t5:#f08a6a;
-  --f1:#5aa6e0;--f2:#b98ae0;--f3:#4fc9b4;--f4:#e0c05a;--f5:#f0a05a;--f6:#f07a6a;--f7:#e878b8;--f8:#63c97a;
+  --f1:#3987e5;--f2:#d95926;--f3:#199e70;--f4:#c98500;--f5:#d55181;--f6:#008300;--f7:#9085e9;--f8:#e66767;
+  --t1:#199e70;--t2:#3987e5;--t3:#c98500;--t4:#9085e9;--t5:#e66767;
   --band:#1b2523;--grid:#212c29;}
 *{box-sizing:border-box}
 body{margin:0;background:var(--ground);color:var(--ink);
@@ -112,9 +112,16 @@ td.f{font-family:"IBM Plex Mono",monospace;font-size:12.5px;text-align:left}
 .controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:10px;font-size:12.5px}
 .controls label{display:flex;gap:5px;align-items:center;color:var(--ink-2);cursor:pointer}
 .chartbox{border:1px solid var(--rule);border-radius:2px;background:var(--ground);padding:8px 6px;margin-bottom:12px}
-.tracklegend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;margin:8px 0 4px;font-family:"IBM Plex Mono",monospace}
+.controlbar{position:sticky;top:0;z-index:5;background:var(--surface);border:1px solid var(--rule-2);
+  border-radius:3px;padding:11px 14px;margin:18px 0 22px;box-shadow:0 2px 8px -6px rgba(0,0,0,.4)}
+.controlbar h4{margin:0 0 8px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--muted);font-family:"IBM Plex Mono",monospace}
+.tracklegend{display:flex;gap:8px 16px;flex-wrap:wrap;font-size:12px;margin:0 0 9px;
+  font-family:"IBM Plex Mono",monospace}
 .tracklegend label{display:flex;gap:5px;align-items:center;cursor:pointer;color:var(--ink-2)}
-.tracklegend .sw{width:12px;height:3px;border-radius:2px;display:inline-block}
+.tracklegend .sw{width:16px;height:3px;border-radius:2px;display:inline-block}
+.tracklegend .swb{width:14px;height:11px;border-radius:2px;display:inline-block}
+.tracklegend label:has(input:not(:checked)){opacity:.42}
 .vlink{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:11.5px;
   background:var(--accent-soft);color:var(--accent);padding:4px 10px;border-radius:2px;
   text-decoration:none;font-weight:600;margin:0 0 12px}
@@ -277,7 +284,12 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--rule);font-si
       nucleotide, with the flank dimmed on either side.
     </p>
   </div>
-  <div class="tracklegend" id="tracklegend"></div>
+  <div class="controlbar">
+    <h4>Profile tracks</h4>
+    <div class="tracklegend" id="tracklegend"></div>
+    <h4>Structural features</h4>
+    <div class="tracklegend" id="featlegend"></div>
+  </div>
   <p class="why" style="font-size:13px;max-width:70ch">
     Each panel below: the profile across the element, the structural feature track under it,
     then what the method gets right and wrong on that set. The alignment itself is collapsed —
@@ -482,18 +494,32 @@ function drawProfile(setName, host) {
   const ann = (typeof ANNOTATIONS !== "undefined") ? ANNOTATIONS[setName] : null;
   if (ann && ann.features && ann.features.length) {
     const ay0 = H + MH + 4, ah = 13;
-    const spans = ann.features.filter(f => f.start !== undefined && f.end !== undefined);
+    const spans = ann.features.filter(f => f.start !== undefined && f.end !== undefined)
+                              .filter(f => FEATON(f.type))
+                              .slice().sort((a, b) => a.start - b.start);
+    // Pack lanes by the space the LABEL occupies, not by the span alone. A 9 bp
+    // A box carries a 30 px label; packing on the span alone is what made the
+    // labels collide.
+    const CH = 4.9;                                   // px per character at 8.5px mono
     const lanes = [];
     spans.forEach(f => {
+      const x0 = sx(f.start);
+      const wpx = Math.max(2.5, sx(f.end) - x0);
+      const lab = f.type.length * CH + 8;
+      f._x = x0;
+      f._w = wpx;
+      f._inside = wpx > lab + 6;
+      f._x1 = x0 + (f._inside ? wpx : wpx + lab);     // right edge including the label
       let ln = 0;
-      while (lanes[ln] !== undefined && lanes[ln] > f.start) ln++;
-      lanes[ln] = f.end;
+      while (lanes[ln] !== undefined && lanes[ln] > x0 - 4) ln++;
+      lanes[ln] = f._x1;
       f._lane = ln;
     });
     const nlane = Math.max(1, lanes.length);
+    if (!spans.length && !FEATON("tsd")) { TOTAL_H = H + MH; }
     spans.forEach(f => {
       const c = FEATCOLOR[f.type] || "var(--muted)";
-      const x = sx(f.start), w = Math.max(2.5, sx(f.end) - sx(f.start));
+      const x = f._x, w = f._w;
       const y = ay0 + f._lane * (ah + 3);
       s += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + ah +
            '" rx="2" fill="' + c + '" fill-opacity="0.75"><title>' +
@@ -502,13 +528,13 @@ function drawProfile(setName, host) {
            (f.mismatches !== undefined ? " " + f.seq + ", " + f.mismatches +
             "/" + f.max_mm + " mismatches" : "") +
            (f.note ? " — " + f.note : "") + "</title></rect>";
-      if (w > 46) {
-        s += '<text x="' + (x + 3) + '" y="' + (y + ah - 3.5) + '" font-size="8.5" ' +
-             'fill="var(--surface)" font-family="monospace">' + f.type + "</text>";
-      } else {
-        s += '<text x="' + (x + w + 3) + '" y="' + (y + ah - 3.5) + '" font-size="8" ' +
-             'fill="var(--ink-2)" font-family="monospace">' + f.type + "</text>";
-      }
+      // keep the label on the canvas: past the right margin, hang it to the left
+      const labw = f.type.length * 4.9;
+      let lx = f._inside ? x + 4 : x + w + 4, anchor = "start";
+      if (!f._inside && lx + labw > W - PADR) { lx = x - 4; anchor = "end"; }
+      s += '<text x="' + lx + '" y="' + (y + ah - 3.5) + '" text-anchor="' + anchor +
+           '" font-size="8.5" fill="' + (f._inside ? "#fff" : "var(--ink-2)") +
+           '" font-family="monospace">' + f.type + "</text>";
       // internal duplications: tie the two halves together
       if (f.type === "internal_dup" && f.partner_start !== undefined) {
         const px = sx(f.partner_start), pw = Math.max(2.5, sx(f.partner_end) - px);
@@ -519,7 +545,7 @@ function drawProfile(setName, host) {
              'stroke-dasharray="2 2"/>';
       }
     });
-    const tsd = ann.features.find(f => f.type === "tsd");
+    const tsd = FEATON("tsd") ? ann.features.find(f => f.type === "tsd") : null;
     if (tsd) {
       const y = ay0 + nlane * (ah + 3);
       [[sx(-12), "5′"], [sx(L - 1 + 2), "3′"]].forEach(([x]) => {
@@ -625,14 +651,31 @@ function msaBlock(d) {
   return out;
 }
 
+const FEATLIST = [
+  ["abox", "A box"], ["bbox", "B box"], ["trna_region", "tRNA region"],
+  ["conserved_core", "conserved block"], ["simple_repeat", "simple repeat"],
+  ["tail_repeat", "3' tail repeat"], ["internal_dup", "internal duplication"],
+  ["tsd", "TSD"]
+];
+
 function buildTrackLegend() {
   const host = document.getElementById("tracklegend");
   host.innerHTML = TRACKS.map(t =>
     "<label><input type='checkbox' class='trk' data-k='" + t.k + "'" + (t.on ? " checked" : "") +
     "><span class='sw' style='background:" + t.color + "'></span>" + t.label + "</label>").join("") +
-    "<span style='color:var(--warn)'>--- dashed line = unrelated DNA, 0.25</span>" +
-    "<span style='color:var(--muted)'>· toggles apply to every panel</span>";
-  host.querySelectorAll(".trk").forEach(cb => cb.onchange = redrawAll);
+    "<label style='cursor:default'><span class='sw' style='background:none;" +
+    "border-top:2px dashed var(--warn)'></span>unrelated DNA, 0.25</label>";
+  const fh = document.getElementById("featlegend");
+  fh.innerHTML = FEATLIST.map(([k, lab]) =>
+    "<label><input type='checkbox' class='ftr' data-k='" + k + "' checked>" +
+    "<span class='swb' style='background:" + (FEATCOLOR[k] || "var(--muted)") + "'></span>" +
+    lab + "</label>").join("");
+  document.querySelectorAll(".trk,.ftr").forEach(cb => cb.onchange = redrawAll);
+}
+
+function FEATON(k) {
+  const cb = document.querySelector(".ftr[data-k='" + k + "']");
+  return !cb || cb.checked;
 }
 
 function trackOn(k) {

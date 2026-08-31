@@ -525,3 +525,30 @@ consensuses and run directories. Running the same pipeline on Erinaceidae would
 show which of the numbers above are properties of SINEs and which are properties
 of Tal. Until that is done, no threshold derived here should be applied to
 another family.
+
+### 15a. Chart colour and layout fixes
+
+Three problems Sergei reported on the vertical list, all fixed:
+
+1. **Overlapping feature labels.** Lanes were packed by span width alone, but a
+   9 bp A box carries a ~30 px label, so labels from adjacent narrow features
+   collided. Lanes are now packed by the space the *label* occupies, and a label
+   that would run past the right margin is hung to the left of its block instead.
+2. **Track toggles were invisible.** They were an unlabelled inline row. There is
+   now a sticky control bar at the top of the section with two labelled groups —
+   profile tracks and structural features — with colour swatches, and unchecked
+   items dimmed. Feature types are individually toggleable, which they were not
+   before.
+3. **Colours were not distinct enough.** Replaced ad-hoc hues with the validated
+   8-slot categorical palette (blue, orange, aqua, yellow, magenta, green,
+   violet, red), stepped separately for light and dark surfaces rather than
+   flipped. Checked with the palette validator rather than by eye:
+
+   - light: all pass. Worst adjacent CVD ΔE 9.1 (target ≥ 8), worst adjacent
+     normal-vision ΔE 19.6 (floor ≥ 15). Contrast WARN on three hues, which
+     obligates visible labels — every feature block carries one, so that relief
+     is satisfied.
+   - dark: all pass, including contrast ≥ 3:1 on all eight.
+
+   Feature slots are fixed per type and never cycled, so a feature keeps its
+   colour across panels.
