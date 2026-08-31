@@ -1476,3 +1476,34 @@ not "is there an element" — the two are independent and both are needed.
 
 **Not yet done:** wire the reading into `verdict.py` as a flag, replacing the
 within-set flank-sharing test that produced the false NESTED_COPIES calls.
+
+## 36a. Flank decay wired into the verdict
+
+`verdict.py` now reads `flankdecay.json` and, where a set has 400 bp flanks,
+the decay reading REPLACES the within-set flank-sharing test that produced the
+false NESTED_COPIES calls. New flags: `NOT_ISOLATED` (satellite or duplication),
+`FRAGMENT_OF_LONGER` (a LINE 3' end or similar), `ADJACENT_SIMILARITY` (a note,
+not a fault).
+
+**Both parts of the decay curve are needed.** Using distance alone rated a LINE
+fragment as *isolated* and raised its score from 64 to 88 — its shared flank runs
+only 50-75 bp before the copies truncate, even though identity at the edge is
+0.89, which says the element does not end there. The uniqueness group is now the
+product of a distance term and an edge-identity term.
+
+| class | before | after | flags |
+|---|---|---|---|
+| POS | 99.7 | **99.9** | ADJACENT_SIMILARITY 2 |
+| ERI hedgehog | 63.5 | 72.8 | NOT_ISOLATED 2 (e1-4, e2-2 only) |
+| NEGLINEORF | 64.2 | **4.5** | FRAGMENT_OF_LONGER 4/4 |
+| NEGSAT | 0.0 | **0.0** | NOT_ISOLATED 3/3 |
+| NEGSEGDUP | 0.0 | **0.0** | NOT_ISOLATED, NO_ELEMENT |
+| NEGRAND | 0.1 | 0.1 | NO_ELEMENT 20/20 |
+
+Hedgehog e1-1, e1-2 and e1-3 now score 93-99 with no flags, having previously
+carried false NESTED_COPIES. The two that genuinely are satellite/duplication
+(e1-4, e2-2) score 4.2 and are flagged.
+
+**All four natural non-SINE classes now reject: random loci, satellites,
+segmental duplications and LINEs.** The remaining grey zone is entirely
+NEGTRUNC5 and NEGCHIM - the two classes Sergei has already judged to be SINEs.

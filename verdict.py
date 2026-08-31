@@ -33,6 +33,38 @@ W = {                       # evidence group -> weight
 SUPPORT = 0.55              # legacy constant, kept for reference only
 
 
+def contamination_split(ident, bg, min_gap=0.10, min_frac=0.05):
+    """Contamination is a SEPARATE MODE, not a low tail.
+
+    Asking "how many copies fall below a line" penalises any diverged family:
+    a clean family at 30 % divergence has copies at identity 0.47-0.77 and every
+    absolute or proportional cut clips its lower half. But that distribution is
+    unimodal - largest internal gap 0.036 - while a genuinely contaminated set is
+    bimodal, largest gap 0.247. The shape is divergence-independent; the location
+    is not.
+
+    Returns the identity cut separating the two modes, or None if the
+    distribution is unimodal, i.e. no contamination.
+    """
+    d = np.sort(ident)
+    n = len(d)
+    if n < 20:
+        return None
+    lo, hi = max(1, int(n * 0.03)), min(n - 1, int(n * 0.97))
+    if hi - lo < 3:
+        return None
+    gaps = np.diff(d[lo:hi + 1])
+    j = int(np.argmax(gaps))
+    gap = float(gaps[j])
+    cut = float((d[lo + j] + d[lo + j + 1]) / 2)
+    below = int(np.sum(ident < cut))
+    if gap < min_gap or below < max(3, min_frac * n):
+        return None                       # unimodal: a diverged family, not a mixture
+    if np.median(d[d >= cut]) - bg < 0.20:
+        return None                       # the upper mode is not an element either
+    return cut
+
+
 def support_threshold(ident, bg):
     """A copy supports the consensus if its identity is well above background
     FOR THIS FAMILY. A constant 0.55 flags an old but clean family as
@@ -50,6 +82,17 @@ def support_threshold(ident, bg):
     return max(bg + 0.10, bg + 0.45 * contrast)
 FLANK_SHARE = 0.55          # ungapped flank identity above which two copies share a flank
 BG = 0.25                   # unrelated DNA
+
+
+# Flank-decay readings, computed on 400 bp flanks by flankdecay.py. When a set
+# has one, it REPLACES the within-set flank-sharing test: that test compared
+# copies over 70 bp and called adjacent similarity "nesting", which produced
+# false NESTED_COPIES on hedgehog e2-3 and e2-4. Decay distance distinguishes
+# 50 bp of shared context from a satellite that never ends.
+try:
+    _DECAY = json.load(open("flankdecay.json"))
+except Exception:
+    _DECAY = {}
 
 
 def sat(x, lo, hi):
@@ -170,6 +213,7 @@ def verdict(path):
     if p is None:
         return None
     n, ident = p["n"], p["ident"]
+    dec = _DECAY.get(os.path.basename(path).replace(".aln.fa", ""))
 
     # background first, because the support threshold is defined against it
     fl_pre = []
@@ -180,9 +224,19 @@ def verdict(path):
         if len(vv):
             fl_pre.append(float(np.median(vv)))
     bg_meas = float(np.mean(fl_pre)) if fl_pre else BG
+    # Two separate questions, previously conflated into one threshold:
+    #   is there an element at all      -> support_threshold
+    #   is this set a MIXTURE           -> contamination_split
     thr = support_threshold(ident, bg_meas)
-    supported = np.zeros(n, bool) if thr is None else (ident >= thr)
+    cut = contamination_split(ident, bg_meas)
+    if thr is None:
+        supported = np.zeros(n, bool)     # no element: nothing supports it
+    elif cut is not None:
+        supported = ident >= cut          # a real mixture: split at the mode boundary
+    else:
+        supported = np.ones(n, bool)      # unimodal: every copy belongs, however diverged
     n_sup = int(supported.sum())
+    v_cut = cut
 
     FL, sharedL = flank_sharing(p["lefts"])
     FR, sharedR = flank_sharing(p["rights"])
@@ -228,11 +282,23 @@ def verdict(path):
     # so a median cliff cannot see contamination at all. The score must describe
     # the set as submitted; recoverability is carried by n_core and the flags.
     id_all = float(np.mean(ident))
-    g_elem = (sat(id_all - flank_bg, 0.08, 0.55) ** 0.5) *              (sat(n_sup / max(1, n), 0.15, 0.98) ** 0.5)
+    # "Is there an element" is a BINARY question, so the evidence must saturate
+    # once it is answered. A cliff of 0.28 means copies match the consensus at
+    # 0.57 while unrelated DNA matches at 0.29 - already unambiguous. Scoring on
+    # to 0.55 made the statistic report youth, not existence, and cost a clean
+    # 30 %-divergent family a third of its element score.
+    g_elem = (sat(id_all - flank_bg, 0.10, 0.30) ** 0.5) *              (sat(n_sup / max(1, n), 0.15, 0.98) ** 0.5)
     g_homog = np.mean([1 - sat(cv_core, 0.05, 0.25),
                        1 - (sat(sub.get("gap_excess", sub["gap"]), 0.02, 0.14) if sub else 0.0)])
-    g_uniq = np.mean([1 - sat(n_shared / max(1, n), 0.05, 0.60),
-                      1 - sat(global_elev - BG, 0.05, 0.30)])
+    if dec:
+        # BOTH parts of the decay curve matter. Distance alone rates a LINE
+        # fragment as isolated, because its shared flank runs only ~50-75 bp
+        # before the copies truncate - yet identity right at the edge is 0.89,
+        # which says the element does not end there at all.
+        g_uniq = (1 - sat(dec["decay_max"], 75, 300)) *                  (1 - sat(dec.get("edge_max") or 0.0, 0.45, 0.85))
+    else:
+        g_uniq = np.mean([1 - sat(n_shared / max(1, n), 0.05, 0.60),
+                          1 - sat(global_elev - BG, 0.05, 0.30)])
     g_ins = sat(tsd_frac, 0.10, 0.60)
 
     # Geometric weighting, not a weighted sum: a set with no element is not a
@@ -247,11 +313,33 @@ def verdict(path):
 
     # ---- sub-cases, not one "negative" bucket ---------------------------
     flags = []
+    if dec:
+        call = dec.get("call")
+        if call == "SATELLITE_OR_DUPLICATION":
+            flags.append({"code": "NOT_ISOLATED", "n": dec["decay_max"],
+                          "text": "Similarity between copies continues %d bp beyond the "
+                                  "element and does not reach background — a satellite "
+                                  "array or a duplicated region, not independent "
+                                  "insertions." % dec["decay_max"]})
+        elif call == "ELEMENT_CONTINUES":
+            flags.append({"code": "FRAGMENT_OF_LONGER", "n": dec["decay_max"],
+                          "text": "The sequence flanking these copies is itself shared "
+                                  "(identity %.2f at the edge, reaching background only "
+                                  "%d bp out). They look like fragments of a longer "
+                                  "element — a LINE 3' end or similar — rather than a "
+                                  "short element with its own boundaries."
+                                  % (dec["edge_max"], dec["decay_max"])})
+        elif call == "ADJACENT_SIMILARITY":
+            flags.append({"code": "ADJACENT_SIMILARITY", "n": dec["decay_max"],
+                          "text": "Copies share about %d bp of sequence just outside the "
+                                  "element, then reach background. Worth noting, but they "
+                                  "are in independent locations."
+                                  % dec["decay_max"]})
     # Flank sharing is reported whatever the core count. Previously this sat
     # behind "n_core >= 8", so a set whose copies ALL share flanking sequence
     # scored near zero with no explanation at all - hedgehog e1-4 and e2-2 both
     # did exactly that, at flank identity 0.68 against 0.28 for a normal family.
-    if global_elev - BG > 0.15 and n >= 15:
+    if (not dec) and global_elev - BG > 0.15 and n >= 15:
         flags.append({"code": "SHARED_FLANKS", "n": n_shared,
                       "text": "Flanking sequence is %.2f identical between copies against "
                               "%.2f for unrelated DNA — these loci are not in independent "
@@ -261,7 +349,7 @@ def verdict(path):
         flags.append({"code": "NO_ELEMENT",
                       "text": "No element: too few copies support the consensus above background."})
     if n_core >= 8:
-        if (n - n_sup) / max(1, n) > 0.08:
+        if cut is not None and (n - n_sup) / max(1, n) > 0.03:
             flags.append({"code": "CONTAMINATED", "n": int(n - n_sup),
                           "text": "%d of %d copies do not support the consensus; prune them and "
                                   "re-score (see prune.py)." % (n - n_sup, n)})
@@ -273,7 +361,7 @@ def verdict(path):
                                   "them and treat each as its own family."
                                   % (sub["sizes"][0], sub["sizes"][1], sub["within"],
                                      sub["between"], sub.get("gap_excess", 0))})
-        if n_shared / max(1, n) > 0.15:
+        if (not dec) and n_shared / max(1, n) > 0.15:
             kind = ("satellite or segmental duplication" if global_elev - BG > 0.15
                     else "another repeat or a duplication")
             flags.append({"code": "NESTED_COPIES", "n": n_shared,
@@ -297,6 +385,7 @@ def verdict(path):
             "core_identity": round(id_core, 3), "all_identity": round(float(np.median(ident)), 3), "flank_bg": round(flank_bg, 3),
             "core_len_cv": round(cv_core, 3), "tsd_frac": round(tsd_frac, 3),
             "support_threshold": None if thr is None else round(float(thr), 3),
+            "contamination_cut": None if v_cut is None else round(float(v_cut), 3),
             "subfamily": sub and {k: v for k, v in sub.items() if k != "members"},
             "flags": flags}
 
