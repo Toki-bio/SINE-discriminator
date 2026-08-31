@@ -219,3 +219,75 @@ threshold. `NEGJITTER` was the stand-in and does not bite.
 `res_asymmetry` −1.79. Either it is a genuinely degenerate old family and the
 thresholds must accommodate it, or it is mis-curated. This needs his judgement,
 not more computation.
+
+---
+
+## 12. Exploratory edge refinement (added same day, Sergei's suggestion)
+
+The consensus anchor is stable but inherits whatever is wrong with the
+consensus. `edges.py` treats the consensus edge as a starting guess and searches
+offsets around it.
+
+**Objective.** At a candidate edge, boundary quality is the step in mean
+pairwise identity between copies across it: `mean pair_id inside window` minus
+`mean pair_id outside window`, W = 25, scanned over d = -60..+60.
+
+**Avoiding circularity.** The optimised step value is deliberately NOT used as a
+discriminating variable - optimising a statistic then scoring on it inflates
+negatives too. What is reported is the SHAPE of the landscape: `prominence`
+(peak minus median over the scan) and `d_best`. A real family should have a
+sharp optimum; junk should have a flat one whatever its best step happens to be.
+That prediction held.
+
+**Ground-truth validation** (`test_edges.py`). The consensus edge is deliberately
+moved inward by 10/20/40 bp and the search asked to recover it. Left edge: error
+within 5 bp in 19/20 cases, usually within 1 bp, and it returns 0 when nothing
+is wrong. This is the check to re-run after any change to the objective.
+
+**Landscape shape discriminates, as designed:**
+
+| class | prominence L | prominence R |
+|---|---|---|
+| POS | 0.440 | 0.455 |
+| MIXED10 | 0.397 | 0.396 |
+| MIXED30 | 0.305 | 0.325 |
+| NEGTRUNC5 | **0.086** | 0.463 |
+| NEGRAND | **0.082** | **0.080** |
+
+Random loci have no preferred edge on either side. 5'-truncated sets are flat on
+the truncated side and sharp on the intact side - the asymmetry in *prominence*
+is a second, independent truncation detector alongside `elem_len_cv` and
+`res_asymmetry`.
+
+**Two substantive findings about the SINEderella consensuses themselves:**
+
+1. **The 5' ends are right.** All 28 curated families put `d_best_L` within
+   +-1 bp of the consensus edge. The search confirms the existing boundary
+   rather than moving it. This also settles a reading of the positional
+   profiles: the identity bump at -20..-10 in the 5' flank is the A-rich
+   insertion signature the spec predicts, NOT the element extending further.
+2. **The 3' ends are systematically ~7 bp short.** 20 of 28 families want to
+   extend outward, median -7 bp, many at exactly -7. Consistent with poly-A
+   being trimmed during consensus construction while the copies retain it -
+   the spec's own "residual tail features bleeding into the right flank".
+   The 8 families that instead want to trim inward are mostly the ones with the
+   weakest right-edge prominence (`ccr__a_ccr` 0.239, `saq__s2_38seqs` 0.284,
+   `dmo__d1_16seqs` 0.279), i.e. their right edge is poorly defined either way.
+
+**Known limits.**
+- The scan reaches +-60 bp, bounded by the 70 bp flank in the alignment. A
+  consensus wrong by more than that cannot be detected. Fix cheaply by carrying
+  a longer *analysis* flank that never enters the alignment - flank length only
+  hurts when MAFFT sees it.
+- `width` (offsets within 90 % of the peak) came out at 6 for every class. It is
+  degenerate as computed; `prominence` carries the information. Do not use it.
+- The right edge is intrinsically harder because poly-A keeps pairwise identity
+  high past the element, so the step is ill-defined there. The recovery test
+  reflects this: right-edge errors are larger and mostly equal the real ~7-9 bp
+  extension rather than being noise.
+
+**Not yet done:** the refined edges are reported but not fed back into
+`measure_c.py`. The obvious next move is a second pass - refine edges, then
+re-measure everything against the corrected boundary - and to check whether the
++7 bp 3' extension improves `tsd_frac` and `polyA_score`, which it should if the
+interpretation is right.

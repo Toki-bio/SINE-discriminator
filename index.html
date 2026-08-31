@@ -286,6 +286,66 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--rule);font-si
 </section>
 
 <section>
+  <div class="rule"><span class="fnum">EDGES</span><span class="chip c-ok">Validated</span></div>
+  <div class="col">
+    <h2>The consensus edge as a guess, not a given</h2>
+    <p>
+      The consensus used for the preliminary search may be mis-trimmed, so the boundary is
+      now searched over offsets around it. At each candidate edge the objective is the step
+      in pairwise identity across it; the best edge maximises that step.
+    </p>
+    <p>
+      Optimising a statistic and then scoring on it would inflate the negatives too, so the
+      optimised value is deliberately <em>not</em> a discriminating variable. What is used
+      instead is the <b>shape of the landscape</b>: a real family should have a sharp,
+      well-localised optimum, junk a flat one. That prediction held.
+    </p>
+  </div>
+  <div class="scroll"><table>
+    <caption>Prominence of the optimum — peak minus median over the scan. High = the data
+    have a definite opinion about where the edge is.</caption>
+    <thead><tr><th>Class</th><th>5′ prominence</th><th>3′ prominence</th><th>reading</th></tr></thead>
+    <tbody>
+      <tr><td>real families</td><td class="n">0.440</td><td class="n">0.455</td><td style="text-align:left">sharp both sides</td></tr>
+      <tr><td>10 % contamination</td><td class="n">0.397</td><td class="n">0.396</td><td style="text-align:left">slightly degraded</td></tr>
+      <tr><td>30 % contamination</td><td class="n">0.305</td><td class="n">0.325</td><td style="text-align:left">degraded</td></tr>
+      <tr><td>5′-truncated</td><td class="n">0.086</td><td class="n">0.463</td><td style="text-align:left">flat on the damaged side only</td></tr>
+      <tr><td>random loci</td><td class="n">0.082</td><td class="n">0.080</td><td style="text-align:left">no preferred edge at all</td></tr>
+    </tbody>
+  </table></div>
+  <div class="col">
+    <p>
+      The truncation row is the useful one: flat at the 5′ end, sharp at the 3′ end. That
+      <em>asymmetry in prominence</em> is a third, independent truncation detector.
+    </p>
+    <h3>Validated against ground truth</h3>
+    <p>
+      The consensus edge is deliberately moved inward by 10, 20 or 40 bp and the search asked
+      to recover it. The 5′ edge comes back within 5 bp in 19 of 20 cases, usually within
+      1 bp, and returns zero when nothing is wrong. Re-run <code>test_edges.py</code> after
+      any change to the objective.
+    </p>
+    <h3>Two findings about the consensuses themselves</h3>
+    <ul>
+      <li><b>The 5′ ends are correct.</b> All 28 curated families put the best 5′ edge within
+      ±1 bp of the consensus. The search confirms the existing boundary rather than moving it.
+      It also settles a reading of the profiles above: the identity bump at −20…−10 in the
+      5′ flank is the A-rich insertion signature, not the element extending further.</li>
+      <li><b>The 3′ ends are systematically ~7 bp short.</b> 20 of 28 families want to extend
+      outward, median −7 bp, many at exactly −7 — consistent with poly-A being trimmed during
+      consensus construction while the copies keep it. The 8 that want to trim inward instead
+      are mostly those with the weakest 3′ prominence, i.e. no well-defined edge either way.</li>
+    </ul>
+    <div class="note w"><b>Limits.</b> The scan reaches ±60 bp, bounded by the 70 bp flank in
+    the alignment — a consensus wrong by more than that is invisible. Fix by carrying a longer
+    <em>analysis</em> flank that never enters the alignment. The <code>width</code> statistic
+    came out at 6 for every class and is degenerate as computed; prominence carries the
+    information. And the refined edges are not yet fed back into the measurement — that second
+    pass is the next step.</div>
+  </div>
+</section>
+
+<section>
   <div class="col">
     <h2>Next, in order</h2>
     <ul>
