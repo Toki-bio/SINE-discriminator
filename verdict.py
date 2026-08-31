@@ -30,7 +30,24 @@ W = {                       # evidence group -> weight
     "uniqueness": 0.20,     # are the copies in unique genomic locations
     "insertion": 0.10,      # one-sided bonuses: TSDs and the insertion site
 }
-SUPPORT = 0.55              # per-copy identity above which a copy supports the consensus
+SUPPORT = 0.55              # legacy constant, kept for reference only
+
+
+def support_threshold(ident, bg):
+    """A copy supports the consensus if its identity is well above background
+    FOR THIS FAMILY. A constant 0.55 flags an old but clean family as
+    contaminated - SIMCLEAN at age 0.30 scored 80 with CONTAMINATED - because
+    genuine old copies fall below any absolute cut. Scale it instead between the
+    measured flank background and the family's own upper quartile.
+
+    The guard matters: in a set with no element q75 is barely above background,
+    and a proportional threshold would then pass almost everything. Below a
+    minimum contrast there is nothing to support, so nothing is supported."""
+    q75 = float(np.percentile(ident, 75))
+    contrast = q75 - bg
+    if contrast < 0.15:
+        return None                      # no element: support is undefined
+    return max(bg + 0.10, bg + 0.45 * contrast)
 FLANK_SHARE = 0.55          # ungapped flank identity above which two copies share a flank
 BG = 0.25                   # unrelated DNA
 
@@ -92,14 +109,14 @@ def flank_sharing(seqs, minlen=35):
     return F, (F > FLANK_SHARE).any(axis=1)
 
 
-def subfamily_split(el, pres, ident, min_grp=12):
+def subfamily_split(el, pres, ident, min_grp=12, thr=None):
     """Do the supported copies fall into structurally different groups?
 
     Copy x copy identity inside the element, split on the leading eigenvector.
     A real family varies smoothly with age; two subfamilies with different
     structure separate into blocks whose between-group identity is clearly below
     their within-group identity."""
-    sel = np.where(ident >= SUPPORT)[0]
+    sel = np.where(ident >= (SUPPORT if thr is None else thr))[0]
     if len(sel) < 2 * min_grp:
         return None
     E = el[sel]
@@ -125,7 +142,25 @@ def subfamily_split(el, pres, ident, min_grp=12):
         return None
     within = np.nanmean([S[np.ix_(g, g)].mean(), S[np.ix_(~g, ~g)].mean()])
     between = S[np.ix_(g, ~g)].mean()
-    return {"gap": float(within - between), "sizes": [int(g.sum()), int((~g).sum())],
+    gap = float(within - between)
+
+    # Null: split on a RANDOM vector instead of the leading eigenvector. Any
+    # split of a homogeneous family yields a positive gap whose size grows with
+    # divergence and shrinks with n - which is why the raw gap tracked age at
+    # +0.99 and copy number at -0.97 in families with no subfamily structure at
+    # all. Subtracting the null removes both dependencies at their source.
+    rng = np.random.default_rng(0)
+    null = []
+    for _ in range(24):
+        r = rng.normal(size=len(sel))
+        gr = r > np.median(r)
+        if gr.sum() < 4 or (~gr).sum() < 4:
+            continue
+        w = np.nanmean([S[np.ix_(gr, gr)].mean(), S[np.ix_(~gr, ~gr)].mean()])
+        null.append(w - S[np.ix_(gr, ~gr)].mean())
+    nullmean = float(np.mean(null)) if null else 0.0
+    return {"gap": gap, "gap_excess": float(gap - nullmean), "gap_null": nullmean,
+            "sizes": [int(g.sum()), int((~g).sum())],
             "within": float(within), "between": float(between),
             "members": [int(sel[i]) for i in np.where(g)[0]]}
 
@@ -135,7 +170,18 @@ def verdict(path):
     if p is None:
         return None
     n, ident = p["n"], p["ident"]
-    supported = ident >= SUPPORT
+
+    # background first, because the support threshold is defined against it
+    fl_pre = []
+    for seqs in (p["lefts"], p["rights"]):
+        F0, _ = flank_sharing(seqs)
+        vv = F0[np.triu_indices(len(seqs), 1)]
+        vv = vv[vv > 0]
+        if len(vv):
+            fl_pre.append(float(np.median(vv)))
+    bg_meas = float(np.mean(fl_pre)) if fl_pre else BG
+    thr = support_threshold(ident, bg_meas)
+    supported = np.zeros(n, bool) if thr is None else (ident >= thr)
     n_sup = int(supported.sum())
 
     FL, sharedL = flank_sharing(p["lefts"])
@@ -149,7 +195,10 @@ def verdict(path):
     core = supported & ~shared
     n_core = int(core.sum())
 
-    sub = subfamily_split(p["el"], p["pres"], ident)
+    # Structure is tested on the SUPPORTED copies only. Contamination masks a
+    # scramble - seg_diag against scrambling went from -0.61 on the joint grid
+    # to -0.92 once contamination was low - so pruning has to come first.
+    sub = subfamily_split(p["el"], p["pres"], ident, thr=thr)
 
     elen = (p["el"] != M.GAP).sum(axis=1).astype(float)
     # length spread over the SUPPORTED copies, not the core: excluding copies for
@@ -181,7 +230,7 @@ def verdict(path):
     id_all = float(np.mean(ident))
     g_elem = (sat(id_all - flank_bg, 0.08, 0.55) ** 0.5) *              (sat(n_sup / max(1, n), 0.15, 0.98) ** 0.5)
     g_homog = np.mean([1 - sat(cv_core, 0.05, 0.25),
-                       1 - (sat(sub["gap"], 0.02, 0.14) if sub else 0.0)])
+                       1 - (sat(sub.get("gap_excess", sub["gap"]), 0.02, 0.14) if sub else 0.0)])
     g_uniq = np.mean([1 - sat(n_shared / max(1, n), 0.05, 0.60),
                       1 - sat(global_elev - BG, 0.05, 0.30)])
     g_ins = sat(tsd_frac, 0.10, 0.60)
@@ -198,6 +247,16 @@ def verdict(path):
 
     # ---- sub-cases, not one "negative" bucket ---------------------------
     flags = []
+    # Flank sharing is reported whatever the core count. Previously this sat
+    # behind "n_core >= 8", so a set whose copies ALL share flanking sequence
+    # scored near zero with no explanation at all - hedgehog e1-4 and e2-2 both
+    # did exactly that, at flank identity 0.68 against 0.28 for a normal family.
+    if global_elev - BG > 0.15 and n >= 15:
+        flags.append({"code": "SHARED_FLANKS", "n": n_shared,
+                      "text": "Flanking sequence is %.2f identical between copies against "
+                              "%.2f for unrelated DNA — these loci are not in independent "
+                              "genomic contexts. A satellite array, a duplicated region, or "
+                              "copies inside one host repeat." % (global_elev, BG)})
     if g_elem < 0.25:
         flags.append({"code": "NO_ELEMENT",
                       "text": "No element: too few copies support the consensus above background."})
@@ -206,12 +265,14 @@ def verdict(path):
             flags.append({"code": "CONTAMINATED", "n": int(n - n_sup),
                           "text": "%d of %d copies do not support the consensus; prune them and "
                                   "re-score (see prune.py)." % (n - n_sup, n)})
-        if sub and sub["gap"] > 0.03:
+        if sub and sub.get("gap_excess", sub["gap"]) > 0.03:
             flags.append({"code": "SUBFAMILY_STRUCTURE", "n": sub["sizes"],
                           "text": "Supported copies split into structurally different groups of "
-                                  "%d and %d (within-group identity %.2f, between %.2f). Separate "
+                                  "%d and %d (within-group identity %.2f, between %.2f, excess "
+                                  "over a random split %.3f). Separate "
                                   "them and treat each as its own family."
-                                  % (sub["sizes"][0], sub["sizes"][1], sub["within"], sub["between"])})
+                                  % (sub["sizes"][0], sub["sizes"][1], sub["within"],
+                                     sub["between"], sub.get("gap_excess", 0))})
         if n_shared / max(1, n) > 0.15:
             kind = ("satellite or segmental duplication" if global_elev - BG > 0.15
                     else "another repeat or a duplication")
@@ -235,6 +296,7 @@ def verdict(path):
             "n": n, "n_supported": n_sup, "n_core": n_core, "n_shared": n_shared,
             "core_identity": round(id_core, 3), "all_identity": round(float(np.median(ident)), 3), "flank_bg": round(flank_bg, 3),
             "core_len_cv": round(cv_core, 3), "tsd_frac": round(tsd_frac, 3),
+            "support_threshold": None if thr is None else round(float(thr), 3),
             "subfamily": sub and {k: v for k, v in sub.items() if k != "members"},
             "flags": flags}
 

@@ -54,6 +54,23 @@ def analyse(path, nseg=NSEG):
     b = [round(i * L / nseg) for i in range(nseg + 1)]
     segs = [cseq[b[i]:b[i + 1]] for i in range(nseg)]
 
+    # UNALIGNED slots. On aligned columns this statistic is blind: MAFFT places a
+    # duplicated or swapped segment back at the segment it came from, so a slot
+    # substitution becomes an indel pair. Measured across a full scramble
+    # gradient, the aligned version moved by 0.019; the unaligned version by 0.40.
+    raw = []
+    for i in range(C.shape[0]):
+        r = C[i]
+        raw.append(r[r != M.GAP])
+    Cn = np.full((C.shape[0], L), M.GAP, dtype=np.int8)
+    for i, r in enumerate(raw):
+        rb = [round(j * len(r) / nseg) for j in range(nseg + 1)]
+        for j in range(nseg):
+            piece = r[rb[j]:rb[j + 1]]
+            w = min(len(piece), b[j + 1] - b[j])
+            Cn[i, b[j]:b[j] + w] = piece[:w]
+    C = Cn
+
     best = np.full((C.shape[0], nseg), -1, np.int8)
     for j in range(nseg):
         slot = C[:, b[j]:b[j + 1]]

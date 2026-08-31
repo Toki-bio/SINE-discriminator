@@ -68,6 +68,13 @@ def main():
         ("SIMDEL__one__f050", "half the copies missing the same 50 bp block", "edge"),
         ("SIMNEST__f050", "half the copies sharing a host flank", "edge"),
         ("SIMTRUNC__r060", "simulated heavy truncation", "bad"),
+        ("NEGLINE__teu__r00", "REAL LINE 3' ends — a natural non-SINE that scores 99 "
+                              "and is not caught by anything here", "bad"),
+        ("NEGLINE__teu__r03", "LINE 3' ends, second sample", "bad"),
+        ("ERI__eri__e1-1", "a second SINE family: hedgehog, clean", "good"),
+        ("ERI__eri__e1-4", "hedgehog subfamily whose copies all share flanking "
+                           "sequence — not independent insertions", "bad"),
+        ("ERI__eri__e2-3", "hedgehog, partly nested", "edge"),
     ]
     out, seen = [], set()
     for st, why, tag in PICKS:

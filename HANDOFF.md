@@ -1224,3 +1224,123 @@ non-SINEs, and twelve that are borderline or carry a sub-case, including
 but penalised for age), `NEGCHIM__ccr__g5_7seqs` (a chimera scoring far higher
 than it should), and `NEGMOSAIC` (per-copy recombinants that score as a clean
 family and are still undetected).
+
+---
+
+## 31. Confounds fixed, and the effect-size lesson
+
+Four of the six confounds are fixed. The method that found them also had to be
+corrected: **Spearman rho flags any monotone trend regardless of magnitude**, so
+several "confounds" were drifts of 0.005 reported at rho 0.94. Always pair rho
+with the actual change across the gradient.
+
+| statistic | drift from AGE | its own signal | verdict |
+|---|---|---|---|
+| `res_asymmetry` | **0.000** | +4.311 | clean, no fix needed |
+| `sub_gap_excess` | +0.005 | +0.078 | 16:1, usable |
+| `long_gap_frac` | +0.100 | +0.690 | 7:1, usable |
+| `frac_supported` | −0.120 | −0.490 | 4:1, usable |
+| `cliff` | **−0.431** of a 0.64 range | −0.178 | **not usable alone** |
+| `seg_diag` (aligned) | −0.022 | −0.019 | **was blind** |
+
+**Fixed:**
+
+1. **Adaptive support threshold.** A constant 0.55 called old-but-clean families
+   contaminated. It now scales between the measured flank background and the
+   family's own upper quartile, with a guard: below 0.15 contrast there is no
+   element, so nothing is supported. Verified: 0.604 for a young family, 0.466
+   for an old one, `None` for random loci.
+2. **`sub_gap` against a random-split null.** Any split of a homogeneous family
+   yields a positive gap that grows with divergence and shrinks with n — which
+   is what the raw statistic was measuring. Copy-number confound −0.97 → −0.11.
+3. **`segmap` switched to unaligned slots.** On aligned columns it moved 0.019
+   across a full scramble gradient, i.e. it was blind. Unaligned: fully
+   scrambled 0.418, clean families 0.84–0.92.
+4. **Prune before testing structure.** Contamination masks scrambling
+   (ρ −0.61 → −0.92 once contamination is low).
+
+**Not fixed, and both are honest limits rather than bugs:**
+
+- `cliff` is substantially an age measure. **Use `frac_supported` as the primary
+  Tier-2 statistic** — it is now age-normalised by construction.
+- `rank1_frac` correlates with age at ρ = −1.00 and should be dropped.
+
+## 32. The natural negative: a real LINE scores 99
+
+Every negative until now was random DNA or synthetic. Searching the *Talpa
+europaea* genome with the 3′ end of its main LINE returns **55,512 fragments** —
+precisely the case spec §2 warns about.
+
+They score **98–99**, indistinguishable from a curated SINE: `frac_supported`
+1.00, `cliff` 0.464, `elem_len_cv` 0.050, `tsd_frac` 0.74.
+
+**This is not a bug and it is the most important result in the project.** A LINE
+3′ end genuinely *is* an insertion — same L1 endonuclease, so the same TSDs, the
+same poly-A, the same sharp boundary. Every variable built here answers "is this
+a real insertion of a real element", and a LINE passes all of them honestly.
+
+So the accurate claim is: **this pipeline separates elements from junk, not SINEs
+from other retrotransposons.** Making that distinction needs information none of
+these variables carry — that the fragment is the end of a much longer element.
+Candidate approaches, none built: check whether copies extend upstream into a
+longer conserved region; look for full-length relatives elsewhere in the genome;
+use the fragment-length distribution, since LINE 3′ fragments are a truncation
+series while SINEs are near-complete.
+
+Every earlier statement in this document of the form "correctly rejected" means
+"rejected as not-an-element". None of them established SINE-vs-LINE.
+
+## 33. Second family: hedgehog, and what generalises
+
+Erinaceidae SINEs, 8 curated subfamilies, identical pipeline, no adjustment.
+
+**The geometry transferred unchanged** — consensus-row anchoring, 70 bp flanks,
+ungapped flank statistics all worked first time on a different genome and a
+different family. Six of eight subfamilies score 68–98.
+
+**The biology did not:**
+
+| | Tal | Erinaceidae |
+|---|---|---|
+| element length | 250–280 bp | 159–203 bp |
+| `tsd_frac` | 0.74 | **0.18** |
+| `cliff` | 0.563 | 0.325 |
+
+So §16's caution was right and is now demonstrated: TSD frequency, element
+length and the absolute cliff level are family properties, and no threshold
+derived from Tal transfers.
+
+**Two subfamilies fail informatively.** `e1-4` and `e2-2` score 3.5 and 25.9,
+with flank identity **0.68 against 0.28** for a normal family — their copies are
+not in independent genomic contexts. This exposed a reporting bug now fixed: the
+flag logic was gated behind `n_core >= 8`, so a set failing purely on flank
+sharing scored near zero **with no explanation at all**. A new `SHARED_FLANKS`
+flag fires regardless of core count. Whether those two subfamilies are a
+satellite array, a duplication, or an artefact of curation is a question for
+Sergei.
+
+## 34. Where this stands — a usable result
+
+**What it does reliably now:**
+
+- separates real elements from random loci (AUC 1.000) and from
+  half-element/half-junk chimeras;
+- detects and *recovers from* contamination — detection AUC 0.996, pruning
+  precision 0.99 at recall 0.89, and both MIXED classes become
+  indistinguishable from clean families after one pass;
+- detects 5′ truncation two independent ways, one of them (`res_asymmetry`)
+  completely age-independent;
+- detects deleted segments, and distinguishes one shared deletion from per-copy
+  deletions by position concentration;
+- detects segment scrambling, on unaligned sequence;
+- detects copies sharing genomic context;
+- gives a boundary reproducible to 10.7 bp, and refines it, recovering a
+  deliberately mis-trimmed consensus edge to within 1 bp.
+
+**What it does not do:** distinguish a SINE from another retrotransposon's 3′
+end. That is the honest headline.
+
+**Do next, in order:** (1) the SINE-vs-LINE distinction, which is now the only
+thing standing between this and a usable classifier; (2) satellites and
+processed pseudogenes as further natural negatives; (3) only then fit
+thresholds, on natural negatives rather than synthetic ones.

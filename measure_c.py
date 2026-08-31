@@ -117,7 +117,7 @@ def measure(path, seed=0):
         return v
     v["cons_identity_med"] = float(np.median(ident))
     v["cons_identity_iqr"] = float(np.subtract(*np.percentile(ident, [75, 25])))
-    v["frac_supported"] = float(np.mean(ident > 0.55))
+    v["_ident"] = ident            # consumed below, once the background is known
 
     # ---- flank: ungapped, walking outward from each copy's own edge -------
     lefts, rights = [], []
@@ -135,6 +135,20 @@ def measure(path, seed=0):
     fl = np.nanmean([v["flank_id_L"], v["flank_id_R"]])
     v["flank_id"] = float(fl)
     v["cliff"] = float(v["cons_identity_med"] - fl)
+
+    # Support is judged against THIS family's own contrast, not an absolute cut.
+    # A constant 0.55 marks an old but clean family as contaminated, because
+    # genuine old copies fall below any fixed threshold.
+    _id = v.pop("_ident")
+    _q75 = float(np.percentile(_id, 75))
+    _contrast = _q75 - fl
+    if _contrast < 0.15:
+        v["frac_supported"] = 0.0          # no element: nothing supports it
+        v["support_threshold"] = None
+    else:
+        _thr = max(fl + 0.10, fl + 0.45 * _contrast)
+        v["frac_supported"] = float(np.mean(_id >= _thr))
+        v["support_threshold"] = float(_thr)
 
     # ---- per-copy identity landscape and rank ----------------------------
     starts = np.arange(0, max(1, inside.shape[1] - W + 1), STEP)
