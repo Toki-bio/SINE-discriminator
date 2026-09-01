@@ -8,6 +8,43 @@ after every exchange.
 
 ---
 
+## 2026-09-01 — R11. Flanks in the aligner: a hypothesis of mine, DISPROVED
+
+He asked: *"why you insist on aligned flanks in your examples?"*
+
+The two corpora were built differently. `kit/extend.py` (400 bp) aligns the
+element with the consensus and attaches raw flanks afterwards — its own comment
+says *"no flank in the aligner at all"*. But `aln_v2`, which every review
+alignment came from, put element and flanks through MAFFT together and de-gapped
+the flanks afterwards.
+
+**My hypothesis:** letting unalignable flanks into the aligner distorts the
+ELEMENT alignment, because MAFFT optimises one score across the whole row.
+
+**Tested and disproved.** Re-aligning the element alone and attaching raw flanks
+changes the element alignment barely at all:
+
+| alignment | element gaps, flanks in aligner | element only |
+|---|---|---|
+| `NEGCHIM__ccr__g1_180seqs` | 0.752 | 0.789 |
+| `NEGCHIM__ccr__g3_71seqs` | 0.765 | 0.769 |
+| `MIXSUBFAM__teu__t1_45seqs_t5_31seqs` | 0.451 | 0.434 |
+| `NEGTRUNC5__saq__s2_38seqs` | 0.663 | 0.654 |
+| `NEGCHIM__saq__s8_225seqs` | 0.738 | 0.747 |
+
+Two go slightly worse, three slightly better - noise. MAFFT was already
+effectively ignoring the flanks. **So this is not the cause of what he is
+seeing**, and the question remains open: after justification each copy's flank
+is raw sequence butted against the element with padding on the outer side only,
+because a FASTA alignment must be rectangular. Whether that padding is what he
+reads as "aligned" is unresolved and was asked back to him rather than guessed
+at a third time.
+
+`realign.py` is kept on DRAGEN in case element-only rebuilding is wanted for
+another reason, but it does not fix this.
+
+---
+
 ## 2026-09-01 — R10. The mixture test rebuilt: 5/9 → 9/9, but it now fires 3x more often
 
 ### The old measure was invalid, not miscalibrated
