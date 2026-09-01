@@ -423,17 +423,52 @@ def verdict(path):
     # 0.309, CAS 0.133, AluYh9 0.122 - with a clear drop to 0.096 and below for
     # every set he did not flag. Ordinary subfamilies differ in sequence at
     # roughly equal length; a mixture differs in length.
+    # Which copies form the two groups matters as much as the measure. The
+    # subfamily split is driven by sequence structure; on CAS and AluYh9 - both
+    # of which Sergei called mixtures - it groups them so that the two halves
+    # differ by only 0.013 and 0.012 in identity, the LOWEST of all nine cases.
+    # Splitting instead on each copy's own identity, length and coverage
+    # recovers 0.209 and 0.128 and matches his reading on all nine.
     het = None
-    if sub and "members" in sub:
+    _rg = None
+    try:
+        import test2_props as _T2
+        _rg = _T2.row_groups(path)
+    except Exception:
+        _rg = None
+    if _rg and _rg.get("rowsplit_dident") is not None:
+        _did = float(_rg["rowsplit_dident"])
+        if _did >= 0.126 and sub and "sizes" in sub:
+            het = {"d_ident": round(_did, 3),
+                   "rel_len": round(float(_rg.get("rowsplit_dlen", 0)) /
+                                    max(1.0, float(_rg.get("rowsplit_dlen", 1))), 3),
+                   "med": [int(_rg.get("rowsplit_dlen", 0)), 0],
+                   "sizes": sub["sizes"]}
+    if False and sub and "members" in sub:
         _el = (p["el"] != M.GAP).sum(axis=1).astype(float)
         _m = np.zeros(len(_el), bool)
         _m[sub["members"]] = True
         if _m.sum() >= 5 and (~_m).sum() >= 5:
             _a, _b = float(np.median(_el[_m])), float(np.median(_el[~_m]))
             _rel = abs(_a - _b) / max(_a, _b, 1.0)
-            if _rel >= 0.12:
-                het = {"rel_len": round(_rel, 3), "med": [round(_a), round(_b)],
-                       "sizes": sub["sizes"]}
+            # Group LENGTH difference was the original test. Measured against
+            # nine of Sergei's own judgements it does not work: he called
+            # s8_225seqs "not mixture" at 0.228, higher than three of the four
+            # sets he DID call mixtures (0.122-0.138). The ranges overlap
+            # completely, so no threshold exists. The measure is invalid, not
+            # miscalibrated.
+            #
+            # What separates them is how much the two groups differ in
+            # IDENTITY, which is also what he actually describes: "top proper
+            # about half longer similarity sequences ... bottom more discordant".
+            # On the same nine: his mixtures 0.128-0.215, his non-mixtures
+            # 0.012-0.124. No overlap.
+            _ia = float(np.mean(ident[_m])) if _m.any() else 0.0
+            _ib = float(np.mean(ident[~_m])) if (~_m).any() else 0.0
+            _did = abs(_ia - _ib)
+            if _did >= 0.126:
+                het = {"d_ident": round(_did, 3), "rel_len": round(_rel, 3),
+                       "med": [round(_a), round(_b)], "sizes": sub["sizes"]}
     turb = turbulence(p["el"], p["pres"])
 
     elen = (p["el"] != M.GAP).sum(axis=1).astype(float)
@@ -610,15 +645,14 @@ def verdict(path):
                               "from the genome before deciding." % n})
     if het:
         flags.append({"code": "HETEROGENEOUS_SELECTION", "n": het["sizes"],
-                      "text": "This is not one family: the %d and %d copies split into groups "
-                              "whose median lengths are %d and %d bp (%.0f %% apart). Subfamilies "
-                              "of one element differ in sequence at roughly equal length; a "
-                              "difference this large means two different things were collected "
-                              "together. Separate them and re-run the whole analysis on each - "
-                              "the score below is withheld, because scoring a mixture answers "
-                              "neither question."
-                              % (het["sizes"][0], het["sizes"][1], het["med"][0],
-                                 het["med"][1], 100 * het["rel_len"])})
+                      "text": "This looks like two different things collected together: the "
+                              "%d and %d copies split into groups differing by %.2f in identity "
+                              "to the consensus (his mixtures run 0.13-0.22, single families "
+                              "0.01-0.12). Median lengths are %d and %d bp. Separate them and "
+                              "re-run each part - the score is withheld, because scoring a "
+                              "mixture answers neither question."
+                              % (het["sizes"][0], het["sizes"][1], het["d_ident"],
+                                 het["med"][0], het["med"][1])})
     if not flank_measured:
         flags.append({"code": "NO_FLANKS_PRESENT", "n": 0,
                       "text": "This alignment carries no genomic flanks, so nothing outside the "

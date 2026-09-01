@@ -8,6 +8,71 @@ after every exchange.
 
 ---
 
+## 2026-09-01 — R10. The mixture test rebuilt: 5/9 → 9/9, but it now fires 3x more often
+
+### The old measure was invalid, not miscalibrated
+
+Group **length** difference, tested against nine of his judgements:
+
+| | rel_len |
+|---|---|
+| his mixtures | 0.122, 0.133, 0.138, 0.309 |
+| his non-mixtures | 0.089, 0.119, **0.228** |
+
+`s8_225seqs` is "not mixture" at 0.228 — above three of the four real mixtures.
+The ranges overlap completely, so **no threshold exists**. Re-fitting was the
+wrong response; the measure had to be replaced.
+
+### What replaced it
+
+Group **identity** difference — which is what he actually describes: *"top proper
+about half longer similarity sequences ... bottom more discordant shorter ones"*.
+
+| | d_ident |
+|---|---|
+| his mixtures | 0.128 – 0.215 |
+| his non-mixtures | 0.012 – 0.124 |
+
+No overlap. Threshold 0.126.
+
+### The grouping mattered as much as the measure
+
+A first attempt applied that threshold to `subfamily_split`'s grouping and got
+7/9. Under that grouping CAS and AluYh9 — both of which he calls mixtures —
+score **0.013 and 0.012**, the lowest of all nine. `subfamily_split` is driven by
+sequence structure and finds the wrong halves.
+
+Splitting instead on each copy's own **identity, length and coverage** (the SVD
+split in `row_groups`) recovers 0.209 and 0.128. **9 of 9.**
+
+### Regression, and one number that needs his eye
+
+| | n | mean | extreme | crossing 50 |
+|---|---|---|---|---|
+| true negatives | 30 | 1.59 | max 47.0 | 0 |
+| true positives | 432 | 99.96 | min 90.1 | 0 |
+| curated `tim/` | 42 | 98.29 | min 71.3 | 0 |
+
+Unchanged. **But the flag now fires on 120 of 834 sets (14%), up from 39 (4.7%).**
+
+| class | fires | of | |
+|---|---|---|---|
+| MIXED10 | 28 | 28 | 100% |
+| MIXED30 | 28 | 28 | 100% |
+| NEGTRUNC5 | 28 | 28 | 100% |
+| HUM | 14 | 64 | 22% |
+| TIM | 13 | 42 | 31% |
+
+MIXED10/MIXED30 are *deliberately contaminated*, so firing there is arguably
+right — contamination is two things in one set. NEGTRUNC5 at 100% is more
+doubtful: he called those *"more like a SINE"*, not mixtures.
+
+**This flag withholds the verdict**, so 120 deferred sets is a large behavioural
+change resting on nine judgements. Needs his eye on a NEGTRUNC5 and a MIXED30
+before it can be trusted at this rate.
+
+---
+
 ## 2026-09-01 — Review batch 2 opened; two failures he caught
 
 ### R7. `CONSENSUS_OVEREXTENDED` has a false negative
