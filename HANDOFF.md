@@ -2656,3 +2656,66 @@ evidence short, decay long) has to be enforced rather than remembered.
 5. **Two fitted thresholds are overfit and should be revisited**, not treated as
    calibrated: `HETEROGENEOUS_SELECTION` at 0.12 (fitted to three examples) and
    the `CONSENSUS_OVEREXTENDED` tail bound at `bg + 0.18` (fitted to one).
+
+## 57. RepeatMasker cross-check - 1.9 M independent annotations, finally used
+
+`rmsk_sine.bed` on DRAGEN (`/staging/tmp/rmsk_compare/`, 65 MB, **1,910,631**
+RepeatMasker SINE annotations with subfamily names) had been sitting unused
+since §39 listed it as the largest available ground truth. Every one of the
+5,306 human benchmark copies was intersected against it.
+
+**Result: 95.59 % of copies overlap an annotated RepeatMasker SINE, and 74.20 %
+carry the same subfamily name.** The loci in this benchmark really are annotated
+SINEs, according to a source that has never seen this tool.
+
+### Where it disagrees is where it earns its keep
+
+| set | RM overlap | my score | reading |
+|---|---|---|---|
+| `LmeSINE1c` | **7.1 %** | 69.2 | genuine over-call |
+| `CAS` | 12.6 % | 82.4 (deferred) | already withheld |
+| `7SLRNA` | 32.0 % | 100.0 | definitional, not an error |
+| `ASR` | 58.4 % | 100.0 | unexplained |
+| `AluYh9` | 92.3 % overlap, **25.6 % name** | 66.0 (deferred) | mixture, already withheld |
+
+`7SLRNA` is the **ancestral source gene** of the Alu lineage - RepeatMasker does
+not annotate it as a SINE by definition, so a low overlap there is correct
+behaviour from both tools, not a disagreement.
+
+Two of the four are already handled (`CAS` and `AluYh9` are deferred as
+mixtures). **`LmeSINE1c` is a real false positive**: Sergei called it "very weak
+signal over too few copies, very low chance being a SINE", RepeatMasker finds
+7.1 % overlap, and the tool gives it 69.2.
+
+### Why that one cannot be fixed from inside the alignment
+
+`LmeSINE1c` (14 copies, identity 0.437) and `AmnSINE1` (9 copies, identity
+0.493) look nearly identical by every internal measure - yet RepeatMasker gives
+them 7.1 % and 100 %, and Sergei called the first hopeless and the second "a
+really interesting ancient divergent case". **The difference is genomic context,
+not sequence content.** No statistic computed inside a 100-copy alignment can
+separate them.
+
+This is the concrete argument for the outstanding item Sergei asked for and
+which is still unbuilt: whole-genome flank uniqueness. `LmeSINE1c` is now the
+worked example of why. Deferring every low-copy set instead would be the wrong
+fix - 115 of 834 sets have under 30 copies, including 100 known-good `SQ`
+positives.
+
+Correlation across all 64 human sets is positive but weak: Spearman(RM overlap,
+score) **+0.385**, Spearman(RM name, score) **+0.163**. That is the honest
+number, and it says RepeatMasker overlap carries information the tool does not
+currently capture.
+
+The page now shows **RM overlap %** and **RM name %** per human set, tinted
+below 60 %, with an *RM disagrees* filter for anything under 80 %.
+
+### Transfer note for future sessions
+
+`pscp` fails against DRAGEN from this machine - both SFTP ("unable to
+initialise SFTP: could not connect") and `-scp` mode silently write nothing.
+The working pattern is gzip + base64 + `split -b 8000`, piping each chunk to
+`plink ... "cat >> remote.b64"` on stdin, then decoding remotely. **8 KB chunks:
+60 KB chunks silently truncated at 19 KB of 80 KB.** Inline `awk` through plink
+also mangles quoting reliably - write the script to a file and transfer it, as
+the server-connections reference already says.
