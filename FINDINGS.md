@@ -8,6 +8,53 @@ after every exchange.
 
 ---
 
+## 2026-09-02 — R12. The mosaic he means, caught in the wild — and a measurement for it
+
+He said months of examples earlier: *"What i mean with mosaic looks truly
+different and maybe we can get back to it when we'll catch it in the wild."*
+None of the six synthetic MOSAIC* constructions was it — he called all six SINEs.
+
+**`aca_SINE_1` (starfish) is it.** His words: *"sine_1 is bad and it includes
+mosaicism - inconsistent mixture of conserved and discordant columns/spots"*.
+The tool had already rejected it at 26.3, but for the wrong reason (weak overall
+identity), not for being a mosaic.
+
+### What does NOT measure it
+
+- **Column jumpiness** — `aca_SINE_1` 0.261 vs a legitimate `pom_SINE_0` at
+  0.239. No separation.
+- **Block structure** (runs test against chance): `aca_SINE_1` blockiness 1.17,
+  while the legitimate `aca_SINE_0` is the second-blockiest at 1.30. Backwards.
+- **Mean identity** — just says "less conserved", not "mosaic".
+
+### What does: per-copy variation across regions (`patch2d`)
+
+For each copy, its concordance with the consensus in each 20 bp window; then how
+much that varies **within** a copy. A clean family: every copy is uniformly
+concordant. A mosaic: a copy is concordant in some regions and discordant in
+others, and which regions differ between copies.
+
+| candidate | his judgement | patch2d |
+|---|---|---|
+| `pom_SINE_0` | strongest — 86 % TSD, perfect B-box | **0.061** |
+| `aca_SINE_0` | "sine_0 looks legit" | **0.097** |
+| `aca_SINE_1` | **"bad ... includes mosaicism"** | **0.143** |
+| `pom_SINE_1` | "possible sine too" — only 35 % TSD | **0.150** |
+
+**It orders all four exactly as he does.** Four points is not a threshold, but it
+is the first measurement that responds to the thing he has been describing since
+the mosaic discussion began, and it is row-wise-within-column — neither purely
+per-column nor purely per-copy, which is why every earlier attempt missed it.
+
+Note `pom_SINE_1` scores highest of all, above the acknowledged mosaic. That is
+consistent with its other weaknesses (A-box 3 mismatches, TSD 35 %, no tail) and
+suggests it deserves the same scrutiny.
+
+**Needs more of his judgements to become a threshold.** The obvious source is
+the 22 Hydra candidates, which are unjudged and from a fourth phylum.
+
+---
+
 ## 2026-09-02 — pom_SINE_1 structure, and both candidates vs RepBase
 
 Alignments rebuilt at 100 bp flanks, justified and degapped, published as
