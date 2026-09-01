@@ -8,6 +8,56 @@ after every exchange.
 
 ---
 
+## 2026-09-02 — SINEderella on the snail candidates, and aca_SINE_1's full reject case
+
+### Full SINEderella run on the two refined snail consensuses
+
+Consensuses refined first from their 100 aligned copies rather than the
+single-locus AnnoSINE seeds (174 bp and 261 bp). Run
+`/staging/tmp/newsp/pom/run_20260901_131644`, completed in about 4 minutes.
+
+| | firm | soft | **total assigned** | **leak** | conflicts | sim_mean |
+|---|---|---|---|---|---|---|
+| `pomSINE0` | 4,712 | 1,304 | **6,016** | **0.00 %** | 3 | 0.737 |
+| `pomSINE1` | 1,249 | 1,599 | **2,848** | **0.00 %** | 0 | 0.671 |
+
+**AnnoSINE had estimated 537 and 339 copies — SINEderella finds 11x and 8x
+more.** A discovery tool's copy count is a floor, not an estimate.
+
+**Zero leak on both.** In Timema the candidates he judged real ran 0.00–0.18 %
+leak and the noisy ones 65–98 %, so both snail families behave like his real
+ones. `pomSINE1` is again the weaker: firm assignment 14 % against 53 %, and
+sim_mean 0.671 against 0.737.
+
+### aca_SINE_1: all three of his additional reject reasons confirmed
+
+He said the rejection is *"not only mosaic, but also weak identity, too long
+identity with bad flanks"*. Measured:
+
+| | cons bp | id_all | flank bg | cliff | span/cons | patch2d |
+|---|---|---|---|---|---|---|
+| `aca_SINE_0` (he: legit) | 281 | 0.723 | 0.271 | 0.452 | 2.76 | 0.097 |
+| **`aca_SINE_1`** | 243 | **0.552** | **0.450** | **0.102** | 2.52 | **0.143** |
+| `pom_SINE_0` | 175 | 0.834 | 0.307 | 0.527 | **1.07** | 0.061 |
+| `pom_SINE_1` | 262 | 0.730 | 0.279 | 0.451 | 2.26 | 0.150 |
+
+- **weak identity** — 0.552 against 0.72–0.83. Confirmed.
+- **bad flanks** — flank background **0.450**, nearly double the 0.27–0.31 of the
+  others. Its copies share flanking sequence and are therefore not independent
+  insertions. Confirmed, and stronger than he stated.
+- **almost no boundary** — cliff 0.102 against 0.45–0.53. Confirmed.
+- **mosaic** — patch2d 0.143. Confirmed.
+
+**The tool scored it 26.3 with flags "clean".** Right number, no reason. Four
+independent faults and it reported none of them. Recorded as the central defect
+in `ALGORITHM_NOTES.md` §1.
+
+Note `span/cons` — how far the consensus is smeared across the alignment.
+`pom_SINE_0`, the strongest candidate, is 1.07; everything else is 2.26–2.76.
+That may be worth a measurement of its own.
+
+---
+
 ## 2026-09-02 — R12. The mosaic he means, caught in the wild — and a measurement for it
 
 He said months of examples earlier: *"What i mean with mosaic looks truly
