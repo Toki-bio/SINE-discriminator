@@ -2049,3 +2049,50 @@ Only 4 of 55 sets fall below 50: `SINE_21` and `SINE_43` (weak by identity, as
 above), and `SINE_47` / `SINE_25`, which carry genuine measured findings
 (`RECOVERABLE_CORE`, `FRAGMENT_OF_LONGER`) rather than artifacts. `SINE_17`
 scores 100.0 with no flags at all.
+
+## 48. Human leg - hg38 was on KIT all along, and two traps hit twice
+
+**The genome never needed downloading.** `/usr/local/genomes/hg38.mfa` on KIT:
+3.1 GB, samtools-indexed, 24 contigs named `chr1`..`chrY` - an exact match for
+the human alignment headers (`chr17:47796676-47797108(-)`). `bench_extend.py`'s
+`G` map now points there. The 3 GB download started earlier was pure waste and
+is killed.
+
+No `_R_` prefixes in the human headers (0 of 5306), confirming `timb/LOG.md`'s
+statement that the strand-tracking problem was specific to the externally
+sourced Timema candidate bank.
+
+### Trap 1, hit twice: `pgrep -f` matches its own command line
+
+`pgrep -f "bench_extend.py"` executed inside a `bash -c` whose command string
+contains that text **matches itself** and always returns >=1. It reported a dead
+job as alive twice - once for Timema (§44) and again for the human run, where
+"alive: 1" was pgrep counting itself while the job had in fact never started.
+
+Use a regex that cannot match the literal command text:
+
+```bash
+pgrep -f "bench_extend[.]py"      # matches the process, not this command
+```
+
+### Trap 2: the script globs a hardcoded input directory
+
+`__main__` globs `%s/bench_in/%s__*.aln.fa % (OUT, which)` - **`bench_in`, not
+the cwd**. The first human launch unpacked to `bench_in_hum` and `cd`-ed there,
+so the glob matched nothing and the process exited immediately with a 0-byte
+log. An empty log plus a self-matching pgrep looked exactly like "running
+quietly". Put input where the script looks, and treat a 0-byte log after
+several minutes as evidence of nothing happening, not of quiet progress.
+
+### Known, accepted limitation: no alt contigs
+
+This hg38 carries only the 24 primary chromosomes, so copies on
+`*_alt` / `*_random` / `chrUn` scaffolds are dropped: **227 of 5306 copies
+(4.28%), and no single set loses more than 30%**.
+
+This is defensible rather than merely tolerable. Alt scaffolds are alternate
+haplotype representations of loci already present on the primary assembly;
+including them would create copies that are near-identical by construction and
+would inflate exactly the flank-sharing and nesting signals §43-46 were spent
+correcting. Excluding them is the conservative choice. Recorded so the 4.28% is
+not rediscovered as a mystery later.
