@@ -2719,3 +2719,72 @@ The working pattern is gzip + base64 + `split -b 8000`, piping each chunk to
 60 KB chunks silently truncated at 19 KB of 80 KB.** Inline `awk` through plink
 also mangles quoting reliably - write the script to a file and transfer it, as
 the server-connections reference already says.
+
+## 58. Flank uniqueness built - and the prediction it was built on was WRONG
+
+§57 argued that `LmeSINE1c` (a false positive at 69.2, which both Sergei and
+RepeatMasker call not-a-SINE) could only be caught with whole-genome context,
+and named it the worked example for the flank-uniqueness check Sergei asked for.
+
+Built it: take 300 bp flanking each copy, map it back to the genome with `bwa
+mem`, and read MAPQ. A flank that maps to exactly one place proves that copy is
+a real insertion into unique DNA; a flank that maps everywhere means the copy
+sits inside something repetitive. 10,158 flanks from the 5,306 human copies.
+
+**The prediction was wrong.** `LmeSINE1c` scores **0.917 unique flanks** and
+`AmnSINE1` scores 1.000. The measure does not separate them at all.
+
+Distribution across all 64 human sets: min 0.697, q1 0.958, **median 0.975**,
+max 1.000. Only `CAS` (0.697) stands out - the set Sergei called "a very complex
+mixture".
+
+**What this actually means.** `LmeSINE1c`'s copies DO sit in unique genomic DNA.
+So they are not inside a satellite or a duplication - they are simply 14
+unrelated unique loci that a weak consensus (identity 0.437) managed to align.
+Flank uniqueness cannot see that, because a spurious set of unique loci and a
+real dispersed SINE family both have unique flanks. **The measure only
+discriminates against non-independent contexts (satellites, segdups, nesting),
+which is what it was designed for - it was never going to catch this.**
+
+So the tool is calibrated but its discriminating power is still unproven: every
+human Dfam family is a genuine dispersed insertion, so there is nothing in this
+corpus for it to detect. The cases it was built for - hedgehog `ERI__eri__e2-4`,
+the synthetic `NEGSAT`/`NEGSEGDUP` - are in other genomes and remain the real
+test.
+
+`LmeSINE1c` therefore stays an open false positive, and the honest statement is
+that **no measurement currently in the tool catches it.** What would: RepeatMasker
+overlap (7.1%) already does, so an external-annotation check is worth more here
+than another internal statistic.
+
+## 59. Prospective test: three phyla with no SINE library
+
+Sergei asked for three animal genomes from different groups without detailed
+SINE annotation, run end to end through AnnoSINE_v2 and then the discriminator.
+This is the first genuinely prospective test - every earlier corpus had a known
+answer.
+
+| group | species | accession | size | level |
+|---|---|---|---|---|
+| **Mollusca** (Gastropoda) | *Pomacea canaliculata* | GCF_003073045.1 | 440 Mb | chromosome |
+| **Echinodermata** (Asteroidea) | *Acanthaster planci* | GCF_001949145.1 | 384 Mb | scaffold |
+| **Cnidaria** (Hydrozoa) | *Hydra vulgaris* | GCA_022113875.1 | 819 Mb | chromosome |
+
+Chosen to span Lophotrochozoa, Deuterostomia and non-Bilateria, so no two share
+a repeat history, and none has a curated SINE library in Dfam or RepBase. All
+three are outside every group used so far (talpids, human, Timema, scorpions,
+snakes, zebrafish).
+
+*Dimorphilus gyrociliatus* (Annelida, 78 Mb) was considered and dropped - its
+genome is famously miniaturised and would likely be repeat-poor, which would
+test nothing.
+
+Running on DRAGEN (64 cores, 503 GB RAM), all three in parallel:
+`AnnoSINE_v2 3 genome.fna out/` at `/staging/tmp/newsp/{pom,aca,hyd}/`. Mode 3
+is the same hybrid setting used for Timema; its HMM library has nothing related
+to these phyla, so the calls rest almost entirely on the structural module
+(TSD, poly-A, RNA-pol-III boxes). That is what makes it a fair test: the
+candidates are proposed with no reference to anything the discriminator was
+built on.
+
+Expect ~30-60 min per genome for step 1 alone (Timema's 1.2 Gb took 3,099 s).
