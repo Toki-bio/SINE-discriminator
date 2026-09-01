@@ -2302,3 +2302,118 @@ cases to calibrate it.
   guarded (§46).
 - An absent measurement is reported as absent, never scored as guilt (§43, §46).
   This single principle caused two of the three real bugs found.
+
+## 52. Sergei's review of the human leg - four defects, all real
+
+He went through the human benchmark page by eye. Every point he raised was a
+genuine defect. Recorded because the pattern matters more than the fixes.
+
+### 52a. NEEDS_REVIEW was noise, and REMOVED
+
+He named ten families - `AluJr`, `AluSc`, `AluSc8`, `AluSg7`, `AluSq`,
+`AluSq2`, `AluSq4`, `AluSx4`, `FAM`, `FLAM_A` - as "legit SINE without
+problems". All ten carried `NEEDS_REVIEW`.
+
+Turbulence counts COLUMNS dipping 0.25 below the element's own median identity.
+Two things were wrong.
+
+**The 0.25 is absolute while the available range is not.** At median identity
+0.88 a column need only fall to 0.63, which ordinary variation does constantly;
+at 0.55 it would have to reach 0.30 - background - which essentially never
+happens. Measured: the old Alus scored 0.125-0.162, every MIR scored
+0.000-0.008. The statistic was **most sensitive exactly where families are most
+homogeneous and blind where they are least**.
+
+**More fundamental: every problem he identified was row-wise, not column-wise.**
+"11 lower sequences", "top half vs bottom", "2 variants", "11 in the middle" -
+these are subsets of COPIES. Turbulence measures columns. It was answering a
+question nobody asked, and `CONTAMINATED` / `SUBFAMILY_NOTE` had already caught
+every set he flagged.
+
+Cost of keeping it: **129 sets flagged, 91 with it as the only flag, all scoring
+90.1-100**, including 8 `POS` and 60 `SQ` known-good sets. It never once moved a
+score. Removed.
+
+### 52b. CONSENSUS_OVEREXTENDED - a new flag that rescues a false negative
+
+On `MIR1_Amn` he wrote: "weak old sine, consensus needs refinement and
+shortening, otherwise difficult but very real SINE". It scored **0.0
+NO_ELEMENT** - a flat rejection of a real family.
+
+Measured per column: identity 0.31 at the 5' end, 0.67-0.71 across positions
+50-140, 0.29 at the 3' end - while **coverage stays 0.92-1.00 throughout**. The
+copies are present and aligned at the ends; they simply do not match there. The
+consensus is longer than the element it describes.
+
+The flag reports the window to trim to. Two design points were forced by
+getting it wrong first:
+
+- **"Some window beats the average" is not a test** - in any structured profile
+  one always does, and a first version flagged clean `AluJr`, `AluSc`, `AluY`.
+  The real signature is that the EXCLUDED part carries little signal.
+- **"Little" is not "none".** MIR1_Amn's tails sit at 0.395 against a 0.25
+  background - weak residual similarity, which is what an ancient element's
+  diverged ends look like. A `bg + 0.12` bound rejected it; `bg + 0.18` admits
+  it while staying far below any clean family's outside value (~0.85 for Alus,
+  ~0.50 for MIR3/MIRc, both confirmed clean by eye).
+
+**Support must then be re-measured on the core window**, or the logic is
+circular - judging support against a boundary the same test has just shown to be
+wrong. MIR1_Amn had 0 of 100 copies "supported" against the full span and
+100 of 100 against the core. Result: **0.0 -> 100.0**, carrying the flag.
+
+Corpus-wide it fires on 16 sets: 13 of 16 `NEGCHIM` (which are *constructed* by
+joining a real element to foreign sequence, so their consensus genuinely
+overruns the element), 2 `NEGRAND`, and `MIR1_Amn`. That is the class it was
+built to name.
+
+### 52c. INSUFFICIENT_COPIES - stop giving confident verdicts on thin evidence
+
+`AluYe6` has **n=1** and was scored 0.0 "clean" - his reaction was "wtf???".
+`AluSx_short_` (n=6) likewise got a flat 0.0; `AluYk3` (n=9) got a confident
+92.9. Sets below ~30 copies were receiving confident verdicts in BOTH
+directions when the evidence supports neither - the subfamily-split and
+flank-decay tests need about 30 before they mean anything.
+
+Now flagged explicitly as an impression rather than a measurement, which is the
+honest state for `AluYe6`, `AluSx_short_`, `AluYk3`, `AmnSINE1`, `AmnSINE2`,
+`AluYh7`, `LFSINE_Vert`, `LmeSINE1c`.
+
+### 52d. Two bugs in my own new code, caught by checking
+
+- `p["el"]` holds base codes, not agreement. A first version summed it directly
+  and produced "identities" like 48.6 instead of fractions - silently
+  meaningless. Must compare against `cons_el`.
+- The span `lo..hi` contains columns where the CONSENSUS is gapped. Those are
+  insertions in some copies, not positions copies fail to match, and counting
+  them dragged measured identity from 0.51 to 0.22 on MIR1_Amn. Score only
+  columns where the consensus carries a base.
+- The correction block was initially placed AFTER `core`/`cv_core` were
+  computed, so the corrected support never reached them: `n_sup` became 100
+  while `n_core` stayed 0 and homogeneity stayed 0.0. Ordering matters.
+
+### Regression after all of it
+
+| | n | mean | extreme | crossing 50 |
+|---|---|---|---|---|
+| true negatives | 30 | 1.59 | max 47.0 | 0 |
+| true positives | 432 | 99.96 | min 90.1 | 0 |
+| HUM | 64 | **94.3** (was 92.7) | | 2 (was 3) |
+
+Separation untouched; the human leg improved by rescuing MIR1_Amn.
+
+### Still outstanding from his review
+
+- **Heterogeneous selection needing split-then-rerun.** `AluYk11`, `CAS`,
+  `AluYh9`: "top ~half ... need separate analysis as a good SINE candidate, then
+  bottom ... need additional fresh re-run of whole analysis. This
+  non-homogenous selection problem is different from bad SINE set and needs
+  additional work before verdict." `SUBFAMILY_NOTE` detects the split but says
+  it "does not affect the verdict" - he says it must, by deferring one.
+- **Gappy flanks on ancient families.** `LFSINE_Vert`, `AmnSINE1/2`, `AluYh7`,
+  `AluYk3` are "not presented properly with aligned gappy flanks" - they need
+  the de-gapped/justified flank treatment (`justify_all.py`) before they can be
+  judged.
+- Minor, worth noting but not disqualifying: `AluYa8` (last 3 copies truncated
+  at the right edge), `AluYh3` (11 lower copies, duplicated loci or sequence
+  problems), `FLAM_C_short_` (11 middle copies probably carry a second monomer).

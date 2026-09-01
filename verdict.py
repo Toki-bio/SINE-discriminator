@@ -134,6 +134,82 @@ def sat(x, lo, hi):
     return float(min(1.0, max(0.0, (x - lo) / (hi - lo))))
 
 
+def core_window(el, pres, cons_el, bg, min_len=50, min_gain=0.15, max_frac=0.80):
+    """Is the consensus longer than the part the copies actually support?
+
+    Sergei on MIR1_Amn: "weak old sine, consensus needs refinement and
+    shortening, otherwise difficult but very real SINE". It scored 0.0
+    NO_ELEMENT. Per column its identity runs 0.31 at the 5' end, 0.68-0.71
+    across positions 80-140, and 0.29 at the 3' end, while COVERAGE stays
+    0.92-1.00 throughout - the copies are present and aligned at the ends, they
+    simply do not match there. That is an over-extended consensus, not an absent
+    element, and rejecting the set outright is a false negative on a real family.
+
+    The test is NOT "some window scores better than the mean" - in any profile
+    with structure, some window always does, and a first version of this flagged
+    clean AluJr, AluSc and AluY. The signature is that the EXCLUDED part carries
+    essentially no signal: its identity sits at genomic background, meaning the
+    consensus runs off the end of the element into unrelated sequence.
+
+    Returns (gain, start, end, core_identity, tail_identity) or None.
+    """
+    if el.shape[1] < min_len * 2:
+        return None
+    # el holds base codes, not agreement - compare against the consensus row.
+    # A first version summed el directly and produced identities like 48.6
+    # instead of fractions, which silently made every result meaningless.
+    # Score only columns where the CONSENSUS carries a base. The span lo..hi
+    # also contains columns where the consensus itself is gapped - those are
+    # insertions in some copies, not positions the copies fail to match, and
+    # counting them drags the measured identity far below the truth (0.22 vs
+    # 0.51 on MIR1_Amn).
+    keep = cons_el != M.GAP
+    if keep.sum() < min_len * 2:
+        return None
+    el = el[:, keep]
+    pres = pres[:, keep]
+    cons_el = cons_el[keep]
+    agree = (el == cons_el[None, :]) & pres
+    ok = pres.sum(axis=0)
+    with np.errstate(invalid="ignore"):
+        colid = np.where(ok > 0, agree.sum(axis=0) / np.maximum(ok, 1), np.nan)
+    if not np.isfinite(colid).any():
+        return None
+    L = el.shape[1]
+    whole = float(np.nanmean(colid))
+    filled = np.nan_to_num(colid, nan=whole)
+    cs = np.concatenate([[0.0], np.cumsum(filled)])
+    total = cs[-1]
+    best = None
+    for wl in range(min_len, int(L * max_frac) + 1, 5):
+        for a in range(0, L - wl + 1, 5):
+            inside = (cs[a + wl] - cs[a]) / wl
+            n_out = L - wl
+            if n_out < 20:
+                continue
+            outside = (total - (cs[a + wl] - cs[a])) / n_out
+            if best is None or inside - outside > best[0]:
+                best = (inside - outside, a, a + wl, inside, outside)
+    if best is None:
+        return None
+    sep, a, b, inside, outside = best
+    # the core must be clearly better AND the discarded part must be at
+    # background - otherwise this is ordinary internal variation, not an
+    # over-extended boundary.
+    if (inside - whole) < min_gain:
+        return None
+    # The discarded part must carry little signal - but "little" is not "none".
+    # On MIR1_Amn the tails sit at 0.395 against a 0.25 background: weak
+    # residual similarity, which is what an ancient element's diverged ends
+    # actually look like. A 0.12 bound rejected it; 0.18 admits it while
+    # staying far below any clean family's outside value (~0.85 for the Alus,
+    # ~0.50 for MIR3/MIRc, both of which Sergei confirmed are clean).
+    if outside > bg + 0.18:
+        return None
+    return (round(float(inside - whole), 3), int(a), int(b),
+            round(float(inside), 3), round(float(outside), 3))
+
+
 def parts(path):
     names, A = M.read_aln(path)
     ci = [i for i, n in enumerate(names) if "CONSENSUS_" in n]
@@ -160,6 +236,7 @@ def parts(path):
         rr = r[hi + 1:]
         rights.append(rr[rr != M.GAP])
     return {"names": [names[i] for i in idx], "el": el, "pres": pres, "ident": ident,
+            "cons_el": cons[lo:hi + 1],
             "lefts": lefts, "rights": rights, "cons_bp": len(nz), "n": len(idx)}
 
 
@@ -271,6 +348,28 @@ def verdict(path):
     else:
         supported = np.ones(n, bool)      # unimodal: every copy belongs, however diverged
     n_sup = int(supported.sum())
+
+    cw = core_window(p["el"], p["pres"], p["cons_el"], bg_meas)
+    if cw:
+        # Support was being judged against a boundary this very test has just
+        # shown to be wrong, which is circular: MIR1_Amn had 0 of 100 copies
+        # "supported" and scored 0.0 NO_ELEMENT, on a family Sergei calls
+        # "difficult but very real". Re-measure per-copy identity over the core
+        # window only, and judge support there.
+        _keep = p["cons_el"] != M.GAP
+        _el = p["el"][:, _keep][:, cw[1]:cw[2]]
+        _pr = p["pres"][:, _keep][:, cw[1]:cw[2]]
+        _ce = p["cons_el"][_keep][cw[1]:cw[2]]
+        _ag = (_el == _ce[None, :]) & _pr
+        with np.errstate(invalid="ignore"):
+            _id = _ag.sum(axis=1) / np.maximum(_pr.sum(axis=1), 1)
+        _id[_pr.sum(axis=1) < 20] = 0.0
+        if float(np.mean(_id)) > float(np.mean(ident)):
+            ident = _id
+            thr = support_threshold(ident, bg_meas)
+            cut = contamination_split(ident, bg_meas)
+            supported = ident >= (cut if cut is not None else (thr if thr is not None else SUPPORT))
+            n_sup = int(supported.sum())
     v_cut = cut
 
     FL, sharedL = flank_sharing(p["lefts"])
@@ -318,6 +417,11 @@ def verdict(path):
     # so a median cliff cannot see contamination at all. The score must describe
     # the set as submitted; recoverability is carried by n_core and the flags.
     id_all = float(np.mean(ident))
+
+    # An over-extended consensus depresses id_all across its whole length and
+    # can drive a real family to NO_ELEMENT. When a contiguous window is much
+    # better supported than the whole span, judge the element on that window and
+    # report the coordinates so the consensus can be trimmed.
     # "Is there an element" is a BINARY question, so the evidence must saturate
     # once it is answered. A cliff of 0.28 means copies match the consensus at
     # 0.57 while unrelated DNA matches at 0.29 - already unambiguous. Scoring on
@@ -428,18 +532,51 @@ def verdict(path):
                                   "an unmade measurement, not as evidence against the family. "
                                   "Re-run with 400 bp flanks to settle it."
                                   % (n_shared, n, kind)})
+    if cw:
+        flags.append({"code": "CONSENSUS_OVEREXTENDED", "n": [cw[1], cw[2]],
+                      "text": "The copies support consensus positions %d-%d (identity %.2f) "
+                              "much better than the consensus as a whole (%.2f). Coverage is "
+                              "even across the full length, so the copies are present at the "
+                              "ends and simply do not match there - the consensus is longer "
+                              "than the element it describes. Trim it to that window and "
+                              "re-run; the family is real, the boundary is not."
+                              % (cw[1], cw[2], cw[3], cw[3] - cw[0])})
+    if n < 30:
+        flags.append({"code": "INSUFFICIENT_COPIES", "n": n,
+                      "text": "Only %d copies. The subfamily-split and flank-decay tests need "
+                              "about 30 before they mean anything, so this score is an "
+                              "impression rather than a measurement - it should not be read as "
+                              "a confident accept OR a confident reject. Gather more copies "
+                              "from the genome before deciding." % n})
     if cv_core > 0.18 and n_core >= 15:
         flags.append({"code": "TRUNCATED_COPIES", "n": round(cv_core, 3),
                       "text": "Copy length varies widely (CV %.2f against 0.05 for a clean "
                               "family). Many copies are 5'-truncated. Still the same family, "
                               "but the truncated copies may be worth setting aside."
                               % cv_core})
-    if turb is not None and turb > 0.12 and n_core >= 15:
-        flags.append({"code": "NEEDS_REVIEW", "n": round(turb, 3),
-                      "text": "The element is unsettled along its length: %.0f %% of "
-                              "positions drop well below its own median identity, against "
-                              "6-8 %% in a clean family. Still a SINE, but one to look at "
-                              "by eye before using." % (100 * turb)})
+    # NEEDS_REVIEW (turbulence > 0.12) was REMOVED 2026-09-01.
+    #
+    # Turbulence counts COLUMNS dipping 0.25 below the element's own median
+    # identity. Two things were wrong with it. First, the 0.25 is absolute while
+    # the available range is not: at median identity 0.88 a column only has to
+    # fall to 0.63, which ordinary variation does constantly, whereas at 0.55 it
+    # would have to reach 0.30 - background - which essentially never happens.
+    # So it was most sensitive exactly where families are most homogeneous and
+    # blind where they are least: the old Alus scored 0.125-0.162 and every MIR
+    # scored 0.000-0.008.
+    #
+    # Second and more fundamental: Sergei reviewed these by eye and every real
+    # problem he identified was about a SUBSET OF COPIES - "11 lower sequences",
+    # "top half vs bottom", "2 variants", "11 in the middle". Those are row-wise.
+    # Turbulence is column-wise. It was answering a question nobody asked, and
+    # the row-wise detectors (CONTAMINATED, SUBFAMILY_NOTE) already caught every
+    # set he flagged.
+    #
+    # Measured cost of keeping it: 129 sets flagged, 91 with it as the ONLY
+    # flag, all scoring 90.1-100, including 8 POS and 60 SQ known-good sets. It
+    # never moved a score. It was noise on high-confidence positives, and he
+    # named 10 clean families it had wrongly flagged.
+
     if n_core >= 20 and score < 55:
         flags.append({"code": "RECOVERABLE_CORE", "n": n_core,
                       "text": "Despite the problems above, %d copies look like genuine elements. "
