@@ -1,0 +1,160 @@
+<title>Flank presentation — four variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@600;700&display=swap">
+<style>
+:root{--ground:#f4f6f2;--surface:#fff;--ink:#131c1a;--muted:#68766f;--rule:#d6dcd4;
+--accent:#1f6f5c;--warn:#a8501d;--warn-soft:#f6e8de;--mism:#c94f3d;
+--sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",monospace;--serif:"IBM Plex Serif",Georgia,serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+.wrap{max-width:1060px;margin:0 auto;padding:44px 26px 90px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+h1{font-family:var(--serif);font-weight:700;font-size:36px;line-height:1.12;margin:0 0 16px;max-width:24ch;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:700;font-size:21px;margin:32px 0 6px}
+p{margin:0 0 12px;max-width:74ch}
+a{color:var(--accent)}
+.lede{font-size:17px;color:#2c3a36;max-width:70ch}
+.rule{height:1px;background:var(--rule);margin:28px 0}
+.q{background:var(--surface);border-left:3px solid var(--warn);padding:11px 15px;margin:14px 0;font-weight:600;max-width:74ch}
+table{border-collapse:collapse;width:100%;font-size:13px;background:var(--surface);border:1px solid var(--rule);margin:10px 0 6px}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+td.name{font-family:var(--mono);font-size:12px}
+tr:last-child td{border-bottom:0}
+.lnk{font-family:var(--mono);font-size:11.5px;text-decoration:none;border-bottom:1px solid var(--rule)}
+.hi{color:var(--mism);font-weight:600}
+.ok{color:var(--accent);font-weight:600}
+.cap{font-family:var(--mono);font-size:11px;color:var(--muted)}
+</style>
+<div class="wrap">
+
+<p class="eyebrow">Flank presentation &middot; 5 alignments &middot; 4 variants each</p>
+<h1>Four ways to show the same flanks</h1>
+
+<p class="lede">
+I have guessed twice at what is wrong with the flanks and been wrong twice, so
+here are the plausible presentations of the same data instead of a third guess.
+<strong>The element alignment is byte-identical in all four</strong> &mdash; only
+the flanks differ.
+</p>
+
+<p>
+A FASTA alignment is rectangular, so a copy with a short flank has to be padded
+somewhere. The variants differ in <strong>how much flank is shown</strong> and
+<strong>whether padding happens at all</strong>.
+</p>
+
+<div class="rule"></div>
+<h2>The four variants</h2>
+
+<p>
+<strong>A &mdash; flush.</strong> Each copy's flank is de-gapped and butted hard
+against the element; the panel is as wide as the longest copy's flank, and
+shorter copies are padded on the <em>outer</em> side. This is what every review
+alignment has been. Its failure mode: one copy with a long flank pads all the
+others, so the panel fills with gaps.
+</p>
+<p>
+<strong>B &mdash; trimmed.</strong> Same, but the width is capped so the panel is
+at most 25&nbsp;% gaps. Long copies get cut.
+</p>
+<p>
+<strong>C &mdash; short.</strong> Every flank cut to at most 30&nbsp;bp. Almost no
+padding; you see only the sequence immediately outside the element, which is
+where the boundary shows itself.
+</p>
+<p>
+<strong>D &mdash; ragged.</strong> No padding at all. Each copy's flank is written
+at its own length, so the rows have different lengths.
+<strong>This is the only genuinely unaligned presentation</strong> &mdash; and it
+is not a valid alignment file, so the viewer may refuse it or render it oddly.
+That is worth knowing either way.
+</p>
+
+<div class="q">Which of these is what you want to look at? Or is none of them it?</div>
+
+<div class="rule"></div>
+<h2>What each variant costs</h2>
+
+<p>Flank panel width, and the fraction of it that is gaps, left / right:</p>
+
+<table>
+<thead><tr><th>alignment</th><th>A flush</th><th>B trimmed</th><th>C short (30bp)</th></tr></thead>
+<tbody>
+<tr><td class="name">POS__saq__s5_5seqs</td>
+    <td class="n">71/83 &middot; <span class="ok">0.01</span>/0.19</td>
+    <td class="n">70/80 &middot; 0.00/0.16</td>
+    <td class="n">30/30 &middot; <span class="ok">0.00/0.01</span></td></tr>
+<tr><td class="name">NEGCHIM__ccr__g3_71seqs</td>
+    <td class="n">74/125 &middot; 0.07/<span class="hi">0.85</span></td>
+    <td class="n">70/10 &middot; 0.01/0.43</td>
+    <td class="n">30/30 &middot; <span class="ok">0.00</span>/0.59</td></tr>
+<tr><td class="name">NEGCHIM__ccr__g1_180seqs</td>
+    <td class="n">133/161 &middot; <span class="hi">0.47/0.78</span></td>
+    <td class="n">90/20 &middot; 0.23/0.36</td>
+    <td class="n">30/30 &middot; <span class="ok">0.00</span>/0.42</td></tr>
+<tr><td class="name">ERI__eri__e2-3</td>
+    <td class="n">87/86 &middot; 0.26/0.16</td>
+    <td class="n">85/85 &middot; 0.24/0.15</td>
+    <td class="n">30/30 &middot; <span class="ok">0.04/0.00</span></td></tr>
+<tr><td class="name">NEGTRUNC5__saq__s2_38seqs</td>
+    <td class="n">65/44 &middot; <span class="hi">0.81/0.80</span></td>
+    <td class="n">5/5 &middot; <span class="hi">0.57/0.57</span></td>
+    <td class="n">30/30 &middot; <span class="hi">0.68/0.73</span></td></tr>
+</tbody>
+</table>
+
+<p class="cap">
+NEGTRUNC5__saq__s2_38seqs stays bad in every variant &mdash; its copies genuinely
+have almost no flank sequence, so no presentation can help. That is a property of
+the data, not of the display, and the tool should probably say so rather than
+show it.
+</p>
+
+<div class="rule"></div>
+<h2>Open them</h2>
+
+<table>
+<thead><tr><th>alignment</th><th>A flush</th><th>B trimmed</th><th>C short</th><th>D ragged</th></tr></thead>
+<tbody>
+<tr><td class="name">POS__saq__s5_5seqs</td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FPOS__saq__s5_5seqs.A_flush.aln.fa">A</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FPOS__saq__s5_5seqs.B_trimmed.aln.fa">B</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FPOS__saq__s5_5seqs.C_short.aln.fa">C</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FPOS__saq__s5_5seqs.D_ragged.aln.fa">D</a></td></tr>
+
+<tr><td class="name">NEGCHIM__ccr__g3_71seqs</td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEGCHIM__ccr__g3_71seqs.A_flush.aln.fa">A</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEGCHIM__ccr__g3_71seqs.B_trimmed.aln.fa">B</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEGCHIM__ccr__g3_71seqs.C_short.aln.fa">C</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEGCHIM__ccr__g3_71seqs.D_ragged.aln.fa">D</a></td></tr>
+
+<tr><td class="name">NEGCHIM__ccr__g1_180seqs</td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEGCHIM__ccr__g1_180seqs.A_flush.aln.fa">A</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEGCHIM__ccr__g1_180seqs.B_trimmed.aln.fa">B</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEGCHIM__ccr__g1_180seqs.C_short.aln.fa">C</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEGCHIM__ccr__g1_180seqs.D_ragged.aln.fa">D</a></td></tr>
+
+<tr><td class="name">ERI__eri__e2-3</td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FERI__eri__e2-3.A_flush.aln.fa">A</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FERI__eri__e2-3.B_trimmed.aln.fa">B</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FERI__eri__e2-3.C_short.aln.fa">C</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FERI__eri__e2-3.D_ragged.aln.fa">D</a></td></tr>
+
+<tr><td class="name">NEGTRUNC5__saq__s2_38seqs</td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEGTRUNC5__saq__s2_38seqs.A_flush.aln.fa">A</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEGTRUNC5__saq__s2_38seqs.B_trimmed.aln.fa">B</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEGTRUNC5__saq__s2_38seqs.C_short.aln.fa">C</a></td>
+<td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEGTRUNC5__saq__s2_38seqs.D_ragged.aln.fa">D</a></td></tr>
+</tbody>
+</table>
+
+<div class="rule"></div>
+<p class="cap">
+Built by flank_variants.py on KIT from aln_c. The element alignment is
+byte-identical across all four variants of a given alignment; only the flank
+columns differ.
+</p>
+
+</div>
