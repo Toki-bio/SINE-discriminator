@@ -2489,3 +2489,74 @@ So justification substantially cleans `LFSINE_Vert`, and barely touches
 `AmnSINE1` - whose flanks are therefore *genuinely* ragged rather than a display
 artifact. That is itself informative: it separates "looks bad because of the
 aligner" from "looks bad because it is".
+
+## 54. The curated Timema ground truth (`tim/`) - which I had never read
+
+Sergei asked whether I had read `https://toki-bio.github.io/Tal/tim/report.html`.
+I had not. Everything up to this point used `timb/` - the AnnoSINE_v2 *benchmark*
+- while `tim/` is **his own manual curation**, and it is the real ground truth.
+It should have been the first thing scored, not the last.
+
+`tim/` is a de novo discovery project on the same genome: `sine_scan.sh` against
+a 958-fragment SINEBase-derived bank found 8,021 candidate loci; he manually
+clustered 161 `SubFam` chunk-consensuses into subfamilies by hand (the automated
+`cluster_assist.js` managed only 2 tiny clusters from 161 and was unusable).
+The **v4 curation, 14 subfamilies, is current and live**; the 6-subfamily
+`t1/t2/t345/t6/t7/t8` version referenced in `timb/LOG.md` is superseded.
+
+Crucially, `step7_boundary_refine.sh` **confirmed all 24 sides (6 subfamilies x
+2 populations x 2 sides), 0 undetermined** - a cleaner result than either eri or
+scorpion. These boundaries are independently verified, which is exactly what a
+boundary-anchored tool should be tested against.
+
+### Result: a clean sweep
+
+42 alignments (14 subfamilies x top100/rand100/subfam), normalised by renaming
+the first record to `CONSENSUS_*` (they are named `t1_1`, `t2`, ... and the
+parser requires the prefix):
+
+| variant | n | mean | min | below 50 |
+|---|---|---|---|---|
+| top100 | 14 | **100.0** | 100.0 | 0 |
+| rand100 | 14 | 99.8 | 98.3 | 0 |
+| subfam | 14 | 95.0 | 71.3 | 0 |
+| **all** | **42** | **98.3** | 71.3 | **0** |
+
+### But it only became a clean sweep after a real bug - the same one, a third time
+
+Initially `t3-1` and `t3-2` **`subfam` scored 0.0 `NO_ELEMENT`** while `top100`
+and `rand100` of the *same subfamilies* scored 100.0.
+
+Cause: **the `subfam` alignments are element-only.** Median flank length is 0
+bases and 193 of 200 copies have no left flank at all. A handful of copies carry
+a stub, those few match each other trivially, and the flank background was
+computed from them as **1.000**. With background above element identity there is
+no cliff by definition, so a perfectly good family was rejected outright. The
+same stub-matching also fired `SHARED_FLANKS`, claiming the loci sat inside a
+satellite.
+
+This is the **third** instance of one principle: *an absent measurement must not
+be scored as evidence* (uniqueness fallback §43, over-extended consensus §52b,
+flank background here). Both background computations - `bg_meas` and the
+separate `flank_bg` that actually feeds `g_elem` - now require at least 20 copies
+carrying at least 15 bp of flank on a side before that side contributes;
+otherwise the unrelated-DNA constant is used and `flank_measured` is false.
+Flank-derived flags are gated on it, and a new `NO_FLANKS_PRESENT` says plainly
+that isolation, nesting, shared-context and TSD were not available.
+
+**Patching only the first of the two computations changed nothing visible** -
+`n_sup` went 0 -> 200 but the score stayed 0.0, because `flank_bg` is a second,
+separate calculation and it is the one that feeds the element gate. Worth
+remembering: the value in the output payload was not the value driving the
+verdict.
+
+### Regression
+
+| | n | mean | extreme | crossing 50 |
+|---|---|---|---|---|
+| true negatives | 30 | 1.59 | max 47.0 | 0 |
+| true positives | 432 | 99.96 | min 90.1 | 0 |
+| HUM | 64 | 94.5 | | 2 |
+| TIMB | 55 | **94.5** (was 93.1) | | **3** (was 4) |
+
+Nine sets across the corpus have no measurable flanks and now say so.

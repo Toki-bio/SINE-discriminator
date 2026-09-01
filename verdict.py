@@ -328,14 +328,34 @@ def verdict(path):
     dec = _DECAY.get(os.path.basename(path).replace(".aln.fa", ""))
 
     # background first, because the support threshold is defined against it
+    # A side only contributes if it actually HAS flank sequence to measure. The
+    # curated Timema `subfam` alignments are element-only - median flank length
+    # is 0 bases and 193 of 200 copies have no left flank at all - but a handful
+    # of copies do carry a few bases, those few happen to match, and the
+    # background came out as 1.000. With background above element identity there
+    # is no cliff by definition, so t3-1 and t3-2 scored 0.0 NO_ELEMENT while
+    # top100 and rand100 of the SAME subfamilies scored 100.0.
+    #
+    # Same principle as the uniqueness fallback and the over-extended consensus:
+    # a measurement that could not be made must not be scored as evidence.
+    MIN_FLANK_PAIRS = 20
+    MIN_FLANK_BP = 15
     fl_pre = []
+    flank_measured = True
     for seqs in (p["lefts"], p["rights"]):
+        usable = [q for q in seqs if len(q) >= MIN_FLANK_BP]
+        if len(usable) < MIN_FLANK_PAIRS:
+            continue                      # not enough flank on this side to say anything
         F0, _ = flank_sharing(seqs)
         vv = F0[np.triu_indices(len(seqs), 1)]
         vv = vv[vv > 0]
-        if len(vv):
+        if len(vv) >= MIN_FLANK_PAIRS:
             fl_pre.append(float(np.median(vv)))
-    bg_meas = float(np.mean(fl_pre)) if fl_pre else BG
+    if fl_pre:
+        bg_meas = float(np.mean(fl_pre))
+    else:
+        bg_meas = BG                      # unrelated-DNA constant; nothing measurable
+        flank_measured = False
     # Two separate questions, previously conflated into one threshold:
     #   is there an element at all      -> support_threshold
     #   is this set a MIXTURE           -> contamination_split
@@ -422,12 +442,21 @@ def verdict(path):
     cv_core = float(np.std(elen[supported]) / max(1e-9, np.mean(elen[supported])))         if n_sup >= 8 else 1.0
     id_core = float(np.median(ident[core])) if n_core else 0.0
 
+    # Same guard as bg_meas above - this is the value that actually feeds
+    # g_elem, so leaving it unguarded reproduced the whole failure: an
+    # element-only alignment yielded flank_bg 1.000, which makes the cliff
+    # (id_all - flank_bg) negative and forces NO_ELEMENT on a perfectly good
+    # family. Both computations must refuse to report a background they could
+    # not measure.
     fl_id = []
     for seqs in (p["lefts"], p["rights"]):
+        usable = [q for q in seqs if len(q) >= MIN_FLANK_BP]
+        if len(usable) < MIN_FLANK_PAIRS:
+            continue
         F, _ = flank_sharing(seqs)
         v = F[np.triu_indices(len(seqs), 1)]
         v = v[v > 0]
-        if len(v):
+        if len(v) >= MIN_FLANK_PAIRS:
             fl_id.append(float(np.median(v)))
     flank_bg = float(np.mean(fl_id)) if fl_id else BG
 
@@ -523,7 +552,11 @@ def verdict(path):
     # behind "n_core >= 8", so a set whose copies ALL share flanking sequence
     # scored near zero with no explanation at all - hedgehog e1-4 and e2-2 both
     # did exactly that, at flank identity 0.68 against 0.28 for a normal family.
-    if (not dec) and global_elev - BG > 0.15 and n >= 15:
+    # ...but only when there were flanks to measure. On an element-only
+    # alignment (the curated `subfam` variants carry no genomic flanks at all)
+    # the few copies that do have a stub of sequence match each other trivially,
+    # and this fired as if the loci were inside a satellite.
+    if flank_measured and (not dec) and global_elev - BG > 0.15 and n >= 15:
         flags.append({"code": "SHARED_FLANKS", "n": n_shared,
                       "text": "Flanking sequence is %.2f identical between copies against "
                               "%.2f for unrelated DNA — these loci are not in independent "
@@ -586,6 +619,13 @@ def verdict(path):
                               "neither question."
                               % (het["sizes"][0], het["sizes"][1], het["med"][0],
                                  het["med"][1], 100 * het["rel_len"])})
+    if not flank_measured:
+        flags.append({"code": "NO_FLANKS_PRESENT", "n": 0,
+                      "text": "This alignment carries no genomic flanks, so nothing outside the "
+                              "element could be measured: the background is assumed rather than "
+                              "observed, and the flank-based tests (isolation, nesting, shared "
+                              "context, TSD) are simply not available. The element itself is "
+                              "still judged normally."})
     if cv_core > 0.18 and n_core >= 15:
         flags.append({"code": "TRUNCATED_COPIES", "n": round(cv_core, 3),
                       "text": "Copy length varies widely (CV %.2f against 0.05 for a clean "
@@ -624,6 +664,7 @@ def verdict(path):
     return {"set": os.path.basename(path).replace(".aln.fa", ""),
             "score": round(float(score), 1),
             "deferred": bool(het),
+            "flank_measured": bool(flank_measured),
             "uniqueness_measured": bool(uniq_measured),
             "groups": {"element": round(float(g_elem), 3),
                        "homogeneity": round(float(g_homog), 3),
