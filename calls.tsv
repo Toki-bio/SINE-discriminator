@@ -1,0 +1,73 @@
+set	corpus	call	verbatim
+NEGCHIM__saq__s3_43seqs	aln_v2	SINE	many individual level long insertions in the tail region but if gaps are removed it becomes consolidated at right edge... its clearly SINE
+NEGRAND__saq__r00	aln_v2	NOT_SINE	no questions negative, good work
+NEGLINEORF__teu__r00	aln_v2	NOT_SINE	no questions negative, good work
+NEGTRUNC5__saq__s3_43seqs	aln_v2	SINE	indeed grayish on the left edge but still more like a SINE; if its right edge is defined at gggagat... it becomes quite clear
+ERI__eri__e2-4	aln_v2	SINE_NEEDS_GENOME_CHECK	nested copies, i agree, but there are enough uniq left flanks to lean towards SINE - requires post-processing with proving uniqness of at least some flanks on whole-genome level
+NEGMOSAIC__saq__s1_30seqs_s8_225seqs	aln_v2	SINE	absolutely clear SINE
+ERI__eri__e1-4	aln_v2	MOSAIC	after proper alignment looks like good example of mosaic (besides being too long for SINE)
+NEGCHIM__dmo__d4_266seqs	aln_v2	GREY	after realignment looks like sine but grayinsh zone because right end is a bit wobbly unstable
+NEGTRUNC5__ccr__g5_7seqs	aln_v2	GREY	right end is fine but left one is really bad, good example of grey zone which looks more like LINE
+ERI__eri__e2-2	aln_v2	NOT_SINE	not a grey zone, mixture of LINEs or something other repeats dfinitely not SINE
+NEGLOWBIT__saq__r00	aln_ext	NOT_SINE	no repeat element at all, not informative too obvious negative control
+NEGLOWBIT__teu__r00	aln_ext	NOT_SINE	no repeat element at all, not informative too obvious negative control
+NEGSEGDUP__eri__r00	aln_v2	GREY_OR_BADLY_PREPARED	unclear situation with left end, could be just not extended enough, more like grey zone or technically badly prepared
+AMBIG__saq__r00	aln_ext	SINE	not grey zone at all, subfamily ambiguity doesnt matter, we answer sine/not-sine
+AMBIG__teu__r00	aln_ext	SINE	not grey zone at all, subfamily ambiguity doesnt matter, we answer sine/not-sine
+ERI__eri__e2-3	aln_v2	SINE_WITH_CAUTION	can be SINE, but very turbulent at manu places, should be regarded as SINe but with caution and need manual reinspection
+NEGLINE__teu__r00	aln_v2	SINE	these are clear SINEs, what made you think that it is line?
+POS__saq__s5_5seqs	aln_v2	SINE	these are clear SINEs
+SIMCLEAN__age030	aln_v2	SINE	no caveats, pure clear SINE with high divergence
+POS__ccr__a_ccr	aln_v2	SINE	no caveats, pure clear SINE with high divergence
+MIXED30__saq__s3_43seqs	aln_v2	SINE	should have come clearly positive - its real SINE which is recoverable from this alignment
+HUM__hum__AluJr	bench	SINE	legit SINE without problems
+HUM__hum__AluSc	bench	SINE	legit SINE without problems
+HUM__hum__AluSc8	bench	SINE	legit SINE without problems
+HUM__hum__AluSg7	bench	SINE	legit SINE without problems
+HUM__hum__AluSq	bench	SINE	legit SINE without problems
+HUM__hum__AluSq2	bench	SINE	legit SINE without problems
+HUM__hum__AluSq4	bench	SINE	legit SINE without problems
+HUM__hum__AluSx4	bench	SINE	legit SINE without problems
+HUM__hum__FAM	bench	SINE	legit SINE without problems
+HUM__hum__FLAM_A	bench	SINE	legit SINE without problems
+HUM__hum__AluYa8	bench	SINE_MINOR_NOTE	in 50bp flanks alignment last 3 sequences are truncated from right edge, nothing crucial but worth noting
+HUM__hum__AluYh3	bench	SINE_MINOR_NOTE	11 lower sequences need manual attention, either duplicated loci or other sequence problems, worth flagging but overall this is a SINE no doubt in its majority
+HUM__hum__FLAM_C_short_	bench	SINE_MINOR_NOTE	is a good SINE, just 11 sequences in the middle are probably having also second monomer, small problem considering majority is good
+HUM__hum__LFSINE_Vert	bench	ANCIENT_BADLY_PRESENTED	really interesting ancient divergent cases - some flavour of SINE there but it s not presented properly with aligned gappy flanks, need proper work
+HUM__hum__AmnSINE2	bench	ANCIENT_BADLY_PRESENTED	really interesting ancient divergent cases - some flavour of SINE there but it s not presented properly with aligned gappy flanks, need proper work
+HUM__hum__AmnSINE1	bench	ANCIENT_BADLY_PRESENTED	really interesting ancient divergent cases - some flavour of SINE there but it s not presented properly with aligned gappy flanks, need proper work
+HUM__hum__AluYh7	bench	ANCIENT_BADLY_PRESENTED	really interesting ancient divergent cases - some flavour of SINE there but it s not presented properly with aligned gappy flanks, need proper work
+HUM__hum__AluYk3	bench	BADLY_PRESENTED	similar problem, needs much longer or properly handled (degapped) left flank
+HUM__hum__AluYk11	bench	MIXTURE_SPLIT_FIRST	tryly a mixture, top proper about half longer similarity sequences need separate analysis as a good SINE candidate, then bottom more discordant shorter ones need additional fresh re-run of whole analysis. This non-homogenous selection problem is different from bad SINE set and needs additional work before verdict
+HUM__hum__CAS	bench	MIXTURE_SPLIT_FIRST	also a very complex mixture, top ~20 ones look like good SINE, next comes longer elements of different types with undefined ends, and bottom can be another SINE
+HUM__hum__AluYh9	bench	MIXTURE_SPLIT_FIRST	underrepresented mixture of 2 variants, needs expanded selection if available and proper flanks handling after separation
+HUM__hum__LmeSINE1c	bench	NOT_SINE	very weak signal over too few copies, very low chance being a SINE, a bit similar to LFSINE case (not sequence) but much weaker
+HUM__hum__AluSx_short_	bench	SINE_TOO_FEW	too few copies but looks like SINE with huge discordant insertions, needs more evidence from genome
+HUM__hum__AluYe6	bench	UNUSABLE	wtf???
+HUM__hum__MIR1_Amn	bench	SINE_CONSENSUS_WRONG	weak old sine, consensus needs refinement and shortening, otherwise difficult but very real SINE
+MOSAICDUP__saq__s3	aln_v2	SINE	A is visible mosaic at middle but at clearly tolerable level
+MOSAICSWAP__saq__s3	aln_v2	SINE_NEEDS_SUBGROUPING	B is the same but in 2 places; should trigger 'need internal subgrouping' but a clear SINE
+MOSAICDEL__saq__s3	aln_v2	SINE	C and E are the least problematic, textbook axample of 2 SINE subfamilies
+MOSAICTANDEM__saq__s3	aln_v2	SINE	C and E are the least problematic, textbook axample of 2 SINE subfamilies
+MOSAICINS__saq__s3	aln_v2	SINE_MOST_PROBLEMATIC	D is the most problematic so far, reminds me of Squam2 with its pre-tail region containing an island of instability
+MOSAICKALEID__saq__s3	aln_v2	SINE_MINOR_NOTE	F is no doubt a SINE but big number of insertions make it worth noting
+NEGSPLICE__ccr_g1_180seqs__ccr_g4_77seqs__17	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__ccr_g2_103seqs__teu_t3_27seqs__03	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__ccr_g3_71seqs__teu_t4_92seqs__06	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__ccr_g5_7seqs__saq_s2_38seqs__14	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__ccr_g6_58seqs__ccr_g7_3seqs__04	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__ccr_g6_58seqs__dmo_d1_16seqs__15	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__ccr_g6_58seqs__teu_t3_27seqs__16	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__ccr_g7_3seqs__ccr_a_ccr__13	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__dmo_d1_16seqs__saq_s1_30seqs__12	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__dmo_d5_268seqs__saq_s3_43seqs__11	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__saq_s4_60seqs__saq_s9_20seqs__07	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__saq_s5_5seqs__saq_s8_225seqs__02	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__saq_s8_225seqs__saq_s7g_172seqs__08	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__teu_t3_27seqs__dmo_d1_16seqs__01	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__teu_t3_27seqs__teu_t2_75seqs__05	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__teu_t4_92seqs__saq_s3_43seqs__18	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__teu_t5_31seqs__ccr_g7_3seqs__19	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__teu_t5_31seqs__saq_s2_38seqs__10	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__teu_t5_31seqs__teu_t6_324seqs__00	aln_v2	SINE	very clear SINE, almost perfect
+NEGSPLICE__teu_t6_324seqs__saq_s2_38seqs__09	aln_v2	SINE	very clear SINE, almost perfect

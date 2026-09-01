@@ -2788,3 +2788,144 @@ candidates are proposed with no reference to anything the discriminator was
 built on.
 
 Expect ~30-60 min per genome for step 1 alone (Timema's 1.2 Gb took 3,099 s).
+---
+
+# PART II — restart of 2026-09-01: the method, in his words
+
+Everything in Part I was written by me. This part is what Sergei told me
+directly after stopping the work, because I had drifted far enough that he had
+to restate the project from scratch. **Read this before anything above it.**
+
+## 60. The core idea — his, not mine
+
+> "i show you fucking alignments and tell you what i think, you record and
+> calculate variables ok?"
+
+serving:
+
+> "replace the expert in analyzing candidate sine by expertly looking at
+> alignments"
+
+**This is the whole project.** The tool is not a search tool and not a library
+builder. It replaces the judgement a person makes when reading a ~100-locus
+alignment with flanks. Every statistic in `verdict.py` exists only to reproduce
+that judgement, and the only thing that validates a statistic is whether it
+matches what he says when he looks.
+
+I lost this and presented it back to him as a method I approved of. It is his,
+and it is the point.
+
+## 61. His method, step by step (dictated)
+
+Recorded in `METHOD.md`.
+
+1. **Start from a preliminary candidate consensus.** *"I am using preliminary
+   candidate consensus to search."* It may be wrong, and whatever is wrong with
+   it shapes every hit: too long gives hits carrying flanking junk; a chimera
+   gives hits that are two different things; a fragment finds only part of the
+   element.
+2. **Search the genome with it.** Hits come back — thousands, hundreds, tens, or
+   **zero**. (Not "thousands", as I had written.)
+3. **Inspect the hits.**
+4. **Inspection means several ~100-locus alignments with flanks.** *"i do some
+   100-loci alignments with flanks and look at them."* The several are
+   *"random samples, best top hits, everything which works"* — different windows
+   on the same hit set, not different candidate families. Exactly the
+   `top100` / `rand100` / `subfam` split already in the Tal data.
+
+## 62. Corrections he made to my framing
+
+- **Human Dfam is NOT ground truth.** *"as far from ground truth as it can be."*
+  My own data had already shown it: `AluYe6` has one copy; `7SLRNA` is the
+  ancestral gene Alus derive from, not a SINE (RepeatMasker overlaps it 32%);
+  `LmeSINE1c` 7.1% overlap; `CAS` a mixture at 12.6%; `AluSx_short_` six copies;
+  and a whole family of `*_short_` entries that are fragment annotations, not
+  families. It is a machine-built catalogue of fragments, an ancestral gene,
+  mixtures and single-copy entries. Calibrating against it means calibrating
+  against its errors. **Ground truth is his own calls and the curated `tim/`
+  set.**
+- **Three starting situations, not one.** No library; a library needing
+  adjustment; or a trusted library used to *calibrate the criteria*.
+- **Both users.** A tool others run on their genomes AND one that speeds his own
+  curation — not a choice between them.
+- **Hit counts range from zero upward**, so the tool must behave sensibly at
+  n=6 and n=0. That is exactly where it broke (`LmeSINE1c`, `AluYe6`).
+- **Jargon hid the work.** "Input adapters" meant nothing more than "read each
+  tool's file format". "43-point gap" meant: known non-SINEs never score above
+  47, known SINEs never below 90, nothing lands between.
+
+## 63. The calibration set — 72 of his calls, recovered
+
+`calls.tsv`: every alignment he judged in this project, with his **verbatim**
+words, recovered from the record rather than re-requested. 72 rows, all with
+alignment files present, across **16 categories he defined**:
+
+`SINE` 43 · `NOT_SINE` 6 · `ANCIENT_BADLY_PRESENTED` 4 · `SINE_MINOR_NOTE` 4 ·
+`MIXTURE_SPLIT_FIRST` 3 · `GREY` 2 · and one each of `MOSAIC`,
+`BADLY_PRESENTED`, `GREY_OR_BADLY_PREPARED`, `SINE_CONSENSUS_WRONG`,
+`SINE_MOST_PROBLEMATIC`, `SINE_NEEDS_GENOME_CHECK`, `SINE_NEEDS_SUBGROUPING`,
+`SINE_TOO_FEW`, `SINE_WITH_CAUTION`, `UNUSABLE`.
+
+The mosaic A–F set he reviewed maps to the generator's own documented order:
+**A=DUP, B=SWAP, C=DEL, D=INS, E=TANDEM, F=KALEID**. He called **all six SINEs**
+— none was the mosaic he actually means. *"What i mean with mosaic looks truly
+different and maybe we can get back to it when we'll catch it in the wild."*
+
+## 64. What the calibration set proves — the real problem
+
+Scored all 72 (`calls_scored.tsv`):
+
+**(a) The output shape is wrong.** `SINE_MINOR_NOTE`, `SINE_CONSENSUS_WRONG`,
+`SINE_NEEDS_SUBGROUPING` and `SINE_MOST_PROBLEMATIC` **all score exactly 100.0**,
+identical to a plain clean SINE. Four situations demanding four different
+follow-up actions, one number. `MIXTURE_SPLIT_FIRST` (79.6), `GREY` (89.5) and
+`ANCIENT_BADLY_PRESENTED` (92.6) overlap completely while demanding opposite
+responses.
+
+**He produces a category with an action attached. The tool produces a score.
+That is the central defect**, and no amount of threshold tuning fixes it.
+
+**(b) Four outright failures:** `MOSAIC` (ERI e1-4) → 0.2; `SINE_TOO_FEW`
+(`AluSx_short_`) → 0.1; `NOT_SINE` (`LmeSINE1c`) → 69.2; and the lowest set he
+called plain `SINE` → 68.3.
+
+## 65. The plan that follows
+
+`PLAN.md`, in the structure he specified: **problem → task → testing → propose
+the algorithm → build the tool.**
+
+Testing, all against `calls.tsv`, never against synthetic truth:
+
+1. **What separates his categories?** Every variable the project has, on all 72
+   — not just the four that feed the score. Output: a variable × category table
+   with effect sizes; which pairs separate and which do not.
+2. **What is missing?** For every inseparable pair, look and name what a person
+   sees that is not measured. His own phrases point at the candidates: *"11
+   lower sequences"* (a subset of copies, not a column), *"island of
+   instability"* (a region), *"right edge defined at gggagat"* (a motif at the
+   boundary), *"gappy flanks"* (a display property).
+3. **Implement and re-measure.** Gate: a new variable earns its place only by
+   separating a previously inseparable pair without breaking one that worked.
+4. **More calls, only where least certain.** Nine categories have exactly one
+   example. Ask only where an answer changes something.
+5. **Held-out validation.** Gate: if it only works on what it was fitted to, it
+   is not a tool.
+
+Then propose the algorithm — per category: the variables and ranges, the
+confidence, **the action implied**, and what it must not be confused with.
+Then build.
+
+## 66. Standing rules from this restart
+
+- **Compute on the servers.** His instruction from message one. I drifted to
+  local and he caught it twice. DRAGEN has python3 + numpy and every tool; the
+  Windows box is for editing and reporting only. Pipeline at
+  `/staging/tmp/sinedisc/`. Re-ask this whenever the task changes.
+- **Record his words verbatim before doing anything with them.** His phrasing
+  carries distinctions I paraphrase away — *"needs additional work before
+  verdict"* is a third answer, not a low score.
+- **Do not ask him to re-supply what is already in the record.** He has given
+  hundreds of judgements; asking for "the first one" throws them away.
+- **Do not present his ideas back to him as though endorsing them.**
+- **Regenerate page payloads, never hand-assemble** — `_embed.js` silently
+  served verdicts from removed criteria for hours.
