@@ -8,6 +8,64 @@ after every exchange.
 
 ---
 
+## 2026-09-02 — pom_SINE_1 structure, and both candidates vs RepBase
+
+Alignments rebuilt at 100 bp flanks, justified and degapped, published as
+`NEW__pom100_*__*.degap.aln.fa`. Flank gaps:
+
+| | raw | justified | degapped |
+|---|---|---|---|
+| SINE_0 top100 | 0.69 / 0.68 | 0.07 / 0.04 | **0.07 / 0.03** |
+| SINE_1 top100 | 0.74 / 0.79 | 0.19 / 0.45 | **0.19 / 0.22** |
+| SINE_1 rand100 | 0.78 / 0.87 | 0.38 / 0.70 | **0.23 / 0.30** |
+
+### The two candidates side by side
+
+| | pom_SINE_0 | pom_SINE_1 |
+|---|---|---|
+| length | 175 bp | 262 bp |
+| AnnoSINE source | tRNA | 7SL RNA |
+| genomic copies | 537 | 339 |
+| **A-box** | pos 2-12, **2 mismatches** | pos 0-10, **3 mismatches** |
+| **B-box** | pos 54-62 `GTTCAACTC`, **0 mm** | pos 50-58 `GTTCAAGAC`, **0 mm** |
+| **TSD** | **86 % of copies**, median 13 bp | **35 % of copies**, median 8 bp |
+| Pol III terminator | 24 % strong, 8 % moderate | 16 % strong, 9 % moderate |
+| 3' tail | poly-C, 8 units | none detected |
+
+**Both have a perfect B-box** — an intact RNA-pol-III internal promoter, which is
+the hardest part to acquire by chance.
+
+**SINE_1 is the weaker of the two**: its A-box has 3 mismatches rather than 2,
+only 35 % of copies carry a TSD against 86 %, and no 3' tail repeat is detected.
+Real but less convincing, and worth his eye on the degapped alignment.
+
+### Neither has a relative or a LINE partner
+
+Searched at `word_size 7`, no filtering, against **49,007 RepBase entries**,
+of which **1,784 L1** and **7,117 other LINE families** (RTE, CR1, Jockey, L2,
+Rex, R1/R2, Nimb, Penelope):
+
+| query | whole RepBase | best LINE hit | where on the LINE |
+|---|---|---|---|
+| pom_SINE_0 | 3 hits, e 0.25-0.89 | 28 bp, e 0.14 | **1,246 bp** from the 3' end |
+| pom_SINE_1 | 1 hit, 19 bp, e 0.39 | 28 bp, e 0.22 | **3,000-4,600 bp** from the 3' end |
+
+**The "similarity to L1 tails" does not survive a targeted search.** Every hit is
+14-28 bp with e >= 0.14, and none is near a LINE 3' terminus. A genuine SINE-LINE
+partnership puts the SINE's tail on the LINE's last ~50 bp; these sit thousands
+of bases inside. It is background.
+
+Combined with the SINEBase survey above — 23-55 % of that database is isolated —
+being unrelated to known elements is a normal property of a real SINE, not
+evidence against one.
+
+**Open question, unresolved by sequence alone:** if neither has a LINE partner in
+RepBase, what mobilises them? Molluscan LINEs are poorly represented there, so
+the partner may simply be undescribed — findable by searching the snail genome
+itself for a LINE whose 3' end matches these SINEs' tails.
+
+---
+
 ## 2026-09-02 — pom_SINE_0 structure, and the SINEBase isolation survey
 
 ### pom_SINE_0 has a complete SINE structure
