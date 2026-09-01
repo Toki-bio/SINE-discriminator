@@ -109,8 +109,28 @@ alignments carried FLANKS_UNMEASURED for no reason. Now measured.
 
 `hyd_SINE_5` — *"not looking like sine, weak right end, mosaic left end"* —
 scores 96.6 with only a subfamily note. Core fraction 0.68, identity 0.641,
-nothing else fires. **Edge quality is not measured yet**, and that is the next
-thing to build.
+nothing else fires.
+
+Two measures were built for it and **neither works**, which is worth recording
+rather than hiding:
+
+- **edge sharpness** (`edge_quality.py`: identity over the first/last 25 element
+  columns against the middle, and the drop into the flank just outside).
+  `hyd_SINE_5` reads ratio5 0.801 / ratio3 0.735, mid-range; `hyd_SINE_6`, also
+  rejected, reads ratio3 0.978, near the top. No separation.
+- **regional mosaic** (`regional_mosaic.py`: patch2d over the first, middle and
+  last third, because he said mosaic *left* end). `hyd_SINE_5` left 0.115 against
+  `hyd_SINE_12` left 0.124 and `hyd_SINE_16` left 0.250, both of which he treats
+  differently. No separation.
+
+Whole-element patch2d comes closest — `hyd_SINE_5` 0.136 — but `hyd_SINE_13`,
+which he accepts, is **0.169**. A threshold that catches `hyd_SINE_5` rejects a
+family he accepted, so no threshold was set.
+
+So the property is real and still unmeasured. What is missing is probably not a
+sharper edge statistic but a boundary that is defined by the copies rather than
+by the consensus: where does each copy actually stop matching, and how much do
+those stopping points agree? That is the next thing to build.
 
 ---
 

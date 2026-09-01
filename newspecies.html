@@ -29,7 +29,8 @@ td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
 td.name{font-family:var(--mono);font-size:12px;font-weight:500}
 tbody tr:last-child td{border-bottom:0}
 tr.alt td{background:#fbfcfa}
-td.flags{white-space:normal;max-width:250px;min-width:200px}
+td.flags{white-space:normal;max-width:150px;min-width:120px}
+td.call{white-space:normal;max-width:110px;font-size:12px}
 .lnk{font-family:var(--mono);font-size:11px;text-decoration:none;border-bottom:1px solid var(--rule);margin-right:7px;white-space:nowrap}
 .ok{color:var(--accent);font-weight:600}
 .bad{color:var(--mism);font-weight:600}
@@ -52,19 +53,463 @@ td.flags{white-space:normal;max-width:250px;min-width:200px}
 <p class="cap">Islands are measured on the full 400&nbsp;bp flank, never on the trimmed alignments linked below. Trimming to the width the copies fill cuts away exactly the far-out columns: it drops aca_SINE_0 from 426 island columns to 6.</p>
 </div>
 <div class="rule"></div>
-<h2>snail <span class='lat'>Pomacea canaliculata &middot; Mollusca &middot; GCF_003073045.1</span></h2>
-<p class="cap">2 candidates, 2 scoring 50 or above on their best view.</p>
-<div class="tw"><table><thead><tr><th title="candidate name as AnnoSINE assigned it">candidate</th><th title="the small RNA AnnoSINE derived the seed from">seed</th><th title="AnnoSINE&#x27;s own copy count. A floor, not an estimate - a real search finds several times more.">annosine copies</th><th title="copies in this alignment, and which hits they are">n</th><th title="0 to 100. At 50 and above the tool accepts it">score</th><th title="median pairwise identity across the whole element">identity</th><th title="pairwise identity in the flanks. 0.25 to 0.31 means the copies sit in independent places; much higher means they do not">flank bg</th><th title="fraction of the flank sitting inside a patch of significantly raised similarity, and the column count. Measured on the full 400 bp flank. His own calls put plain SINEs at or below 0.067 and flank-caution calls at 0.19 to 0.37">island frac</th><th title="hover any flag for the full reason">what the tool says</th><th>alignments</th></tr></thead><tbody>
+<h2>hydra <span class='lat'>Hydra vulgaris &middot; Cnidaria &middot; GCA_022113875.1</span></h2>
+<p class="cap">22 candidates, 15 scoring 50 or above on their best view.</p>
+<div class="tw"><table><thead><tr><th title="candidate name, the small RNA its seed came from, and AnnoSINE&#x27;s own copy count. A floor, not an estimate - a real search finds several times more.">candidate</th><th title="copies in this alignment, and which hits they are">n</th><th title="0 to 100. At 50 and above the tool accepts it">score</th><th title="median pairwise identity across the whole element">identity</th><th title="pairwise identity in the flanks. 0.25 to 0.31 means the copies sit in independent places; much higher means they do not">flank bg</th><th title="fraction of the flank sitting inside a patch of significantly raised similarity, and the column count. Measured on the full 400 bp flank. His own calls put plain SINEs at or below 0.067 and flank-caution calls at 0.19 to 0.37">island frac</th><th title="hover any flag for the full reason">what the tool says</th><th title="his own reading of the top100 alignment">his call</th><th>alignments</th></tr></thead><tbody>
 <tr>
-<td class="name" rowspan="2">pom_SINE_0</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">537</td>
+<td class="name" rowspan="2">hyd_SINE_0<div class="cap">tRNA &middot; 61 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n bad">0.2</td>
+<td class="n">0.560</td>
+<td class="n">0.614</td>
+<td class="n ">0.062 <span class="cap">139</span><span class="bar" style="width:9px"></span></td>
+<td class="flags"><span class="pill" title="The sequence flanking these copies is itself shared (identity 0.86 at the edge, reaching background only 150 bp out). They look like fragments of a longer element — a LINE 3&#x27; end or similar — rather than a short element with its own boundaries.">fragment of longer</span><span class="pill" title="Similarity carries on about 150 bp past the end of the consensus and then reaches background (0.30), so that stretch is the element rather than its context. The consensus is too short by roughly that much - extend it and re-run. Until then the flank average is being measured on element sequence, which understates everything that depends on it.">consensus too short</span><span class="pill" title="Only 3 of 100 copies form the core the consensus is actually built on (3 %). The rest are too divergent or too truncated to support it, so the score describes a minority of what was collected. Look at whether the other 97 belong here at all.">small core</span></td>
+<td class="call" rowspan="2"><span class="bad" title="SINE2-2B_HM SINE2/tRNA Hydra vulgaris (208 nt) - good sine, looks like false alarm on your side">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_0__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n bad">0.0</td>
+<td class="n">0.169</td>
+<td class="n">0.843</td>
+<td class="n warn">0.091 <span class="cap">127</span><span class="bar" style="width:14px"></span></td>
+<td class="flags"><span class="pill" title="The sequence flanking these copies is itself shared (identity 0.84 at the edge, reaching background only 125 bp out). They look like fragments of a longer element — a LINE 3&#x27; end or similar — rather than a short element with its own boundaries.">fragment of longer</span><span class="pill" title="Similarity carries on about 125 bp past the end of the consensus and then reaches background (0.31), so that stretch is the element rather than its context. The consensus is too short by roughly that much - extend it and re-run. Until then the flank average is being measured on element sequence, which understates everything that depends on it.">consensus too short</span><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_0__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">hyd_SINE_1<div class="cap">tRNA &middot; 1616 copies</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">100.0</td>
+<td class="n">0.789</td>
+<td class="n">0.307</td>
+<td class="n ">0.012 <span class="cap">28</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-2B_HM SINE2/tRNA Hydra vulgaris (208 nt)">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_1__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n bad">0.0</td>
+<td class="n">0.234</td>
+<td class="n">0.314</td>
+<td class="n ">0.004 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_1__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">hyd_SINE_2<div class="cap">tRNA &middot; 8 copies</div></td>
+<td class="n">8 <span class="cap">top100</span></td>
+<td class="n bad">45.0</td>
+<td class="n">0.595</td>
+<td class="n">0.250</td>
+<td class="n ">&mdash;</td>
+<td class="flags"><span class="pill" title="Only 8 copies. The subfamily-split and flank-decay tests need about 30 before they mean anything, so this score is an impression rather than a measurement - it should not be read as a confident accept OR a confident reject. Gather more copies from the genome before deciding.">too few copies</span><span class="pill" title="This alignment carries no genomic flanks, so nothing outside the element could be measured: the background is assumed rather than observed, and the flank-based tests (isolation, nesting, shared context, TSD) are simply not available. The element itself is still judged normally.">no flanks</span></td>
+<td class="call" rowspan="2"><span class="ok" title="too short, few copies">not a SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_2__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">8 <span class="cap">all</span></td>
+<td class="n bad">45.0</td>
+<td class="n">0.595</td>
+<td class="n">0.250</td>
+<td class="n ">&mdash;</td>
+<td class="flags"><span class="pill" title="Only 8 copies. The subfamily-split and flank-decay tests need about 30 before they mean anything, so this score is an impression rather than a measurement - it should not be read as a confident accept OR a confident reject. Gather more copies from the genome before deciding.">too few copies</span><span class="pill" title="This alignment carries no genomic flanks, so nothing outside the element could be measured: the background is assumed rather than observed, and the flank-based tests (isolation, nesting, shared context, TSD) are simply not available. The element itself is still judged normally.">no flanks</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="every hit, because there were fewer than 100" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_2__all.clean.aln.fa">all</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">hyd_SINE_3<div class="cap">tRNA &middot; 67 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.834</td>
+<td class="n">0.314</td>
+<td class="n ">0.011 <span class="cap">29</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-2B_HM SINE2/tRNA Hydra vulgaris (208 nt)">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_3__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.733</td>
+<td class="n">0.300</td>
+<td class="n ">0.008 <span class="cap">20</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 47 and 47 (within-group identity 0.84, between 0.73, excess over a random split 0.107). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_3__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">hyd_SINE_4<div class="cap">tRNA &middot; 6861 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">86.2</td>
+<td class="n">0.774</td>
+<td class="n">0.329</td>
+<td class="n ">0.026 <span class="cap">75</span><span class="bar" style="width:4px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-1_HM SINE2/tRNA Hydra vulgaris (239 nt)">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_4__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n bad">0.0</td>
+<td class="n">0.338</td>
+<td class="n">0.321</td>
+<td class="n ">0.004 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_4__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">hyd_SINE_5<div class="cap">tRNA &middot; 7 copies</div></td>
+<td class="n">62 <span class="cap">top100</span></td>
+<td class="n ok">96.6</td>
+<td class="n">0.641</td>
+<td class="n">0.314</td>
+<td class="n ">0.009 <span class="cap">21</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 27 and 28 (within-group identity 0.72, between 0.67, excess over a random split 0.034). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span></td>
+<td class="call" rowspan="2"><span class="bad" title="not looking like sine, weak right end, mosaic left end - not caught by your criteria">not a SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_5__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">62 <span class="cap">all</span></td>
+<td class="n ok">96.6</td>
+<td class="n">0.641</td>
+<td class="n">0.314</td>
+<td class="n ">0.009 <span class="cap">21</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 27 and 28 (within-group identity 0.72, between 0.68, excess over a random split 0.032). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="every hit, because there were fewer than 100" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_5__all.clean.aln.fa">all</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">hyd_SINE_6<div class="cap">unknown &middot; 1257 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n bad">45.0</td>
+<td class="n">0.785</td>
+<td class="n">0.336</td>
+<td class="n ">0.014 <span class="cap">35</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="Only 25 of 100 copies form the core the consensus is actually built on (25 %). The rest are too divergent or too truncated to support it, so the score describes a minority of what was collected. Look at whether the other 75 belong here at all.">small core</span></td>
+<td class="call" rowspan="2"><span class="ok" title="not looking like sine - mosaic columns in flanks, few copies, not firm edges, unknown middle part">not a SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_6__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n bad">45.0</td>
+<td class="n">0.747</td>
+<td class="n">0.350</td>
+<td class="n ">0.029 <span class="cap">67</span><span class="bar" style="width:4px"></span></td>
+<td class="flags"><span class="pill" title="The sequence flanking these copies is itself shared (identity 0.55 at the edge, reaching background only 150 bp out). They look like fragments of a longer element — a LINE 3&#x27; end or similar — rather than a short element with its own boundaries.">fragment of longer</span><span class="pill" title="Similarity carries on about 150 bp past the end of the consensus and then reaches background (0.30), so that stretch is the element rather than its context. The consensus is too short by roughly that much - extend it and re-run. Until then the flank average is being measured on element sequence, which understates everything that depends on it.">consensus too short</span><span class="pill" title="Only 23 of 100 copies form the core the consensus is actually built on (23 %). The rest are too divergent or too truncated to support it, so the score describes a minority of what was collected. Look at whether the other 77 belong here at all.">small core</span><span class="pill" title="Supported copies split into structurally different groups of 49 and 50 (within-group identity 0.84, between 0.81, excess over a random split 0.030). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_6__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">hyd_SINE_7<div class="cap">tRNA &middot; 697 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n bad">45.0</td>
+<td class="n">0.977</td>
+<td class="n">0.336</td>
+<td class="n ">0.022 <span class="cap">51</span><span class="bar" style="width:3px"></span></td>
+<td class="flags"><span class="pill" title="52 % of the element is simple tandem repeat in the median copy (74 % in the top tenth). Every family Sergei accepted in hydra sits at or below 7 %, and no class in the labelled corpus reaches 1 %. A consensus built mostly out of microsatellite will collect loci by their repeat content, not by common descent.">microsatellite element</span><span class="pill" title="The copies support consensus positions 370-460 (identity 0.95) much better than the consensus as a whole (0.56). Coverage is even across the full length, so the copies are present at the ends and simply do not match there - the consensus is longer than the element it describes. Trim it to that window and re-run; the family is real, the boundary is not.">consensus too long</span></td>
+<td class="call" rowspan="2"><span class="ok" title="Ginger1-10_HM Ginger1 Hydra vulgaris (6495 nt) - looks like combination of microsatellites to me, not sine - not caught by your filters! - needs new criteria on microsatellite content?; SINE2-2_HM SINE2/tRNA Hydra vulgaris (197 nt) - good sine but beginning of the head looks mosaic or just truncated in some copies">not a SINE - microsatellite</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_7__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n bad">45.0</td>
+<td class="n">0.800</td>
+<td class="n">0.343</td>
+<td class="n ">0.007 <span class="cap">7</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="42 % of the element is simple tandem repeat in the median copy (86 % in the top tenth). Every family Sergei accepted in hydra sits at or below 7 %, and no class in the labelled corpus reaches 1 %. A consensus built mostly out of microsatellite will collect loci by their repeat content, not by common descent.">microsatellite element</span><span class="pill" title="Supported copies split into structurally different groups of 49 and 49 (within-group identity 0.70, between 0.66, excess over a random split 0.035). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="The copies support consensus positions 355-405 (identity 0.79) much better than the consensus as a whole (0.52). Coverage is even across the full length, so the copies are present at the ends and simply do not match there - the consensus is longer than the element it describes. Trim it to that window and re-run; the family is real, the boundary is not.">consensus too long</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_7__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">hyd_SINE_8<div class="cap">tRNA &middot; 3135 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">86.3</td>
+<td class="n">0.850</td>
+<td class="n">0.357</td>
+<td class="n ">0.014 <span class="cap">40</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-1_HM SINE2/tRNA Hydra vulgaris (239 nt)">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_8__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">92.9</td>
+<td class="n">0.764</td>
+<td class="n">0.350</td>
+<td class="n ">0.024 <span class="cap">56</span><span class="bar" style="width:3px"></span></td>
+<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 42 and 43 (within-group identity 0.82, between 0.78, excess over a random split 0.032). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="Copy length varies widely (CV 0.18 against 0.05 for a clean family). Many copies are 5&#x27;-truncated. Still the same family, but the truncated copies may be worth setting aside.">truncated copies</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_8__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">hyd_SINE_9<div class="cap">5S rRNA &middot; 246 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n bad">0.2</td>
+<td class="n">0.789</td>
+<td class="n">0.914</td>
+<td class="n bad">0.331 <span class="cap">739</span><span class="bar" style="width:52px"></span></td>
+<td class="flags"><span class="pill" title="Similarity between copies continues 400 bp beyond the element and does not reach background — a satellite array or a duplicated region, not independent insertions.">not isolated</span><span class="pill" title="33 % of the flank sits inside patches of raised similarity (739 columns in 50 patches), which agrees with the raised flank average of 0.91.">flank islands</span><span class="pill" title="Only 1 of 100 copies form the core the consensus is actually built on (1 %). The rest are too divergent or too truncated to support it, so the score describes a minority of what was collected. Look at whether the other 99 belong here at all.">small core</span></td>
+<td class="call" rowspan="2"><span class="ok" title="CR1-1_HM CR1 Hydra vulgaris (4692 nt) - definitely not sine">not a SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_9__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n bad">0.2</td>
+<td class="n">0.783</td>
+<td class="n">0.800</td>
+<td class="n bad">0.331 <span class="cap">722</span><span class="bar" style="width:53px"></span></td>
+<td class="flags"><span class="pill" title="Similarity between copies continues 400 bp beyond the element and does not reach background — a satellite array or a duplicated region, not independent insertions.">not isolated</span><span class="pill" title="33 % of the flank sits inside patches of raised similarity (722 columns in 46 patches), which agrees with the raised flank average of 0.80.">flank islands</span><span class="pill" title="Only 2 of 100 copies form the core the consensus is actually built on (2 %). The rest are too divergent or too truncated to support it, so the score describes a minority of what was collected. Look at whether the other 98 belong here at all.">small core</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_9__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">hyd_SINE_10<div class="cap">tRNA &middot; 95 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">91.6</td>
+<td class="n">0.701</td>
+<td class="n">0.350</td>
+<td class="n ">0.014 <span class="cap">31</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-1_HM SINE2/tRNA Hydra vulgaris (239 nt)">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_10__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n bad">0.0</td>
+<td class="n">0.318</td>
+<td class="n">0.338</td>
+<td class="n ">0.023 <span class="cap">39</span><span class="bar" style="width:3px"></span></td>
+<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_10__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">hyd_SINE_11<div class="cap">tRNA &middot; 3036 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.857</td>
+<td class="n">0.293</td>
+<td class="n ">0.009 <span class="cap">23</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-2_HM SINE2/tRNA Hydra vulgaris (197 nt)">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_11__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">94.4</td>
+<td class="n">0.600</td>
+<td class="n">0.300</td>
+<td class="n ">0.003 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 43 and 43 (within-group identity 0.76, between 0.67, excess over a random split 0.084). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_11__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">hyd_SINE_12<div class="cap">tRNA &middot; 250 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">57.9</td>
+<td class="n">0.768</td>
+<td class="n">0.314</td>
+<td class="n ">0.005 <span class="cap">13</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-1_HM SINE2/tRNA Hydra vulgaris (239 nt)">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_12__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n bad">0.0</td>
+<td class="n">0.166</td>
+<td class="n">0.300</td>
+<td class="n ">0.007 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="Similarity between copies continues 400 bp beyond the element and does not reach background — a satellite array or a duplicated region, not independent insertions.">not isolated</span><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_12__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">hyd_SINE_13<div class="cap">tRNA &middot; 1144 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">94.2</td>
+<td class="n">0.677</td>
+<td class="n">0.321</td>
+<td class="n ">0.027 <span class="cap">63</span><span class="bar" style="width:4px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE-1_HM SINE Hydra vulgaris (277 nt)">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_13__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">92.2</td>
+<td class="n">0.644</td>
+<td class="n">0.314</td>
+<td class="n ">0.000 <span class="cap">0</span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_13__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">hyd_SINE_14<div class="cap">tRNA &middot; 2608 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">93.2</td>
+<td class="n">0.840</td>
+<td class="n">0.343</td>
+<td class="n ">0.012 <span class="cap">32</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-2B_HM SINE2/tRNA Hydra vulgaris (208 nt)">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_14__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">96.7</td>
+<td class="n">0.729</td>
+<td class="n">0.321</td>
+<td class="n ">0.017 <span class="cap">41</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 47 and 48 (within-group identity 0.83, between 0.77, excess over a random split 0.047). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_14__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">hyd_SINE_15<div class="cap">tRNA &middot; 4730 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.935</td>
+<td class="n">0.300</td>
+<td class="n ">0.010 <span class="cap">22</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-2B_HM SINE2/tRNA Hydra vulgaris (208 nt)">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_15__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">76.8</td>
+<td class="n">0.594</td>
+<td class="n">0.314</td>
+<td class="n ">0.006 <span class="cap">15</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 39 and 39 (within-group identity 0.72, between 0.66, excess over a random split 0.045). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="Copy length varies widely (CV 0.25 against 0.05 for a clean family). Many copies are 5&#x27;-truncated. Still the same family, but the truncated copies may be worth setting aside.">truncated copies</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_15__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">hyd_SINE_16<div class="cap">tRNA &middot; 2252 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n bad">0.0</td>
+<td class="n">0.724</td>
+<td class="n">0.307</td>
+<td class="n ">0.029 <span class="cap">69</span><span class="bar" style="width:4px"></span></td>
+<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span><span class="pill" title="This looks like two different things collected together: the 50 and 50 copies split into groups differing by 0.18 in identity to the consensus (his mixtures run 0.13-0.22, single families 0.01-0.12). Median lengths are 9 and 0 bp. Separate them and re-run each part - the score is withheld, because scoring a mixture answers neither question.">not one family</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-2B_HM SINE2/tRNA Hydra vulgaris (208 nt) - could be not sine - need inspection - but several top copies are part of bigger element thus require flanks uniqness test">not a SINE, needs a closer look</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_16__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n bad">0.0</td>
+<td class="n">0.209</td>
+<td class="n">0.300</td>
+<td class="n ">0.006 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_16__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">hyd_SINE_17<div class="cap">tRNA &middot; 7307 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n bad">0.2</td>
+<td class="n">0.895</td>
+<td class="n">0.543</td>
+<td class="n warn">0.088 <span class="cap">303</span><span class="bar" style="width:14px"></span></td>
+<td class="flags"><span class="pill" title="Similarity between copies continues 375 bp beyond the element and does not reach background — a satellite array or a duplicated region, not independent insertions.">not isolated</span><span class="pill" title="23 % of the element is simple tandem repeat in the median copy (29 % in the top tenth). Every family Sergei accepted in hydra sits at or below 7 %, and no class in the labelled corpus reaches 1 %. A consensus built mostly out of microsatellite will collect loci by their repeat content, not by common descent.">microsatellite element</span><span class="pill" title="25 % of the flanking sequence is simple tandem repeat in the median copy. The copies are sitting in microsatellite tracts, so the flanks cannot show whether the insertions are independent and short-read mapping into such tracts is unreliable.">microsatellite flank</span><span class="pill" title="Only 2 of 100 copies form the core the consensus is actually built on (2 %). The rest are too divergent or too truncated to support it, so the score describes a minority of what was collected. Look at whether the other 98 belong here at all.">small core</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-1_HM SINE2/tRNA Hydra vulgaris (239 nt) - very interesting case, looks like its not a sine cause surrounded by long 2-nt microsatellites, but needs closer look">not a SINE, needs a closer look</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_17__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n bad">0.2</td>
+<td class="n">0.917</td>
+<td class="n">0.886</td>
+<td class="n warn">0.082 <span class="cap">208</span><span class="bar" style="width:13px"></span></td>
+<td class="flags"><span class="pill" title="The sequence flanking these copies is itself shared (identity 0.86 at the edge, reaching background only 250 bp out). They look like fragments of a longer element — a LINE 3&#x27; end or similar — rather than a short element with its own boundaries.">fragment of longer</span><span class="pill" title="34 % of the element is simple tandem repeat in the median copy (86 % in the top tenth). Every family Sergei accepted in hydra sits at or below 7 %, and no class in the labelled corpus reaches 1 %. A consensus built mostly out of microsatellite will collect loci by their repeat content, not by common descent.">microsatellite element</span><span class="pill" title="25 % of the flanking sequence is simple tandem repeat in the median copy. The copies are sitting in microsatellite tracts, so the flanks cannot show whether the insertions are independent and short-read mapping into such tracts is unreliable.">microsatellite flank</span><span class="pill" title="Only 3 of 100 copies form the core the consensus is actually built on (3 %). The rest are too divergent or too truncated to support it, so the score describes a minority of what was collected. Look at whether the other 97 belong here at all.">small core</span><span class="pill" title="The copies support consensus positions 250-310 (identity 0.88) much better than the consensus as a whole (0.60). Coverage is even across the full length, so the copies are present at the ends and simply do not match there - the consensus is longer than the element it describes. Trim it to that window and re-run; the family is real, the boundary is not.">consensus too long</span><span class="pill" title="This looks like two different things collected together: the 48 and 48 copies split into groups differing by 0.18 in identity to the consensus (his mixtures run 0.13-0.22, single families 0.01-0.12). Median lengths are 134 and 0 bp. Separate them and re-run each part - the score is withheld, because scoring a mixture answers neither question.">not one family</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_17__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">hyd_SINE_18<div class="cap">tRNA &middot; 1746 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.811</td>
+<td class="n">0.300</td>
+<td class="n ">0.012 <span class="cap">29</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-2_HM SINE2/tRNA Hydra vulgaris (197 nt)">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_18__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n bad">0.0</td>
+<td class="n">0.340</td>
+<td class="n">0.300</td>
+<td class="n ">0.009 <span class="cap">16</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_18__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">hyd_SINE_19<div class="cap">tRNA &middot; 5574 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.689</td>
+<td class="n">0.321</td>
+<td class="n ">0.020 <span class="cap">45</span><span class="bar" style="width:3px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-1_HM SINE2/tRNA Hydra vulgaris (239 nt)">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_19__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">77.9</td>
+<td class="n">0.635</td>
+<td class="n">0.321</td>
+<td class="n ">0.014 <span class="cap">42</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="This looks like two different things collected together: the 39 and 39 copies split into groups differing by 0.34 in identity to the consensus (his mixtures run 0.13-0.22, single families 0.01-0.12). Median lengths are 136 and 0 bp. Separate them and re-run each part - the score is withheld, because scoring a mixture answers neither question.">not one family</span><span class="pill" title="Copy length varies widely (CV 0.23 against 0.05 for a clean family). Many copies are 5&#x27;-truncated. Still the same family, but the truncated copies may be worth setting aside.">truncated copies</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_19__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">hyd_SINE_20<div class="cap">tRNA &middot; 3988 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.620</td>
+<td class="n">0.321</td>
+<td class="n ">0.026 <span class="cap">57</span><span class="bar" style="width:4px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-1_HM SINE2/tRNA Hydra vulgaris (239 nt)">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_20__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n bad">0.0</td>
+<td class="n">0.233</td>
+<td class="n">0.307</td>
+<td class="n ">0.005 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_20__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">hyd_SINE_21<div class="cap">tRNA &middot; 4663 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.928</td>
+<td class="n">0.300</td>
+<td class="n ">0.016 <span class="cap">41</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="ok" title="SINE2-2B_HM SINE2/tRNA Hydra vulgaris (208 nt) - is good SINE">SINE</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_21__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">89.7</td>
+<td class="n">0.726</td>
+<td class="n">0.307</td>
+<td class="n ">0.005 <span class="cap">12</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 45 and 45 (within-group identity 0.78, between 0.70, excess over a random split 0.069). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="Copy length varies widely (CV 0.19 against 0.05 for a clean family). Many copies are 5&#x27;-truncated. Still the same family, but the truncated copies may be worth setting aside.">truncated copies</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_21__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+</tbody></table></div>
+<div class="rule"></div>
+<h2>snail <span class='lat'>Pomacea canaliculata &middot; Mollusca &middot; GCF_003073045.1</span></h2>
+<p class="cap">2 candidates, 2 scoring 50 or above on their best view.</p>
+<div class="tw"><table><thead><tr><th title="candidate name, the small RNA its seed came from, and AnnoSINE&#x27;s own copy count. A floor, not an estimate - a real search finds several times more.">candidate</th><th title="copies in this alignment, and which hits they are">n</th><th title="0 to 100. At 50 and above the tool accepts it">score</th><th title="median pairwise identity across the whole element">identity</th><th title="pairwise identity in the flanks. 0.25 to 0.31 means the copies sit in independent places; much higher means they do not">flank bg</th><th title="fraction of the flank sitting inside a patch of significantly raised similarity, and the column count. Measured on the full 400 bp flank. His own calls put plain SINEs at or below 0.067 and flank-caution calls at 0.19 to 0.37">island frac</th><th title="hover any flag for the full reason">what the tool says</th><th title="his own reading of the top100 alignment">his call</th><th>alignments</th></tr></thead><tbody>
+<tr>
+<td class="name" rowspan="2">pom_SINE_0<div class="cap">tRNA &middot; 537 copies</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">92.9</td>
 <td class="n">0.836</td>
 <td class="n">0.307</td>
 <td class="n ">0.007 <span class="cap">20</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="cln">clean</span></td>
+<td class="flags"><span class="pill" title="Copies share about 25 bp of sequence just outside the element, then reach background. Worth noting, but they are in independent locations.">adjacent similarity</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
 <td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__pom_SINE_0__top100.clean.aln.fa">top100</a></td>
 </tr>
 <tr>
@@ -77,20 +522,19 @@ td.flags{white-space:normal;max-width:250px;min-width:200px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__pom_SINE_0__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr class="alt">
-<td class="name" rowspan="2">pom_SINE_1</td>
-<td rowspan="2">7SL RNA</td>
-<td class="n" rowspan="2">339</td>
+<td class="name" rowspan="2">pom_SINE_1<div class="cap">7SL RNA &middot; 339 copies</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">100.0</td>
 <td class="n">0.751</td>
 <td class="n">0.279</td>
 <td class="n ">0.013 <span class="cap">34</span><span class="bar" style="width:2px"></span></td>
 <td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
 <td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__pom_SINE_1__top100.clean.aln.fa">top100</a></td>
 </tr>
 <tr class="alt">
 <td class="n">100 <span class="cap">rand100</span></td>
-<td class="n ok">86.2</td>
+<td class="n ok">83.2</td>
 <td class="n">0.672</td>
 <td class="n">0.271</td>
 <td class="n ">0.005 <span class="cap">12</span><span class="bar" style="width:2px"></span></td>
@@ -105,20 +549,27 @@ td.flags{white-space:normal;max-width:250px;min-width:200px}
 <tr><td class="name">pom_SINE_1</td><td class="n">1249</td><td class="n">1599</td><td class="n"><strong>2848</strong></td><td class="n ok">0.00</td><td class="n">0.6712</td><td class="n cap">339 &nbsp;&times;8 fewer</td></tr>
 </tbody></table></div>
 <p class="cap">Zero leak on both, across thousands of copies. In Timema the families you judged real ran 0.00 to 0.18 % leak and the noisy ones 65 to 98 %.</p>
+<h3>Subfamily alignments</h3>
+<p>Built with <code>extract_alignments.sh</code>, which is the one the deployment notes say to use &mdash; step&nbsp;5 writes alignments with no flanks, and flanks are what a boundary is judged on. Every row below carries 30&nbsp;bp left and 70&nbsp;bp right.</p>
+<div class="tw"><table><thead><tr><th>family</th><th title="50 random assigned copies, flanked, MAFFT">core</th><th title="the 50 highest-scoring assigned copies, flanked">best 50</th><th title="SubFam chunk consensuses - one consensus per ~50 copies, so subfamily structure is visible in one screen. Only produced at 400 copies or more">subfam</th></tr></thead><tbody>
+<tr><td class="name">pomSINE0</td><td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FPOM__pomSINE0.core.fa">open</a></td><td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FPOM__pomSINE0.best50.fa">open</a></td><td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FPOM__pomSINE0.subfam.fa">open</a></td></tr>
+<tr><td class="name">pomSINE1</td><td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FPOM__pomSINE1.core.fa">open</a></td><td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FPOM__pomSINE1.best50.fa">open</a></td><td><a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FPOM__pomSINE1.subfam.fa">open</a></td></tr>
+</tbody></table></div>
+<h3>The 178 SubFam chunk consensuses, for splitting by eye</h3>
+<p>This is the material subfamily discovery starts from: the whole assigned copy set collapsed to one consensus per ~50 copies. The manual is explicit that SubFam&rsquo;s own final pass is not a converged alignment, so these were degapped and realigned with <code>--localpair --maxiterate 1000</code> before being posted. <a class="lnk" target="_blank" rel="noopener" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FPOM__subfam_chunks.realigned.fa">open the 178 rows</a> and group the ones sharing diagnostic columns &mdash; each group is a candidate subfamily.</p>
 <div class="rule"></div>
 <h2>starfish <span class='lat'>Acanthaster planci &middot; Echinodermata &middot; GCF_001949145.1</span></h2>
 <p class="cap">2 candidates, 1 scoring 50 or above on their best view.</p>
-<div class="tw"><table><thead><tr><th title="candidate name as AnnoSINE assigned it">candidate</th><th title="the small RNA AnnoSINE derived the seed from">seed</th><th title="AnnoSINE&#x27;s own copy count. A floor, not an estimate - a real search finds several times more.">annosine copies</th><th title="copies in this alignment, and which hits they are">n</th><th title="0 to 100. At 50 and above the tool accepts it">score</th><th title="median pairwise identity across the whole element">identity</th><th title="pairwise identity in the flanks. 0.25 to 0.31 means the copies sit in independent places; much higher means they do not">flank bg</th><th title="fraction of the flank sitting inside a patch of significantly raised similarity, and the column count. Measured on the full 400 bp flank. His own calls put plain SINEs at or below 0.067 and flank-caution calls at 0.19 to 0.37">island frac</th><th title="hover any flag for the full reason">what the tool says</th><th>alignments</th></tr></thead><tbody>
+<div class="tw"><table><thead><tr><th title="candidate name, the small RNA its seed came from, and AnnoSINE&#x27;s own copy count. A floor, not an estimate - a real search finds several times more.">candidate</th><th title="copies in this alignment, and which hits they are">n</th><th title="0 to 100. At 50 and above the tool accepts it">score</th><th title="median pairwise identity across the whole element">identity</th><th title="pairwise identity in the flanks. 0.25 to 0.31 means the copies sit in independent places; much higher means they do not">flank bg</th><th title="fraction of the flank sitting inside a patch of significantly raised similarity, and the column count. Measured on the full 400 bp flank. His own calls put plain SINEs at or below 0.067 and flank-caution calls at 0.19 to 0.37">island frac</th><th title="hover any flag for the full reason">what the tool says</th><th title="his own reading of the top100 alignment">his call</th><th>alignments</th></tr></thead><tbody>
 <tr>
-<td class="name" rowspan="2">aca_SINE_0</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">176</td>
+<td class="name" rowspan="2">aca_SINE_0<div class="cap">tRNA &middot; 176 copies</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">100.0</td>
 <td class="n">0.723</td>
 <td class="n">0.271</td>
 <td class="n bad">0.171 <span class="cap">426</span><span class="bar" style="width:27px"></span></td>
-<td class="flags"><span class="pill" title="17 % of the flank sits inside patches of raised similarity (426 columns in 49 patches), yet the flank average is an ordinary 0.27. The similarity is localised, so averaging hides it. Some copies are probably inside a shared larger repeat or duplication: worth checking those flanks against the whole genome before treating every copy as an independent insertion.">flank_islands</span><span class="pill" title="25 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
+<td class="flags"><span class="pill" title="17 % of the flank sits inside patches of raised similarity (426 columns in 49 patches), yet the flank average is an ordinary 0.27. The similarity is localised, so averaging hides it. Some copies are probably inside a shared larger repeat or duplication: worth checking those flanks against the whole genome before treating every copy as an independent insertion.">flank islands</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
 <td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__aca_SINE_0__top100.clean.aln.fa">top100</a></td>
 </tr>
 <tr>
@@ -127,516 +578,48 @@ td.flags{white-space:normal;max-width:250px;min-width:200px}
 <td class="n">0.626</td>
 <td class="n">0.264</td>
 <td class="n ">0.023 <span class="cap">56</span><span class="bar" style="width:3px"></span></td>
-<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 40 and 41 (within-group identity 0.78, between 0.72, excess over a random split 0.057). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="27 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span><span class="pill" title="This looks like two different things collected together: the 40 and 41 copies split into groups differing by 0.19 in identity to the consensus (his mixtures run 0.13-0.22, single families 0.01-0.12). Median lengths are 36 and 0 bp. Separate them and re-run each part - the score is withheld, because scoring a mixture answers neither question.">not one family</span></td>
+<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 42 and 42 (within-group identity 0.78, between 0.71, excess over a random split 0.068). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="This looks like two different things collected together: the 42 and 42 copies split into groups differing by 0.19 in identity to the consensus (his mixtures run 0.13-0.22, single families 0.01-0.12). Median lengths are 36 and 0 bp. Separate them and re-run each part - the score is withheld, because scoring a mixture answers neither question.">not one family</span></td>
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__aca_SINE_0__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr class="alt">
-<td class="name" rowspan="2">aca_SINE_1</td>
-<td rowspan="2">5S rRNA</td>
-<td class="n" rowspan="2">11</td>
+<td class="name" rowspan="2">aca_SINE_1<div class="cap">5S rRNA &middot; 11 copies</div></td>
 <td class="n">68 <span class="cap">top100</span></td>
-<td class="n bad">26.3</td>
+<td class="n bad">45.0</td>
 <td class="n">0.552</td>
 <td class="n">0.450</td>
 <td class="n bad">0.215 <span class="cap">421</span><span class="bar" style="width:34px"></span></td>
-<td class="flags"><span class="pill" title="22 % of the flank sits inside patches of raised similarity (421 columns in 38 patches), which agrees with the raised flank average of 0.45.">flank_islands</span></td>
+<td class="flags"><span class="pill" title="The sequence flanking these copies is itself shared (identity 0.73 at the edge, reaching background only 100 bp out). They look like fragments of a longer element — a LINE 3&#x27; end or similar — rather than a short element with its own boundaries.">fragment of longer</span><span class="pill" title="22 % of the flank sits inside patches of raised similarity (421 columns in 38 patches), which agrees with the raised flank average of 0.45.">flank islands</span><span class="pill" title="Only 2 of 68 copies form the core the consensus is actually built on (3 %). The rest are too divergent or too truncated to support it, so the score describes a minority of what was collected. Look at whether the other 66 belong here at all.">small core</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
 <td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__aca_SINE_1__top100.clean.aln.fa">top100</a></td>
 </tr>
 <tr class="alt">
 <td class="n">68 <span class="cap">all</span></td>
-<td class="n bad">26.3</td>
+<td class="n bad">45.0</td>
 <td class="n">0.552</td>
 <td class="n">0.450</td>
 <td class="n bad">0.217 <span class="cap">424</span><span class="bar" style="width:34px"></span></td>
-<td class="flags"><span class="pill" title="22 % of the flank sits inside patches of raised similarity (424 columns in 38 patches), which agrees with the raised flank average of 0.45.">flank_islands</span></td>
+<td class="flags"><span class="pill" title="The sequence flanking these copies is itself shared (identity 0.73 at the edge, reaching background only 100 bp out). They look like fragments of a longer element — a LINE 3&#x27; end or similar — rather than a short element with its own boundaries.">fragment of longer</span><span class="pill" title="22 % of the flank sits inside patches of raised similarity (424 columns in 38 patches), which agrees with the raised flank average of 0.45.">flank islands</span><span class="pill" title="Only 2 of 68 copies form the core the consensus is actually built on (3 %). The rest are too divergent or too truncated to support it, so the score describes a minority of what was collected. Look at whether the other 66 belong here at all.">small core</span></td>
 <td><a class="lnk" target="_blank" rel="noopener" title="every hit, because there were fewer than 100" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__aca_SINE_1__all.clean.aln.fa">all</a></td>
-</tr>
-</tbody></table></div>
-<div class="rule"></div>
-<h2>hydra <span class='lat'>Hydra vulgaris &middot; Cnidaria &middot; GCA_022113875.1</span></h2>
-<p class="cap">22 candidates, 19 scoring 50 or above on their best view.</p>
-<div class="tw"><table><thead><tr><th title="candidate name as AnnoSINE assigned it">candidate</th><th title="the small RNA AnnoSINE derived the seed from">seed</th><th title="AnnoSINE&#x27;s own copy count. A floor, not an estimate - a real search finds several times more.">annosine copies</th><th title="copies in this alignment, and which hits they are">n</th><th title="0 to 100. At 50 and above the tool accepts it">score</th><th title="median pairwise identity across the whole element">identity</th><th title="pairwise identity in the flanks. 0.25 to 0.31 means the copies sit in independent places; much higher means they do not">flank bg</th><th title="fraction of the flank sitting inside a patch of significantly raised similarity, and the column count. Measured on the full 400 bp flank. His own calls put plain SINEs at or below 0.067 and flank-caution calls at 0.19 to 0.37">island frac</th><th title="hover any flag for the full reason">what the tool says</th><th>alignments</th></tr></thead><tbody>
-<tr>
-<td class="name" rowspan="2">hyd_SINE_0</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">61</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n bad">0.0</td>
-<td class="n">0.560</td>
-<td class="n">0.614</td>
-<td class="n ">0.062 <span class="cap">139</span><span class="bar" style="width:9px"></span></td>
-<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_0__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr>
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n bad">0.0</td>
-<td class="n">0.169</td>
-<td class="n">0.843</td>
-<td class="n warn">0.091 <span class="cap">127</span><span class="bar" style="width:14px"></span></td>
-<td class="flags"><span class="pill" title="Flanking sequence is 0.84 identical between copies against 0.25 for unrelated DNA — these loci are not in independent genomic contexts. A satellite array, a duplicated region, or copies inside one host repeat.">shared flanks</span><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_0__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_1</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">1616</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.789</td>
-<td class="n">0.307</td>
-<td class="n ">0.012 <span class="cap">28</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="cln">clean</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_1__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr class="alt">
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n bad">0.0</td>
-<td class="n">0.234</td>
-<td class="n">0.314</td>
-<td class="n ">0.004 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_1__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr>
-<td class="name" rowspan="2">hyd_SINE_2</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">8</td>
-<td class="n">8 <span class="cap">top100</span></td>
-<td class="n ok">95.0</td>
-<td class="n">0.595</td>
-<td class="n">0.250</td>
-<td class="n ">&mdash;</td>
-<td class="flags"><span class="pill" title="Only 8 copies. The subfamily-split and flank-decay tests need about 30 before they mean anything, so this score is an impression rather than a measurement - it should not be read as a confident accept OR a confident reject. Gather more copies from the genome before deciding.">too few copies</span><span class="pill" title="This alignment carries no genomic flanks, so nothing outside the element could be measured: the background is assumed rather than observed, and the flank-based tests (isolation, nesting, shared context, TSD) are simply not available. The element itself is still judged normally.">no flanks</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_2__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr>
-<td class="n">8 <span class="cap">all</span></td>
-<td class="n ok">95.0</td>
-<td class="n">0.595</td>
-<td class="n">0.250</td>
-<td class="n ">&mdash;</td>
-<td class="flags"><span class="pill" title="Only 8 copies. The subfamily-split and flank-decay tests need about 30 before they mean anything, so this score is an impression rather than a measurement - it should not be read as a confident accept OR a confident reject. Gather more copies from the genome before deciding.">too few copies</span><span class="pill" title="This alignment carries no genomic flanks, so nothing outside the element could be measured: the background is assumed rather than observed, and the flank-based tests (isolation, nesting, shared context, TSD) are simply not available. The element itself is still judged normally.">no flanks</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="every hit, because there were fewer than 100" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_2__all.clean.aln.fa">all</a></td>
-</tr>
-<tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_3</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">67</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.834</td>
-<td class="n">0.314</td>
-<td class="n ">0.011 <span class="cap">29</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="32 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_3__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr class="alt">
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.733</td>
-<td class="n">0.300</td>
-<td class="n ">0.008 <span class="cap">20</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 48 and 48 (within-group identity 0.84, between 0.73, excess over a random split 0.106). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_3__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr>
-<td class="name" rowspan="2">hyd_SINE_4</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">6861</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.774</td>
-<td class="n">0.329</td>
-<td class="n ">0.026 <span class="cap">75</span><span class="bar" style="width:4px"></span></td>
-<td class="flags"><span class="pill" title="34 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_4__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr>
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n bad">0.0</td>
-<td class="n">0.338</td>
-<td class="n">0.321</td>
-<td class="n ">0.004 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_4__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_5</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">7</td>
-<td class="n">62 <span class="cap">top100</span></td>
-<td class="n ok">96.6</td>
-<td class="n">0.641</td>
-<td class="n">0.314</td>
-<td class="n ">0.009 <span class="cap">21</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 27 and 28 (within-group identity 0.72, between 0.67, excess over a random split 0.034). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="20 of 62 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_5__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr class="alt">
-<td class="n">62 <span class="cap">all</span></td>
-<td class="n ok">96.6</td>
-<td class="n">0.641</td>
-<td class="n">0.314</td>
-<td class="n ">0.009 <span class="cap">21</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 27 and 28 (within-group identity 0.72, between 0.68, excess over a random split 0.032). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="20 of 62 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="every hit, because there were fewer than 100" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_5__all.clean.aln.fa">all</a></td>
-</tr>
-<tr>
-<td class="name" rowspan="2">hyd_SINE_6</td>
-<td rowspan="2">unknown</td>
-<td class="n" rowspan="2">1257</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.785</td>
-<td class="n">0.336</td>
-<td class="n ">0.014 <span class="cap">35</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="75 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_6__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr>
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.747</td>
-<td class="n">0.350</td>
-<td class="n ">0.029 <span class="cap">67</span><span class="bar" style="width:4px"></span></td>
-<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 49 and 49 (within-group identity 0.85, between 0.81, excess over a random split 0.030). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="77 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_6__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_7</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">697</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">97.4</td>
-<td class="n">0.977</td>
-<td class="n">0.336</td>
-<td class="n ">0.022 <span class="cap">51</span><span class="bar" style="width:3px"></span></td>
-<td class="flags"><span class="pill" title="63 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span><span class="pill" title="The copies support consensus positions 370-460 (identity 0.95) much better than the consensus as a whole (0.56). Coverage is even across the full length, so the copies are present at the ends and simply do not match there - the consensus is longer than the element it describes. Trim it to that window and re-run; the family is real, the boundary is not.">consensus too long</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_7__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr class="alt">
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n ok">97.4</td>
-<td class="n">0.800</td>
-<td class="n">0.343</td>
-<td class="n ">0.007 <span class="cap">7</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 49 and 49 (within-group identity 0.70, between 0.66, excess over a random split 0.035). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="30 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span><span class="pill" title="The copies support consensus positions 355-405 (identity 0.79) much better than the consensus as a whole (0.52). Coverage is even across the full length, so the copies are present at the ends and simply do not match there - the consensus is longer than the element it describes. Trim it to that window and re-run; the family is real, the boundary is not.">consensus too long</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_7__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr>
-<td class="name" rowspan="2">hyd_SINE_8</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">3135</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.850</td>
-<td class="n">0.357</td>
-<td class="n ">0.014 <span class="cap">40</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="55 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_8__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr>
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n ok">92.9</td>
-<td class="n">0.764</td>
-<td class="n">0.350</td>
-<td class="n ">0.024 <span class="cap">56</span><span class="bar" style="width:3px"></span></td>
-<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 42 and 42 (within-group identity 0.82, between 0.79, excess over a random split 0.030). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="56 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span><span class="pill" title="Copy length varies widely (CV 0.18 against 0.05 for a clean family). Many copies are 5&#x27;-truncated. Still the same family, but the truncated copies may be worth setting aside.">truncated copies</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_8__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_9</td>
-<td rowspan="2">5S rRNA</td>
-<td class="n" rowspan="2">246</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n bad">0.0</td>
-<td class="n">0.789</td>
-<td class="n">0.914</td>
-<td class="n bad">0.331 <span class="cap">739</span><span class="bar" style="width:52px"></span></td>
-<td class="flags"><span class="pill" title="Flanking sequence is 0.91 identical between copies against 0.25 for unrelated DNA — these loci are not in independent genomic contexts. A satellite array, a duplicated region, or copies inside one host repeat.">shared flanks</span><span class="pill" title="33 % of the flank sits inside patches of raised similarity (739 columns in 50 patches), which agrees with the raised flank average of 0.91.">flank_islands</span><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_9__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr class="alt">
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n bad">0.0</td>
-<td class="n">0.783</td>
-<td class="n">0.800</td>
-<td class="n bad">0.331 <span class="cap">722</span><span class="bar" style="width:53px"></span></td>
-<td class="flags"><span class="pill" title="Flanking sequence is 0.81 identical between copies against 0.25 for unrelated DNA — these loci are not in independent genomic contexts. A satellite array, a duplicated region, or copies inside one host repeat.">shared flanks</span><span class="pill" title="33 % of the flank sits inside patches of raised similarity (722 columns in 46 patches), which agrees with the raised flank average of 0.80.">flank_islands</span><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_9__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr>
-<td class="name" rowspan="2">hyd_SINE_10</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">95</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.701</td>
-<td class="n">0.350</td>
-<td class="n ">0.014 <span class="cap">31</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="37 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_10__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr>
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n bad">0.0</td>
-<td class="n">0.318</td>
-<td class="n">0.338</td>
-<td class="n ">0.023 <span class="cap">39</span><span class="bar" style="width:3px"></span></td>
-<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_10__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_11</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">3036</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.857</td>
-<td class="n">0.293</td>
-<td class="n ">0.009 <span class="cap">23</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="cln">clean</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_11__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr class="alt">
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n ok">94.1</td>
-<td class="n">0.600</td>
-<td class="n">0.300</td>
-<td class="n ">0.003 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 43 and 43 (within-group identity 0.76, between 0.67, excess over a random split 0.084). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_11__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr>
-<td class="name" rowspan="2">hyd_SINE_12</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">250</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.768</td>
-<td class="n">0.314</td>
-<td class="n ">0.005 <span class="cap">13</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="17 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_12__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr>
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n bad">0.0</td>
-<td class="n">0.166</td>
-<td class="n">0.300</td>
-<td class="n ">0.007 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_12__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_13</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">1144</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">94.4</td>
-<td class="n">0.677</td>
-<td class="n">0.321</td>
-<td class="n ">0.027 <span class="cap">63</span><span class="bar" style="width:4px"></span></td>
-<td class="flags"><span class="pill" title="33 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_13__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr class="alt">
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n ok">92.2</td>
-<td class="n">0.644</td>
-<td class="n">0.314</td>
-<td class="n ">0.000 <span class="cap">0</span></td>
-<td class="flags"><span class="cln">clean</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_13__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr>
-<td class="name" rowspan="2">hyd_SINE_14</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">2608</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.840</td>
-<td class="n">0.343</td>
-<td class="n ">0.012 <span class="cap">32</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="37 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_14__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr>
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.729</td>
-<td class="n">0.321</td>
-<td class="n ">0.017 <span class="cap">41</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 47 and 48 (within-group identity 0.83, between 0.77, excess over a random split 0.047). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="16 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_14__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_15</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">4730</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.935</td>
-<td class="n">0.300</td>
-<td class="n ">0.010 <span class="cap">22</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="cln">clean</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_15__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr class="alt">
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n ok">79.3</td>
-<td class="n">0.594</td>
-<td class="n">0.314</td>
-<td class="n ">0.006 <span class="cap">15</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 38 and 39 (within-group identity 0.72, between 0.67, excess over a random split 0.043). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="22 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span><span class="pill" title="Copy length varies widely (CV 0.25 against 0.05 for a clean family). Many copies are 5&#x27;-truncated. Still the same family, but the truncated copies may be worth setting aside.">truncated copies</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_15__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr>
-<td class="name" rowspan="2">hyd_SINE_16</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">2252</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n bad">0.0</td>
-<td class="n">0.724</td>
-<td class="n">0.307</td>
-<td class="n ">0.029 <span class="cap">69</span><span class="bar" style="width:4px"></span></td>
-<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span><span class="pill" title="This looks like two different things collected together: the 50 and 50 copies split into groups differing by 0.18 in identity to the consensus (his mixtures run 0.13-0.22, single families 0.01-0.12). Median lengths are 9 and 0 bp. Separate them and re-run each part - the score is withheld, because scoring a mixture answers neither question.">not one family</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_16__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr>
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n bad">0.0</td>
-<td class="n">0.209</td>
-<td class="n">0.300</td>
-<td class="n ">0.006 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_16__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_17</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">7307</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.895</td>
-<td class="n">0.543</td>
-<td class="n warn">0.088 <span class="cap">303</span><span class="bar" style="width:14px"></span></td>
-<td class="flags"><span class="pill" title="Flanking sequence is 0.53 identical between copies against 0.25 for unrelated DNA — these loci are not in independent genomic contexts. A satellite array, a duplicated region, or copies inside one host repeat.">shared flanks</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_17__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr class="alt">
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n bad">0.0</td>
-<td class="n">0.917</td>
-<td class="n">0.886</td>
-<td class="n warn">0.082 <span class="cap">208</span><span class="bar" style="width:13px"></span></td>
-<td class="flags"><span class="pill" title="Flanking sequence is 0.89 identical between copies against 0.25 for unrelated DNA — these loci are not in independent genomic contexts. A satellite array, a duplicated region, or copies inside one host repeat.">shared flanks</span><span class="pill" title="No element: too few copies support the consensus above background.">no element</span><span class="pill" title="The copies support consensus positions 250-310 (identity 0.88) much better than the consensus as a whole (0.60). Coverage is even across the full length, so the copies are present at the ends and simply do not match there - the consensus is longer than the element it describes. Trim it to that window and re-run; the family is real, the boundary is not.">consensus too long</span><span class="pill" title="This looks like two different things collected together: the 48 and 48 copies split into groups differing by 0.18 in identity to the consensus (his mixtures run 0.13-0.22, single families 0.01-0.12). Median lengths are 134 and 0 bp. Separate them and re-run each part - the score is withheld, because scoring a mixture answers neither question.">not one family</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_17__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr>
-<td class="name" rowspan="2">hyd_SINE_18</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">1746</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.811</td>
-<td class="n">0.300</td>
-<td class="n ">0.012 <span class="cap">29</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="cln">clean</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_18__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr>
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n bad">0.0</td>
-<td class="n">0.340</td>
-<td class="n">0.300</td>
-<td class="n ">0.009 <span class="cap">16</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_18__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_19</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">5574</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.689</td>
-<td class="n">0.321</td>
-<td class="n ">0.020 <span class="cap">45</span><span class="bar" style="width:3px"></span></td>
-<td class="flags"><span class="pill" title="29 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_19__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr class="alt">
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n ok">78.0</td>
-<td class="n">0.635</td>
-<td class="n">0.321</td>
-<td class="n ">0.014 <span class="cap">42</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="24 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span><span class="pill" title="This looks like two different things collected together: the 39 and 39 copies split into groups differing by 0.34 in identity to the consensus (his mixtures run 0.13-0.22, single families 0.01-0.12). Median lengths are 136 and 0 bp. Separate them and re-run each part - the score is withheld, because scoring a mixture answers neither question.">not one family</span><span class="pill" title="Copy length varies widely (CV 0.23 against 0.05 for a clean family). Many copies are 5&#x27;-truncated. Still the same family, but the truncated copies may be worth setting aside.">truncated copies</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_19__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr>
-<td class="name" rowspan="2">hyd_SINE_20</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">3988</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.620</td>
-<td class="n">0.321</td>
-<td class="n ">0.026 <span class="cap">57</span><span class="bar" style="width:4px"></span></td>
-<td class="flags"><span class="pill" title="25 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_20__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr>
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n bad">0.0</td>
-<td class="n">0.233</td>
-<td class="n">0.307</td>
-<td class="n ">0.005 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="No element: too few copies support the consensus above background.">no element</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_20__rand100.clean.aln.fa">rand100</a></td>
-</tr>
-<tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_21</td>
-<td rowspan="2">tRNA</td>
-<td class="n" rowspan="2">4663</td>
-<td class="n">100 <span class="cap">top100</span></td>
-<td class="n ok">100.0</td>
-<td class="n">0.928</td>
-<td class="n">0.300</td>
-<td class="n ">0.016 <span class="cap">41</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="cln">clean</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_21__top100.clean.aln.fa">top100</a></td>
-</tr>
-<tr class="alt">
-<td class="n">100 <span class="cap">rand100</span></td>
-<td class="n ok">89.7</td>
-<td class="n">0.726</td>
-<td class="n">0.307</td>
-<td class="n ">0.005 <span class="cap">12</span><span class="bar" style="width:2px"></span></td>
-<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 45 and 45 (within-group identity 0.78, between 0.70, excess over a random split 0.069). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="16 of 100 copies appear to share flanking sequence, which would put them inside another repeat or a duplication - but this set has no 400 bp flank-decay data, and over the ~50-70 bp actually present that reading is not reliable: adjacent context and true nesting look identical at this width. Uniqueness is scored as neutral rather than penalised, and this is reported as an unmade measurement, not as evidence against the family. Re-run with 400 bp flanks to settle it.">flanks unmeasured</span><span class="pill" title="Copy length varies widely (CV 0.19 against 0.05 for a clean family). Many copies are 5&#x27;-truncated. Still the same family, but the truncated copies may be worth setting aside.">truncated copies</span></td>
-<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_21__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 </tbody></table></div>
 <div class="rule"></div>
 <h2>Flank islands across all 52 alignments</h2>
 <p>Ranked by the fraction of flank inside a patch. Your own calls put plain SINEs at or below 0.067 and flank-caution calls at 0.19 to 0.37, so the reason fires at 0.10. The last column is the one that matters: a set above the line <em>with</em> an ordinary flank average is a set no average could have found. <code>aca_SINE_0</code> is the only one here.</p>
 <div class="tw"><table><thead><tr><th>alignment</th><th title="fraction of flank columns inside a patch of at least 6 consecutive columns above z = 8">island frac</th><th>island cols</th><th>flank bg</th><th>score</th><th title="does the existing flank average already catch this?">already caught?</th></tr></thead><tbody>
-<tr><td class="name">hyd_SINE_9 <span class="cap">rand100</span></td><td class="n bad">0.331</td><td class="n">722</td><td class="n">0.800</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">hyd_SINE_9 <span class="cap">top100</span></td><td class="n bad">0.331</td><td class="n">739</td><td class="n">0.914</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">aca_SINE_1 <span class="cap">all</span></td><td class="n bad">0.217</td><td class="n">424</td><td class="n">0.450</td><td class="n bad">26.3</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">aca_SINE_1 <span class="cap">top100</span></td><td class="n bad">0.215</td><td class="n">421</td><td class="n">0.450</td><td class="n bad">26.3</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">hyd_SINE_9 <span class="cap">rand100</span></td><td class="n bad">0.331</td><td class="n">722</td><td class="n">0.800</td><td class="n bad">0.2</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">hyd_SINE_9 <span class="cap">top100</span></td><td class="n bad">0.331</td><td class="n">739</td><td class="n">0.914</td><td class="n bad">0.2</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">aca_SINE_1 <span class="cap">all</span></td><td class="n bad">0.217</td><td class="n">424</td><td class="n">0.450</td><td class="n bad">45.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">aca_SINE_1 <span class="cap">top100</span></td><td class="n bad">0.215</td><td class="n">421</td><td class="n">0.450</td><td class="n bad">45.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
 <tr><td class="name">aca_SINE_0 <span class="cap">top100</span></td><td class="n bad">0.171</td><td class="n">426</td><td class="n">0.271</td><td class="n ok">100.0</td><td><span class="bad">no &mdash; the average sees nothing</span></td></tr>
 <tr><td class="name">hyd_SINE_0 <span class="cap">rand100</span></td><td class="n warn">0.091</td><td class="n">127</td><td class="n">0.843</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">hyd_SINE_17 <span class="cap">top100</span></td><td class="n warn">0.088</td><td class="n">303</td><td class="n">0.543</td><td class="n ok">100.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">hyd_SINE_17 <span class="cap">rand100</span></td><td class="n warn">0.082</td><td class="n">208</td><td class="n">0.886</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">hyd_SINE_0 <span class="cap">top100</span></td><td class="n ">0.062</td><td class="n">139</td><td class="n">0.614</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">hyd_SINE_17 <span class="cap">top100</span></td><td class="n warn">0.088</td><td class="n">303</td><td class="n">0.543</td><td class="n bad">0.2</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">hyd_SINE_17 <span class="cap">rand100</span></td><td class="n warn">0.082</td><td class="n">208</td><td class="n">0.886</td><td class="n bad">0.2</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">hyd_SINE_0 <span class="cap">top100</span></td><td class="n ">0.062</td><td class="n">139</td><td class="n">0.614</td><td class="n bad">0.2</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
 <tr><td class="name">hyd_SINE_16 <span class="cap">top100</span></td><td class="n ">0.029</td><td class="n">69</td><td class="n">0.307</td><td class="n bad">0.0</td><td><span class="cap">nothing to catch</span></td></tr>
-<tr><td class="name">hyd_SINE_6 <span class="cap">rand100</span></td><td class="n ">0.029</td><td class="n">67</td><td class="n">0.350</td><td class="n ok">100.0</td><td><span class="cap">nothing to catch</span></td></tr>
-<tr><td class="name">hyd_SINE_13 <span class="cap">top100</span></td><td class="n ">0.027</td><td class="n">63</td><td class="n">0.321</td><td class="n ok">94.4</td><td><span class="cap">nothing to catch</span></td></tr>
+<tr><td class="name">hyd_SINE_6 <span class="cap">rand100</span></td><td class="n ">0.029</td><td class="n">67</td><td class="n">0.350</td><td class="n bad">45.0</td><td><span class="cap">nothing to catch</span></td></tr>
+<tr><td class="name">hyd_SINE_13 <span class="cap">top100</span></td><td class="n ">0.027</td><td class="n">63</td><td class="n">0.321</td><td class="n ok">94.2</td><td><span class="cap">nothing to catch</span></td></tr>
 <tr><td class="name">hyd_SINE_20 <span class="cap">top100</span></td><td class="n ">0.026</td><td class="n">57</td><td class="n">0.321</td><td class="n ok">100.0</td><td><span class="cap">nothing to catch</span></td></tr>
-<tr><td class="name">hyd_SINE_4 <span class="cap">top100</span></td><td class="n ">0.026</td><td class="n">75</td><td class="n">0.329</td><td class="n ok">100.0</td><td><span class="cap">nothing to catch</span></td></tr>
+<tr><td class="name">hyd_SINE_4 <span class="cap">top100</span></td><td class="n ">0.026</td><td class="n">75</td><td class="n">0.329</td><td class="n ok">86.2</td><td><span class="cap">nothing to catch</span></td></tr>
 <tr><td class="name">hyd_SINE_8 <span class="cap">rand100</span></td><td class="n ">0.024</td><td class="n">56</td><td class="n">0.350</td><td class="n ok">92.9</td><td><span class="cap">nothing to catch</span></td></tr>
 <tr><td class="name">aca_SINE_0 <span class="cap">rand100</span></td><td class="n ">0.023</td><td class="n">56</td><td class="n">0.264</td><td class="n ok">95.9</td><td><span class="cap">nothing to catch</span></td></tr>
 </tbody></table></div>

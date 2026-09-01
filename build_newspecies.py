@@ -16,9 +16,11 @@ VIEWER = "https://toki-bio.github.io/MSA-viewer/?url="
 BASE = "https://toki-bio.github.io/SINE-discriminator/alignments/"
 
 SPECIES = [
+    ("hyd", "hydra", "Hydra vulgaris", "Cnidaria", "GCA_022113875.1"),
     ("pom", "snail", "Pomacea canaliculata", "Mollusca", "GCF_003073045.1"),
     ("aca", "starfish", "Acanthaster planci", "Echinodermata", "GCF_001949145.1"),
-    ("hyd", "hydra", "Hydra vulgaris", "Cnidaria", "GCA_022113875.1"),
+    ("stu", "sturgeon", "Acipenser ruthenus", "Actinopterygii", "GCF_010645085.2"),
+    ("ska", "skate", "Amblyraja radiata", "Chondrichthyes", "GCF_010909765.2"),
 ]
 
 # from each genome's AnnoSINE Seed_SINE.fa header: the RNA the seed came from,
@@ -39,6 +41,14 @@ SEED = {
     "hyd_SINE_20": ("tRNA", 3988), "hyd_SINE_21": ("tRNA", 4663),
 }
 
+CALL_LABEL = {
+    "SINE": "SINE",
+    "NOT_SINE": "not a SINE",
+    "NOT_SINE_MICROSAT": "not a SINE - microsatellite",
+    "NOT_SINE_NEEDS_LOOK": "not a SINE, needs a closer look",
+    "SINE_HEAD_MOSAIC": "SINE, head mosaic",
+}
+
 SHORT = {
     "NO_ELEMENT": "no element",
     "SHARED_FLANKS": "shared flanks",
@@ -49,6 +59,11 @@ SHORT = {
     "INSUFFICIENT_COPIES": "too few copies",
     "NO_FLANKS_PRESENT": "no flanks",
     "TRUNCATED_COPIES": "truncated copies",
+    "MICROSATELLITE_ELEMENT": "microsatellite element",
+    "MICROSATELLITE_FLANK": "microsatellite flank",
+    "SMALL_CORE": "small core",
+    "CONSENSUS_UNDEREXTENDED": "consensus too short",
+    "FLANK_ISLANDS": "flank islands",
     "CONTAMINATED": "contaminated",
     "RECOVERABLE_CORE": "recoverable core",
     "NOT_ISOLATED": "not isolated",
@@ -68,6 +83,20 @@ HOVER_HELP = "hover any flag for the full reason"
 LEAK_HELP = ("copies assigned to this family that fit another one better. "
              "Near zero means the locus set is coherent")
 CAUGHT_HELP = "does the existing flank average already catch this?"
+
+
+def his_calls():
+    """What he said, keyed by candidate. He judged the top100 view."""
+    out = {}
+    if not os.path.exists("calls.tsv"):
+        return out
+    for line in io.open("calls.tsv", encoding="utf-8"):
+        f = line.rstrip(chr(10)).split(chr(9))
+        if len(f) < 4 or f[1] != "newsp_top100":
+            continue
+        cand = f[0].replace("NEW__", "").replace("__top100", "")
+        out.setdefault(cand, []).append((f[2], f[3]))
+    return out
 
 
 def load():
@@ -134,7 +163,8 @@ td.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
 td.name{font-family:var(--mono);font-size:12px;font-weight:500}
 tbody tr:last-child td{border-bottom:0}
 tr.alt td{background:#fbfcfa}
-td.flags{white-space:normal;max-width:250px;min-width:200px}
+td.flags{white-space:normal;max-width:150px;min-width:120px}
+td.call{white-space:normal;max-width:110px;font-size:12px}
 .lnk{font-family:var(--mono);font-size:11px;text-decoration:none;border-bottom:1px solid var(--rule);margin-right:7px;white-space:nowrap}
 .ok{color:var(--accent);font-weight:600}
 .bad{color:var(--mism);font-weight:600}
@@ -189,9 +219,7 @@ def main():
              'exactly the far-out columns: it drops aca_SINE_0 from 426 island columns to 6.</p>')
     h.append('</div>')
 
-    th = ('<tr><th title="candidate name as AnnoSINE assigned it">candidate</th>'
-          '<th title="the small RNA AnnoSINE derived the seed from">seed</th>'
-          '<th title="%s">annosine copies</th>'
+    th = ('<tr><th title="candidate name, the small RNA its seed came from, and %s">candidate</th>'
           '<th title="copies in this alignment, and which hits they are">n</th>'
           '<th title="0 to 100. At 50 and above the tool accepts it">score</th>'
           '<th title="median pairwise identity across the whole element">identity</th>'
@@ -202,8 +230,10 @@ def main():
           'His own calls put plain SINEs at or below 0.067 and flank-caution calls at '
           '0.19 to 0.37">island frac</th>'
           '<th title="%s">what the tool says</th>'
+          '<th title="his own reading of the top100 alignment">his call</th>'
           '<th>alignments</th></tr>' % (html.escape(ANN_HELP), HOVER_HELP))
 
+    calls = his_calls()
     for code, common, latin, phylum, acc in SPECIES:
         cands = [c for c in data if c.startswith(code + "_")]
         if not cands:
@@ -230,10 +260,10 @@ def main():
                        % max(2, min(56, int((frac or 0) * 160)))) if frac else ""
                 h.append('<tr%s>' % (' class="alt"' if k % 2 else ""))
                 if j == 0:
-                    h.append('<td class="name" rowspan="%d">%s</td>' % (len(order), c))
-                    h.append('<td rowspan="%d">%s</td>' % (len(order), seed))
-                    h.append('<td class="n" rowspan="%d">%s</td>'
-                             % (len(order), ann if ann else "&mdash;"))
+                    h.append('<td class="name" rowspan="%d">%s'
+                             '<div class="cap">%s%s</div></td>'
+                             % (len(order), c, seed,
+                                "" if not ann else " &middot; %s copies" % ann))
                 h.append('<td class="n">%d <span class="cap">%s</span></td>' % (d["n"], v))
                 h.append('<td class="n %s">%.1f</td>' % (scls, d["score"]))
                 h.append('<td class="n">%s</td>' % num(d["all_identity"]))
@@ -242,6 +272,18 @@ def main():
                          % (icls, "&mdash;" if frac is None
                             else "%.3f <span class=\"cap\">%d</span>" % (frac, isl), bar))
                 h.append('<td class="flags">%s</td>' % flag_pills(d))
+                if j == 0:
+                    cc = calls.get(c)
+                    if cc:
+                        label = CALL_LABEL.get(cc[0][0], cc[0][0].replace("_", " ").lower())
+                        agree = (d["score"] >= 50) == (cc[0][0] == "SINE")
+                        cell = ('<span class="%s" title="%s">%s</span>'
+                                % ("ok" if agree else "bad",
+                                   html.escape("; ".join(x[1] for x in cc if x[1])),
+                                   label))
+                    else:
+                        cell = '<span class="cap">not judged</span>'
+                    h.append('<td class="call" rowspan="%d">%s</td>' % (len(order), cell))
                 h.append('<td>%s</td>' % aln_link(c, v))
                 h.append('</tr>')
         h.append('</tbody></table></div>')
@@ -273,6 +315,43 @@ def main():
             h.append('<p class="cap">Zero leak on both, across thousands of copies. In Timema the '
                      'families you judged real ran 0.00 to 0.18 % leak and the noisy ones 65 to '
                      '98 %.</p>')
+
+            h.append('<h3>Subfamily alignments</h3>')
+            h.append('<p>Built with <code>extract_alignments.sh</code>, which is the one the '
+                     'deployment notes say to use &mdash; step&nbsp;5 writes alignments with no '
+                     'flanks, and flanks are what a boundary is judged on. Every row below carries '
+                     '30&nbsp;bp left and 70&nbsp;bp right.</p>')
+            h.append('<div class="tw"><table><thead><tr><th>family</th>'
+                     '<th title="50 random assigned copies, flanked, MAFFT">core</th>'
+                     '<th title="the 50 highest-scoring assigned copies, flanked">best 50</th>'
+                     '<th title="SubFam chunk consensuses - one consensus per ~50 copies, so '
+                     'subfamily structure is visible in one screen. Only produced at 400 copies '
+                     'or more">subfam</th></tr></thead><tbody>')
+            for fam in ("pomSINE0", "pomSINE1"):
+                cells = []
+                for tier in ("core", "best50", "subfam"):
+                    f = "POM__%s.%s.fa" % (fam, tier)
+                    if os.path.exists(os.path.join("site/alignments", f)):
+                        url = (BASE + f).replace(":", "%3A").replace("/", "%2F")
+                        cells.append('<td><a class="lnk" target="_blank" rel="noopener" '
+                                     'href="%s%s">open</a></td>' % (VIEWER, url))
+                    else:
+                        cells.append('<td class="cap">&mdash;</td>')
+                h.append('<tr><td class="name">%s</td>%s</tr>' % (fam, "".join(cells)))
+            h.append('</tbody></table></div>')
+
+            chunks = "POM__subfam_chunks.realigned.fa"
+            if os.path.exists(os.path.join("site/alignments", chunks)):
+                url = (BASE + chunks).replace(":", "%3A").replace("/", "%2F")
+                h.append('<h3>The 178 SubFam chunk consensuses, for splitting by eye</h3>')
+                h.append('<p>This is the material subfamily discovery starts from: the whole '
+                         'assigned copy set collapsed to one consensus per ~50 copies. The '
+                         'manual is explicit that SubFam&rsquo;s own final pass is not a converged '
+                         'alignment, so these were degapped and realigned with '
+                         '<code>--localpair --maxiterate 1000</code> before being posted. '
+                         '<a class="lnk" target="_blank" rel="noopener" href="%s%s">open the 178 '
+                         'rows</a> and group the ones sharing diagnostic columns &mdash; each '
+                         'group is a candidate subfamily.</p>' % (VIEWER, url))
 
     rows = []
     for c, views in data.items():
