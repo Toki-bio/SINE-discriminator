@@ -129,6 +129,28 @@ try:
 except Exception:
     _DECAY = {}
 
+# Flank similarity ISLANDS, computed on the SAME 400 bp flanks by
+# islands_corpus.py. Sergei saw these by eye in aca_SINE_0 and said they can sit
+# far out on either side. They are not what flank_bg measures: flank_bg is one
+# average over the whole flank, so a few hundred island columns diluted by a
+# thousand ordinary ones vanish into background. aca_SINE_0 reads 0.271 there -
+# perfectly normal - while 17 % of its flank is inside an island.
+#
+# The bands come from his own calls, not from a fit. Of 55 judged sets:
+#   <= 0.067  all 31 he called a plain SINE
+#   0.19-0.37 all 3 he asked for flank checks on (SINE_NEEDS_GENOME_CHECK,
+#             SINE_WITH_CAUTION, GREY_OR_BADLY_PREPARED)
+#   >= 0.50   all 7 he rejected or called unusable
+# The gaps either side of the middle band are wide, so 0.10 and 0.45 sit in
+# empty space rather than on top of any judged set.
+try:
+    _ISLANDS = json.load(open("flank_islands.json"))
+except Exception:
+    _ISLANDS = {}
+
+ISLAND_NOTE = 0.10          # above this, say so
+ISLAND_STRONG = 0.45        # above this, the flanks are shared outright
+
 
 def sat(x, lo, hi):
     return float(min(1.0, max(0.0, (x - lo) / (hi - lo))))
@@ -326,6 +348,7 @@ def verdict(path):
         return None
     n, ident = p["n"], p["ident"]
     dec = _DECAY.get(os.path.basename(path).replace(".aln.fa", ""))
+    isl = _ISLANDS.get(os.path.basename(path).replace(".aln.fa", ""))
 
     # background first, because the support threshold is defined against it
     # A side only contributes if it actually HAS flank sequence to measure. The
@@ -597,6 +620,32 @@ def verdict(path):
                               "%.2f for unrelated DNA — these loci are not in independent "
                               "genomic contexts. A satellite array, a duplicated region, or "
                               "copies inside one host repeat." % (global_elev, BG)})
+    # Reported, never subtracted from the score. All three sets this band was
+    # calibrated on he still leaned towards SINE on - "requires post-processing
+    # with proving uniqness of at least some flanks on whole-genome level" is a
+    # next step, not a rejection. Penalising the score would have turned e2-4
+    # (97.4, which he accepts with a caveat) into a reject.
+    if isl and isl.get("frac", 0) >= ISLAND_NOTE:
+        frac, ncol, nisl = isl["frac"], isl["cols"], isl["islands"]
+        already = flank_bg >= 0.40
+        if frac >= ISLAND_STRONG:
+            txt = ("%.0f %% of the flank sits inside patches of raised similarity "
+                   "(%d columns in %d patches). At this level the copies are not in "
+                   "independent places at all." % (100 * frac, ncol, nisl))
+        elif already:
+            txt = ("%.0f %% of the flank sits inside patches of raised similarity "
+                   "(%d columns in %d patches), which agrees with the raised flank "
+                   "average of %.2f." % (100 * frac, ncol, nisl, flank_bg))
+        else:
+            txt = ("%.0f %% of the flank sits inside patches of raised similarity "
+                   "(%d columns in %d patches), yet the flank average is an "
+                   "ordinary %.2f. The similarity is localised, so averaging hides "
+                   "it. Some copies are probably inside a shared larger repeat or "
+                   "duplication: worth checking those flanks against the whole "
+                   "genome before treating every copy as an independent insertion."
+                   % (100 * frac, ncol, nisl, flank_bg))
+        flags.append({"code": "FLANK_ISLANDS", "n": [ncol, nisl, frac], "text": txt})
+
     if g_elem < 0.25:
         flags.append({"code": "NO_ELEMENT",
                       "text": "No element: too few copies support the consensus above background."})
@@ -708,6 +757,8 @@ def verdict(path):
             "n": n, "n_supported": n_sup, "n_core": n_core, "n_shared": n_shared,
             "core_identity": round(id_core, 3), "all_identity": round(float(np.median(ident)), 3), "flank_bg": round(flank_bg, 3),
             "core_len_cv": round(cv_core, 3), "tsd_frac": round(tsd_frac, 3),
+            "island_frac": None if not isl else isl.get("frac"),
+            "island_cols": None if not isl else isl.get("cols"),
             "support_threshold": None if thr is None else round(float(thr), 3),
             "contamination_cut": None if v_cut is None else round(float(v_cut), 3),
             "turbulence": None if turb is None else round(turb, 3),

@@ -193,20 +193,55 @@ indistinguishable from background - because a few hundred island columns are
 diluted by a thousand ordinary ones. **An average cannot detect a localised
 signal.** The islands have to be found as islands.
 
+### Validated against his own calls, and it is a CAUTION signal
+
+Run over the whole labelled corpus (673 sets), measuring the **fraction** of
+flank inside an island rather than the raw count. Of the 55 sets he has judged:
+
+| his call | n | island fraction |
+|---|---|---|
+| plain `SINE` | 31 | **<= 0.067** |
+| the three flank-caution calls | 3 | **0.19 - 0.37** |
+| `NOT_SINE` / `UNUSABLE` / `MOSAIC` | 7 | **>= 0.50** |
+
+Three bands with wide empty gaps. The middle band is exactly the three sets he
+asked for flank checks on and nothing else:
+
+- `ERI__eri__e2-4` - *"requires post-processing with proving uniqness of at
+  least some flanks on whole-genome level"* (0.195, flank_bg 0.281)
+- `ERI__eri__e2-3` - *"with caution and need manual reinspection"* (0.194, 0.371)
+- `NEGSEGDUP__eri__r00` - *"unclear situation with left end"* (0.368, 0.326)
+
+**All three have an ordinary flank average.** `NEGSEGDUP__eri__r00` is a
+labelled segmental duplication whose flank_bg is 0.326 - the average cannot
+tell it from a clean family, and only the islands can.
+
+By class the measure lands on segmental duplications (0.871), LINE ORFs (0.819)
+and satellites (0.523), against 0.025 for POS. Every one of the 11 sets with
+flank_bg >= 0.40 also has island fraction >= 0.15, so nothing is lost by using
+it. It fires on **14 of 273** sets, all in those classes plus hedgehog ERI, and
+on **none** of POS, MIXED10, MIXED30, NEGJITTER, NEGSPLICE, NEGTRUNC5, NEGRAND
+or NEGCHIM.
+
+**It must be reported, never subtracted.** He still leans SINE on two of the
+three calibration sets; penalising would turn `e2-4` (97.4, which he accepts
+with a caveat) into a rejection. `verdict.py` emits `FLANK_ISLANDS` at fraction
+>= 0.10 and changes no score - verified, 0 of 273 scores moved.
+
+### Where the prospective candidates land
+
+`aca_SINE_0` reads **0.171** at flank_bg 0.271: between his plain-SINE ceiling
+and his caution floor, 2.5x the highest plain SINE he judged. It is the only
+one of the 52 new-species alignments above 0.10 with an ordinary flank average.
+
+And the signal is in the **top hits only** - `top100` 0.171, `rand100` under
+0.03, while `hyd_SINE_9` is 0.331 on both views. So it is not a family sitting
+in a shared context; it is a family whose most similar copies do. That points
+at a subset inside a larger duplication, and the check is to search those
+particular flanks against the starfish genome.
+
 ### What it might mean, unresolved
 
-Non-random similarity far from the element on both sides is consistent with
-several different things, and this measurement does not distinguish them:
-
-- copies sitting in a larger shared repeat, only part of which was annotated
-- insertion preference for a particular genomic context
-- the element being longer than the consensus says, with the extra part
-  degraded
-- assembly or paralogy artefacts
-
-Distinguishing these needs the island sequences themselves compared against the
-genome, which has not been done.
-
-**Prediction to test:** `aca_SINE_0` is the one to look at by eye - it is the
-only candidate so far with localised flank similarity and an unremarkable flank
-average. `hyd_SINE_9` will look different: similar all the way along.
+**Still to do:** pull `aca_SINE_0`'s top-hit flanks and search them against the
+starfish genome, which is the only thing that will say which of the four
+explanations above is right.

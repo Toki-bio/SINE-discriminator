@@ -8,6 +8,99 @@ after every exchange.
 
 ---
 
+## 2026-09-02 — the flank islands, tested against his own judgements
+
+One candidate is not a finding, so the island scan was run over the whole
+labelled corpus on KIT (`islands_corpus.py`, 673 of 674 sets), measuring the
+**fraction** of the flank that sits inside an island rather than the raw count -
+a set with a 2,400 bp flank has more room for islands than one with 400.
+
+### It separates exactly the classes whose problem IS the flank
+
+| class | n | median island fraction | median flank_bg |
+|---|---|---|---|
+| NEGSEGDUP | 3 | **0.871** | 0.793 |
+| NEGLINEORF | 4 | **0.819** | 0.493 |
+| NEGSAT | 3 | **0.523** | 0.877 |
+| ERI (hedgehog, real but messy) | 8 | 0.115 | 0.283 |
+| NEGLINE / SIMNEST / NEGLINE2 | 12 | 0.055-0.061 | ~0.32 |
+| **POS** | 28 | **0.025** | 0.309 |
+| NEGRAND | 20 | 0.000 | 0.264 |
+
+Segmental duplications, LINE ORFs and satellites: the three classes defined by
+copies not being in independent places. Everything else sits at 0.02-0.06.
+
+### It never misses what the average catches, and catches three more
+
+All **11** sets with `flank_bg >= 0.40` also have island fraction >= 0.15, so
+nothing is lost by using it. Three sets go the other way - high islands with an
+ordinary flank average, which is the `aca_SINE_0` pattern:
+
+| set | island frac | flank_bg | score |
+|---|---|---|---|
+| `NEGSEGDUP__eri__r00` | 0.368 | **0.326** | 47.0 |
+| `ERI__eri__e2-4` | 0.195 | **0.281** | 97.4 |
+| `ERI__eri__e2-3` | 0.194 | **0.371** | 92.6 |
+
+`NEGSEGDUP__eri__r00` is a **labelled segmental duplication whose flank average
+is 0.326** - indistinguishable from a clean family. Only the islands see it.
+
+### And all three are sets he had already flagged for flank checks
+
+This was not fitted; it fell out. His verbatim calls on exactly those three:
+
+- `ERI__eri__e2-4` - *"nested copies, i agree, but there are enough uniq left
+  flanks to lean towards SINE - requires post-processing with **proving uniqness
+  of at least some flanks on whole-genome level**"*
+- `ERI__eri__e2-3` - *"can be SINE, but very turbulent at manu places, should be
+  regarded as SINe but **with caution and need manual reinspection**"*
+- `NEGSEGDUP__eri__r00` - *"**unclear situation with left end**, could be just
+  not extended enough, more like grey zone or technically badly prepared"*
+
+Across all 55 judged sets that have an island measurement, the fraction falls
+into three bands with wide gaps between them:
+
+| his call | n | island fraction |
+|---|---|---|
+| plain `SINE` | 31 | **<= 0.067** |
+| the three flank-caution calls | 3 | **0.19 - 0.37** |
+| `NOT_SINE` / `UNUSABLE` / `MOSAIC` | 7 | **>= 0.50** |
+
+No plain SINE reaches 0.07. No caution call is below 0.19. No rejection is
+below 0.50.
+
+### So it goes in as a reported reason, not a score penalty
+
+He still leans SINE on two of the three. Subtracting for islands would turn
+`e2-4` (97.4, which he accepts with a caveat) into a rejection, which would be
+wrong. `verdict.py` now emits **`FLANK_ISLANDS`** at fraction >= 0.10, with
+different wording above 0.45, and says explicitly when the flank average is
+ordinary - because that is the case a person cannot get any other way.
+
+Thresholds 0.10 and 0.45 sit in the empty gaps, not on top of any judged set.
+
+### Where the new candidates land on his ladder
+
+| candidate | island fraction | flank_bg | band |
+|---|---|---|---|
+| `hyd_SINE_9` | 0.331 | 0.914 | caution, but the average already rejects it |
+| `aca_SINE_1` | 0.217 | 0.450 | caution - a **fourth** independent fault |
+| **`aca_SINE_0`** | **0.171** | **0.271** | **2.5x the highest plain SINE he judged** |
+| `hyd_SINE_0`, `hyd_SINE_17` | 0.088-0.091 | 0.61 / 0.54 | slightly raised |
+| the other 21 | <= 0.029 | ~0.31 | clean |
+
+`aca_SINE_0` sits between the plain-SINE ceiling (0.067) and the caution floor
+(0.19), nearer the caution end - which is what his eye reported.
+
+**And the signal is in the top hits only.** `aca_SINE_0__top100` is 0.171;
+`aca_SINE_0__rand100` is under 0.03. `hyd_SINE_9` is 0.331 on both views. So
+aca_SINE_0 is not a family sitting in a shared context - it is a family where
+the **most similar copies** share one, which is what a subset inside a larger
+duplication looks like. That is a concrete next check: pull those flanks and
+search them against the starfish genome.
+
+---
+
 ## 2026-09-02 — all three genomes rebuilt, and where the islands actually live
 
 ### The five hydra candidates that were never scored

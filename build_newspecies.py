@@ -3,7 +3,8 @@
 
 Everything on the page is derived, nothing typed in by hand:
   newsp_verdicts_all.json      scores of the justified+trimmed alignments
-  flank_islands_raw.json       islands, measured on the FULL 400 bp flank
+  (the island numbers ride along inside the verdicts, measured by
+   islands_corpus.py on the FULL 400 bp flank, never on the trimmed display)
   pom_sinederella_summary.tsv  the real genome-wide search for the snail
 """
 import html
@@ -71,16 +72,12 @@ CAUGHT_HELP = "does the existing flank average already catch this?"
 
 def load():
     ver = json.load(open("newsp_verdicts_all.json"))
-    isl = json.load(open("flank_islands_raw.json"))
     out = {}
     for s, d in ver.items():
         if "error" in d:
             continue
-        base = s.replace("NEW__", "").replace(".clean", "")
-        cand, view = base.split("__")
-        d = dict(d)
-        d["islands"] = isl.get(base)
-        out.setdefault(cand, {})[view] = d
+        cand, view = s.replace("NEW__", "").replace(".clean", "").split("__")
+        out.setdefault(cand, {})[view] = dict(d)
     return out
 
 
@@ -172,15 +169,21 @@ def main():
     h.append('<p>You saw faint, non-random similarity in <code>aca_SINE_0</code>&rsquo;s aligned '
              'left flank, and said the patches can sit far out on either side. Measured against a '
              'null that controls for how many copies are present in each column, they are real: '
-             '<strong>426 flank columns</strong> in 49 patches, up to z&nbsp;=&nbsp;69, some of '
-             'them hundreds of bases from the element.</p>')
-    h.append('<p>Its average flank identity is <strong>0.271</strong> &mdash; ordinary background. '
-             'So the score sees nothing and gives it 100.0 with no flag. It is the '
-             '<strong>only</strong> candidate in all 52 alignments with a large localised flank '
-             'signal and an unremarkable flank average. <code>hyd_SINE_9</code> has more island '
-             'columns still, but its flanks are similar all the way along (0.914), so the existing '
-             'rule already rejects it. That contrast is the argument for measuring islands as '
-             'islands instead of averaging the flank.</p>')
+             '<strong>17 % of its flank</strong> sits inside a patch &mdash; 426 columns in 49 of '
+             'them, up to z&nbsp;=&nbsp;69, some hundreds of bases out. Its flank average is '
+             '<strong>0.271</strong>, ordinary background, so the average sees nothing.</p>')
+    h.append('<p>Run over the 273 labelled sets, that fraction lines up with your own calls: '
+             'every one of the 31 you called a plain SINE is at or below <strong>0.067</strong>, '
+             'the three you asked for flank checks on sit at <strong>0.19 to 0.37</strong>, and '
+             'everything you rejected is at <strong>0.50 or more</strong>. It fires on 14 of 273 '
+             'sets &mdash; only segmental duplications, satellites, LINE ORFs and the messy '
+             'hedgehog set &mdash; and on none of the 28 positives, 56 mixtures, 28 jitter, '
+             '20 splice, 28 truncation or 20 random sets.</p>')
+    h.append('<p>So it is reported as a reason, never subtracted from the score: two of the three '
+             'sets it was calibrated on you still lean SINE on. <code>aca_SINE_0</code> at 0.171 '
+             'sits between your plain-SINE ceiling and your caution floor &mdash; and the signal '
+             'is in <code>top100</code> only (<code>rand100</code> is under 0.03), so it is not '
+             'the family that sits in a shared context but its most similar copies.</p>')
     h.append('<p class="cap">Islands are measured on the full 400&nbsp;bp flank, never on the '
              'trimmed alignments linked below. Trimming to the width the copies fill cuts away '
              'exactly the far-out columns: it drops aca_SINE_0 from 426 island columns to 6.</p>')
@@ -194,8 +197,10 @@ def main():
           '<th title="median pairwise identity across the whole element">identity</th>'
           '<th title="pairwise identity in the flanks. 0.25 to 0.31 means the copies sit in '
           'independent places; much higher means they do not">flank bg</th>'
-          '<th title="flank columns inside a patch of significantly raised similarity, '
-          'measured on the full 400 bp flank">island cols</th>'
+          '<th title="fraction of the flank sitting inside a patch of significantly '
+          'raised similarity, and the column count. Measured on the full 400 bp flank. '
+          'His own calls put plain SINEs at or below 0.067 and flank-caution calls at '
+          '0.19 to 0.37">island frac</th>'
           '<th title="%s">what the tool says</th>'
           '<th>alignments</th></tr>' % (html.escape(ANN_HELP), HOVER_HELP))
 
@@ -218,11 +223,11 @@ def main():
             seed, ann = SEED.get(c, ("?", None))
             for j, v in enumerate(order):
                 d = views[v]
-                isl = d["islands"][2] if d["islands"] else None
-                icls = "bad" if (isl or 0) > 300 else ("warn" if (isl or 0) > 100 else "")
+                isl, frac = d.get("island_cols"), d.get("island_frac")
+                icls = "bad" if (frac or 0) >= 0.10 else ("warn" if (frac or 0) >= 0.07 else "")
                 scls = "ok" if d["score"] >= 50 else "bad"
                 bar = ('<span class="bar" style="width:%dpx"></span>'
-                       % min(60, (isl or 0) // 8)) if isl else ""
+                       % max(2, min(56, int((frac or 0) * 160)))) if frac else ""
                 h.append('<tr%s>' % (' class="alt"' if k % 2 else ""))
                 if j == 0:
                     h.append('<td class="name" rowspan="%d">%s</td>' % (len(order), c))
@@ -234,7 +239,8 @@ def main():
                 h.append('<td class="n">%s</td>' % num(d["all_identity"]))
                 h.append('<td class="n">%s</td>' % num(d["flank_bg"]))
                 h.append('<td class="n %s">%s%s</td>'
-                         % (icls, "&mdash;" if isl is None else isl, bar))
+                         % (icls, "&mdash;" if frac is None
+                            else "%.3f <span class=\"cap\">%d</span>" % (frac, isl), bar))
                 h.append('<td class="flags">%s</td>' % flag_pills(d))
                 h.append('<td>%s</td>' % aln_link(c, v))
                 h.append('</tr>')
@@ -271,33 +277,37 @@ def main():
     rows = []
     for c, views in data.items():
         for v, d in views.items():
-            if d["islands"]:
-                rows.append((c, v, d["islands"], d["score"], d["flank_bg"]))
-    rows.sort(key=lambda r: -r[2][2])
+            if d.get("island_frac") is not None:
+                rows.append((c, v, d["island_frac"], d["island_cols"],
+                             d["score"], d["flank_bg"]))
+    rows.sort(key=lambda r: -r[2])
     h.append('<div class="rule"></div>')
     h.append("<h2>Flank islands across all 52 alignments</h2>")
-    h.append('<p>Ranked by island columns. The last column is the one that matters: a set with '
-             'many island columns <em>and</em> an ordinary flank average is a set the score cannot '
-             'see. Only one qualifies.</p>')
+    h.append('<p>Ranked by the fraction of flank inside a patch. Your own calls put plain SINEs '
+             'at or below 0.067 and flank-caution calls at 0.19 to 0.37, so the reason fires at '
+             '0.10. The last column is the one that matters: a set above the line '
+             '<em>with</em> an ordinary flank average is a set no average could have found. '
+             '<code>aca_SINE_0</code> is the only one here.</p>')
     h.append('<div class="tw"><table><thead><tr><th>alignment</th>'
-             '<th title="patches of at least 6 consecutive columns above z = 8">patches</th>'
-             '<th title="the strongest single column, in SDs above chance">max z</th>'
+             '<th title="fraction of flank columns inside a patch of at least 6 '
+             'consecutive columns above z = 8">island frac</th>'
              '<th>island cols</th><th>flank bg</th><th>score</th>'
              '<th title="%s">already caught?</th>'
              '</tr></thead><tbody>' % CAUGHT_HELP)
-    for c, v, (n_isl, mz, ncol), sc, bg in rows[:16]:
-        if ncol > 150 and bg < 0.40:
-            caught = '<span class="bad">no &mdash; invisible to the score</span>'
-        elif bg >= 0.40:
-            caught = '<span class="ok">yes, shared flanks</span>'
+    for c, v, frac, ncol, sc, bg in rows[:16]:
+        if bg >= 0.40:
+            caught = '<span class="ok">yes, the flank average is raised too</span>'
+        elif frac >= 0.10:
+            caught = '<span class="bad">no &mdash; the average sees nothing</span>'
+        elif frac >= 0.067:
+            caught = '<span class="warn">no, but only just over the line</span>'
         else:
-            caught = '<span class="cap">too little signal to matter</span>'
-        h.append('<tr><td class="name">%s <span class="cap">%s</span></td><td class="n">%d</td>'
-                 '<td class="n">%.1f</td><td class="n %s">%d</td><td class="n">%.3f</td>'
+            caught = '<span class="cap">nothing to catch</span>'
+        h.append('<tr><td class="name">%s <span class="cap">%s</span></td>'
+                 '<td class="n %s">%.3f</td><td class="n">%d</td><td class="n">%.3f</td>'
                  '<td class="n %s">%.1f</td><td>%s</td></tr>'
-                 % (c, v, n_isl, mz,
-                    "bad" if ncol > 300 else ("warn" if ncol > 100 else ""),
-                    ncol, bg, "ok" if sc >= 50 else "bad", sc, caught))
+                 % (c, v, "bad" if frac >= 0.15 else ("warn" if frac >= 0.067 else ""),
+                    frac, ncol, bg, "ok" if sc >= 50 else "bad", sc, caught))
     h.append('</tbody></table></div>')
     h.append('<p class="cap">Null: pairwise identity per column against the base composition of '
              'that set&rsquo;s own flanks, with the standard deviation taken from the number of '
