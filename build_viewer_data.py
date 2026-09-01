@@ -34,6 +34,32 @@ def load(path):
             "bitscore_med": int(np.median([int(b) for b in bits])) if bits else None}
 
 
+# Sets from the human and Timema benchmarks, so those legs get profile graphs
+# too. Chosen for what they demonstrate, not for looking good.
+EXTRA_PICKS = [
+    ("TIM__top100__t1_1", "Timema, manually curated by Sergei and boundary-confirmed - "
+                          "what a known-good answer looks like", "good", "tim_bench"),
+    ("TIM__top100__t2", "a second curated Timema subfamily", "good", "tim_bench"),
+    ("TIM__subfam__t3-1", "curated, but element-only: no genomic flanks at all. Scored 0.0 "
+                          "until the flank background stopped being computed from a few "
+                          "stub bases", "edge", "tim_bench"),
+    ("TIMB__timb__SINE_17", "AnnoSINE candidate Sergei judged real; scores 100 clean", "good", "bench"),
+    ("TIMB__timb__SINE_47", "judged real, scored 44 at 50 bp and 94 at 400 bp - the flank "
+                            "width was the whole disagreement", "edge", "bench"),
+    ("TIMB__timb__SINE_25", "judged real; at 400 bp the element continues past its "
+                            "annotated boundary", "edge", "bench"),
+    ("TIMB__timb__SINE_43", "labelled matched, but its copies sit at identity 0.38 against "
+                            "a 0.25 baseline - consensus resembles a family, loci do not "
+                            "support it", "bad", "bench"),
+    ("HUM__hum__AluY", "human, a young Alu - the easiest possible positive", "good", "bench"),
+    ("HUM__hum__MIR1_Amn", "human, ancient: consensus longer than the element it describes. "
+                           "Scored 0.0 NO_ELEMENT until CONSENSUS_OVEREXTENDED", "edge", "bench"),
+    ("HUM__hum__AluYk11", "human, a genuine mixture - verdict deferred rather than scored", "edge", "bench"),
+    ("HUM__hum__LmeSINE1c", "human, open false positive: 69.2 here, 7.1 % RepeatMasker "
+                            "overlap, and no internal statistic catches it", "bad", "bench"),
+]
+
+
 def main():
     feats = {}
     for line in open("features_all.jsonl"):
@@ -47,8 +73,7 @@ def main():
         ("POS__saq__s5_5seqs", "clear SINE, a curated family", "good"),
         ("POS__teu__t2_75seqs", "clear SINE, a second genome", "good"),
         ("SIMCLEAN__age005", "clear SINE, simulated, young", "good"),
-        ("SIMCLEAN__age030", "simulated CLEAN family at high age - scored down, and "
-                             "flagged contaminated, purely because it is old", "edge"),
+        ("SIMCLEAN__age030", "simulated CLEAN family at high age - Sergei: pure clear SINE with high divergence", "good"),
         ("POS__ccr__a_ccr", "a curated family that lands in the grey zone", "edge"),
         ("POS__ccr__g7_3seqs", "curated, grey zone, flagged contaminated", "edge"),
         ("NEGTRUNC5__saq__s5_5seqs", "grey zone: 5'-truncated copies", "edge"),
@@ -58,12 +83,11 @@ def main():
         ("MIXED10__ccr__g6_58seqs", "10 % contamination, grey zone", "edge"),
         ("NEGRAND__dmo__r00", "clear non-SINE: random genomic loci", "bad"),
         ("NEGRAND__saq__r00", "clear non-SINE, second genome", "bad"),
-        ("NEGCHIM__saq__s3_43seqs", "clear non-SINE: half element, half foreign DNA", "bad"),
-        ("NEGCHIM__ccr__g5_7seqs", "grey zone chimera - scores far higher than it should", "edge"),
+        ("NEGCHIM__saq__s3_43seqs", "built as half element, half foreign DNA - but Sergei read it as a clear SINE with a wobbly right end, and the tool now agrees", "edge"),
+        ("NEGCHIM__ccr__g5_7seqs", "chimera by construction; scores high because the element in it is real. CONSENSUS_OVEREXTENDED now names the join", "edge"),
         ("MIXSUBFAM__saq__s1_30seqs_s8_225seqs", "two subfamilies mixed - a SINE, but "
                                                  "one that should be split", "edge"),
-        ("NEGMOSAIC__saq__s1_30seqs_s8_225seqs", "per-copy recombinants - scores as a "
-                                                 "clean family, undetected", "edge"),
+        ("NEGMOSAIC__saq__s1_30seqs_s8_225seqs", "per-copy recombinants; Sergei called this an absolutely clear SINE, so scoring it high is correct", "good"),
         ("SIMSCRAM__swap__f100", "segments swapped between slots - the mosaic Sergei means", "edge"),
         ("SIMDEL__one__f050", "half the copies missing the same 50 bp block", "edge"),
         ("SIMNEST__f050", "half the copies sharing a host flank", "edge"),
@@ -78,18 +102,31 @@ def main():
                            "sequence — not independent insertions", "bad"),
         ("ERI__eri__e2-3", "hedgehog, partly nested", "edge"),
     ]
+    # Human and Timema picks live in other corpora, and their features are not
+    # in features_all.jsonl (which only covers aln_v2), so compute them here.
+    PICKS = PICKS + EXTRA_PICKS
     out, seen = [], set()
-    for st, why, tag in PICKS:
+    for item in PICKS:
+        st, why, tag = item[0], item[1], item[2]
+        srcdir = item[3] if len(item) > 3 else "aln_v2"
         if st in seen:
             continue
-        f = os.path.join("aln_v2", st + ".aln.fa")
-        if not os.path.exists(f) or st not in feats:
+        f = os.path.join(srcdir, st + ".aln.fa")
+        if not os.path.exists(f):
             print("  missing:", st)
             continue
         seen.add(st)
         d = load(f)
         d.update({"set": st, "why": why, "tag": tag})
-        d["feat"] = {k: v for k, v in feats[st].items() if isinstance(v, (int, float))}
+        if st in feats:
+            d["feat"] = {k: v for k, v in feats[st].items() if isinstance(v, (int, float))}
+        else:
+            import measure_c as _M
+            try:
+                mv = _M.measure(f)
+                d["feat"] = {k: v for k, v in mv.items() if isinstance(v, (int, float))}
+            except Exception:
+                d["feat"] = {}
         out.append(d)
     json.dump(out, open("viewer_data.json", "w"))
     print("packed %d alignments, %.0f KB"
