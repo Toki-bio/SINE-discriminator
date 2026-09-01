@@ -2007,3 +2007,45 @@ rejection margin there is thin. Worth noting that this is the set Sergei called
 "unclear situation with left end... more like grey zone or technically badly
 prepared" - a 47 may represent his reading better than a 0 did, but that is his
 call to make, not an assumption to bank.
+
+## 47. The "matched but NO_ELEMENT" sets are not a bug - the two labels measure different things
+
+§45 flagged `SINE_21`, `SINE_43`, `SINE_42` as `matched` yet scoring 0.0, and
+called it the strongest open lead. Resolved, and it split three ways:
+
+- **`SINE_42` was a real bug** - the one-sided contamination guard (§46). Now
+  99.8 with 32/32 copies supported.
+- **`SINE_43` is correct as scored.** All 100 copies cover 150-179 of the 181
+  consensus columns, so there is no coverage artifact - but per-copy identity is
+  median **0.38**, max 0.53, against a ~0.25 random-DNA baseline. The copies
+  genuinely do not match their own consensus.
+- **`SINE_21` is 10 copies at 0.42 identity** - too few and too weak to call
+  either way.
+
+**Why `SINE_43` can be both `matched` and `NO_ELEMENT` without either being
+wrong.** `timb/LOG.md` states the matched label came from `blastn` between the
+AnnoSINE candidate **consensus** and the curated **consensus**, in both
+directions. That is a consensus-to-consensus comparison. This tool measures
+**copies against their consensus**. AnnoSINE built a consensus that really does
+resemble a curated family, while the loci it gathered do not support that
+consensus.
+
+So `matched` means "this candidate's consensus looks like a known family", NOT
+"this candidate's locus set is sound". They are independent questions and a
+candidate can pass one and fail the other. This is worth telling Sergei plainly:
+it means the 73% convergence figure in `timb/LOG.md` validates AnnoSINE's
+*consensus building*, and says nothing about whether the underlying locus sets
+are clean - which is exactly the gap this tool fills.
+
+### Timema, final state (both fixes + real 400 bp decay)
+
+| label | n | mean | median | below 50 |
+|---|---|---|---|---|
+| matched | 40 | 93.2 | 100.0 | 2 |
+| judged real | 3 | 63.7 | 46.7 | 2 |
+| judged noisy | 12 | 99.9 | 100.0 | 0 |
+
+Only 4 of 55 sets fall below 50: `SINE_21` and `SINE_43` (weak by identity, as
+above), and `SINE_47` / `SINE_25`, which carry genuine measured findings
+(`RECOVERABLE_CORE`, `FRAGMENT_OF_LONGER`) rather than artifacts. `SINE_17`
+scores 100.0 with no flags at all.
