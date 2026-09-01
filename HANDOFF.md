@@ -2132,3 +2132,53 @@ Diagnostic note: the failures were invisible because the check grepped only for
 different code path. When a batch loses most of its items with no exceptions,
 count the outcomes (successes + skips + errors) against the input count and find
 the missing category, rather than reading the tail of the log.
+
+## 49. Human leg result, and Sergei's long-flank objection is confirmed - with a condition
+
+55 of 64 human sets re-extracted at 400 bp (9 skipped: fewer than 30 copies).
+All 55 classify **`ISOLATED_INSERTION`**, decay 0 bp, edge identity 0.26-0.28
+against a 0.25 background. Every curated Dfam human SINE family reads as a clean
+isolated insertion.
+
+| | mean | below 50 | crossing the threshold |
+|---|---|---|---|
+| 50 bp flanks | 96.6 | 1 of 55 | - |
+| 400 bp flanks | 94.6 | 1 of 55 | **0** |
+
+**54 of 55 curated families are accepted, and no set changes verdict with flank
+width.** Mean uniqueness is 0.992 at both widths, confirming the human sets
+never triggered the no-decay fallback at all - unlike Timema, where it fired on
+essentially everything.
+
+### The four biggest movers are all ancient MIR-family SINEs
+
+MIR3 -37.0, MIRc -33.6, MamSINE1 -27.4, MIRb -19.4. Every drop is entirely in
+the `element` group (MIR3 0.99 -> 0.62); Alu families do not move at all.
+
+The cause is not a background shift - `flank_bg` is stable (MIR3 0.259 ->
+0.257). The measured element identity itself degrades: **0.558 -> 0.460 for
+MIR3, 0.547 -> 0.440 for MIRc, while AluY goes 0.885 -> 0.890.**
+
+The consensus smears across the alignment in exactly the same pattern:
+
+| family | span/consensus @50 bp | @400 bp |
+|---|---|---|
+| MIR3 | 1.59 | **2.41** |
+| MIRc | 2.75 | **2.96** |
+| AluY | 2.50 | 2.41 (tightens) |
+| AluSx1 | 1.96 | 1.77 (tightens) |
+
+**This confirms Sergei's original objection - "your idea with too long flanks is
+bad, they complicate and worsen alignment" - and adds the condition that makes
+it actionable: the damage is divergence-dependent.** At 88% identity MAFFT
+absorbs 400 bp of unalignable flank without difficulty. At 55% identity, typical
+of a ~130 My MIR, the extra flank pulls the element alignment apart.
+
+### Design rule that follows
+
+**Measure element evidence on the short-flank alignment, flank decay on the
+long-flank alignment. Never take both from one geometry.** The 400 bp geometry
+exists to answer "does similarity end?", which needs distance; it is actively
+worse for "how well do copies match the consensus?", which needs a tight
+alignment. §38's separate `verdicts.json` / `verdicts_ext.json` split was the
+right instinct; this is the measurement-level reason for it.
