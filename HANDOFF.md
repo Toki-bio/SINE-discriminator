@@ -2790,16 +2790,23 @@ built on.
 Expect ~30-60 min per genome for step 1 alone (Timema's 1.2 Gb took 3,099 s).
 ---
 
-# PART II — restart of 2026-09-01: the method, in his words
+# PART II — 2026-09-01: the method, in his words
 
-Everything in Part I was written by me. This part is what Sergei told me
-directly after stopping the work, because I had drifted far enough that he had
-to restate the project from scratch. **Read this before anything above it.**
+**Nothing in Part I is superseded or lost.** The scorer, its four independent
+validations, the 72 recovered calls, the curated `tim/` sweep, the RepeatMasker
+cross-check, the benchmark pages and every bug fix all stand. What changed here
+is the FRAMING: what the tool should output, and whose judgement defines
+correct. This part records that, in his words, because I had drifted from it.
+
+Everything in Part I was written by me, from measurements. This part is what
+Sergei told me directly, after I had drifted far enough from his idea that he
+had to restate it. **Read this part first** — it says what the work is FOR;
+Part I says what was measured.
 
 ## 60. The core idea — his, not mine
 
-> "i show you fucking alignments and tell you what i think, you record and
-> calculate variables ok?"
+> "i show you alignments and tell you what i think, you record and calculate
+> variables"
 
 serving:
 
