@@ -8,6 +8,68 @@ after every exchange.
 
 ---
 
+## 2026-09-01 — Review batch 2 opened; two failures he caught
+
+### R7. `CONSENSUS_OVEREXTENDED` has a false negative
+
+He judged `NEGCHIM__ccr__g1_180seqs`: *"overextended consensus and no degapped
+right flank"*. The tool flags `FLANKS_UNMEASURED, RECOVERABLE_CORE` — **the
+overextension flag does not fire**, although it fires correctly on `g3` and `g5`
+which he confirmed.
+
+So the flag is right when it fires (4 of 4 in batch 1) but misses cases. Its
+condition — a core window beating the whole span by ≥0.15 with the remainder at
+background — is too strict. Needs re-fitting against `g1` as a positive.
+
+### R8. I asked about an alignment whose answer he had already given
+
+> "it feels like you havent tried to learn anything from my previous answers
+> because it perfectly matches what i have already answered"
+
+He had judged **eight** NEGCHIM sets, five of them *"consensus too long but good
+sine"*. I put a ninth in the next batch. He answered it identically.
+
+Fixed by `already_answered.py`: before asking, check whether he has answered
+enough alignments of the same construction, consistently, and if so predict
+rather than ask.
+
+Grouping by exact label was too literal — his nine NEGCHIM answers use six
+different labels and the top one is only 44%. Grouped by **substance** (is it a
+SINE at all, ignoring which extra property is named) it is **89% "a SINE"**.
+That is the level at which his answers agree.
+
+Constructions now predictable without asking:
+
+| construction | judged | agreement | answer |
+|---|---|---|---|
+| NEGSPLICE | 20 | 100% | a SINE |
+| NEGSAT | 3 | 100% | not a SINE |
+| NEGCHIM | 9 | 89% | a SINE |
+| ERI | 4 | 75% | a SINE |
+| HUM | 26 | 62% | a SINE |
+
+### R9. The flank trim needed two more fixes
+
+His *"no degapped right flank"* on `g1_180seqs` was still true after the first
+fix. Two causes:
+
+1. A 75th-percentile cap is not enough when flank lengths are skewed — right
+   flank median 20 bases but p75 58, leaving the panel 53% gaps. Now the cap is
+   chosen as the widest width whose panel is at most 25% gaps.
+2. A constant floor of 25 columns cannot help when copies carry ~10 bases. The
+   floor now follows the copies' own median.
+
+| alignment | right-flank gaps: raw → first fix → now |
+|---|---|
+| `NEGCHIM__ccr__g1_180seqs` | 0.78 → 0.53 → **0.36** |
+| `NEGCHIM__ccr__g3_71seqs` | 0.85 → 0.55 → **0.42** |
+| `MIXED10__ccr__g4_77seqs` | 0.29 → 0.25 → **0.25** (left 0.80 → **0.23**) |
+
+The residue is intrinsic: those copies genuinely carry only 10–20 bases of right
+flank, so any panel showing them has gaps for the shorter ones.
+
+---
+
 ## 2026-09-01 — Review batch 1: 16 judgements, six results
 
 Recorded verbatim in `calls.tsv` (now 87 judgements).

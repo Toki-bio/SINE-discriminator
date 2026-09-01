@@ -30,6 +30,7 @@ import measure_c as M
 SYM = "ACGT-"
 PCTL = 75        # keep this percentile of flank length
 MINCOL = 25      # never trim below this, even if most copies have no flank
+MAXGAP = 0.25    # the flank panel may be at most this fraction gaps
 
 
 def read_named(path):
@@ -67,10 +68,30 @@ def trim(path, out, pctl=PCTL):
     # how much flank does each copy actually carry?
     lb = [sum(1 for c in s[:lo] if c != "-") for s in others]
     rb = [sum(1 for c in s[hi + 1:] if c != "-") for s in others]
-    keepL = max(MINCOL, int(np.percentile(lb, pctl))) if lb else MINCOL
-    keepR = max(MINCOL, int(np.percentile(rb, pctl))) if rb else MINCOL
-    keepL = min(keepL, lo)
-    keepR = min(keepR, len(cons) - hi - 1)
+    # A percentile is not enough when flank lengths are very skewed. On
+    # NEGCHIM__ccr__g1_180seqs the right flank has median 20 bases but 75th
+    # percentile 58, so a p75 cap still left the panel 53% gaps and Sergei
+    # rightly said the right flank was still not degapped.
+    #
+    # Choose instead the widest cap whose panel is at most MAXGAP gaps: the
+    # display is then sized for the copies that are actually there.
+    def width(lens, avail):
+        if not lens:
+            return min(MINCOL, avail)
+        lens = np.asarray(lens)
+        # The floor must follow the copies, not a constant. With MINCOL=25 and a
+        # median right flank of 10 bases the panel is 60% gaps no matter what -
+        # which is what Sergei was still seeing on NEGCHIM__ccr__g3_71seqs.
+        floor = int(max(5, min(MINCOL, np.median(lens))))
+        best = min(floor, avail)
+        for w in range(min(floor, avail), avail + 1, 5):
+            filled = np.minimum(lens, w).sum()
+            if filled / float(w * len(lens)) >= 1.0 - MAXGAP:
+                best = w
+        return best
+
+    keepL = width(lb, lo)
+    keepR = width(rb, len(cons) - hi - 1)
 
     # flanks are already justified against the element, so the informative
     # columns are the ones nearest the element: keep the inner slice
