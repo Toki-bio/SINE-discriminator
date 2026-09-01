@@ -128,6 +128,12 @@ def flag_pills(d):
     return "".join(out) or '<span class="cln">clean</span>'
 
 
+def final_score(d):
+    """The tool's answer after any consensus repair - that is its real verdict."""
+    rf = d.get("refined")
+    return rf["score"] if rf else d["score"]
+
+
 def num(x, fmt="%.3f"):
     return "&mdash;" if x is None else fmt % x
 
@@ -201,6 +207,30 @@ def main():
              'row below. For the rest there is no curated library and no prior '
              'annotation.</p>')
 
+    # a compact index, so a long page can be entered at the right genome
+    h.append('<div class="tw"><table><thead><tr><th>genome</th><th>phylum</th>'
+             '<th title="candidates AnnoSINE proposed">candidates</th>'
+             '<th title="scoring 50 or above on their best view">accepted</th>'
+             '<th title="candidates Sergei has read himself">judged</th>'
+             '<th title="candidates where the tool and his reading agree">agree</th>'
+             '</tr></thead><tbody>')
+    _calls = his_calls()
+    for code, common, latin, phylum, acc in present:
+        cs = [c for c in data if c.startswith(code + "_")]
+        best = lambda c: (data[c].get("top100") or list(data[c].values())[0])
+        n_ok = sum(1 for c in cs if final_score(best(c)) >= 50)
+        judged = [c for c in cs if c in _calls]
+        agree = sum(1 for c in judged
+                    if (final_score(best(c)) >= 50) == (_calls[c][0][0] == "SINE"))
+        h.append('<tr><td><a class="lnk" href="#%s">%s</a> <span class="cap">%s</span></td>'
+                 '<td class="cap">%s</td><td class="n">%d</td><td class="n ok">%d</td>'
+                 '<td class="n">%s</td><td class="n %s">%s</td></tr>'
+                 % (code, common, latin, phylum, len(cs), n_ok,
+                    len(judged) or "&mdash;",
+                    "ok" if judged and agree == len(judged) else "",
+                    "%d of %d" % (agree, len(judged)) if judged else "&mdash;"))
+    h.append('</tbody></table></div>')
+
     h.append('<div class="find">')
     h.append('<h3 style="margin-top:0">The flank islands</h3>')
     h.append('<p>You saw faint, non-random similarity in <code>aca_SINE_0</code>&rsquo;s aligned '
@@ -247,10 +277,10 @@ def main():
             continue
         cands.sort(key=lambda c: int(c.rsplit("_", 1)[1]))
         best = lambda c: (data[c].get("top100") or list(data[c].values())[0])
-        acc_n = sum(1 for c in cands if best(c)["score"] >= 50)
+        acc_n = sum(1 for c in cands if final_score(best(c)) >= 50)
         h.append('<div class="rule"></div>')
-        h.append("<h2>%s <span class='lat'>%s &middot; %s &middot; %s</span></h2>"
-                 % (common, latin, phylum, acc))
+        h.append("<h2 id='%s'>%s <span class='lat'>%s &middot; %s &middot; %s</span></h2>"
+                 % (code, common, latin, phylum, acc))
         h.append('<p class="cap">%d candidates, %d scoring 50 or above on their best view.</p>'
                  % (len(cands), acc_n))
         h.append('<div class="tw"><table><thead>%s</thead><tbody>' % th)
@@ -272,7 +302,14 @@ def main():
                              % (len(order), c, seed,
                                 "" if not ann else " &middot; %s copies" % ann))
                 h.append('<td class="n">%d <span class="cap">%s</span></td>' % (d["n"], v))
-                h.append('<td class="n %s">%.1f</td>' % (scls, d["score"]))
+                rf = d.get("refined")
+                if rf:
+                    up = rf["score"] > d["score"] + 5
+                    h.append('<td class="n %s">%.1f<div class="cap %s">repaired &rarr; '
+                             '<strong>%.1f</strong></div></td>'
+                             % (scls, d["score"], "ok" if up else "", rf["score"]))
+                else:
+                    h.append('<td class="n %s">%.1f</td>' % (scls, d["score"]))
                 h.append('<td class="n">%s</td>' % num(d["all_identity"]))
                 h.append('<td class="n">%s</td>' % num(d["flank_bg"]))
                 h.append('<td class="n %s">%s%s</td>'
@@ -283,7 +320,7 @@ def main():
                     cc = calls.get(c)
                     if cc:
                         label = CALL_LABEL.get(cc[0][0], cc[0][0].replace("_", " ").lower())
-                        agree = (d["score"] >= 50) == (cc[0][0] == "SINE")
+                        agree = (final_score(d) >= 50) == (cc[0][0] == "SINE")
                         cell = ('<span class="%s" title="%s">%s</span>'
                                 % ("ok" if agree else "bad",
                                    html.escape("; ".join(x[1] for x in cc if x[1])),
@@ -367,6 +404,38 @@ def main():
                 rows.append((c, v, d["island_frac"], d["island_cols"],
                              d["score"], d["flank_bg"]))
     rows.sort(key=lambda r: -r[2])
+    rep = sorted((c, v, d) for c, views in data.items() for v, d in views.items()
+                 if d.get("refined") and v == "top100")
+    if rep:
+        h.append('<div class="rule"></div>')
+        h.append("<h2>Consensuses the tool repaired by itself</h2>")
+        h.append('<p>When the copies keep matching past the end of a consensus and then reach '
+                 'background within a couple of hundred bases, the consensus is simply too short. '
+                 'The tool now extends it by that distance, re-searches the genome, and &mdash; '
+                 'because extending overshoots &mdash; cuts back to the window the copies actually '
+                 'support. Both rules already existed; only the loop between them is new.</p>')
+        h.append('<div class="tw"><table><thead><tr><th>candidate</th>'
+                 '<th title="score before the repair">before</th>'
+                 '<th title="score after extend, re-search and trim">after</th>'
+                 '<th title="copies in the core, before and after">core</th>'
+                 '<th>what the repaired version says</th></tr></thead><tbody>')
+        for c, v, d in rep:
+            rf = d["refined"]
+            up = rf["score"] > d["score"] + 5
+            h.append('<tr><td class="name">%s</td><td class="n">%.1f</td>'
+                     '<td class="n %s">%.1f</td><td class="n">%d &rarr; %d</td>'
+                     '<td class="flags">%s</td></tr>'
+                     % (c, d["score"], "ok" if up else "bad", rf["score"],
+                        d["n_core"], rf["n_core"],
+                        "".join('<span class="pill">%s</span>' % SHORT.get(f["code"], f["code"])
+                                for f in rf["flags"]) or '<span class="cln">clean</span>'))
+        h.append('</tbody></table></div>')
+        h.append('<p class="cap">hyd_SINE_0 is the case Sergei called a false alarm: 110&nbsp;bp '
+                 'scoring 0.0, extended to 310, cut back to <strong>211&nbsp;bp scoring 100.0 with '
+                 '93 of 100 copies in the core</strong>. RepBase gives SINE2-2B_HM as 208&nbsp;bp. '
+                 'ska_SINE_19 stays at 0.2 after the same treatment, which is the point: the loop '
+                 'rescues an element that was there, it does not manufacture one.</p>')
+
     h.append('<div class="rule"></div>')
     h.append("<h2>Flank islands across all 52 alignments</h2>")
     h.append('<p>Ranked by the fraction of flank inside a patch. Your own calls put plain SINEs '

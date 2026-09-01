@@ -182,6 +182,12 @@ def main():
           % (len(v), sum(1 for d in v.values() if d.get("score", 0) >= 50 and "top100" in d.get("set", ""))))
     print("5. repairing consensus lengths")
     rv, tags = refine(sp, v, genome, aln)
+    # Extending stops where similarity reaches background, which overshoots the
+    # element edge; the scorer then names the window the copies support. Cutting
+    # to it is what finishes the repair - without this second pass hyd_SINE_0
+    # stalls at its 310 bp overshoot instead of reaching 211 bp and 100.0.
+    if rv:
+        sh("python3 refine_pass2.py %s" % sp, quiet=False)
     if rv:
         for k, d in sorted(rv.items()):
             if "top100" not in k:
