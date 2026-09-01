@@ -71,3 +71,18 @@ NEGSPLICE__teu_t5_31seqs__ccr_g7_3seqs__19	aln_v2	SINE	very clear SINE, almost p
 NEGSPLICE__teu_t5_31seqs__saq_s2_38seqs__10	aln_v2	SINE	very clear SINE, almost perfect
 NEGSPLICE__teu_t5_31seqs__teu_t6_324seqs__00	aln_v2	SINE	very clear SINE, almost perfect
 NEGSPLICE__teu_t6_324seqs__saq_s2_38seqs__09	aln_v2	SINE	very clear SINE, almost perfect
+NEGCHIM__ccr__g3_71seqs	aln_v2	SINE_CONSENSUS_TOO_LONG	yes consensus is too long, but its a good sine; in all cases flanks should have been degapped
+NEGCHIM__ccr__g6_58seqs	aln_v2	SINE_CONSENSUS_TOO_LONG	yes consensus is too long, but its a good sine; in all cases flanks should have been degapped
+NEGCHIM__dmo__d1_16seqs	aln_v2	SINE_CONSENSUS_TOO_LONG	yes consensus is too long, but its a good sine; in all cases flanks should have been degapped
+NEGCHIM__ccr__g5_7seqs	aln_v2	SINE_CONSENSUS_TOO_LONG_NOT_MIXTURE	consensus too long in 3' end; i dont see mixture
+MIXSUBFAM__teu__t1_45seqs_t5_31seqs	aln_v2	MIXTURE_TWO_SUBFAMILIES	mixture of 2 subfamilies
+NEGCHIM__saq__s5_5seqs	aln_v2	NOT_MIXTURE	not mixture
+NEGCHIM__saq__s8_225seqs	aln_v2	NOT_MIXTURE	not mixture
+TIM__subfam__t6-4	tim_bench	NO_FLANKS	no flanks
+HUM__hum__AluYb9	bench	SINE	no problems good sine
+TIM__subfam__t6-3	tim_bench	NO_FLANKS	no flanks
+TIMB__timb__SINE_46	bench	TOO_FEW_AND_BAD_LEFT_FLANK	not enough sequences but left flank is probably bad or incomplete
+NEGSEGDUP__eri__r02	aln_v2	NOT_SINE	no flanks, too long for sine
+NEGSAT__eri__r00	aln_v2	UNUSABLE_UNALIGNED	you provided it unaligned; too long and no flanks
+NEGSAT__eri__r01	aln_v2	UNUSABLE_UNALIGNED	you provided it unaligned; too long and no flanks
+NEGSAT__eri__r02	aln_v2	NOT_SINE	apparent tandem repeat all over flanks seen even without alignment

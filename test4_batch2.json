@@ -1,0 +1,67 @@
+[
+ [
+  "GREY (40-70)",
+  "NEGCHIM__ccr__g1_180seqs",
+  "aln_v2",
+  51.0,
+  [
+   "FLANKS_UNMEASURED",
+   "RECOVERABLE_CORE"
+  ],
+  100
+ ],
+ [
+  "GREY (40-70)",
+  "NEGCHIM__teu__t5_31seqs",
+  "aln_v2",
+  69.8,
+  [
+   "FLANKS_UNMEASURED",
+   "HETEROGENEOUS_SELECTION",
+   "TRUNCATED_COPIES"
+  ],
+  100
+ ],
+ [
+  "contaminated",
+  "MIXED10__ccr__g4_77seqs",
+  "aln_v2",
+  100.0,
+  [
+   "CONTAMINATED",
+   "FLANKS_UNMEASURED"
+  ],
+  100
+ ],
+ [
+  "contaminated",
+  "MIXED10__ccr__g5_7seqs",
+  "aln_v2",
+  100.0,
+  [
+   "CONTAMINATED",
+   "FLANKS_UNMEASURED"
+  ],
+  100
+ ],
+ [
+  "fragment of longer",
+  "NEGLINEORF__teu__r01",
+  "aln_v2",
+  0.2,
+  [
+   "FRAGMENT_OF_LONGER"
+  ],
+  100
+ ],
+ [
+  "fragment of longer",
+  "NEGLINEORF__teu__r02",
+  "aln_v2",
+  0.2,
+  [
+   "FRAGMENT_OF_LONGER"
+  ],
+  100
+ ]
+]

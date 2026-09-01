@@ -81,7 +81,9 @@ tr:last-child td{border-bottom:0}
 
 
 def main():
-    items = json.load(open("test4_list.json"))
+    import sys
+    src = sys.argv[1] if len(sys.argv) > 1 else "test4_list.json"
+    items = json.load(open(src))
     groups = {}
     for label, name, corp, score, flags, n in items:
         groups.setdefault(label, []).append((name, score, flags, n))
@@ -101,9 +103,12 @@ def main():
              'one or two alignments each. A threshold cannot be set from one point. '
              'Each group below is a property with too few examples, and the alignments '
              'the tool measures as having that same property.</p>')
-    h.append('<p class="lede">Every alignment opens in the MSA viewer. '
-             'A one-line answer per group is enough &mdash; or per alignment if they '
-             'differ.</p>')
+    h.append('<p class="lede">Every alignment opens in the MSA viewer with its '
+             'flanks justified <strong>and trimmed to the width the copies actually '
+             'use</strong>, so a few long outliers no longer pad the rest with gaps. '
+             'On these, flank gaps drop from 0.56 to 0.16, 0.68 to 0.26, 0.67 to 0.07.</p>')
+    h.append('<p class="lede">Six at a time. A one-line answer per alignment is '
+             'enough.</p>')
 
     for label, rows in groups.items():
         why, question = WHY.get(label, ("", ""))
@@ -115,8 +120,10 @@ def main():
         h.append("<table><thead><tr><th>alignment</th><th>copies</th>"
                  "<th>score</th><th>what the tool flags</th><th>open</th></tr></thead><tbody>")
         for name, score, flags, n in rows:
-            url = VIEW + BASE.replace(":", "%3A").replace("/", "%2F") + name + ".aln.fa"
-            full = VIEW + (BASE + name + ".aln.fa").replace(":", "%3A").replace("/", "%2F")
+            # link the TRIMMED alignment: flanks justified AND capped to the width
+            # the copies actually use, so a few long outliers stop padding the rest
+            # with gaps ("flanks are badly degapped and it hinders my estimates")
+            full = VIEW + (BASE + name + ".trim.aln.fa").replace(":", "%3A").replace("/", "%2F")
             pills = "".join('<span class="pill">%s</span>' % f for f in flags) or \
                     '<span style="color:#9aa69f">none</span>'
             h.append('<tr><td class="name">%s</td><td class="n">%s</td>'
@@ -130,7 +137,7 @@ def main():
              'Candidates chosen as unjudged alignments already carrying the signal '
              'for a property that has too few examples.</p>')
     h.append("</div>")
-    io.open("site/review.html", "w", encoding="utf-8").write("\n".join(h))
+    io.open(sys.argv[2] if len(sys.argv) > 2 else "site/review.html", "w", encoding="utf-8").write("\n".join(h))
     print("wrote site/review.html: %d groups, %d alignments" % (len(groups), len(items)))
 
 
