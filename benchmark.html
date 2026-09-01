@@ -37,6 +37,14 @@ table{border-collapse:collapse;width:100%;font-size:13.5px}
 th,td{padding:8px 11px;text-align:left;border-bottom:1px solid var(--rule);white-space:nowrap}
 th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;cursor:pointer;user-select:none;position:sticky;top:0;background:var(--surface);z-index:1}
 th:hover{color:var(--accent)}
+/* keep the alignment column reachable: the tables grew past the viewport when
+   the leak/conflict and RepeatMasker columns were added, and the links scrolled
+   off the right edge where they were effectively invisible. */
+th:last-child,td:last-child{position:sticky;right:0;background:var(--surface);box-shadow:-6px 0 6px -6px rgba(0,0,0,.18)}
+tr.hl td:last-child{background:var(--warn-soft)}
+th[title],.pill[title],a[title]{cursor:help}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin:10px 0 4px;font-size:12.5px;color:#2c3a36}
+.legend div{max-width:30ch}
 td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
 td.name{font-family:var(--mono);font-size:12.5px}
 tr:last-child td{border-bottom:0}
@@ -204,6 +212,17 @@ the rank correlation between leak and this tool's score is only
 97.9&ndash;100. The apparent inversion is <strong>two specific sets</strong>,
 <code>SINE_47</code> and <code>SINE_25</code>, not a systematic effect.
 </p>
+<div class="legend">
+<div><span class="pill p-ok">matched</span> its consensus matched one of the 6 curated
+<code>tim/</code> subfamilies by reciprocal blastn &mdash; 40 of 55.</div>
+<div><span class="pill p-edge">real</span> no blastn match, but judged a genuine SINE on
+inspection: high copy count, near-zero leak &mdash; 3 candidates.</div>
+<div><span class="pill p-warn">noisy</span> no match and high leak: its copies also match
+other subfamilies &mdash; 12 candidates.</div>
+</div>
+<p class="cap">These labels describe <strong>subfamily assignment</strong>, not whether the
+thing is a SINE. Hover any pill, column header or flag for its full explanation; click a set
+name to open its alignment.</p>
 <div class="stats" id="timstats"></div>
 <div class="controls" id="timctl"></div>
 <div class="tablewrap"><table id="timtab"></table></div>
@@ -264,6 +283,30 @@ const FLAGCLS = {
   FLANKS_UNMEASURED: "p-mut", NESTED_COPIES: "p-mut"
 };
 const LABCLS = { matched: "p-ok", real: "p-edge", noisy: "p-warn" };
+const LABTIP = {
+  matched: "This candidate's consensus matched one of the 6 manually curated tim/ subfamilies by reciprocal blastn (e-value 1e-10). 40 of 55 did.",
+  real: "Unmatched by blastn, but judged a genuine SINE on inspection: substantial copy counts and near-zero assignment leak. Only 3 candidates.",
+  noisy: "Unmatched, with high assignment leak - its copies also match other subfamilies. Either a fragment overlapping an existing family too closely to stand alone, or a structural false positive. 12 candidates."
+};
+const HEADTIP = {
+  "set": "Candidate identifier.",
+  "label": "The independent judgement from the Tal analysis - hover each pill for what it means. It is about SUBFAMILY ASSIGNMENT, not about whether the thing is a SINE.",
+  "leak %": "Share of this candidate's copies that ALSO match some other subfamily. High leak means the candidate is not a distinct subfamily - it says nothing about whether it is a SINE.",
+  "conflict %": "Share of intervals where another subfamily also had hits.",
+  "RM overlap %": "Share of copies overlapping ANY SINE in RepeatMasker's hg38 annotation (1,910,631 elements). Fully independent of this tool.",
+  "RM name %": "Share of copies whose RepeatMasker annotation carries the SAME subfamily name.",
+  "copies": "Genome-wide copies of this family, from the source manifest - not the number of sequences in the alignment.",
+  "aligned": "Number of copies actually in the alignment being scored.",
+  "score 50bp": "Verdict on the published alignment (~50bp flanks). Best measure of how well copies match their consensus.",
+  "score 400bp": "Verdict on the re-extracted alignment (400bp flanks). Needed for anything about boundaries or genomic context.",
+  "delta": "score 400bp minus score 50bp. Large movement means the verdict depended on flank width.",
+  "decay call (400bp)": "Where similarity stops outside the element. ISOLATED_INSERTION means it collapses to background on both sides - the signature of a real insertion.",
+  "flags": "Named sub-cases. Hover any flag for its full explanation.",
+  "alignment": "Open in the MSA viewer. 50bp / 400bp are the two geometries; justified has the flanks de-gapped and pushed against the element.",
+  "variant": "top100 = the 100 highest-scoring copies. rand100 = a random 100. subfam = pooled, and carries NO genomic flanks.",
+  "genomic copies": "Copies assigned to this subfamily genome-wide.",
+  "score": "Verdict on this alignment."
+};
 const DASH = '<span style="color:#9aa69f">&ndash;</span>';
 
 function scls(s) { return s >= 75 ? "sc-hi" : (s >= 50 ? "sc-mid" : "sc-lo"); }
@@ -280,7 +323,9 @@ function rowHTML(d, sp) {
   const s50 = d.v50 ? d.v50.score : null;
   const s400 = d.v400 ? d.v400.score : null;
   const delta = (s50 !== null && s400 !== null) ? (s400 - s50) : null;
-  const lab = d.label ? '<span class="pill ' + LABCLS[d.label] + '">' + d.label + "</span>" : "";
+  const lab = d.label
+    ? '<span class="pill ' + LABCLS[d.label] + '" title="' + esc(LABTIP[d.label] || "") + '">' + d.label + "</span>"
+    : "";
   const call = d.decay
     ? '<span class="pill ' + (d.decay.call === "ISOLATED_INSERTION" ? "p-ok" : "p-warn") + '">'
       + d.decay.call.replace(/_/g, " ").toLowerCase() + "</span>"
@@ -298,7 +343,8 @@ function rowHTML(d, sp) {
   const aj = BASE + d.name + ".just.aln.fa";
   links += ' &middot; <a class="lnk" href="' + VIEW + encodeURIComponent(aj) + '" target="_blank" rel="noopener">justified</a>';
   return "<tr" + ((s50 !== null && s50 < 50) ? ' class="hl"' : "") + ">"
-    + '<td class="name">' + d.id + "</td>"
+    + '<td class="name"><a class="lnk" href="' + VIEW + encodeURIComponent(a50)
+      + '" target="_blank" rel="noopener" title="Open this alignment in the MSA viewer">' + d.id + "</a></td>"
     + (sp === "timb" ? "<td>" + lab + "</td>"
         + '<td class="n"' + (d.leak >= 20 ? ' style="color:var(--mism)"' : '') + ">"
         + (d.leak === null || d.leak === undefined ? DASH : d.leak.toFixed(1)) + "</td>"
@@ -366,7 +412,8 @@ function build(sp, data, tabId, ctlId, statId) {
       return sortDir * (x - y);
     });
     tab.innerHTML = "<thead><tr>" + heads.map(function (h, i) {
-      return '<th data-k="' + keys[i] + '">' + h + (keys[i] === sortKey ? (sortDir > 0 ? " &uarr;" : " &darr;") : "") + "</th>";
+      return '<th data-k="' + keys[i] + '"' + (HEADTIP[h] ? ' title="' + esc(HEADTIP[h]) + '"' : "") + ">"
+        + h + (keys[i] === sortKey ? (sortDir > 0 ? " &uarr;" : " &darr;") : "") + "</th>";
     }).join("") + "</tr></thead><tbody>"
       + rows.map(function (d) { return rowHTML(d, sp); }).join("") + "</tbody>";
     Array.prototype.forEach.call(tab.querySelectorAll("th"), function (th) {
@@ -444,12 +491,15 @@ function buildTim(rows) {
       return sd * (x - y);
     });
     tab.innerHTML = "<thead><tr>" + heads.map(function (h, i) {
-      return '<th data-k="' + keys[i] + '">' + h + (keys[i] === sk ? (sd > 0 ? " &uarr;" : " &darr;") : "") + "</th>";
+      const tipk = h.replace(/ [↑↓]$/, "");
+      return '<th data-k="' + keys[i] + '"' + (HEADTIP[tipk] ? ' title="' + esc(HEADTIP[tipk]) + '"' : "") + ">"
+        + h + (keys[i] === sk ? (sd > 0 ? " &uarr;" : " &darr;") : "") + "</th>";
     }).join("") + "</tr></thead><tbody>" + rs.map(function (r) {
       const sc = r.v ? r.v.score : null;
       const a = BASE + r.name + ".aln.fa", aj = BASE + r.name + ".just.aln.fa";
       return "<tr" + (sc !== null && sc < 50 ? ' class="hl"' : "") + ">"
-        + '<td class="name">' + r.id + "</td>"
+        + '<td class="name"><a class="lnk" href="' + VIEW + encodeURIComponent(a)
+          + '" target="_blank" rel="noopener" title="Open this alignment in the MSA viewer">' + r.id + "</a></td>"
         + '<td class="n" style="text-align:left">' + r.variant + "</td>"
         + '<td class="n">' + (r.copies == null ? DASH : r.copies) + "</td>"
         + '<td class="n">' + (r.v ? r.v.n : DASH) + "</td>"
