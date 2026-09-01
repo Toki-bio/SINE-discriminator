@@ -123,3 +123,53 @@ was real:
 A hypothesis that flanks in the aligner distort the element alignment was
 **tested and disproved**: re-aligning the element alone changes element gaps by
 at most 0.04, in both directions.
+
+## 10. Flank similarity ISLANDS — a signal the score is blind to
+
+Sergei on `aca_SINE_0`: *"aligned left flank has very faint but non-random
+islands of similarity"*, and then *"these islands can be far off on the flanks
+(both directions)"*.
+
+He is right, and my first reading was wrong: I dismissed the far-upstream ones
+as low-coverage artifacts. With a null that controls for how many copies are
+present at each column, they are strongly significant — **z up to 92 with 60–98
+of 100 copies present**, at distances of 60, 153, 239, 301, 348, 452, even
+**801 bp** from the element, on both sides.
+
+Counting island columns (z > 8 sustained over >= 6 columns) across all
+candidates:
+
+| candidate | islands | island columns | tool score |
+|---|---|---|---|
+| `aca_SINE_0` | 55 | **839** | **100.0** |
+| `aca_SINE_1` (rejected) | 33 | 754 | 26.3 |
+| `hyd_SINE_9` | 4 | **713** | — |
+| `pom_SINE_0` | 2–6 | 22–50 | 100.0 |
+| most hydra | 0–1 | 0–126 | — |
+
+**`aca_SINE_0` scores a perfect 100 and has more flank similarity than the set
+he rejected.** The score cannot see this at all.
+
+### Why the existing flank measure misses it
+
+`flank_bg` is a single average over the whole flank. `aca_SINE_0`'s is 0.271 —
+indistinguishable from background — because a few hundred island columns are
+diluted by a thousand ordinary ones. **An average cannot detect a localised
+signal.** The islands have to be found as islands.
+
+### What it might mean, unresolved
+
+Non-random similarity far from the element on both sides is consistent with
+several different things, and this measurement does not distinguish them:
+
+- copies sitting in a larger shared repeat, only part of which was annotated
+- insertion preference for a particular genomic context
+- the element being longer than the consensus says, with the extra part
+  degraded
+- assembly or paralogy artefacts
+
+Distinguishing these needs the island sequences themselves compared against the
+genome, which has not been done.
+
+**Prediction to test:** `hyd_SINE_9` (713 island columns) should show the same
+property when looked at by eye.
