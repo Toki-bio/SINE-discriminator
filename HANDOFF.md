@@ -2235,3 +2235,70 @@ problem.
 One further harness bug fixed on the way: the post-run syntax gate was hardcoded
 to `node -c`, which cannot parse a `.py` target and so reverted a correct commit
 as "syntax-broken". It is now language-aware.
+
+## 51. Readiness assessment, 2026-09-01
+
+### The separation is clean and that is the headline
+
+| | n | mean | extreme | crossing 50 |
+|---|---|---|---|---|
+| known true negatives | 30 | 1.59 | max **47.0** | 0 |
+| known true positives | 432 | 99.96 | min **90.1** | 0 |
+
+**A 43-point gap with zero overlap**, across 462 sets whose status is not in
+doubt. Whatever else is unfinished, the core discrimination works.
+
+Supporting, on data this tool did not generate:
+
+- **Human, 64 curated Dfam families**: mean 92.7, 61 accepted. A false-negative
+  test against families nobody disputes.
+- **Timema, 55 AnnoSINE_v2 candidates**: mean 93.1, 51 accepted.
+- **Contamination**: `MIXED10` and `MIXED30` are deliberately contaminated and
+  all 56 are flagged `CONTAMINATED`, while none is wrongly rejected.
+- **Flank decay over 172 measured sets**: 158 `ISOLATED_INSERTION`, 7
+  `SATELLITE_OR_DUPLICATION`, 6 `ELEMENT_CONTINUES`, 1 `ADJACENT_SIMILARITY` -
+  and the non-isolated calls land on the sets that should get them.
+
+### Honest estimate: usable as a triage tool, not yet as an oracle
+
+**~75% ready.** Concretely, what that means:
+
+**Ready now.** Screening a batch of candidate families and ranking them for
+human attention. On this evidence a 0-score is trustworthy and a 100-score with
+no flags is trustworthy. That is genuinely useful and is most of the day-to-day
+job.
+
+**Not ready.** Being believed without review in the 40-75 band. Every unresolved
+disagreement lives there, and there are not yet enough adjudicated grey-zone
+cases to calibrate it.
+
+### What is actually missing, in priority order
+
+1. **Seven unadjudicated disagreements.** Timema `SINE_21`, `SINE_43`,
+   `SINE_47`, `SINE_25`; human `AluYh9` and two others below 50. Each is either
+   a real defect or a real finding, and **nobody has looked at them yet.** This
+   is the top item: they are few, they are on the benchmark page with alignment
+   links, and Sergei's eye settles them faster than any further coding.
+2. **Whole-genome flank uniqueness is not implemented.** Sergei asked for it
+   explicitly: "requires post-processing with proving uniqueness of at least
+   some flanks on whole-genome level". Currently uniqueness is judged only
+   within a set's own copies. `ERI__eri__e2-4` hinges on exactly this.
+3. **RepeatMasker cross-check not run.** `rmsk_sine.bed` on DRAGEN holds
+   1,910,631 independently annotated human SINEs. It is the largest available
+   independent ground truth and it is sitting unused.
+4. **Ancient families measure worse at 400 bp** (§49). Understood and
+   quantified, not compensated. A divergence-aware flank width, or simply always
+   taking element evidence from the short alignment, would close it.
+5. **Threshold 50 is a convention, not a calibrated decision boundary.** With a
+   43-point empty gap the exact value has not mattered yet, but it will as soon
+   as grey-zone cases accumulate.
+
+### What is genuinely solid and should not be re-litigated
+
+- Consensus-row anchoring for boundaries (zero free parameters).
+- Short flanks for the alignment, long flanks for decay - and the measured
+  reason why (§49).
+- Contamination as bimodality rather than a low tail, with **both** modes
+  guarded (§46).
+- An absent measurement is reported as absent, never scored as guilt (§43, §46).
+  This single principle caused two of the three real bugs found.
