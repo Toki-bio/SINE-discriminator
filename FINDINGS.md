@@ -8,6 +8,55 @@ after every exchange.
 
 ---
 
+## 2026-09-02 — First prospective results: candidates with no answer key
+
+`candidate_to_aln.py` is new and is the step that never existed: candidate
+consensus + genome -> ~100-locus alignments with flanks, in the three views he
+uses (top hits / random sample / everything). Plan section 6.1, working.
+
+### AnnoSINE_v2 on three genomes with no SINE library
+
+| genome | phylum | candidates found |
+|---|---|---|
+| *Pomacea canaliculata* (snail) | Mollusca | **2** |
+| *Acanthaster planci* (starfish) | Echinodermata | **2** |
+| *Hydra vulgaris* | Cnidaria | **22** (20 tRNA-derived, 1 5S, 1 unknown) |
+
+Against Timema's 55. He read the low counts correctly: snail and starfish are
+genuinely SINE-poor, not a failed run — all seven AnnoSINE steps completed and
+the candidates found are substantial, not junk.
+
+### Verdicts on the four snail/starfish candidates
+
+| candidate | derived from | genomic copies | top100 | rand100 |
+|---|---|---|---|---|
+| `pom_SINE_0` | tRNA | **537** | **100.0** clean | 93.7 TRUNCATED_COPIES |
+| `pom_SINE_1` | 7SL RNA | **339** | **100.0** clean | 86.2 TRUNCATED_COPIES |
+| `aca_SINE_0` | tRNA | 176 | **100.0** | 95.9 SUBFAMILY_NOTE |
+| `aca_SINE_1` | 5S rRNA | 11 | **26.3** | 26.3 |
+
+Three accepted, one rejected. **Nothing can check this except his eye** — there
+is no curated library, no prior annotation, no RepeatMasker track for these
+genomes. Published at `newspecies.html`.
+
+Note the pattern in both snail candidates: **top100 clean at 100.0, rand100
+flagged TRUNCATED_COPIES**. The best-scoring hits are full-length; a random
+sample includes fragments. That is expected for a real family and is itself
+weak evidence these are genuine.
+
+### Two more genomes running
+
+Chosen on his instruction — *"find other genome presumably containing sines but
+make sure its not properly annotated/studied"*:
+
+- *Acipenser ruthenus* (sterlet sturgeon) 1.9 Gb
+- *Amblyraja radiata* (thorny skate) 2.6 Gb
+
+Both are groups where SINEs are documented in the literature while these
+assemblies carry no repeat library.
+
+---
+
 ## 2026-09-01 — R11. Flanks in the aligner: a hypothesis of mine, DISPROVED
 
 He asked: *"why you insist on aligned flanks in your examples?"*
