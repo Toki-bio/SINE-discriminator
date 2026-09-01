@@ -1,173 +1,156 @@
 # SINE discriminator — the plan
 
-Structure: **problem → task → testing → propose the algorithm → build the tool.**
-
 ---
 
 ## 1. The problem
 
-What was done: I took the 72 alignments you have looked at and commented on in
-this project, ran the scoring code on each one, and put its number next to what
-you said about that same alignment. Your words are in `calls.tsv`, the numbers
-in `calls_scored.tsv`.
+Across 72 alignments you have described the **properties of an alignment that
+matter for telling a SINE from a non-SINE**. Your words are in `calls.tsv`.
 
-**(a) The tool gives the wrong kind of answer.**
+The tool collapses all of them into one number from 0 to 100, and that number
+discards most of what you described. Proof: four alignments where you described
+clearly different properties all come out as exactly **100.0** — one whose
+consensus is too long, one needing internal subgrouping, one with an unstable
+pre-tail region, and one that is simply clean.
 
-When you look at an alignment you name a situation and say what to do about it:
-*this is a mixture, split it and re-run each part*; *this is real but the
-consensus needs shortening*; *this is real but there are not enough copies to be
-sure*.
-
-The tool gives a number from 0 to 100. A number cannot carry that, and the proof
-is that four different situations you described all come out as exactly 100.0:
-
-| what you said | n | mean score |
-|---|---|---|
-| SINE_MINOR_NOTE | 4 | **100.0** |
-| SINE_CONSENSUS_WRONG | 1 | **100.0** |
-| SINE_NEEDS_SUBGROUPING | 1 | **100.0** |
-| SINE_MOST_PROBLEMATIC | 1 | **100.0** |
-| SINE | 43 | 99.1 |
-
-Four situations needing four different follow-up actions — shorten the
-consensus, subgroup it, note the instability, do nothing — all score identically
-to a clean SINE. Likewise MIXTURE_SPLIT_FIRST (79.6), GREY (89.5) and
-ANCIENT_BADLY_PRESENTED (92.6) overlap completely while demanding opposite
-responses.
-
-**(b) Four alignments where the number itself is simply wrong.**
-
-| what you said | set | score |
-|---|---|---|
-| MOSAIC | ERI e1-4 | **0.2** |
-| SINE_TOO_FEW | AluSx_short_ | **0.1** |
-| NOT_SINE | LmeSINE1c | **69.2** |
-| SINE (lowest) | — | 68.3 |
+And four where the number is wrong outright: ERI e1-4 → 0.2, `AluSx_short_` →
+0.1, `LmeSINE1c` → 69.2, and the lowest alignment you called clean → 68.3.
 
 ---
 
-## 2. The task
+## 2. The properties you described
 
-Two things, in this order:
+Collected from your own words. **This list is the specification.**
 
-1. **Decide what the tool should say.** Not a number — the name of the
-   situation, plus what to do about it. The situations are yours, already
-   recorded in your own words.
-2. **Find which measurements tell those situations apart**, and be honest about
-   which ones nothing currently measures.
+| property | what you said |
+|---|---|
+| flanks alignable or not | "its flanks are good — not alignable" |
+| left edge sharpness | "right end is fine but left one is really bad" |
+| right edge sharpness | "right end is a bit wobbly unstable" |
+| where the right edge actually is | "if its right edge is defined at gggagat… it becomes quite clear" |
+| copies agree with each other | throughout — the element is visible across copies |
+| divergence level | "pure clear SINE with high divergence" — divergence is not a fault |
+| tail behaviour | "long insertions in the tail region but if gaps are removed it becomes consolidated at right edge" |
+| a subset of copies differs | "11 lower sequences need manual attention"; "top proper about half … then bottom more discordant shorter ones" |
+| consensus length vs the real element | "consensus needs refinement and shortening" |
+| enough copies to judge at all | "very weak signal over too few copies"; one copy → "wtf???" |
+| presentation quality | "not presented properly with aligned gappy flanks"; "needs … degapped left flank" |
+| flank uniqueness genome-wide | "requires post-processing with proving uniqness of at least some flanks on whole-genome level" |
+| internal instability in a region | "pre-tail region containing an island of instability" |
+
+Two of these are not statements about the alignment but instructions about what
+to do next: **split it and re-run each part**, and **get more copies before
+deciding**.
 
 ---
 
-## 3. Testing
+## 3. What the tool should report
 
-There are 72 alignments you have judged, falling into 16 situations you named.
-Everything below is checked against what you said, never against sequences I
+Each property, measured, with its value — not a single number.
+
+Which properties are already measurable, and which are not, is what §4 finds
+out.
+
+---
+
+## 4. Testing
+
+Everything is checked against your 72 judgements, never against sequences I
 generated.
 
-### Test 1 — Which measurements tell your situations apart?
-Compute **every** variable the project has on all 72 alignments — not just the
-four groups that feed the score, but the raw ones: per-position identity and
-coverage profiles, A+T, edge sharpness left and right, copy-length spread,
-subfamily gap, contamination gap, flank decay where available, TSD fraction,
-copy count, consensus-vs-copies agreement.
-Then, for each pair of situations, ask which measurements actually differ
-between them and by how much.
+### Test 1 — which measurements capture which property *(DONE)*
 
-**Output:** a table of measurement against situation, showing how strongly each
-one separates.
-**Decision:** which situations can already be told apart, and which cannot.
+19 measurements computed on all 72 alignments, in `test1_vars.tsv`. Three of
+them already carry information the score throws away:
 
-### Test 2 — What is missing?
-For every pair of situations Test 1 cannot tell apart, look at those alignments directly and
-name what a person sees that is not being measured. Your own phrases point at
-candidates already: *"11 lower sequences"* (a subset of copies, not a
-column), *"island of instability"* in a specific region, *"right edge defined at
-gggagat"* (a motif at the boundary), *"gappy flanks"* (a display property).
+- **Edge sharpness** (`edge_drop` — how far copy-to-copy similarity falls at the
+  element boundary) separates alignments you called clean (0.52) from ones you
+  called grey (0.15), badly presented (0.18) or wrong-consensus (0.13) — even
+  though all of those score 89–100 and are identical by score.
+- **Flank similarity** (`pair_bg`) explains ERI e1-4: its flanks are 0.57
+  similar against a normal 0.25. The copies share flanking sequence. The score
+  says "no element"; the truth is "the flanks are not independent".
+- **Coverage minimum** (`cov_min` = 0.000) marks every alignment you called
+  badly presented or unusable.
 
-**Output:** a short list of new measurements to try, each tied to the alignment
-that demands it.
-**Decision:** which are worth building.
+### Test 2 — what is still not measured
 
-### Test 3 — Do the new measurements work?
-Build the shortlist, re-run Test 1.
+For each property in §2 with no measurement behind it, look at the alignments
+where you described it and work out what to compute. The obvious gaps:
 
-**Output:** an updated table.
-**Gate:** a new measurement earns its place only if it tells apart a pair that
-could not be told apart before, without spoiling a pair that already worked.
+- **a subset of copies differing** — everything current is per-column; you were
+  describing groups of rows
+- **where the right edge actually is** — the naive rule fails, because
+  copy-to-copy identity collapses in the poly-A tail (AluY: 0.93 in the body,
+  0.27 in the last 90 bp, while A+T rises 0.26 → 0.63). Needs a rule that
+  watches base composition, not identity alone.
+- **internal instability in a region** — a local measure, not a global one
 
-### Test 4 — More judgements, only where we are least sure
-The 72 are unevenly spread: 43 are a plain SINE, and nine situations have
-exactly one example. One example cannot fix a boundary between situations.
+### Test 3 — build them and re-measure
 
-Pick the alignments where the rules are least certain, show those to you, record
-what you say. **Ask only where your answer changes something** — never as a
-general request to re-judge everything.
+**Gate:** a new measurement earns its place only if it captures a property
+nothing captured before, without spoiling one that already worked.
 
-### Test 5 — Test it on judgements it has not seen
-Set the rules using part of your judgements, then test them on the rest. Report
-how often the tool names the same situation you did, and where it fails.
+### Test 4 — more judgements, only where needed
 
-**Gate:** if it only works on the alignments it was tuned on, it is not a tool.
+Nine properties rest on a single alignment each. Where a threshold cannot be set
+from one example, show you the alignments that would settle it — and only those.
+
+### Test 5 — check on alignments it was not tuned on
+
+**Gate:** if it only works where it was tuned, it is not a tool.
 
 ---
 
-## 4. Propose the algorithm
+## 5. Then: the rules
 
-Written only after Tests 1-5, and stating for each situation:
-
-- the measurements that identify it, and in what range
-- how much to trust it, given how many examples support it
-- **the action it implies** — split, re-extract with longer flanks, shorten the
-  consensus, gather more copies, check flanks genome-wide, accept, reject
-- what it must NOT be confused with, and what prevents that
-
-Plus, stated openly: the situations that still cannot be told apart, so they are
-known limits rather than silent mistakes.
+For each property — the measurement, its range, how much to trust it given how
+many examples support it, and what it means for what to do next. Plus, stated
+openly, the properties still not measurable.
 
 ---
 
-## 5. Build the tool
+## 6. Then: the tool
 
-Only after the algorithm is proposed and validated.
-
-1. **One entry point**: candidate consensus + genome → hits → several ~100-locus
-   alignments with flanks (random sample, top hits) → category + action per
-   alignment. This is his steps 1–4, automated.
-2. **The actions that can be automated**, each already half-present:
-   split a mixture and re-run each part; shorten an over-long consensus;
-   re-extract with longer flanks; prune contamination; de-gap flanks for display.
-3. **The peel loop** for the SubFam route — written, never run; group consensus
-   built from original members, not from consensi-of-50s.
-4. **The iteration**: refine consensus → re-search → re-judge, until stable.
-5. **The results page**: per run — a diagram of what flowed through, the
-   families found with category and action, a boundary picture per family
-   showing supplied vs corrected edges, the residue, and provenance.
+1. **One command**: candidate consensus + genome → hits → several ~100-locus
+   alignments with flanks (random sample, best hits) → the properties, measured,
+   per alignment. This automates your steps 1–4.
+2. **The actions that can be automated**: split a mixture and re-run each part;
+   shorten an over-long consensus; re-extract with longer flanks; prune
+   contamination; de-gap flanks for display.
+3. **The subfam peel loop** — written, never run. Group consensus built from the
+   original member sequences, not from the consensi-of-50s.
+4. **Repeat until stable**: refine the consensus, re-search, re-measure.
+5. **Results page**: per run — what flowed through, the families found with
+   their measured properties, a picture per family of identity and A+T along the
+   sequence with supplied and corrected edges marked, what was left over, and
+   provenance.
 
 ---
 
-## 6. Order and gates
+## 7. Order
 
-| # | step | gate to pass before continuing |
+| # | step | gate |
 |---|---|---|
-| 1 | Test 1 — separation table | — |
+| 1 | Test 1 | **done** |
 | 2 | Test 2 — name what is missing | — |
-| 3 | Test 3 — implement, re-measure | new variables must separate something previously inseparable |
-| 4 | Test 4 — more judgements where thin | at least 3 examples for every situation that carries an action |
-| 5 | Test 5 — test on unseen judgements | the tool names the same situation you do, on alignments it was not tuned on |
-| 6 | propose the algorithm | — |
-| 7 | build | algorithm validated |
+| 3 | Test 3 — build and re-measure | must capture something previously uncaptured |
+| 4 | Test 4 — more judgements where thin | enough examples to set each threshold |
+| 5 | Test 5 — unseen alignments | matches your judgement where it was not tuned |
+| 6 | the rules | — |
+| 7 | the tool | rules validated |
 
-**Running in parallel, no gate:** AnnoSINE2 on three genomes with no SINE
-library — snail, starfish, hydra. First prospective test.
+Running in parallel, no gate: AnnoSINE2 on snail, starfish and hydra — three
+genomes with no SINE library, the first test on families nobody has described.
 
 ---
 
-## 7. Rules
+## 8. Rules of work
 
 - Your judgements are the standard. The curated `tim/` set is the standard.
-  **Human Dfam is not** — it contains fragments, an ancestral gene, mixtures and single-copy
-  entries.
-- Record your words exactly as written before doing anything with them.
+  **Human Dfam is not** — it contains fragments, an ancestral gene, mixtures and
+  single-copy entries.
+- Record your words exactly as written, before interpreting them.
 - Compute on the servers.
-- Every claim gets checked against your judgements in `calls.tsv`, not against
-  sequences I generated.
+- **Do not invent category names for what you described.** Measure the
+  properties.
