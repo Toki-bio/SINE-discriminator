@@ -2603,3 +2603,56 @@ alignment files added.
 The page states plainly why that leg is the strongest: those boundaries were
 independently confirmed on all 24 sides, so a boundary-anchored tool is being
 judged against boundaries somebody else verified.
+
+## 56. Readiness, revised after the review and the curated ground truth
+
+Supersedes §51. Every number below is current.
+
+| corpus | n | mean | extreme | crossing 50 |
+|---|---|---|---|---|
+| synthetic true negatives | 30 | 1.59 | max 47.0 | **0** |
+| synthetic true positives | 432 | 99.96 | min 90.1 | **0** |
+| **curated `tim/` ground truth** | **42** | **98.29** | min 71.3 | **0** |
+| human Dfam | 64 | 94.49 | | 2 |
+| Timema AnnoSINE candidates | 55 | 94.48 | | 3 |
+
+**~85% ready**, up from the 75% in §51. What changed is not the separation - that
+was already clean - but three things that were wrong underneath it:
+
+- Sergei's eye-review found **10 clean families falsely flagged** and a real
+  family **rejected outright**; both fixed (§52).
+- The curated ground truth, which I had never scored, came back **42/42 with
+  top100 at exactly 100.0** - after fixing a third instance of the same
+  underlying bug (§54).
+- The disagreement that started the benchmark **dissolved**: it was the flank
+  width, not a difference of judgement (§55).
+
+### What "85%" means concretely
+
+**Trustworthy now.** A 0, a clean 100, and the flag vocabulary. Five of the
+flags are new or rewritten this week and each one was forced by a real case:
+`CONSENSUS_OVEREXTENDED`, `INSUFFICIENT_COPIES`, `HETEROGENEOUS_SELECTION`,
+`FLANKS_UNMEASURED`, `NO_FLANKS_PRESENT`. The tool now says *why* far more often
+than it says *no*.
+
+**Not trustworthy.** Any score measured on short flanks where the question is
+about boundaries or context - §55 is the proof, and the rule from §49 (element
+evidence short, decay long) has to be enforced rather than remembered.
+
+### Remaining, in priority order
+
+1. **Whole-genome flank uniqueness** - still not implemented, still explicitly
+   requested: "requires post-processing with proving uniqueness of at least some
+   flanks on whole-genome level". Uniqueness is judged only within a set.
+   `ERI__eri__e2-4` turns on exactly this.
+2. **RepeatMasker cross-check unused.** `rmsk_sine.bed` on DRAGEN holds
+   1,910,631 independently annotated human SINEs - by far the largest ground
+   truth available, and untouched.
+3. **The remaining eye-review items**: `AluYa8` (3 copies truncated at the right
+   edge), `AluYh3` (11 lower copies), `FLAM_C_short_` (11 middle copies with a
+   probable second monomer) are noted but not individually detected.
+4. **Ancient families still measure worse at 400 bp** (§49) - quantified, not
+   compensated.
+5. **Two fitted thresholds are overfit and should be revisited**, not treated as
+   calibrated: `HETEROGENEOUS_SELECTION` at 0.12 (fitted to three examples) and
+   the `CONSENSUS_OVEREXTENDED` tail bound at `bg + 0.18` (fitted to one).
