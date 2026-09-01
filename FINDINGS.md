@@ -8,6 +8,65 @@ after every exchange.
 
 ---
 
+## 2026-09-02 — pom_SINE_0 structure, and the SINEBase isolation survey
+
+### pom_SINE_0 has a complete SINE structure
+
+He asked whether it has TSDs or boxes. It has all of them:
+
+| feature | detail |
+|---|---|
+| **A-box** | positions 2-12, `TGGCGCAACAC`, 2 mismatches |
+| **B-box** | positions 54-62, `GTTCAACTC`, **0 mismatches** |
+| **TSD** | present in **86 % of copies**, median **13 bp** |
+| also detected | tRNA region, conserved core, terminator, tail repeat |
+
+A perfect B-box and TSDs on 86 % of copies means an intact RNA-pol-III internal
+promoter and direct repeats flanking each insertion. That is strong internal
+evidence, and it is consistent with his reading: a real SINE with no relationship
+to known families. 537 genomic copies.
+
+Rebuilt with 100 bp flanks (was 400) on his instruction — published as
+`NEW__pom100_SINE_0__*`.
+
+### SINEBase all-vs-all: how much of it is isolated?
+
+The only local SINEBase was 958 x 50 bp fragments already reduced to 85 %
+non-redundant — useless for this question. Downloaded the real bank from
+sines.eimb.ru: **231 entries, 230 unique ids** (one duplicate header).
+
+blastn all-vs-all, `word_size 7`, self-hits removed:
+
+| significance cut | isolated | share |
+|---|---|---|
+| e <= 1e-20 | **127** | 55 % |
+| e <= 1e-10 | 94 | 41 % |
+| **e <= 1e-5** | **53** | **23 %** |
+| e <= 1e-3 | 16 | 7 % |
+| e <= 0.01 | 5 | 2 % |
+
+**The threshold decides the answer**, which is itself the finding. At a strict
+cut more than half of SINEBase has no relative in it; at a loose cut almost
+everything is connected to something.
+
+Connectivity of the rest: **median 2 neighbours, maximum 15**. So SINEBase is
+not one connected family — it is mostly small clusters plus a large isolated
+tail.
+
+The 53 isolated at e<=1e-5 are in `sinebase_isolated.txt`: `ACar-1`, `AFC-3`,
+`Asu1`, `Au`, `Bm1`, `BmSE`, `BraS-I`, `CQ-2`, `Cre-3`, `Cry`, `CucuS-II`,
+`DR-2`, `ERI-2`, `EuphS-I`, `FabaS-I/III/V/VI/VII/IX`, `Feilai`, `IscNinDC`,
+`Lj-2`, `LF`, `Lm1`, `Mad-1`, `Mad-2`, `NV-2`, `NymS-I`, `OK`, `p-SINE1`,
+`PinS-I`, `PoaS-I`, `PoaS-II`, `Ruka`, `SaliS-III`, `SB1`, `SB3`, `SB4`,
+`SB12`, and 15 more.
+
+**Bearing on pom_SINE_0:** an unrelated SINE is not unusual. Somewhere between a
+quarter and a half of the established database has no significant similarity to
+anything else in it, so "no similarity to known SINEs" is a normal property of a
+real SINE family, not a reason for doubt.
+
+---
+
 ## 2026-09-02 — First prospective results: candidates with no answer key
 
 `candidate_to_aln.py` is new and is the step that never existed: candidate
