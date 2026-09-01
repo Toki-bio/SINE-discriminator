@@ -8,6 +8,154 @@ after every exchange.
 
 ---
 
+## 2026-09-02 — his 22 hydra judgements, and what they changed
+
+He judged every hydra candidate against RepBase, top100 view only, and named two
+faults the tool had no measure for. Agreement went from **16 of 22 to 20 of 22**,
+then 21 after the consensus repair below.
+
+### RepBase settles the one ambiguity without asking him
+
+He wrote `hyd_SINE_7` twice with two different readings. Rather than ask, all 71
+candidate consensuses went against RepBase on KIT. `hyd_SINE_7` is **L2-10_Hmel,
+a 2,378 bp LINE**, so the *"combination of microsatellites to me, not sine"*
+reading is the one that belongs to it. RepBase confirms his assignment on 18 of
+21 and disagrees on `hyd_SINE_4` and `hyd_SINE_10` (Sola2-7_HMa, a DNA
+transposon, where he read SINE2-1_HM) — recorded, not resolved.
+
+### Microsatellite content: the criterion he asked for by name
+
+*"looks like combination of microsatellites to me, not sine - not caught by your
+filters! - needs new criteria on microsatellite content?"* and, on
+`hyd_SINE_17`, *"surrounded by long 2-nt microsatellites"*. Two places, so two
+numbers: fraction of the **element** inside a tandem repeat of period 1-6, and
+fraction of the **flank**. Median over copies, ungapped, on the raw long flanks.
+
+| candidate | msat element | msat flank | his reading |
+|---|---|---|---|
+| `hyd_SINE_7` | **0.517** | 0.000 | not a sine, microsatellites |
+| `hyd_SINE_17` | **0.229** | **0.253** | surrounded by 2-nt microsatellites |
+| every hydra SINE he accepted | <= 0.092 | 0.000 | |
+
+**It is a genuinely new axis.** Over the 673-set labelled corpus, *every* class
+has a median element-microsatellite content of **0.000** — POS, NEGSAT,
+NEGSEGDUP and NEGLINEORF alike, highest 90th percentile anywhere 0.076. No
+existing class exercises it, so no threshold could have been fitted from them;
+the bands come from his hydra calls. Thresholds 0.15 (element) and 0.20 (flank),
+the latter set above the 0.12–0.17 the synthetic SIM* sets carry in their
+generated flanks.
+
+### The background was being measured on the element itself
+
+`hyd_SINE_0`, which he calls a good SINE and RepBase calls SINE2-2B_HM, scored
+**0.0 NO_ELEMENT**: *"looks like false alarm on your side"*. Cause: its flank
+identity came out at **0.614, above its own element identity of 0.560**, so the
+cliff went negative and the support threshold excluded all 100 copies.
+
+The flank was not shared — the consensus covers **79 bp of a 208 bp element**, so
+~150 bp of the SINE sat in what the code called flank, and the element was being
+measured against itself.
+
+Fix, using data already computed: the decay profile walks outward in 25 bp steps,
+so its far end is unrelated DNA wherever the consensus ends. Both the cliff and
+the support threshold now use that far-field value. On the labelled corpus this
+moved **2 of 273 scores**, both trivially and in the right direction.
+
+### CONSENSUS_UNDEREXTENDED, the mirror that never existed
+
+`CONSENSUS_OVEREXTENDED` had no counterpart. It fires when similarity carries on
+past the consensus edge but **ends within ~200 bp** and the far background is
+ordinary — a LINE fragment runs on for kilobases, a short consensus does not.
+
+The first version also fired on 4 NEGLINEORF sets and a segmental duplication,
+whose consensuses are 260–300 bp and whose decay also reads under 200. What
+separates them is the rest of the flank: an under-extended consensus has an
+ordinary flank past the missing piece (`hyd_SINE_0`: 6 % in islands), a LINE ORF
+has one shared all the way out (37–82 %). With that guard it fires on **0 of
+273** labelled sets.
+
+### And then the tool repairs it by itself
+
+`extend_consensus.py` acts on the flag instead of only reporting it:
+
+| stage | length | score | reading |
+|---|---|---|---|
+| AnnoSINE seed | 110 bp | **0.0** | NO_ELEMENT, consensus too short |
+| extended by the decay distance | 310 bp | 0.2 | 88/100 in core at 0.946, now flagged **too long** |
+| trimmed to the window the copies support | **211 bp** | **100.0** | clean, 93 of 100 in core |
+
+**211 bp against RepBase's 208 bp for SINE2-2B_HM.** The tool diagnosed the
+fault, fixed it, overshot, detected the overshoot with a rule that already
+existed, and converged. His three starting situations include "a library needing
+adjustment"; this is the tool doing the adjustment.
+
+### Reasons now bind on the score
+
+Three reasons could fire and change nothing: `hyd_SINE_7` was 52 % simple repeat
+and scored 77; `hyd_SINE_6` rested on 25 of 100 copies and scored 93;
+`hyd_SINE_2` had 8 copies and scored 95 while its own flag text said *"this score
+is an impression rather than a measurement"*. He rejected all three.
+
+`MICROSATELLITE_ELEMENT`, `SMALL_CORE` and `INSUFFICIENT_COPIES` now **cap** the
+score at 45, just under the acceptance line. Not a subtraction — there is no
+principled amount — a statement that on this evidence the answer cannot be yes.
+`SMALL_CORE` (core under 35 % of copies) fires on 4 of 273 labelled sets, all in
+ERI/NEGSEGDUP/NEGLINEORF, none in POS or any MIXED/NEG class.
+
+Also: flank decay had **never been run on the new species**, so 34 of 52
+alignments carried FLANKS_UNMEASURED for no reason. Now measured.
+
+### Where it still disagrees
+
+`hyd_SINE_5` — *"not looking like sine, weak right end, mosaic left end"* —
+scores 96.6 with only a subfamily note. Core fraction 0.68, identity 0.641,
+nothing else fires. **Edge quality is not measured yet**, and that is the next
+thing to build.
+
+---
+
+## 2026-09-02 — SubFam, and what a subfamily alignment actually is
+
+He had to correct this three times, so it is worth stating plainly.
+
+**The consensuses fed to a run are families, not subfamilies.** Giving
+SINEderella two snail consensuses produces two families with copies assigned to
+them. Taking top100/rand100 of those assigned loci — which is what I built first
+— is the family-level view that already existed.
+
+**A subfamily alignment is an alignment of SubFam chunk-consensus rows.**
+`SubFam` splits the bank into chunks of ~50, makes **one consensus per chunk**,
+and aligns those to each other. Collapsing thousands of copies into tens of
+consensus rows is what makes subfamily structure visible in one screen.
+
+**And the orchestrator does not run every step.** `SINEderella` runs steps 1–4
+and 6; steps **5, 7, 8a, 8b are standalone**. The snail run had no subfamily
+alignments because step 5 had never been invoked — I should have checked for a
+`step5.*.log` before calling the run complete.
+
+Three more things the docs say that I had not read:
+
+- `ALIGNMENT_DEPLOYMENT.md`: **"CRITICAL: Use extract_alignments.sh, NOT
+  step5_align_subfamilies.sh"** — step 5's output has no flanks, and flanks are
+  mandatory for boundary inspection. `extract_alignments.sh` writes `.core.fa`
+  (50 random copies), `.best50.fa` (top 50 by bitscore) and `.subfam.fa` (the
+  SubFam rows, only at >= 400 copies), all with 30 bp left and 70 bp right
+  flanks.
+- MANUAL §6.1.1: **`input.clw` is not a trustworthy alignment** — independently
+  derived batch consensuses that ended up discordant. Degap and realign before
+  using it. That is why my hand-run of step 5 produced empty files; the failure
+  was mine, not the pipeline's.
+- MANUAL §6.1 is the **subfamily discovery** workflow for when the consensus set
+  is too coarse: realign the chunk consensuses, group them by eye, build a
+  consensus per group with `sine_consensus.sh`, re-run.
+
+Done for the snail: all three alignment tiers for both families, and the 178
+chunk consensuses degapped and properly realigned
+(`POM__subfam_chunks.realigned.fa`) so the grouping can be done by eye. Written
+up as a `sinederella` skill.
+
+---
+
 ## 2026-09-02 — the flank islands, tested against his own judgements
 
 One candidate is not a finding, so the island scan was run over the whole

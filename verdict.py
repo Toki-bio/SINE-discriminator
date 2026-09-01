@@ -151,6 +151,29 @@ except Exception:
 ISLAND_NOTE = 0.10          # above this, say so
 ISLAND_STRONG = 0.45        # above this, the flanks are shared outright
 
+# Microsatellite content, from microsat.py. Sergei asked for this by name on
+# hyd_SINE_7: "looks like combination of microsatellites to me, not sine - not
+# caught by your filters! - needs new criteria on microsatellite content?" and
+# on hyd_SINE_17: "surrounded by long 2-nt microsatellites".
+#
+# It is a genuinely new axis: over the whole 673-set labelled corpus EVERY
+# class has a median element-microsatellite content of 0.000, POS and NEGSAT
+# and NEGLINEORF alike, with the highest 90th percentile anywhere at 0.076. So
+# no existing class exercises it and no threshold can be fitted from them - the
+# bands come from his hydra calls: every candidate he accepted is at or below
+# 0.065, hyd_SINE_17 is 0.285 and hyd_SINE_7 is 0.468.
+#
+# The flank threshold is set at 0.20 rather than 0.10 because the synthetic SIM*
+# sets carry 0.12-0.17 in their generated flanks - a property of the simulator,
+# not of any real locus, and not something to fire on.
+try:
+    _MSAT = json.load(open("microsat.json"))
+except Exception:
+    _MSAT = {}
+
+MSAT_ELEM = 0.15
+MSAT_FLANK = 0.20
+
 
 def sat(x, lo, hi):
     return float(min(1.0, max(0.0, (x - lo) / (hi - lo))))
@@ -349,6 +372,7 @@ def verdict(path):
     n, ident = p["n"], p["ident"]
     dec = _DECAY.get(os.path.basename(path).replace(".aln.fa", ""))
     isl = _ISLANDS.get(os.path.basename(path).replace(".aln.fa", ""))
+    ms = _MSAT.get(os.path.basename(path).replace(".aln.fa", ""))
 
     # background first, because the support threshold is defined against it
     # A side only contributes if it actually HAS flank sequence to measure. The
@@ -379,11 +403,32 @@ def verdict(path):
     else:
         bg_meas = BG                      # unrelated-DNA constant; nothing measurable
         flank_measured = False
+
+    # ...but when the consensus stops short of the element, the sequence just
+    # outside it IS the element, so bg_meas is measuring the element against
+    # itself. hyd_SINE_0 came out at 0.614 that way, above its own element
+    # identity of 0.560, and every copy then failed to reach the support
+    # threshold: 0 of 100 supported, NO_ELEMENT, on a family Sergei reads as a
+    # good SINE and RepBase calls SINE2-2B_HM.
+    #
+    # The decay profile walks outward in 25 bp steps, so its far end is
+    # unrelated DNA no matter where the consensus ends. Prefer it.
+    flank_bg_far = None
+    if dec:
+        far = []
+        for side in ("prof_L", "prof_R"):
+            prof = dec.get(side) or []
+            tail = [x for x in prof[-4:] if x is not None]
+            if tail:
+                far.append(float(np.mean(tail)))
+        if far:
+            flank_bg_far = float(np.mean(far))
+    bg_true = bg_meas if flank_bg_far is None else max(BG, flank_bg_far)
     # Two separate questions, previously conflated into one threshold:
     #   is there an element at all      -> support_threshold
     #   is this set a MIXTURE           -> contamination_split
-    thr = support_threshold(ident, bg_meas)
-    cut = contamination_split(ident, bg_meas)
+    thr = support_threshold(ident, bg_true)
+    cut = contamination_split(ident, bg_true)
     if thr is None:
         supported = np.zeros(n, bool)     # no element: nothing supports it
     elif cut is not None:
@@ -518,6 +563,8 @@ def verdict(path):
             fl_id.append(float(np.median(v)))
     flank_bg = float(np.mean(fl_id)) if fl_id else BG
 
+    bg_cliff = bg_true
+
     tsd = [M.find_tsd(p["lefts"][i][::-1], p["rights"][i])
            for i in np.where(core)[0][:120]]
     tsd_frac = float(np.mean([t > 0 for t in tsd])) if tsd else 0.0
@@ -541,7 +588,7 @@ def verdict(path):
     # 0.57 while unrelated DNA matches at 0.29 - already unambiguous. Scoring on
     # to 0.55 made the statistic report youth, not existence, and cost a clean
     # 30 %-divergent family a third of its element score.
-    g_elem = (sat(id_all - flank_bg, 0.10, 0.30) ** 0.5) *              (sat(n_sup / max(1, n), 0.15, 0.98) ** 0.5)
+    g_elem = (sat(id_all - bg_cliff, 0.10, 0.30) ** 0.5) *              (sat(n_sup / max(1, n), 0.15, 0.98) ** 0.5)
     # Subfamily structure is deliberately NOT scored. Sergei: "subfamily
     # ambiguity doesn't matter, we answer sine/not-sine, not this sine or that
     # sine." Two subfamilies in one set is still a set of SINEs. It stays as a
@@ -646,6 +693,67 @@ def verdict(path):
                    % (100 * frac, ncol, nisl, flank_bg))
         flags.append({"code": "FLANK_ISLANDS", "n": [ncol, nisl, frac], "text": txt})
 
+    # The mirror of CONSENSUS_OVEREXTENDED, which had no counterpart until
+    # hyd_SINE_0. When the similarity carries on past the consensus edge but
+    # ENDS within a couple of hundred bases, the copies are not inside a
+    # satellite and are not fragments of a LINE - the consensus simply stops
+    # too early, and the missing piece is about as long as the decay distance.
+    # A LINE fragment runs on for thousands of bases; this does not.
+    # ...and the flank beyond that stretch must be ORDINARY. Without this guard
+    # the reason also fired on four NEGLINEORF sets and a segmental duplication,
+    # whose consensuses are 260-300 bp and whose decay also reads under 200 bp.
+    # What separates them is what the rest of the flank looks like: an
+    # under-extended consensus has a normal flank once past the missing piece
+    # (hyd_SINE_0 has 6 % of its flank in islands), while a LINE ORF or a
+    # duplication has a flank that is shared all the way out (37-82 %).
+    if (dec and dec.get("call") == "ELEMENT_CONTINUES"
+            and dec.get("decay_max", 0) <= 200
+            and flank_bg_far is not None and flank_bg_far < 0.40
+            and (isl is None or isl.get("frac", 0) < 0.15)):
+        flags.append({"code": "CONSENSUS_UNDEREXTENDED",
+                      "n": dec["decay_max"],
+                      "text": "Similarity carries on about %d bp past the end of the "
+                              "consensus and then reaches background (%.2f), so that "
+                              "stretch is the element rather than its context. The "
+                              "consensus is too short by roughly that much - extend it "
+                              "and re-run. Until then the flank average is being "
+                              "measured on element sequence, which understates "
+                              "everything that depends on it."
+                              % (dec["decay_max"], flank_bg_far)})
+
+    if ms and ms.get("msat_elem", 0) >= MSAT_ELEM:
+        flags.append({"code": "MICROSATELLITE_ELEMENT", "n": ms["msat_elem"],
+                      "text": "%.0f %% of the element is simple tandem repeat in the "
+                              "median copy (%.0f %% in the top tenth). Every family "
+                              "Sergei accepted in hydra sits at or below 7 %%, and no "
+                              "class in the labelled corpus reaches 1 %%. A consensus "
+                              "built mostly out of microsatellite will collect loci by "
+                              "their repeat content, not by common descent."
+                              % (100 * ms["msat_elem"], 100 * ms.get("msat_elem_p90", 0))})
+
+    if ms and (ms.get("msat_flank") or 0) >= MSAT_FLANK:
+        flags.append({"code": "MICROSATELLITE_FLANK", "n": ms["msat_flank"],
+                      "text": "%.0f %% of the flanking sequence is simple tandem repeat "
+                              "in the median copy. The copies are sitting in "
+                              "microsatellite tracts, so the flanks cannot show whether "
+                              "the insertions are independent and short-read mapping "
+                              "into such tracts is unreliable."
+                              % (100 * ms["msat_flank"])})
+
+    # hyd_SINE_6 scored 100.0 with 25 of 100 copies in the core, and Sergei read
+    # it as "mosaic columns in flanks, few copies, not firm edges, unknown
+    # middle part". n_core was already in the output but nothing said it out
+    # loud, so a set held up by a quarter of its copies looked identical to one
+    # held up by all of them.
+    if n >= 20 and n_core >= 1 and n_core / float(n) < 0.35:
+        flags.append({"code": "SMALL_CORE", "n": [n_core, n],
+                      "text": "Only %d of %d copies form the core the consensus is "
+                              "actually built on (%.0f %%). The rest are too divergent "
+                              "or too truncated to support it, so the score describes a "
+                              "minority of what was collected. Look at whether the other "
+                              "%d belong here at all."
+                              % (n_core, n, 100.0 * n_core / n, n - n_core)})
+
     if g_elem < 0.25:
         flags.append({"code": "NO_ELEMENT",
                       "text": "No element: too few copies support the consensus above background."})
@@ -744,6 +852,26 @@ def verdict(path):
                               "That is enough to build a clean family from — worth following up "
                               "even though the set as submitted scores poorly." % n_core})
 
+    # ---- reasons that CAP the score --------------------------------------
+    #
+    # Until now a reason could fire and change nothing. hyd_SINE_7 is 52 % simple
+    # repeat and scored 77; hyd_SINE_6 rests on 25 of 100 copies and scored 93;
+    # hyd_SINE_2 has 8 copies and scored 95 while its own flag text said "this
+    # score is an impression rather than a measurement". Sergei rejected all
+    # three. A number that reads as acceptance while the text underneath says
+    # the evidence is not there is worse than no number.
+    #
+    # These three do not reduce the score by some amount - there is no principled
+    # amount. They cap it just below the acceptance line, which states exactly
+    # what is true: on this evidence the question cannot be answered yes.
+    # Anything the copies genuinely show is still in the groups and the flags.
+    capped_by = []
+    for f in flags:
+        if f["code"] in ("MICROSATELLITE_ELEMENT", "SMALL_CORE", "INSUFFICIENT_COPIES"):
+            capped_by.append(f["code"])
+    if capped_by and score > 45.0:
+        score = 45.0
+
     return {"set": os.path.basename(path).replace(".aln.fa", ""),
             "score": round(float(score), 1),
             "deferred": bool(het),
@@ -757,6 +885,11 @@ def verdict(path):
             "n": n, "n_supported": n_sup, "n_core": n_core, "n_shared": n_shared,
             "core_identity": round(id_core, 3), "all_identity": round(float(np.median(ident)), 3), "flank_bg": round(flank_bg, 3),
             "core_len_cv": round(cv_core, 3), "tsd_frac": round(tsd_frac, 3),
+            "flank_bg_far": None if flank_bg_far is None else round(flank_bg_far, 3),
+            "msat_elem": None if not ms else ms.get("msat_elem"),
+            "msat_flank": None if not ms else ms.get("msat_flank"),
+            "core_frac": round(n_core / float(max(1, n)), 3),
+            "capped_by": capped_by,
             "island_frac": None if not isl else isl.get("frac"),
             "island_cols": None if not isl else isl.get("cols"),
             "support_threshold": None if thr is None else round(float(thr), 3),

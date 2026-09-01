@@ -245,3 +245,101 @@ particular flanks against the starfish genome.
 **Still to do:** pull `aca_SINE_0`'s top-hit flanks and search them against the
 starfish genome, which is the only thing that will say which of the four
 explanations above is right.
+
+## 11. A background measured next to the element is not a background
+
+The single most damaging class of bug in this tool, hit three separate times:
+comparing the element against something that contains the element.
+
+`hyd_SINE_0` is the clearest case. Its consensus covers 79 bp of a 208 bp
+element, so ~150 bp of SINE sat in what the code called flank. Flank identity
+came out **0.614 against an element identity of 0.560** — the background above
+the signal — and the tool concluded there was no element, on a family Sergei
+reads as a good SINE and RepBase calls SINE2-2B_HM.
+
+**Rule: take the background from far enough out that the element cannot reach
+it.** The flank-decay profile already walks outward in 25 bp steps, so its far
+end is unrelated DNA wherever the consensus happens to stop. Both the cliff and
+the support threshold now use that value, and nothing else in the corpus moved.
+
+Same shape as the earlier failures: the cliff measured over core copies only
+(circular), and the flank background measured on element-only alignments
+(1.000). Whenever a denominator can contain the numerator, it will.
+
+## 12. Every measurement has its own geometry, and they must not share a file
+
+Three measurements now need three different views of the same loci:
+
+| measurement | needs | breaks if given the other |
+|---|---|---|
+| boundary by eye | flank trimmed to what copies fill | a wall of dashes |
+| flank islands | full 400 bp | 426 island columns become 6 |
+| flank decay, microsatellite | full 400 bp | far field never reached |
+
+The trimmed alignment is a **display artefact**. Nothing should ever be measured
+on it. This has now caused two separate wrong answers, so it is a rule rather
+than an observation.
+
+## 13. Microsatellite content is an axis nothing else in the corpus tests
+
+Sergei asked for it by name on `hyd_SINE_7` (*"combination of microsatellites to
+me, not sine - not caught by your filters!"*) and `hyd_SINE_17` (*"surrounded by
+long 2-nt microsatellites"*).
+
+Measured as the fraction of ungapped sequence inside a tandem repeat of period
+1–6, median over copies, separately for element and flank:
+
+| | element | flank |
+|---|---|---|
+| `hyd_SINE_7` | **0.517** | 0.000 |
+| `hyd_SINE_17` | **0.229** | **0.253** |
+| hydra SINEs he accepted | <= 0.092 | 0.000 |
+| **every class of the 673-set corpus** | **0.000** | 0.000 |
+
+The last row is the point: POS, NEGSAT, NEGSEGDUP, NEGLINEORF and all the
+synthetic classes sit at zero. **No labelled class exercises this property**, so
+no threshold could have been fitted from the corpus — the bands exist only
+because he judged the hydra sets. A curated negative set only covers the failure
+modes someone thought to build.
+
+Two numbers, not one: repeat *in the element* means the consensus collects loci
+by repeat content rather than descent; repeat *in the flank* means the copies
+sit in tracts where flanks cannot show independence and mapping is unreliable.
+
+## 14. A reason that cannot change the verdict is decoration
+
+Note 1 said every reason that fires should be reported. The inverse turned out to
+be just as wrong: three reasons fired and the score ignored them.
+
+- `hyd_SINE_7`: 52 % simple repeat, scored **77**
+- `hyd_SINE_6`: 25 of 100 copies in the core, scored **93**
+- `hyd_SINE_2`: 8 copies, scored **95**, its own flag text reading *"this score
+  is an impression rather than a measurement"*
+
+He rejected all three. A number that reads as acceptance while the text beneath
+it says the evidence is not there is worse than no number at all.
+
+**Rule: some reasons cap the score rather than nudging it.** Not a subtraction —
+there is no principled amount to subtract — a cap at 45, just under the
+acceptance line, saying the question cannot be answered yes on this evidence.
+Currently `MICROSATELLITE_ELEMENT`, `SMALL_CORE`, `INSUFFICIENT_COPIES`.
+
+## 15. When the tool can fix the fault, it should fix it
+
+`CONSENSUS_UNDEREXTENDED` told the user to extend the consensus and re-run. It
+now does it:
+
+| stage | length | score |
+|---|---|---|
+| AnnoSINE seed | 110 bp | 0.0 NO_ELEMENT |
+| extended by the decay distance | 310 bp | 0.2, flagged **too long** |
+| trimmed to the supported window | **211 bp** | **100.0 clean** |
+
+RepBase's SINE2-2B_HM is 208 bp. The loop converges because the two consensus
+rules are mirrors: extension is bounded by where similarity reaches background,
+and over-extension is caught by the window the copies actually support. Neither
+rule needed changing to make the loop work.
+
+This is Sergei's second starting situation — "a library needing adjustment" —
+and it is the one place where the tool can do the adjustment rather than hand
+back advice.
