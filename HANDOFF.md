@@ -2096,3 +2096,39 @@ including them would create copies that are near-identical by construction and
 would inflate exactly the flank-sharing and nesting signals §43-46 were spent
 correcting. Excluding them is the conservative choice. Recorded so the 4.28% is
 not rediscovered as a mystery later.
+
+### 48a. Why only 7 of 64 human sets survived - bedtools aborts, it does not skip
+
+The first corrected human run still lost 57 of 64 sets, all with
+`body/full mismatch` and zero exceptions. The cause is a property of bedtools
+worth knowing:
+
+**`bedtools getfasta` does not skip an unknown chromosome - it aborts the whole
+file** with `Input error: Chromosome ... doesn't present in the .genome file`.
+So a single copy on an `*_alt` / `*_random` / `chrUn` scaffold destroys the
+entire set's extraction, not just that one copy. Since most human sets contain
+at least one such copy, almost every set died.
+
+§48 measured the alt-contig fraction at 4.28% and called it a negligible,
+accepted loss. That was true for the copies and wrong about the consequence:
+4.28% of copies scattered across 64 sets took out 89% of the sets. **A small
+per-item failure rate is not a small per-set failure rate when the failure is
+fatal to the whole batch.**
+
+Fixed by loading the genome index's contig names once and skipping any copy
+whose contig is absent, before the bed is written:
+
+```python
+_FAI_OK = set(l.split("\t")[0] for l in open(g + ".fai"))
+...
+if c not in _FAI_OK:
+    continue
+```
+
+After the fix: 0 bedtools aborts, 0 mismatches.
+
+Diagnostic note: the failures were invisible because the check grepped only for
+`ERR` and `usable`, and `body/full mismatch` is a third category printed by a
+different code path. When a batch loses most of its items with no exceptions,
+count the outcomes (successes + skips + errors) against the input count and find
+the missing category, rather than reading the tail of the log.
