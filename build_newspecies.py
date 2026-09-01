@@ -25,21 +25,21 @@ SPECIES = [
 
 # from each genome's AnnoSINE Seed_SINE.fa header: the RNA the seed came from,
 # and AnnoSINE's own copy count (note 4: a floor, not an estimate)
-SEED = {
+SEED_FALLBACK = {
     "pom_SINE_0": ("tRNA", 537), "pom_SINE_1": ("7SL RNA", 339),
     "aca_SINE_0": ("tRNA", 176), "aca_SINE_1": ("5S rRNA", 11),
-    "hyd_SINE_0": ("tRNA", 61), "hyd_SINE_1": ("tRNA", 1616),
-    "hyd_SINE_2": ("tRNA", 8), "hyd_SINE_3": ("tRNA", 67),
-    "hyd_SINE_4": ("tRNA", 6861), "hyd_SINE_5": ("tRNA", 7),
-    "hyd_SINE_6": ("unknown", 1257), "hyd_SINE_7": ("tRNA", 697),
-    "hyd_SINE_8": ("tRNA", 3135), "hyd_SINE_9": ("5S rRNA", 246),
-    "hyd_SINE_10": ("tRNA", 95), "hyd_SINE_11": ("tRNA", 3036),
-    "hyd_SINE_12": ("tRNA", 250), "hyd_SINE_13": ("tRNA", 1144),
-    "hyd_SINE_14": ("tRNA", 2608), "hyd_SINE_15": ("tRNA", 4730),
-    "hyd_SINE_16": ("tRNA", 2252), "hyd_SINE_17": ("tRNA", 7307),
-    "hyd_SINE_18": ("tRNA", 1746), "hyd_SINE_19": ("tRNA", 5574),
-    "hyd_SINE_20": ("tRNA", 3988), "hyd_SINE_21": ("tRNA", 4663),
 }
+
+
+def load_seeds():
+    """Seed RNA and AnnoSINE copy count, read from the run rather than typed."""
+    if os.path.exists("seeds.json"):
+        d = json.load(open("seeds.json"))
+        return {k: (v[0], v[1]) for k, v in d.items()}
+    return dict(SEED_FALLBACK)
+
+
+SEED = load_seeds()
 
 CALL_LABEL = {
     "SINE": "SINE",
@@ -185,14 +185,21 @@ def main():
             sd[f[0]] = f
 
     h = [HEAD, '<div class="wrap">']
-    h.append('<p class="eyebrow">Prospective test &middot; three phyla &middot; no answer key</p>')
-    h.append("<h1>Candidate SINE families in three genomes with no SINE library</h1>")
-    h.append('<p class="lede">AnnoSINE_v2 on a snail, a starfish and a hydra. Every candidate it '
-             'proposed was searched back against its own genome, each locus pulled out with '
-             '400&nbsp;bp of flank, aligned with the consensus, the flanks pushed against the '
-             'element and degapped, and then scored. 26 candidates, 52 alignments.</p>')
-    h.append('<p class="lede">There is <strong>no answer key</strong> here &mdash; no curated '
-             'library and no prior annotation for any of the three. The only check is your eye.</p>')
+    present = [s for s in SPECIES if any(c.startswith(s[0] + "_") for c in data)]
+    n_cand = len(data)
+    n_aln = sum(len(v) for v in data.values())
+    names = ", ".join(s[1] for s in present[:-1]) + " and " + present[-1][1] if len(present) > 1         else present[0][1]
+    h.append('<p class="eyebrow">Prospective test &middot; %d genomes &middot; %d phyla</p>'
+             % (len(present), len(set(s[3] for s in present))))
+    h.append("<h1>Candidate SINE families in %d genomes with no SINE library</h1>" % len(present))
+    h.append('<p class="lede">AnnoSINE_v2 on %s. Every candidate it proposed was searched back '
+             'against its own genome, each locus pulled out with 400&nbsp;bp of flank, aligned '
+             'with the consensus, the flanks pushed against the element and degapped, and then '
+             'scored. <strong>%d candidates, %d alignments.</strong></p>' % (names, n_cand, n_aln))
+    h.append('<p class="lede">Only hydra has an answer key, and only because you supplied one: '
+             'your reading of all 22 of its candidates, shown beside the tool&rsquo;s in every '
+             'row below. For the rest there is no curated library and no prior '
+             'annotation.</p>')
 
     h.append('<div class="find">')
     h.append('<h3 style="margin-top:0">The flank islands</h3>')

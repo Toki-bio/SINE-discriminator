@@ -41,10 +41,10 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 .bar{display:inline-block;height:8px;background:var(--warn);border-radius:1px;vertical-align:middle;margin-left:6px;opacity:.75}
 </style>
 <div class="wrap">
-<p class="eyebrow">Prospective test &middot; three phyla &middot; no answer key</p>
-<h1>Candidate SINE families in three genomes with no SINE library</h1>
-<p class="lede">AnnoSINE_v2 on a snail, a starfish and a hydra. Every candidate it proposed was searched back against its own genome, each locus pulled out with 400&nbsp;bp of flank, aligned with the consensus, the flanks pushed against the element and degapped, and then scored. 26 candidates, 52 alignments.</p>
-<p class="lede">There is <strong>no answer key</strong> here &mdash; no curated library and no prior annotation for any of the three. The only check is your eye.</p>
+<p class="eyebrow">Prospective test &middot; 3 genomes &middot; 3 phyla</p>
+<h1>Candidate SINE families in 3 genomes with no SINE library</h1>
+<p class="lede">AnnoSINE_v2 on hydra, snail and starfish. Every candidate it proposed was searched back against its own genome, each locus pulled out with 400&nbsp;bp of flank, aligned with the consensus, the flanks pushed against the element and degapped, and then scored. <strong>26 candidates, 52 alignments.</strong></p>
+<p class="lede">Only hydra has an answer key, and only because you supplied one: your reading of all 22 of its candidates, shown beside the tool&rsquo;s in every row below. For the rest there is no curated library and no prior annotation.</p>
 <div class="find">
 <h3 style="margin-top:0">The flank islands</h3>
 <p>You saw faint, non-random similarity in <code>aca_SINE_0</code>&rsquo;s aligned left flank, and said the patches can sit far out on either side. Measured against a null that controls for how many copies are present in each column, they are real: <strong>17 % of its flank</strong> sits inside a patch &mdash; 426 columns in 49 of them, up to z&nbsp;=&nbsp;69, some hundreds of bases out. Its flank average is <strong>0.271</strong>, ordinary background, so the average sees nothing.</p>
@@ -57,7 +57,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <p class="cap">22 candidates, 15 scoring 50 or above on their best view.</p>
 <div class="tw"><table><thead><tr><th title="candidate name, the small RNA its seed came from, and AnnoSINE&#x27;s own copy count. A floor, not an estimate - a real search finds several times more.">candidate</th><th title="copies in this alignment, and which hits they are">n</th><th title="0 to 100. At 50 and above the tool accepts it">score</th><th title="median pairwise identity across the whole element">identity</th><th title="pairwise identity in the flanks. 0.25 to 0.31 means the copies sit in independent places; much higher means they do not">flank bg</th><th title="fraction of the flank sitting inside a patch of significantly raised similarity, and the column count. Measured on the full 400 bp flank. His own calls put plain SINEs at or below 0.067 and flank-caution calls at 0.19 to 0.37">island frac</th><th title="hover any flag for the full reason">what the tool says</th><th title="his own reading of the top100 alignment">his call</th><th>alignments</th></tr></thead><tbody>
 <tr>
-<td class="name" rowspan="2">hyd_SINE_0<div class="cap">tRNA &middot; 61 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_0<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n bad">0.2</td>
 <td class="n">0.560</td>
@@ -77,7 +77,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_0__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_1<div class="cap">tRNA &middot; 1616 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_1<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">100.0</td>
 <td class="n">0.789</td>
@@ -97,7 +97,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_1__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr>
-<td class="name" rowspan="2">hyd_SINE_2<div class="cap">tRNA &middot; 8 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_2<div class="cap">?</div></td>
 <td class="n">8 <span class="cap">top100</span></td>
 <td class="n bad">45.0</td>
 <td class="n">0.595</td>
@@ -117,7 +117,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="every hit, because there were fewer than 100" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_2__all.clean.aln.fa">all</a></td>
 </tr>
 <tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_3<div class="cap">tRNA &middot; 67 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_3<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">100.0</td>
 <td class="n">0.834</td>
@@ -137,7 +137,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_3__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr>
-<td class="name" rowspan="2">hyd_SINE_4<div class="cap">tRNA &middot; 6861 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_4<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">86.2</td>
 <td class="n">0.774</td>
@@ -157,7 +157,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_4__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_5<div class="cap">tRNA &middot; 7 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_5<div class="cap">?</div></td>
 <td class="n">62 <span class="cap">top100</span></td>
 <td class="n ok">96.6</td>
 <td class="n">0.641</td>
@@ -177,7 +177,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="every hit, because there were fewer than 100" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_5__all.clean.aln.fa">all</a></td>
 </tr>
 <tr>
-<td class="name" rowspan="2">hyd_SINE_6<div class="cap">unknown &middot; 1257 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_6<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n bad">45.0</td>
 <td class="n">0.785</td>
@@ -197,7 +197,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_6__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_7<div class="cap">tRNA &middot; 697 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_7<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n bad">45.0</td>
 <td class="n">0.977</td>
@@ -217,7 +217,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_7__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr>
-<td class="name" rowspan="2">hyd_SINE_8<div class="cap">tRNA &middot; 3135 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_8<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">86.3</td>
 <td class="n">0.850</td>
@@ -237,7 +237,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_8__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_9<div class="cap">5S rRNA &middot; 246 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_9<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n bad">0.2</td>
 <td class="n">0.789</td>
@@ -257,7 +257,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_9__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr>
-<td class="name" rowspan="2">hyd_SINE_10<div class="cap">tRNA &middot; 95 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_10<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">91.6</td>
 <td class="n">0.701</td>
@@ -277,7 +277,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_10__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_11<div class="cap">tRNA &middot; 3036 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_11<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">100.0</td>
 <td class="n">0.857</td>
@@ -297,7 +297,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_11__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr>
-<td class="name" rowspan="2">hyd_SINE_12<div class="cap">tRNA &middot; 250 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_12<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">57.9</td>
 <td class="n">0.768</td>
@@ -317,7 +317,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_12__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_13<div class="cap">tRNA &middot; 1144 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_13<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">94.2</td>
 <td class="n">0.677</td>
@@ -337,7 +337,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_13__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr>
-<td class="name" rowspan="2">hyd_SINE_14<div class="cap">tRNA &middot; 2608 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_14<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">93.2</td>
 <td class="n">0.840</td>
@@ -357,7 +357,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_14__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_15<div class="cap">tRNA &middot; 4730 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_15<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">100.0</td>
 <td class="n">0.935</td>
@@ -377,7 +377,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_15__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr>
-<td class="name" rowspan="2">hyd_SINE_16<div class="cap">tRNA &middot; 2252 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_16<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n bad">0.0</td>
 <td class="n">0.724</td>
@@ -397,7 +397,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_16__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_17<div class="cap">tRNA &middot; 7307 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_17<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n bad">0.2</td>
 <td class="n">0.895</td>
@@ -417,7 +417,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_17__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr>
-<td class="name" rowspan="2">hyd_SINE_18<div class="cap">tRNA &middot; 1746 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_18<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">100.0</td>
 <td class="n">0.811</td>
@@ -437,7 +437,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_18__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_19<div class="cap">tRNA &middot; 5574 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_19<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">100.0</td>
 <td class="n">0.689</td>
@@ -457,7 +457,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_19__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr>
-<td class="name" rowspan="2">hyd_SINE_20<div class="cap">tRNA &middot; 3988 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_20<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">100.0</td>
 <td class="n">0.620</td>
@@ -477,7 +477,7 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 <td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__hyd_SINE_20__rand100.clean.aln.fa">rand100</a></td>
 </tr>
 <tr class="alt">
-<td class="name" rowspan="2">hyd_SINE_21<div class="cap">tRNA &middot; 4663 copies</div></td>
+<td class="name" rowspan="2">hyd_SINE_21<div class="cap">?</div></td>
 <td class="n">100 <span class="cap">top100</span></td>
 <td class="n ok">100.0</td>
 <td class="n">0.928</td>

@@ -130,7 +130,20 @@ family he accepted, so no threshold was set.
 So the property is real and still unmeasured. What is missing is probably not a
 sharper edge statistic but a boundary that is defined by the copies rather than
 by the consensus: where does each copy actually stop matching, and how much do
-those stopping points agree? That is the next thing to build.
+those stopping points agree?
+
+**A third attempt at exactly that also failed** (`copy_boundary.py`): slide a
+15 bp window along each copy, find the outermost position on each side where it
+still matches above chance, then report the spread of those positions. It
+returns nonsense - offsets of +304 and -359 on a ~300 bp element, and a spread
+of 0.0 for almost every set. The cause is that it walks along **alignment
+columns**: MAFFT leaves long gap runs, the window drops below half-valid, the
+run of "still element" breaks immediately, and every copy collapses to the
+element midpoint.
+
+The fix is to walk each copy's **own ungapped sequence** and map back to columns
+only at the end. Not done - recorded so the next attempt starts from the right
+place rather than repeating this one.
 
 ---
 
