@@ -8,6 +8,85 @@ after every exchange.
 
 ---
 
+## 2026-09-02 — all three genomes rebuilt, and where the islands actually live
+
+### The five hydra candidates that were never scored
+
+Hydra's alignments finished at 13:34; the scoring ran at 13:27. So
+`hyd_SINE_17` through `hyd_SINE_21` had alignments and no verdicts, and the
+results page showed 17 of 22 candidates without saying so. Everything is now
+rebuilt in one pass (`newsp_all.py` on DRAGEN): raw alignment, flanks
+justified, flank width trimmed, scored, islands measured. **52 alignments over
+26 candidates**, all published.
+
+Hydra: 19 of 22 candidates score 50 or above on their best view. The three that
+do not are `hyd_SINE_0`, `hyd_SINE_9` and `hyd_SINE_16`, all with NO_ELEMENT;
+the first two also with SHARED_FLANKS.
+
+### Trimming the flanks destroys the island signal
+
+This one matters for how the tool is put together. Measured on the **trimmed**
+alignment, `aca_SINE_0` has **6** island columns. Measured on the **full 400 bp
+flank**, it has **426**.
+
+Trimming cuts the flank panel to the width the copies actually fill, which is
+right for looking at a boundary and is what fixed his complaint about walls of
+dashes. But it removes exactly the far-out columns he said the islands sit in
+(*"these islands can be far off on the flanks (both directions)"*).
+
+**So the island scan must never run on the display alignment.** Same rule as
+flank decay: short flanks to look at, long flanks to measure. Recorded in
+`ALGORITHM_NOTES.md` as part of note 10.
+
+### Rescanned uniformly, only ONE candidate is invisible to the score
+
+All 50 measurable alignments scanned with one null (per-column pairwise
+identity against that set's own flank composition, SD from the number of pairs
+actually present, columns with under 8 copies not scored):
+
+| alignment | patches | max z | island cols | flank bg | score | already caught? |
+|---|---|---|---|---|---|---|
+| `hyd_SINE_9` top100 | 50 | 112.2 | **739** | 0.914 | 0.0 | yes, SHARED_FLANKS |
+| `hyd_SINE_9` rand100 | 46 | 110.8 | 722 | 0.800 | 0.0 | yes |
+| **`aca_SINE_0` top100** | 49 | 69.1 | **426** | **0.271** | **100.0** | **no** |
+| `aca_SINE_1` all | 38 | 74.9 | 424 | 0.450 | 26.3 | partly, bg raised |
+| `hyd_SINE_17` top100 | 28 | 88.1 | 303 | 0.543 | 100.0 | yes |
+| `hyd_SINE_0` top100 | 10 | 109.9 | 139 | 0.614 | 0.0 | yes |
+| everything else | <= 10 | | <= 75 | ~0.30 | | too little to matter |
+
+Taking "invisible" to mean over 150 island columns with a flank average under
+0.40, **`aca_SINE_0` is the only one in the entire corpus.** Every other set
+with a big island count has a raised flank average too, so the existing
+SHARED_FLANKS rule already fires on it.
+
+That is the whole case for the measure: it is not that averaging misses
+similarity in general, it is that averaging misses *localised* similarity, and
+exactly one candidate here has localised similarity without the global kind.
+
+**Earlier numbers superseded.** The 839 / 754 / 713 counts I reported before
+came from a scan with a different null; these come from one method applied to
+all 50 sets and are the ones to use. The ordering and the conclusion are
+unchanged.
+
+### Correction: hyd_SINE_9 is not a second blind spot
+
+I wrote that `hyd_SINE_9` (713 island columns) was a second case the score
+could not see, and predicted it would look like `aca_SINE_0` by eye. That was
+wrong. Its flank background is **0.914** — the score rejects it outright with
+SHARED_FLANKS and NO_ELEMENT. It should look *different* under the eye: similar
+all the way along the flank rather than in patches. `aca_SINE_0` is the one to
+check.
+
+### The results page
+
+`site/newspecies.html` rebuilt from the data files with no hand-typed numbers:
+all three species, all 26 candidates, every view on its own row, links to the
+**justified and trimmed** alignments, a flank-island column with a magnitude
+bar, the full SINEderella table for the snail, and hover text on every flag and
+every column heading. Five tables, all fitting without horizontal scroll.
+
+---
+
 ## 2026-09-02 — SINEderella on the snail candidates, and aca_SINE_1's full reject case
 
 ### Full SINEderella run on the two refined snail consensuses

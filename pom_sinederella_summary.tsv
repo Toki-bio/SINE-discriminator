@@ -1,0 +1,3 @@
+subfam	firm_assigned	soft_assigned	total_assigned	leak_n	conf_alt_n	firm_pct	total_pct	leak_pct	conf_alt_pct	sim_mean	sim_median
+pomSINE0	4712	1304	6016	0	3	53.16	67.87	0.00	0.06	0.7371	0.7045
+pomSINE1	1249	1599	2848	0	0	14.09	32.13	0.00	0.00	0.6712	0.6533

@@ -132,28 +132,64 @@ islands of similarity"*, and then *"these islands can be far off on the flanks
 
 He is right, and my first reading was wrong: I dismissed the far-upstream ones
 as low-coverage artifacts. With a null that controls for how many copies are
-present at each column, they are strongly significant — **z up to 92 with 60–98
-of 100 copies present**, at distances of 60, 153, 239, 301, 348, 452, even
-**801 bp** from the element, on both sides.
+present at each column, they are strongly significant — on `aca_SINE_0`,
+**49 patches covering 426 columns, up to z = 69**, on both sides and hundreds
+of bases out from the element. The coverage control is the whole difference:
+without it a column where 12 copies of 100 happen to agree looks like noise
+alongside one where 98 do.
 
-Counting island columns (z > 8 sustained over >= 6 columns) across all
-candidates:
+Scanned uniformly over all 50 measurable alignments of the prospective corpus
+(z > 8 sustained over at least 6 columns, against a null that controls for
+coverage):
 
-| candidate | islands | island columns | tool score |
+| alignment | island columns | flank_bg | score |
 |---|---|---|---|
-| `aca_SINE_0` | 55 | **839** | **100.0** |
-| `aca_SINE_1` (rejected) | 33 | 754 | 26.3 |
-| `hyd_SINE_9` | 4 | **713** | — |
-| `pom_SINE_0` | 2–6 | 22–50 | 100.0 |
-| most hydra | 0–1 | 0–126 | — |
+| `hyd_SINE_9` | 739 | 0.914 | 0.0 |
+| **`aca_SINE_0`** | **426** | **0.271** | **100.0** |
+| `aca_SINE_1` (rejected) | 424 | 0.450 | 26.3 |
+| `hyd_SINE_17` | 303 | 0.543 | 100.0 |
+| `hyd_SINE_0` | 139 | 0.614 | 0.0 |
+| everything else | <= 75 | ~0.30 | |
 
-**`aca_SINE_0` scores a perfect 100 and has more flank similarity than the set
-he rejected.** The score cannot see this at all.
+**`aca_SINE_0` scores a perfect 100 and has as much localised flank similarity
+as the set he rejected.** The score cannot see it.
+
+### Islands must be measured on the LONG flank, never the display alignment
+
+Same shape as the flank-decay rule, and it bites hard here:
+
+| `aca_SINE_0` measured on | island columns |
+|---|---|
+| the full 400 bp flank | **426** |
+| the trimmed display alignment | **6** |
+
+Trimming cuts the flank panel to the width the copies actually fill. That is
+right for judging a boundary and it is what fixed the walls of dashes, but it
+throws away exactly the far-out columns Sergei said the islands sit in. Two
+flank geometries, two purposes, and they must never be taken from one file.
+
+### Only one of the two high-island sets is invisible to the score
+
+I first wrote that `hyd_SINE_9` was a second case. It is not, and the
+distinction is the whole point:
+
+| | island columns | flank_bg | score | seen? |
+|---|---|---|---|---|
+| `hyd_SINE_9` | 739 | **0.914** | 0.0, SHARED_FLANKS | **yes** |
+| `aca_SINE_0` | 426 | **0.271** | 100.0, no flag | **no** |
+
+Taking "invisible" to mean over 150 island columns with a flank average below
+0.40, `aca_SINE_0` is the **only** set in the whole 50-alignment corpus.
+
+`hyd_SINE_9`'s flanks are similar *everywhere*, so an average catches it and
+the existing rule already rejects it. `aca_SINE_0`'s flanks are ordinary on
+average and similar only in patches. **The islands measure earns its place
+precisely because it separates these two, which the average cannot.**
 
 ### Why the existing flank measure misses it
 
-`flank_bg` is a single average over the whole flank. `aca_SINE_0`'s is 0.271 —
-indistinguishable from background — because a few hundred island columns are
+`flank_bg` is a single average over the whole flank. `aca_SINE_0`'s is 0.271 -
+indistinguishable from background - because a few hundred island columns are
 diluted by a thousand ordinary ones. **An average cannot detect a localised
 signal.** The islands have to be found as islands.
 
@@ -171,5 +207,6 @@ several different things, and this measurement does not distinguish them:
 Distinguishing these needs the island sequences themselves compared against the
 genome, which has not been done.
 
-**Prediction to test:** `hyd_SINE_9` (713 island columns) should show the same
-property when looked at by eye.
+**Prediction to test:** `aca_SINE_0` is the one to look at by eye - it is the
+only candidate so far with localised flank similarity and an unremarkable flank
+average. `hyd_SINE_9` will look different: similar all the way along.
