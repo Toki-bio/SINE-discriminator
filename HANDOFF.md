@@ -2417,3 +2417,75 @@ Separation untouched; the human leg improved by rescuing MIR1_Amn.
 - Minor, worth noting but not disqualifying: `AluYa8` (last 3 copies truncated
   at the right edge), `AluYh3` (11 lower copies, duplicated loci or sequence
   problems), `FLAM_C_short_` (11 middle copies probably carry a second monomer).
+
+## 53. Deferred verdicts, and justified alignments for both species
+
+### 53a. HETEROGENEOUS_SELECTION - withholding a verdict is a third answer
+
+Sergei on `AluYk11`: "truly a mixture, top proper about half longer similarity
+sequences need separate analysis as a good SINE candidate, then bottom more
+discordant shorter ones need additional fresh re-run of whole analysis. **This
+non-homogenous selection problem is different from bad SINE set and needs
+additional work before verdict.**"
+
+`SUBFAMILY_NOTE` already detected these splits but explicitly said they "do not
+affect the verdict". He is saying the opposite: they must *defer* one.
+
+**The discriminator is group LENGTH, not sequence divergence.** Measured across
+every set carrying `SUBFAMILY_NOTE`, relative median length difference between
+the two groups put his three flagged sets at the top, with a clear gap below:
+
+| set | rel. length diff | medians | flagged by Sergei |
+|---|---|---|---|
+| AluYk11 | **0.309** | 311 / 215 bp | yes |
+| CAS | **0.133** | 113 / 98 bp | yes |
+| AluYh9 | **0.122** | 230 / 202 bp | yes |
+| SINE_25 | 0.116 | 160 / 181 bp | (separately, as a fragment) |
+| SINE_54 | 0.096 | 282 / 255 bp | no |
+| ... 8 more | <= 0.064 | | no |
+
+The reasoning: subfamilies of one element differ in **sequence** at roughly
+equal length; a mixture differs in **length**. Threshold 0.12.
+
+**Caveat, stated because it matters:** a threshold fitted to exactly three
+positive examples is overfit until more cases arrive. It should be revisited as
+grey-zone cases accumulate, not treated as calibrated.
+
+Sets now carry `deferred: true` and the page shows **deferred** in place of a
+score, with its own filter.
+
+**Corpus-wide it fires on 39 sets, and where it fires is the validation**: 24 of
+28 `NEGTRUNC5` - which are *constructed* with 5'-truncated copies, so a
+length-based split is exactly correct, and matches his earlier reading that
+those are SINE-like with a bad left edge - plus 4 `NEGCHIM`, the three
+`MOSAIC*` length-variant sets, and 4 human.
+
+The 4th human set is **`AluSx1`, a 25% split (234 vs 312 bp)** - a *larger*
+split than CAS or AluYh9, so a genuine detection rather than a marginal one, and
+plausible given the benchmark also contains `AluSx_short_`. He did not comment
+on it either way; it is a prediction to check.
+
+### 53b. Justified alignments as a third view
+
+He noted that `LFSINE_Vert`, `AmnSINE1/2`, `AluYh7` and `AluYk3` are "not
+presented properly with aligned gappy flanks". MAFFT spuriously aligns short
+flanks, which makes a clean insertion look ragged.
+
+All 119 benchmark alignments now also exist justified - flanks de-gapped and
+pushed against the element, element alignment byte-identical - published as
+`<name>.just.aln.fa` and linked from every row as a third **justified** view
+beside 50bp and 400bp.
+
+Effect, measured on the flank region only (the whole-alignment gap fraction
+barely moves and is the wrong measure):
+
+| set | flank cols | flank gap fraction |
+|---|---|---|
+| LFSINE_Vert | 166 -> 123 | **0.456 -> 0.266** |
+| AluYh7 | 143 -> 127 | 0.463 -> 0.395 |
+| AmnSINE1 | 123 -> 116 | 0.507 -> 0.477 |
+
+So justification substantially cleans `LFSINE_Vert`, and barely touches
+`AmnSINE1` - whose flanks are therefore *genuinely* ragged rather than a display
+artifact. That is itself informative: it separates "looks bad because of the
+aligner" from "looks bad because it is".

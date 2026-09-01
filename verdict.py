@@ -387,6 +387,33 @@ def verdict(path):
     # scramble - seg_diag against scrambling went from -0.61 on the joint grid
     # to -0.92 once contamination was low - so pruning has to come first.
     sub = subfamily_split(p["el"], p["pres"], ident, thr=thr)
+
+    # Is this one family with subfamily structure, or two different things that
+    # should be separated and re-analysed before any verdict is given?
+    #
+    # Sergei on AluYk11: "truly a mixture, top proper about half longer
+    # similarity sequences need separate analysis as a good SINE candidate, then
+    # bottom more discordant shorter ones need additional fresh re-run of whole
+    # analysis. This non-homogenous selection problem is different from bad SINE
+    # set and needs additional work before verdict."
+    #
+    # The discriminator is the LENGTH of the two groups, not their sequence
+    # divergence. Measured over every set carrying SUBFAMILY_NOTE, relative
+    # median length difference put his three flagged sets at the top - AluYk11
+    # 0.309, CAS 0.133, AluYh9 0.122 - with a clear drop to 0.096 and below for
+    # every set he did not flag. Ordinary subfamilies differ in sequence at
+    # roughly equal length; a mixture differs in length.
+    het = None
+    if sub and "members" in sub:
+        _el = (p["el"] != M.GAP).sum(axis=1).astype(float)
+        _m = np.zeros(len(_el), bool)
+        _m[sub["members"]] = True
+        if _m.sum() >= 5 and (~_m).sum() >= 5:
+            _a, _b = float(np.median(_el[_m])), float(np.median(_el[~_m]))
+            _rel = abs(_a - _b) / max(_a, _b, 1.0)
+            if _rel >= 0.12:
+                het = {"rel_len": round(_rel, 3), "med": [round(_a), round(_b)],
+                       "sizes": sub["sizes"]}
     turb = turbulence(p["el"], p["pres"])
 
     elen = (p["el"] != M.GAP).sum(axis=1).astype(float)
@@ -548,6 +575,17 @@ def verdict(path):
                               "impression rather than a measurement - it should not be read as "
                               "a confident accept OR a confident reject. Gather more copies "
                               "from the genome before deciding." % n})
+    if het:
+        flags.append({"code": "HETEROGENEOUS_SELECTION", "n": het["sizes"],
+                      "text": "This is not one family: the %d and %d copies split into groups "
+                              "whose median lengths are %d and %d bp (%.0f %% apart). Subfamilies "
+                              "of one element differ in sequence at roughly equal length; a "
+                              "difference this large means two different things were collected "
+                              "together. Separate them and re-run the whole analysis on each - "
+                              "the score below is withheld, because scoring a mixture answers "
+                              "neither question."
+                              % (het["sizes"][0], het["sizes"][1], het["med"][0],
+                                 het["med"][1], 100 * het["rel_len"])})
     if cv_core > 0.18 and n_core >= 15:
         flags.append({"code": "TRUNCATED_COPIES", "n": round(cv_core, 3),
                       "text": "Copy length varies widely (CV %.2f against 0.05 for a clean "
@@ -585,6 +623,7 @@ def verdict(path):
 
     return {"set": os.path.basename(path).replace(".aln.fa", ""),
             "score": round(float(score), 1),
+            "deferred": bool(het),
             "uniqueness_measured": bool(uniq_measured),
             "groups": {"element": round(float(g_elem), 3),
                        "homogeneity": round(float(g_homog), 3),
