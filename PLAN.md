@@ -6,10 +6,18 @@ Structure: **problem → task → testing → propose the algorithm → build th
 
 ## 1. The problem
 
-Measured on 72 of Sergei's own calls (`calls.tsv`, `calls_scored.tsv`):
+Measured on the 72 alignments Sergei has judged in this project — his own words
+recorded in `calls.tsv`, the tool's answers in `calls_scored.tsv`.
 
-**(a) The output shape is wrong.** He produces categories with an action
-attached. The tool produces one number, and his categories collapse onto it:
+**(a) The tool gives the wrong kind of answer.**
+
+When Sergei looks at an alignment he names a situation and says what to do about
+it: *this is a mixture, split it and re-run each part*; *this is real but the
+consensus needs shortening*; *this is real but there are not enough copies to be
+sure*.
+
+The tool gives a number from 0 to 100. A number cannot carry that, and the proof
+is that four different situations he described all come out as exactly 100.0:
 
 | his call | n | mean score |
 |---|---|---|
@@ -25,7 +33,7 @@ to a clean SINE. Likewise MIXTURE_SPLIT_FIRST (79.6), GREY (89.5) and
 ANCIENT_BADLY_PRESENTED (92.6) overlap completely while demanding opposite
 responses.
 
-**(b) Four outright failures.**
+**(b) Four alignments where the number itself is simply wrong.**
 
 | his call | set | score |
 |---|---|---|
@@ -40,78 +48,79 @@ responses.
 
 Two things, in this order:
 
-1. **Decide what the tool outputs.** Not a score — a **category plus the action
-   it implies**. The categories are his, already observed in his own words.
-2. **Find which measurable variables separate those categories**, and admit which
-   ones no current variable can separate.
+1. **Decide what the tool should say.** Not a number — the name of the
+   situation, plus what to do about it. The situations are his, already
+   recorded in his own words.
+2. **Find which measurements tell those situations apart**, and be honest about
+   which ones nothing currently measures.
 
 ---
 
 ## 3. Testing
 
-The calibration set is 72 calls across 16 categories. Everything below is
-measured against those, never against synthetic truth.
+There are 72 alignments Sergei has judged, falling into 16 situations he
+named. Everything below is measured against those judgements, never against
+sequences I made up.
 
-### Test 1 — What separates his categories? *(all variables, existing calls)*
+### Test 1 — Which measurements tell his situations apart?
 Compute **every** variable the project has on all 72 alignments — not just the
 four groups that feed the score, but the raw ones: per-position identity and
 coverage profiles, A+T, edge sharpness left and right, copy-length spread,
 subfamily gap, contamination gap, flank decay where available, TSD fraction,
 copy count, consensus-vs-copies agreement.
-Then, per category pair, ask which variables differ.
+Then, for each pair of situations, ask which measurements actually differ
+between them and by how much.
 
-**Output:** a table of variable × category with effect sizes.
-**Decision:** which categories are already separable, and which are not.
+**Output:** a table of measurement against situation, showing how strongly each
+one separates.
+**Decision:** which situations can already be told apart, and which cannot.
 
-### Test 2 — What is missing? *(the categories nothing separates)*
-For every pair Test 1 cannot separate, look at those alignments directly and
+### Test 2 — What is missing?
+For every pair of situations Test 1 cannot tell apart, look at those alignments directly and
 name what a person sees that is not being measured. Sergei's own phrases point
 at candidates already: *"11 lower sequences"* (a subset of copies, not a
 column), *"island of instability"* in a specific region, *"right edge defined at
 gggagat"* (a motif at the boundary), *"gappy flanks"* (a display property).
 
-**Output:** a short list of proposed new variables, each with the case that
-demands it.
-**Decision:** which are worth implementing.
+**Output:** a short list of new measurements to try, each tied to the alignment
+that demands it.
+**Decision:** which are worth building.
 
-### Test 3 — Do the new variables work? *(implement and re-measure)*
-Implement the shortlist, re-run Test 1.
+### Test 3 — Do the new measurements work?
+Build the shortlist, re-run Test 1.
 
-**Output:** updated separation table.
-**Gate:** a new variable earns its place only if it separates a pair that was
-previously inseparable, without disturbing pairs that already worked.
+**Output:** an updated table.
+**Gate:** a new measurement earns its place only if it tells apart a pair that
+could not be told apart before, without spoiling a pair that already worked.
 
-### Test 4 — More calls, chosen where we are least sure
-The 72 are unevenly spread: 43 are plain SINE, and nine categories have exactly
-one example. One example cannot support a threshold.
+### Test 4 — More judgements, only where we are least sure
+The 72 are unevenly spread: 43 are a plain SINE, and nine situations have
+exactly one example. One example cannot fix a boundary between situations.
 
-Pick alignments where the proposed classifier is least certain, show them to
-Sergei, record his calls. **Ask for judgements only where they change something**
-— never as a general request to re-label.
+Pick the alignments where the rules are least certain, show those to Sergei,
+record what he says. **Ask only where his answer changes something** — never as
+a general request to re-judge everything.
 
-**Output:** an expanded calibration set, weighted toward the thin categories.
+### Test 5 — Test it on judgements it has not seen
+Set the rules using part of his judgements, then test them on the rest. Report
+how often the tool names the same situation he did, and where it fails.
 
-### Test 5 — Held-out validation
-Fit thresholds on part of the set, test on the rest. Report how often the
-predicted category matches his, and where it fails.
-
-**Gate:** if the classifier only works on the alignments it was fitted to, it is
-not a tool.
+**Gate:** if it only works on the alignments it was tuned on, it is not a tool.
 
 ---
 
 ## 4. Propose the algorithm
 
-Written only after Tests 1–5, and stating for each category:
+Written only after Tests 1-5, and stating for each situation:
 
-- the variables that identify it, with their ranges
-- the confidence, given how many examples support it
+- the measurements that identify it, and in what range
+- how much to trust it, given how many examples support it
 - **the action it implies** — split, re-extract with longer flanks, shorten the
   consensus, gather more copies, check flanks genome-wide, accept, reject
 - what it must NOT be confused with, and what prevents that
 
-Plus, explicitly: the categories that remain unseparated, so they are known
-limitations rather than silent errors.
+Plus, stated openly: the situations that still cannot be told apart, so they are
+known limits rather than silent mistakes.
 
 ---
 
@@ -141,8 +150,8 @@ Only after the algorithm is proposed and validated.
 | 1 | Test 1 — separation table | — |
 | 2 | Test 2 — name what is missing | — |
 | 3 | Test 3 — implement, re-measure | new variables must separate something previously inseparable |
-| 4 | Test 4 — more calls where thin | at least 3 examples per category that carries an action |
-| 5 | Test 5 — held-out validation | predicted category matches his on held-out alignments |
+| 4 | Test 4 — more judgements where thin | at least 3 examples for every situation that carries an action |
+| 5 | Test 5 — test on unseen judgements | the tool names the same situation he does, on alignments it was not tuned on |
 | 6 | propose the algorithm | — |
 | 7 | build | algorithm validated |
 
@@ -153,9 +162,10 @@ library — snail, starfish, hydra. First prospective test.
 
 ## 7. Rules
 
-- His calls are ground truth. Curated `tim/` is ground truth. **Human Dfam is
-  not** — it contains fragments, an ancestral gene, mixtures and single-copy
+- His judgements are the standard. The curated `tim/` set is the standard.
+  **Human Dfam is not** — it contains fragments, an ancestral gene, mixtures and single-copy
   entries.
 - Record his words verbatim before doing anything with them.
 - Compute on the servers.
-- Every claim gets measured against `calls.tsv`, not against a synthetic corpus.
+- Every claim gets measured against his judgements in `calls.tsv`, not against
+  sequences I generated.
