@@ -2560,3 +2560,46 @@ verdict.
 | TIMB | 55 | **94.5** (was 93.1) | | **3** (was 4) |
 
 Nine sets across the corpus have no measurable flanks and now say so.
+
+## 55. The inverted labels dissolve at 400 bp - the original problem is closed
+
+The finding that opened this whole benchmark - Timema scores "inverted" against
+Sergei's labels (§39) - is resolved, and the answer is that **it was an artifact
+of the 50 bp flank width**, not a disagreement.
+
+All three candidates he judged real, scored on both geometries:
+
+| candidate | 50 bp | 400 bp | decay call | flags at 400 bp |
+|---|---|---|---|---|
+| `SINE_17` | 100.0 | **100.0** | ISOLATED_INSERTION | none |
+| `SINE_47` | 44.4 | **94.3** | ISOLATED_INSERTION | **none at all** |
+| `SINE_25` | 46.7 | **69.6** | ELEMENT_CONTINUES | FRAGMENT_OF_LONGER, SUBFAMILY_NOTE, HETEROGENEOUS_SELECTION |
+
+`SINE_47` goes from a rejection to a clean 94.3 with no flags. `SINE_25` is not
+merely accepted but *explained*: at 400 bp its similarity does not stop at the
+annotated boundary, and the tool says so - `ELEMENT_CONTINUES` plus
+`FRAGMENT_OF_LONGER`. That is a substantive claim about the annotation, agreeing
+with his own reading, not a failure to recognise a SINE.
+
+For contrast, `SINE_43` (leak 59.3%) stays 0.0 `NO_ELEMENT` at BOTH widths while
+its decay call is a clean `ISOLATED_INSERTION` - i.e. the locus set really is
+isolated, the copies really do not match their consensus (median identity 0.38
+against a 0.25 baseline). Consistent with §47: its consensus resembles a real
+family, its loci do not support it.
+
+**Every score I reported for these candidates before the 400 bp extraction
+existed was measured on a geometry that could not answer the question.** The
+lesson is already recorded as a design rule in §49 - element evidence from the
+short alignment, flank decay from the long one - but this is the case where
+ignoring it produced a wrong conclusion that stood for days.
+
+### The benchmark page now carries all three legs
+
+`benchmark.html` has a third section: the 14 curated `tim/` subfamilies, 42
+alignments, with their own stats and filters (top100 / rand100 / subfam /
+flagged), each linking to the alignment and its justified variant. 84 curated
+alignment files added.
+
+The page states plainly why that leg is the strongest: those boundaries were
+independently confirmed on all 24 sides, so a boundary-anchored tool is being
+judged against boundaries somebody else verified.
