@@ -96,14 +96,42 @@ leans SINE on. Flagged, not hidden.
 ### hyd_SINE_5, looked at again
 
 His second reading, with a screenshot of the left end: *"looks like mosaic, i
-still cant decide but its not a good sine if at all."* Still the one disagreement
-- the tool gives it 96.6 with only a subfamily note. What the screenshot shows is
-a short conserved block at the element's 5' end that only some copies carry,
-with the rest discordant there, and that is the measurement still missing:
-**whether the same copies group together in every region.** A subfamily split is
-consistent along the element; a mosaic split shuffles membership between
-regions. That is the next thing to build, and it is a different statistic from
-all four already tried.
+still cant decide but its not a good sine if at all."*
+
+**Fifth attempt, and the first that measures the right thing.**
+`region_partition.py` splits the element into thirds, splits the copies at the
+median identity in each third, and asks with an adjusted Rand index whether the
+*same* copies group together everywhere. Two subfamilies split the same way
+along the element; a mosaic shuffles membership.
+
+On the labelled corpus it does exactly that:
+
+| class | median consistency |
+|---|---|
+| SIMSUBFAM | **0.560** |
+| MIXSUBFAM | 0.064 (max **0.870**) |
+| MIXED30 | 0.202 |
+| POS | 0.010 |
+| NEGMOSAIC / SIMMOSAIC | **0.010 / 0.012** |
+| MOSAICKALEID / MOSAICDEL | -0.003 / -0.002 |
+
+`hyd_SINE_5` reads **0.037** with a detected split - the split does not hold
+along the element.
+
+**But it cannot be used to reject.** POS is also ~0.010, because a clean family
+has no real split to be consistent about, and MIXSUBFAM's median is only 0.064 -
+so any threshold catching `hyd_SINE_5` would also catch subfamily mixtures he
+considers fine. What the measure gives is *conditional* information: when a
+split has been detected, it says whether the split is two families or patchwork.
+
+So it goes into the subfamily note rather than the score. `hyd_SINE_5` now
+reads: *"group membership shuffles between the 5' end, the middle and the 3' end
+(consistency 0.04, against 0.56 for a real subfamily split): the copies are not
+two families so much as patchwork, which is worth looking at by eye."* That is
+what he sees, said back to him, without a verdict the evidence cannot carry -
+which matches his own position, *"i still cant decide"*.
+
+The score stays 96.6 and it stays the one disagreement.
 
 Hydra now stands at **20 agree, 1 disagree, 1 not assessable** out of 22.
 

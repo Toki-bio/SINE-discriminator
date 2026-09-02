@@ -171,6 +171,25 @@ try:
 except Exception:
     _MSAT = {}
 
+# Region consistency, from region_partition.py: when the copies split into two
+# groups, are they the SAME copies in every third of the element?
+#
+# Sergei separates two things that look alike in any single number. Two real
+# subfamilies split the same way along the whole element, and he is explicit
+# that this does not matter - "subfamily ambiguity doesn't matter, we answer
+# sine/not-sine". A mosaic splits differently in different places: a copy sides
+# with one group at the 5' end and another in the middle.
+#
+# On the corpus the measure runs 0.56 for SIMSUBFAM and up to 0.87 for
+# MIXSUBFAM against 0.010-0.012 for NEGMOSAIC and SIMMOSAIC. It is NOT used to
+# reject anything: real subfamily mixtures have a median of only 0.064, so any
+# threshold that caught hyd_SINE_5 would also catch sets he considers fine. It
+# is reported inside the subfamily note so the split can be read for what it is.
+try:
+    _REGPART = json.load(open("region_part.json"))
+except Exception:
+    _REGPART = {}
+
 MSAT_ELEM = 0.15
 MSAT_FLANK = 0.20
 
@@ -373,6 +392,7 @@ def verdict(path):
     dec = _DECAY.get(os.path.basename(path).replace(".aln.fa", ""))
     isl = _ISLANDS.get(os.path.basename(path).replace(".aln.fa", ""))
     ms = _MSAT.get(os.path.basename(path).replace(".aln.fa", ""))
+    rp = _REGPART.get(os.path.basename(path).replace(".aln.fa", ""))
 
     # background first, because the support threshold is defined against it
     # A side only contributes if it actually HAS flank sequence to measure. The
@@ -768,9 +788,18 @@ def verdict(path):
                                   "%d and %d (within-group identity %.2f, between %.2f, excess "
                                   "over a random split %.3f). Both are SINEs - this does not "
                                   "affect the verdict, but the copies can be split if the "
-                                  "subfamilies are wanted separately."
+                                  "subfamilies are wanted separately.%s"
                                   % (sub["sizes"][0], sub["sizes"][1], sub["within"],
-                                     sub["between"], sub.get("gap_excess", 0))})
+                                     sub["between"], sub.get("gap_excess", 0),
+                                     "" if not rp else
+                                     (" The same copies stay together along the whole element "
+                                      "(consistency %.2f), so this is two subfamilies."
+                                      % rp["consistency"] if rp["consistency"] >= 0.20 else
+                                      " But group membership shuffles between the 5' end, the "
+                                      "middle and the 3' end (consistency %.2f, against 0.56 for "
+                                      "a real subfamily split): the copies are not two families "
+                                      "so much as patchwork, which is worth looking at by eye."
+                                      % rp["consistency"]))})
         if (not dec) and n_shared / max(1, n) > 0.15:
             kind = ("a satellite or segmental duplication" if global_elev - BG > 0.15
                     else "another repeat or a duplication")
@@ -900,6 +929,7 @@ def verdict(path):
             "msat_elem": None if not ms else ms.get("msat_elem"),
             "msat_flank": None if not ms else ms.get("msat_flank"),
             "core_frac": round(n_core / float(max(1, n)), 3),
+            "region_consistency": None if not rp else rp.get("consistency"),
             "capped_by": capped_by,
             "assessable": assessable,
             "island_frac": None if not isl else isl.get("frac"),
