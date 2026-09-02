@@ -43,7 +43,7 @@ td.n.cap,.cap.n{color:var(--muted)}
 .bar{display:inline-block;height:8px;background:var(--warn);border-radius:1px;vertical-align:middle;margin-left:6px;opacity:.75}
 </style>
 <div class="wrap">
-<p class="eyebrow">Prospective test &middot; 6 genomes &middot; 6 phyla</p>
+<p class="eyebrow">Prospective test &middot; 6 genomes &middot; 6 phyla &middot; built 2026-09-02 16:41</p>
 <h1>Candidate SINE families in 6 genomes with no SINE library</h1>
 <p class="lede">AnnoSINE_v2 on hydra, snail, starfish, sturgeon, skate and bark scorpion. Every candidate it proposed was searched back against its own genome, each locus pulled out with 400&nbsp;bp of flank, aligned with the consensus, the flanks pushed against the element and degapped, and then scored. <strong>124 candidates, 248 alignments.</strong></p>
 <p class="lede">Only hydra has an answer key, and only because you supplied one: your reading of all 22 of its candidates, shown beside the tool&rsquo;s in every row below. For the rest there is no curated library and no prior annotation.</p>
@@ -55,6 +55,7 @@ td.n.cap,.cap.n{color:var(--muted)}
 <tr><td><a class="lnk" href="#ska">skate</a> <span class="cap">Amblyraja radiata</span></td><td class="cap">Chondrichthyes</td><td class="n">31</td><td class="n ok">23</td><td class="n">3</td><td class="n">&mdash;</td><td class="n ">&mdash;</td></tr>
 <tr><td><a class="lnk" href="#sco">bark scorpion</a> <span class="cap">Centruroides vittatus</span></td><td class="cap">Arachnida</td><td class="n">12</td><td class="n ok">10</td><td class="n">1</td><td class="n">&mdash;</td><td class="n ">&mdash;</td></tr>
 </tbody></table></div>
+<div class="note" style="border-left-color:var(--accent)"><strong>Every consensus on this page was rebuilt from its own copies.</strong> AnnoSINE hands over a single genomic locus per family, not a consensus, so the first pass searched and scored against one copy &mdash; hyd_SINE_0&rsquo;s covered 79&nbsp;bp of a 208&nbsp;bp element and the rest was measured as flank. Each one here went through <code>sine_consensus.sh</code> to get a full-length consensus, then <code>conse</code> at 35&nbsp;% over the top 100 hits by bitscore, then an orientation check &mdash; box&nbsp;B towards the 5&prime; end, A-rich tail towards the 3&prime;. About half of every genome&rsquo;s families came out reverse-complemented, because nothing in the pipeline had ever chosen a direction. The superseded first-pass alignments are not linked from this page.</div>
 <div class="find">
 <h3 style="margin-top:0">The flank islands</h3>
 <p>You saw faint, non-random similarity in <code>aca_SINE_0</code>&rsquo;s aligned left flank, and said the patches can sit far out on either side. Measured against a null that controls for how many copies are present in each column, they are real: <strong>17 % of its flank</strong> sits inside a patch &mdash; 426 columns in 49 of them, up to z&nbsp;=&nbsp;69, some hundreds of bases out. Its flank average is <strong>0.271</strong>, ordinary background, so the average sees nothing.</p>
