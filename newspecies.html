@@ -43,9 +43,9 @@ td.n.cap,.cap.n{color:var(--muted)}
 .bar{display:inline-block;height:8px;background:var(--warn);border-radius:1px;vertical-align:middle;margin-left:6px;opacity:.75}
 </style>
 <div class="wrap">
-<p class="eyebrow">Prospective test &middot; 5 genomes &middot; 5 phyla</p>
-<h1>Candidate SINE families in 5 genomes with no SINE library</h1>
-<p class="lede">AnnoSINE_v2 on hydra, snail, starfish, sturgeon and skate. Every candidate it proposed was searched back against its own genome, each locus pulled out with 400&nbsp;bp of flank, aligned with the consensus, the flanks pushed against the element and degapped, and then scored. <strong>77 candidates, 154 alignments.</strong></p>
+<p class="eyebrow">Prospective test &middot; 6 genomes &middot; 6 phyla</p>
+<h1>Candidate SINE families in 6 genomes with no SINE library</h1>
+<p class="lede">AnnoSINE_v2 on hydra, snail, starfish, sturgeon, skate and bark scorpion. Every candidate it proposed was searched back against its own genome, each locus pulled out with 400&nbsp;bp of flank, aligned with the consensus, the flanks pushed against the element and degapped, and then scored. <strong>124 candidates, 248 alignments.</strong></p>
 <p class="lede">Only hydra has an answer key, and only because you supplied one: your reading of all 22 of its candidates, shown beside the tool&rsquo;s in every row below. For the rest there is no curated library and no prior annotation.</p>
 <div class="tw"><table><thead><tr><th>genome</th><th>phylum</th><th title="candidates AnnoSINE proposed">candidates</th><th title="scoring 50 or above on their best view">accepted</th><th title="too few copies or no flanks - the evidence cannot answer the question either way">not assessable</th><th title="candidates Sergei has read himself">judged</th><th title="candidates where the tool and his reading agree">agree</th></tr></thead><tbody>
 <tr><td><a class="lnk" href="#hyd">hydra</a> <span class="cap">Hydra vulgaris</span></td><td class="cap">Cnidaria</td><td class="n">22</td><td class="n ok">16</td><td class="n">1</td><td class="n">22</td><td class="n ">20 of 22</td></tr>
@@ -53,6 +53,7 @@ td.n.cap,.cap.n{color:var(--muted)}
 <tr><td><a class="lnk" href="#aca">starfish</a> <span class="cap">Acanthaster planci</span></td><td class="cap">Echinodermata</td><td class="n">2</td><td class="n ok">1</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n ">&mdash;</td></tr>
 <tr><td><a class="lnk" href="#stu">sturgeon</a> <span class="cap">Acipenser ruthenus</span></td><td class="cap">Actinopterygii</td><td class="n">14</td><td class="n ok">9</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n ">&mdash;</td></tr>
 <tr><td><a class="lnk" href="#ska">skate</a> <span class="cap">Amblyraja radiata</span></td><td class="cap">Chondrichthyes</td><td class="n">31</td><td class="n ok">23</td><td class="n">3</td><td class="n">&mdash;</td><td class="n ">&mdash;</td></tr>
+<tr><td><a class="lnk" href="#sco">bark scorpion</a> <span class="cap">Centruroides vittatus</span></td><td class="cap">Arachnida</td><td class="n">12</td><td class="n ok">10</td><td class="n">1</td><td class="n">&mdash;</td><td class="n ">&mdash;</td></tr>
 </tbody></table></div>
 <div class="find">
 <h3 style="margin-top:0">The flank islands</h3>
@@ -1522,6 +1523,251 @@ td.n.cap,.cap.n{color:var(--muted)}
 </tr>
 </tbody></table></div>
 <div class="rule"></div>
+<h2 id='sco'>bark scorpion <span class='lat'>Centruroides vittatus &middot; Arachnida &middot; GCF_030686945.1</span></h2>
+<p class="cap">12 candidates, 10 scoring 50 or above on their best view, 1 with too little evidence to assess.</p>
+<div class="tw"><table><thead><tr><th title="candidate name, the small RNA its seed came from, and AnnoSINE&#x27;s own copy count. A floor, not an estimate - a real search finds several times more.">candidate</th><th title="copies in this alignment, and which hits they are">n</th><th title="0 to 100. At 50 and above the tool accepts it">score</th><th title="median pairwise identity across the whole element">identity</th><th title="pairwise identity in the flanks. 0.25 to 0.31 means the copies sit in independent places; much higher means they do not">flank bg</th><th title="fraction of the flank sitting inside a patch of significantly raised similarity, and the column count. Measured on the full 400 bp flank. His own calls put plain SINEs at or below 0.067 and flank-caution calls at 0.19 to 0.37">island frac</th><th title="hover any flag for the full reason">what the tool says</th><th title="his own reading of the top100 alignment">his call</th><th>alignments</th></tr></thead><tbody>
+<tr>
+<td class="name" rowspan="2">sco_SINE_0<div class="cap">?</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">70.3</td>
+<td class="n">0.651</td>
+<td class="n">0.286</td>
+<td class="n ">0.000 <span class="cap">0</span></td>
+<td class="flags"><span class="pill" title="The sequence flanking these copies is itself shared (identity 0.67 at the edge, reaching background only 75 bp out). They look like fragments of a longer element — a LINE 3&#x27; end or similar — rather than a short element with its own boundaries.">fragment of longer</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_0__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.626</td>
+<td class="n">0.271</td>
+<td class="n ">0.000 <span class="cap">0</span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_0__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">sco_SINE_1<div class="cap">?</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.912</td>
+<td class="n">0.271</td>
+<td class="n ">0.011 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_1__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">94.9</td>
+<td class="n">0.648</td>
+<td class="n">0.291</td>
+<td class="n ">0.000 <span class="cap">0</span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_1__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">sco_SINE_2<div class="cap">?</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.744</td>
+<td class="n">0.279</td>
+<td class="n ">0.012 <span class="cap">7</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_2__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n cap">100.0<div class="cap">not assessable</div></td>
+<td class="n">0.717</td>
+<td class="n">0.250</td>
+<td class="n ">0.018 <span class="cap">11</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="This alignment carries no genomic flanks, so nothing outside the element could be measured: the background is assumed rather than observed, and the flank-based tests (isolation, nesting, shared context, TSD) are simply not available. The element itself is still judged normally.">no flanks</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_2__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">sco_SINE_3<div class="cap">?</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.816</td>
+<td class="n">0.307</td>
+<td class="n ">0.011 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_3__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">94.7</td>
+<td class="n">0.569</td>
+<td class="n">0.271</td>
+<td class="n ">0.000 <span class="cap">0</span></td>
+<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 49 and 50 (within-group identity 0.72, between 0.65, excess over a random split 0.066). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span><span class="pill" title="This looks like two different things collected together: the 49 and 50 copies split into groups differing by 0.17 in identity to the consensus (his mixtures run 0.13-0.22, single families 0.01-0.12). Median lengths are 98 and 0 bp. Separate them and re-run each part - the score is withheld, because scoring a mixture answers neither question.">not one family</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_3__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">sco_SINE_4<div class="cap">?</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.716</td>
+<td class="n">0.286</td>
+<td class="n ">0.016 <span class="cap">8</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_4__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n cap">81.8<div class="cap">not assessable</div></td>
+<td class="n">0.688</td>
+<td class="n">0.250</td>
+<td class="n ">0.029 <span class="cap">16</span><span class="bar" style="width:4px"></span></td>
+<td class="flags"><span class="pill" title="The sequence flanking these copies is itself shared (identity 0.59 at the edge, reaching background only 50 bp out). They look like fragments of a longer element — a LINE 3&#x27; end or similar — rather than a short element with its own boundaries.">fragment of longer</span><span class="pill" title="This alignment carries no genomic flanks, so nothing outside the element could be measured: the background is assumed rather than observed, and the flank-based tests (isolation, nesting, shared context, TSD) are simply not available. The element itself is still judged normally.">no flanks</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_4__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">sco_SINE_5<div class="cap">?</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n bad">0.0</td>
+<td class="n">0.568</td>
+<td class="n">0.885</td>
+<td class="n bad">0.120 <span class="cap">85</span><span class="bar" style="width:19px"></span></td>
+<td class="flags"><span class="pill" title="The sequence flanking these copies is itself shared (identity 0.71 at the edge, reaching background only 100 bp out). They look like fragments of a longer element — a LINE 3&#x27; end or similar — rather than a short element with its own boundaries.">fragment of longer</span><span class="pill" title="12 % of the flank sits inside patches of raised similarity (85 columns in 2 patches), which agrees with the raised flank average of 0.88.">flank islands</span><span class="pill" title="No element: too few copies support the consensus above background.">no element</span><span class="pill" title="This looks like two different things collected together: the 39 and 40 copies split into groups differing by 0.16 in identity to the consensus (his mixtures run 0.13-0.22, single families 0.01-0.12). Median lengths are 73 and 0 bp. Separate them and re-run each part - the score is withheld, because scoring a mixture answers neither question.">not one family</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_5__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n cap">90.2<div class="cap">not assessable</div></td>
+<td class="n">0.532</td>
+<td class="n">0.250</td>
+<td class="n ">0.011 <span class="cap">6</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="pill" title="This alignment carries no genomic flanks, so nothing outside the element could be measured: the background is assumed rather than observed, and the flank-based tests (isolation, nesting, shared context, TSD) are simply not available. The element itself is still judged normally.">no flanks</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_5__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">sco_SINE_6<div class="cap">?</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.806</td>
+<td class="n">0.283</td>
+<td class="n ">0.012 <span class="cap">7</span><span class="bar" style="width:2px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_6__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.768</td>
+<td class="n">0.276</td>
+<td class="n ">0.029 <span class="cap">13</span><span class="bar" style="width:4px"></span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_6__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">sco_SINE_7<div class="cap">?</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.689</td>
+<td class="n">0.283</td>
+<td class="n ">0.000 <span class="cap">0</span></td>
+<td class="flags"><span class="cln">clean</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_7__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.630</td>
+<td class="n">0.284</td>
+<td class="n ">0.000 <span class="cap">0</span></td>
+<td class="flags"><span class="pill" title="Supported copies split into structurally different groups of 47 and 48 (within-group identity 0.71, between 0.67, excess over a random split 0.031). Both are SINEs - this does not affect the verdict, but the copies can be split if the subfamilies are wanted separately.">subfamilies</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_7__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">sco_SINE_8<div class="cap">?</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">60.6</td>
+<td class="n">0.659</td>
+<td class="n">0.414</td>
+<td class="n ">0.032 <span class="cap">18</span><span class="bar" style="width:5px"></span></td>
+<td class="flags"><span class="pill" title="The sequence flanking these copies is itself shared (identity 0.65 at the edge, reaching background only 50 bp out). They look like fragments of a longer element — a LINE 3&#x27; end or similar — rather than a short element with its own boundaries.">fragment of longer</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_8__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n bad">42.4</td>
+<td class="n">0.682</td>
+<td class="n">0.471</td>
+<td class="n warn">0.079 <span class="cap">26</span><span class="bar" style="width:12px"></span></td>
+<td class="flags"><span class="pill" title="The sequence flanking these copies is itself shared (identity 0.72 at the edge, reaching background only 50 bp out). They look like fragments of a longer element — a LINE 3&#x27; end or similar — rather than a short element with its own boundaries.">fragment of longer</span><span class="pill" title="Only 15 of 100 copies form the core the consensus is actually built on (15 %). The rest are too divergent or too truncated to support it, so the score describes a minority of what was collected. Look at whether the other 85 belong here at all.">small core</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_8__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">sco_SINE_9<div class="cap">?</div></td>
+<td class="n">5 <span class="cap">top100</span></td>
+<td class="n cap">0.1<div class="cap">not assessable</div></td>
+<td class="n">0.740</td>
+<td class="n">0.250</td>
+<td class="n ">&mdash;</td>
+<td class="flags"><span class="pill" title="Only 5 copies. The subfamily-split and flank-decay tests need about 30 before they mean anything, so this score is an impression rather than a measurement - it should not be read as a confident accept OR a confident reject. Gather more copies from the genome before deciding.">too few copies</span><span class="pill" title="This alignment carries no genomic flanks, so nothing outside the element could be measured: the background is assumed rather than observed, and the flank-based tests (isolation, nesting, shared context, TSD) are simply not available. The element itself is still judged normally.">no flanks</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_9__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">5 <span class="cap">all</span></td>
+<td class="n cap">0.1<div class="cap">not assessable</div></td>
+<td class="n">0.740</td>
+<td class="n">0.250</td>
+<td class="n ">&mdash;</td>
+<td class="flags"><span class="pill" title="Only 5 copies. The subfamily-split and flank-decay tests need about 30 before they mean anything, so this score is an impression rather than a measurement - it should not be read as a confident accept OR a confident reject. Gather more copies from the genome before deciding.">too few copies</span><span class="pill" title="This alignment carries no genomic flanks, so nothing outside the element could be measured: the background is assumed rather than observed, and the flank-based tests (isolation, nesting, shared context, TSD) are simply not available. The element itself is still judged normally.">no flanks</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="every hit, because there were fewer than 100" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_9__all.clean.aln.fa">all</a></td>
+</tr>
+<tr>
+<td class="name" rowspan="2">sco_SINE_10<div class="cap">?</div></td>
+<td class="n">100 <span class="cap">top100</span></td>
+<td class="n ok">78.3</td>
+<td class="n">0.947</td>
+<td class="n">0.386</td>
+<td class="n ">0.049 <span class="cap">18</span><span class="bar" style="width:7px"></span></td>
+<td class="flags"><span class="pill" title="The sequence flanking these copies is itself shared (identity 0.62 at the edge, reaching background only 50 bp out). They look like fragments of a longer element — a LINE 3&#x27; end or similar — rather than a short element with its own boundaries.">fragment of longer</span><span class="pill" title="The copies support consensus positions 0-225 (identity 0.95) much better than the consensus as a whole (0.68). Coverage is even across the full length, so the copies are present at the ends and simply do not match there - the consensus is longer than the element it describes. Trim it to that window and re-run; the family is real, the boundary is not.">consensus too long</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_10__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr>
+<td class="n">100 <span class="cap">rand100</span></td>
+<td class="n ok">79.0</td>
+<td class="n">0.847</td>
+<td class="n">0.329</td>
+<td class="n ">0.000 <span class="cap">0</span></td>
+<td class="flags"><span class="pill" title="Copies share about 25 bp of sequence just outside the element, then reach background. Worth noting, but they are in independent locations.">adjacent similarity</span><span class="pill" title="The copies support consensus positions 0-225 (identity 0.84) much better than the consensus as a whole (0.62). Coverage is even across the full length, so the copies are present at the ends and simply do not match there - the consensus is longer than the element it describes. Trim it to that window and re-run; the family is real, the boundary is not.">consensus too long</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="a random 100 of all genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_10__rand100.clean.aln.fa">rand100</a></td>
+</tr>
+<tr class="alt">
+<td class="name" rowspan="2">sco_SINE_11<div class="cap">?</div></td>
+<td class="n">83 <span class="cap">top100</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.680</td>
+<td class="n">0.333</td>
+<td class="n bad">0.170 <span class="cap">68</span><span class="bar" style="width:27px"></span></td>
+<td class="flags"><span class="pill" title="17 % of the flank sits inside patches of raised similarity (68 columns in 7 patches), yet the flank average is an ordinary 0.33. The similarity is localised, so averaging hides it. Some copies are probably inside a shared larger repeat or duplication: worth checking those flanks against the whole genome before treating every copy as an independent insertion.">flank islands</span></td>
+<td class="call" rowspan="2"><span class="cap">not judged</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="the 100 highest-scoring genomic hits" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_11__top100.clean.aln.fa">top100</a></td>
+</tr>
+<tr class="alt">
+<td class="n">83 <span class="cap">all</span></td>
+<td class="n ok">100.0</td>
+<td class="n">0.690</td>
+<td class="n">0.333</td>
+<td class="n bad">0.185 <span class="cap">73</span><span class="bar" style="width:29px"></span></td>
+<td class="flags"><span class="pill" title="19 % of the flank sits inside patches of raised similarity (73 columns in 8 patches), yet the flank average is an ordinary 0.33. The similarity is localised, so averaging hides it. Some copies are probably inside a shared larger repeat or duplication: worth checking those flanks against the whole genome before treating every copy as an independent insertion.">flank islands</span></td>
+<td><a class="lnk" target="_blank" rel="noopener" title="every hit, because there were fewer than 100" href="https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Ftoki-bio.github.io%2FSINE-discriminator%2Falignments%2FNEW__sco_SINE_11__all.clean.aln.fa">all</a></td>
+</tr>
+</tbody></table></div>
+<div class="rule"></div>
 <h2>Consensuses the tool repaired by itself</h2>
 <p>When the copies keep matching past the end of a consensus and then reach background within a couple of hundred bases, the consensus is simply too short. The tool now extends it by that distance, re-searches the genome, and &mdash; because extending overshoots &mdash; cuts back to the window the copies actually support. Both rules already existed; only the loop between them is new.</p>
 <div class="tw"><table><thead><tr><th>candidate</th><th title="score before the repair">before</th><th title="score after extend, re-search and trim">after</th><th title="copies in the core, before and after">core</th><th>what the repaired version says</th></tr></thead><tbody>
@@ -1535,22 +1781,22 @@ td.n.cap,.cap.n{color:var(--muted)}
 <h2>Flank islands across all 52 alignments</h2>
 <p>Ranked by the fraction of flank inside a patch. Your own calls put plain SINEs at or below 0.067 and flank-caution calls at 0.19 to 0.37, so the reason fires at 0.10. The last column is the one that matters: a set above the line <em>with</em> an ordinary flank average is a set no average could have found. <code>aca_SINE_0</code> is the only one here.</p>
 <div class="tw"><table><thead><tr><th>alignment</th><th title="fraction of flank columns inside a patch of at least 6 consecutive columns above z = 8">island frac</th><th>island cols</th><th>flank bg</th><th>score</th><th title="does the existing flank average already catch this?">already caught?</th></tr></thead><tbody>
+<tr><td class="name">scd_sco_SB5 <span class="cap">all</span></td><td class="n bad">0.851</td><td class="n">114</td><td class="n">0.250</td><td class="n bad">0.2</td><td><span class="bad">no &mdash; the average sees nothing</span></td></tr>
+<tr><td class="name">scd_sco_SB5 <span class="cap">top100</span></td><td class="n bad">0.851</td><td class="n">114</td><td class="n">0.250</td><td class="n bad">0.2</td><td><span class="bad">no &mdash; the average sees nothing</span></td></tr>
+<tr><td class="name">sce_scd_sco_SB5_ext <span class="cap">all</span></td><td class="n bad">0.839</td><td class="n">94</td><td class="n">0.971</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">sce_scd_sco_SB5_ext <span class="cap">top100</span></td><td class="n bad">0.839</td><td class="n">94</td><td class="n">0.971</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">scd_sco_NV1 <span class="cap">all</span></td><td class="n bad">0.832</td><td class="n">183</td><td class="n">0.714</td><td class="n bad">14.9</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">scd_sco_NV1 <span class="cap">top100</span></td><td class="n bad">0.832</td><td class="n">183</td><td class="n">0.714</td><td class="n bad">14.9</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">sce_scd_sco_SP1_ext <span class="cap">rand100</span></td><td class="n bad">0.821</td><td class="n">202</td><td class="n">0.929</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">sce_scd_sco_SP1_ext <span class="cap">top100</span></td><td class="n bad">0.814</td><td class="n">201</td><td class="n">0.957</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">scd_sco_SP1 <span class="cap">top100</span></td><td class="n bad">0.748</td><td class="n">169</td><td class="n">0.978</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">scd_sco_SP1 <span class="cap">rand100</span></td><td class="n bad">0.705</td><td class="n">184</td><td class="n">0.936</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">sce_scd_sco_MARE3_ext <span class="cap">all</span></td><td class="n bad">0.696</td><td class="n">190</td><td class="n">0.744</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">sce_scd_sco_MARE3_ext <span class="cap">top100</span></td><td class="n bad">0.696</td><td class="n">190</td><td class="n">0.744</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
 <tr><td class="name">ska_SINE_17 <span class="cap">rand100</span></td><td class="n bad">0.677</td><td class="n">174</td><td class="n">0.657</td><td class="n bad">0.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">ska_SINE_17 <span class="cap">top100</span></td><td class="n bad">0.505</td><td class="n">198</td><td class="n">0.693</td><td class="n bad">0.1</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">ska_SINE_19 <span class="cap">rand100</span></td><td class="n bad">0.372</td><td class="n">70</td><td class="n">0.686</td><td class="n bad">45.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">hyd_SINE_9 <span class="cap">rand100</span></td><td class="n bad">0.331</td><td class="n">722</td><td class="n">0.800</td><td class="n bad">0.2</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">hyd_SINE_9 <span class="cap">top100</span></td><td class="n bad">0.331</td><td class="n">739</td><td class="n">0.914</td><td class="n bad">0.2</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">skaR_ska_SINE_19_ref <span class="cap">rand100</span></td><td class="n bad">0.321</td><td class="n">62</td><td class="n">0.597</td><td class="n bad">32.8</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">ska_SINE_12 <span class="cap">rand100</span></td><td class="n bad">0.302</td><td class="n">169</td><td class="n">0.321</td><td class="n bad">45.0</td><td><span class="bad">no &mdash; the average sees nothing</span></td></tr>
-<tr><td class="name">hydR_hyd_SINE_7_ref <span class="cap">top100</span></td><td class="n bad">0.292</td><td class="n">163</td><td class="n">0.657</td><td class="n bad">0.2</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">ska_SINE_12 <span class="cap">top100</span></td><td class="n bad">0.245</td><td class="n">147</td><td class="n">0.357</td><td class="n bad">45.0</td><td><span class="bad">no &mdash; the average sees nothing</span></td></tr>
-<tr><td class="name">stuR_stu_SINE_11_ref <span class="cap">rand100</span></td><td class="n bad">0.245</td><td class="n">95</td><td class="n">0.329</td><td class="n bad">45.0</td><td><span class="bad">no &mdash; the average sees nothing</span></td></tr>
-<tr><td class="name">ska_SINE_19 <span class="cap">top100</span></td><td class="n bad">0.244</td><td class="n">96</td><td class="n">0.686</td><td class="n bad">0.1</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">skaR_ska_SINE_19_ref <span class="cap">top100</span></td><td class="n bad">0.242</td><td class="n">96</td><td class="n">0.686</td><td class="n bad">0.2</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">skaP_skaR_ska_SINE_19_ref_p2 <span class="cap">rand100</span></td><td class="n bad">0.219</td><td class="n">106</td><td class="n">0.457</td><td class="n bad">33.6</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">aca_SINE_1 <span class="cap">all</span></td><td class="n bad">0.217</td><td class="n">424</td><td class="n">0.450</td><td class="n bad">45.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">aca_SINE_1 <span class="cap">top100</span></td><td class="n bad">0.215</td><td class="n">421</td><td class="n">0.450</td><td class="n bad">45.0</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
-<tr><td class="name">skaP_skaR_ska_SINE_19_ref_p2 <span class="cap">top100</span></td><td class="n bad">0.198</td><td class="n">104</td><td class="n">0.557</td><td class="n bad">0.2</td><td><span class="ok">yes, the flank average is raised too</span></td></tr>
+<tr><td class="name">scd_sco_B4 <span class="cap">top100</span></td><td class="n bad">0.642</td><td class="n">179</td><td class="n">0.399</td><td class="n bad">45.0</td><td><span class="bad">no &mdash; the average sees nothing</span></td></tr>
+<tr><td class="name">scd_sco_B4 <span class="cap">all</span></td><td class="n bad">0.638</td><td class="n">178</td><td class="n">0.296</td><td class="n bad">45.0</td><td><span class="bad">no &mdash; the average sees nothing</span></td></tr>
+<tr><td class="name">sce_scd_sco_SINE3_ext <span class="cap">rand100</span></td><td class="n bad">0.613</td><td class="n">203</td><td class="n">0.343</td><td class="n bad">38.3</td><td><span class="bad">no &mdash; the average sees nothing</span></td></tr>
 </tbody></table></div>
 <p class="cap">Null: pairwise identity per column against the base composition of that set&rsquo;s own flanks, with the standard deviation taken from the number of pairs actually present in that column. Columns with fewer than 8 copies present are not scored. That control is what changed the answer: without it the far-out patches look like thin-coverage noise, which is what I first called them.</p>
 <div class="rule"></div>
