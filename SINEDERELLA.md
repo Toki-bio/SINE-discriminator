@@ -241,3 +241,83 @@ constant silently becomes wrong.
 alignment despite the extension. The aligned product is `.msf`, built with
 `mafft --localpair --maxiterate 1000 --ep 0.123` (note the non-default gap
 extension penalty).
+
+## `sear` — the search engine under step1. Read it before touching hits.
+
+`/staging/tmp/SINEderella/sear`, 653 lines of bash.
+`sear [options] <query.fa> <bank.fa> [Slf=0.8] [Homology=65] [Flank=50] [KeepSplits=0]`
+
+**Two engines, chosen by query length.** Queries ≥1000 bp go to minimap2
+(cascade over presets, identity = `matches / min(qaln,taln)` so gaps are
+penalised); shorter queries — i.e. all SINEs — go to the ssearch36 path.
+`--force-ssearch` overrides.
+
+**How the genome is chunked, and why.**
+`seqkit sliding -g -s 2000 -W 2500` → 2500 bp windows at 2000 bp step, so
+**500 bp of overlap**: a ~300 bp element can never be cut across a boundary
+without an intact copy in the neighbouring window. Then `seqkit split2 -p 20`.
+Window offsets are parsed back out of the `_sliding` headers and added to the
+hit coordinates at the end. That is the answer to "why not an indexed search" —
+`ssearch36` is Smith-Waterman with no index, and its statistics degrade on huge
+sequences, so the bank is cut into pieces small enough to score properly and the
+coordinates are re-assembled afterwards.
+
+ssearch36 flags: `-g -3 -T <threads> -Q -n -z 11 -E 2 -w 95 -W 70 -m 8C`, ktup 3.
+
+**`Slf` is a minimum hit LENGTH, not query coverage.** `flen = int(Slf × query_len)`
+and a merged hit is kept if its span in the bank is ≥ `flen` **and** identity ≥
+`Homology`. At the default 0.8 a hit must be at least 80 % of the consensus's
+length. Matters for truncated elements: they are dropped, not shortened.
+
+**`-m/--minus` — what a minus-bank actually is.** Not a subsample. After a round
+of hits, `bedtools complement` of those hits against the bank gives the
+**un-hit remainder**, `getfasta` writes it out, and the next round searches that.
+Repeats until a round returns zero. It is **hit depletion**, so copies shadowed
+by stronger neighbours surface in later rounds. The `chrom:start-end()` header
+form comes from that `getfasta` (empty parens = no strand column), which is why
+downstream scripts special-case it. *(My earlier note guessed genome subsampling.
+Wrong.)*
+
+**`-b/--best N` already builds the top-100 alignment.** Top N unique hits by
+bitscore → ±50 bp flanks → `getfasta -s` → **the query prepended as row 1** →
+`mafft --localpair --maxiterate 1000 --ep 0.123 --nuc --reorder`. Output
+`<tax>-<query>.best100.mafft.fa`.
+
+**So `sear -b100` IS the top100 consensus-anchored alignment.** Correctly
+oriented by construction, because every copy is extracted stranded and the
+consensus is row 1. Do not rebuild this with blastn + bedtools + `mafft
+--adjustdirection` — that is exactly how the orientation was lost.
+
+Other outputs: `<tax>-<query>.bed` (all merged hits), `<tax>-<query>.bnk`
+(all hits + flanks, stranded) — the `.bnk` that feeds SubFam.
+
+`@U@` is a header placeholder for `_`, restored on output; `-s/--stop N` caps
+total hits at 1000 by default; `-k` keeps splits so step1 reuses them across
+queries.
+
+**Doc/code discrepancy:** the usage text says the minimap2 cascade is
+`asm5 → asm10 → asm20`; the loop runs only `asm10 asm20`. Harmless for SINEs
+(they never reach minimap2 mode) but the help is wrong.
+
+## `asSINEment` / step2 — how a copy gets its subfamily
+
+`asSINEment <consensus.fa> <sines.fa> [threads] [outdir]`, 440 lines.
+
+1. Copies split into blocks of 20 000.
+2. **10 cycles** of `ssearch36 ... -m 8`, consensuses as query, copies as bank;
+   per cycle, each copy's best hit by bitscore is one vote.
+3. A copy is a candidate only on **10/10 unanimity** for one consensus.
+4. Threshold is **relative and per-subfamily**: take that subfamily's unanimous
+   copies, sort bitscores descending, `N = min(10, count)`, and the bar is
+   **0.45 × the N-th best bitscore**. Below it → `rejected_low_bitscore`.
+
+Outputs `assigned.fasta` (`>seqID|subfamily|bitscore`), `unassigned.fasta`,
+`assignment_stats.tsv`, `assignment_full.tsv`.
+
+**Open question, not yet tested:** the 10 cycles run an identical deterministic
+command, so unanimity can only fail if `ssearch36` is non-deterministic under
+`-T <threads>` with `-z 11` (thread-order affecting the fitted statistics and
+thus the `-E 2` cutoff for borderline hits). If that is the mechanism, the vote
+is a *stability* filter and does real work; if ssearch36 is fully deterministic
+here, the 10 cycles cost 10× runtime for nothing. Testable by running one cycle
+twice and diffing. Ask before assuming either way.
