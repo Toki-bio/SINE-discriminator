@@ -39,6 +39,11 @@ lost while sitting on DRAGEN.
 | prospective genomes | `DRAGEN` | `/staging/tmp/newsp` | ok | hyd pom aca stu ska zeb + rebuilds |
 | RepBase blast db | `KIT` | `/data/W/toki/SINE_disc/repbase.nhr` | ok | blastn -db repbase |
 | SINEBase | `KIT` | `/data/W/toki/SINEbase` | ok |  |
+| saq SubFam chunks (g-run) | `KIT` | `/data/W/toki/Genomes/Mammalia/Eulipotyphla/saq/run_20260425_110449/genome.clean_step1/subfam_input` | ok | 600 chunk consensuses; searched with g1-g7 |
+| saq SubFam chunks (s-run) | `KIT` | `/data/W/toki/Genomes/Mammalia/Eulipotyphla/saq/run_20260425_182219/genome.clean_step1/subfam_input` | ok | 600 chunk consensuses; searched with s1-s9 |
+| saq s1-s9 consensus bank | `KIT` | `/data/W/toki/Genomes/Mammalia/Eulipotyphla/saq/run_20260425_182219/consensuses.clean.fa` | ok | his 9 manual subfamily consensuses; names encode group size, 30+38+43+60+5+7+172+225+20 = 600 |
+| saq copy assignment | `KIT` | `/data/W/toki/Genomes/Mammalia/Eulipotyphla/saq/run_20260425_182219/results/assignment_full.tsv` | ok | 306,212 copies assigned to s1-s9 |
+| saq peel benchmark (staged) | `KIT` | `/data/W/toki/SINE_disc/saq_bench` | ok | both runs degapped + realigned per MANUAL 6.1.1: 600 seqs, 400 and 536 cols |
 
 ## Connecting
 
