@@ -675,3 +675,51 @@ Not a patch to the alignments. The product has to be rebuilt from the search up:
 4. Boundary from the occupancy plateau, calibrated against his AGTTCGA call.
 5. Block on consensus length vs median copy length, so a 541-base consensus for
    a 253 bp element cannot ship.
+
+---
+
+## 2026-09-02 — peel tested against the v4 curated partition (13 subfamilies)
+
+Harder test than the 8-group one, and closer to the saq case his own assist tool
+fails on. Timema v4 `run_20260823_103133` has its own 596 chunk consensuses and
+its own assignment, so the labels are self-consistent — no cross-run coordinate
+mismatch (labelling the 2026-08-21 chunks with v4 copies matched **zero**, the
+same failure that blocked saq).
+
+Chunk labelling: 597/597 at mean purity **0.882** — that is the ceiling for any
+chunk-level method here.
+
+### Result: 493 of 595 placed, weighted purity 0.826 (94 % of the ceiling)
+
+| v4 group | recovered as | purity |
+|---|---|---|
+| `t1_1` | 48 + 22 + 10 | 100 / 100 / 90 % |
+| `t1-2` | 45 + 12 + 16 | 100 % each |
+| `t1-3` | 25 | 96 % |
+| `t1-4` | 41 + 11 | 100 / 91 % |
+| `t2` | 22 | 100 % |
+| `t8-1` | 16 | 100 % |
+| `t8-2` | 32 | 100 % |
+| `t6-1` | 10 | 100 % |
+
+**All four t1 subfamilies separate.** The method was never told t1 has
+substructure; on the 8-group labels it produced four pure t1 clusters, and
+against v4 those correspond to `t1_1`, `t1-2`, `t1-3`, `t1-4`.
+
+For scale, `cluster_assist.js` collapses **9** saq subfamilies into two blobs
+plus a 6-sequence cluster.
+
+### Two honest failures
+
+- **`t3-1`/`t3-2` do not separate**: one 119-chunk cluster at 58 %. The t3 pair
+  resists at every level — it is also the dominant multi-label CONFLICT set
+  (`t3,t4,t5`, 69 585 loci) in the original run. Two independent methods and his
+  own step1 all say these overlap.
+- **`t1-2` fragments**: three pure pieces (45, 12, 16), one impure blob of 53 at
+  49 %, and 89 of its 193 chunks left unplaced. It is the largest group and the
+  peel shaves pieces off it instead of taking it whole — the 50 % size cap
+  (`MAX_FRAC`) forbids a cluster larger than half the pool, and 193 of 595 is
+  close enough to that limit to matter. Worth testing with the relaxed-upper-bound
+  retry firing earlier.
+
+Residue 102 chunks, 89 of them `t1-2`.
