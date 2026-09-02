@@ -419,3 +419,26 @@ families, so every 50-locus chunk spans many of them.
 For a de novo set the grouping is already in the data - **the query that found
 each locus**. Grouping by query name gives 47 families of 20+ loci, all
 SINE-sized once their consensuses are built properly.
+
+## 20. A discovery tool's candidate list is redundant, and it must be collapsed first
+
+AnnoSINE proposed **160** candidates for zebrafish. All-vs-all blastn gives 424
+redundant pairs, and single-link clustering at 80 % identity over 60 % of the
+shorter sequence collapses them to **87 families** — one cluster alone holding
+**55 near-identical seeds**, with others of 12 and 8, and 83 singletons.
+
+So **46 % of that candidate list is the same families proposed over and over.**
+Sergei suspected it on sight: *"maybe zebrafish 160 candidates can be
+deduplicated? too much redundancy suspected."*
+
+This matters beyond compute. Every per-class count, every "n of N accepted", and
+any threshold fitted on a candidate list is distorted by whichever family
+happened to be proposed 55 times. Deduplicate before scoring, and pick the
+representative by genomic copy count rather than by order.
+
+It also cuts real time: each candidate costs a blastn against the whole genome,
+so on a 1.7 Gb assembly the redundant 73 were about an hour of wasted search.
+
+Related to note 4 — a discovery tool's copy counts are a floor, not an estimate —
+and the same lesson from the other side: its candidate *list* is not a family
+list either, in both directions.
