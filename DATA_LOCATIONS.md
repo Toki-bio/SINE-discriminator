@@ -1,6 +1,6 @@
 # Where everything is
 
-*Verified 2026-09-02 17:17 by `verify_locations.py`. Re-run it rather than trusting age.*
+*Verified 2026-09-02 17:21 by `verify_locations.py`. Re-run it rather than trusting age.*
 
 A location is **server plus absolute path**. A bare run ID is not a location -
 recording run IDs without paths is exactly how the Timema runs were declared
@@ -11,9 +11,9 @@ lost while sitting on DRAGEN.
 | human SINEderella run | `DRAGEN` | `/staging/tmp/sinederella_benchmark/runs/human/run_20260822_231705` | ok | benchmark run, Alu subfamilies |
 | zebrafish SINEderella run | `DRAGEN` | `/staging/tmp/sinederella_benchmark/runs/zebrafish/run_20260822_231705` | ok | benchmark run |
 | Timema SINEderella run (timb benchmark) | `DRAGEN` | `/staging/tmp/sinederella_benchmark/runs/timema/run_20260822_231705` | ok | the AnnoSINE-55 benchmark set |
-| Timema curated v4 (tim, live) | `DRAGEN` | `/staging/tmp/timema_sines/v4_curated/run_20260823_103133` | ok | the curated 14-subfamily set - ground truth |
+| Timema curated v4 (tim, live) | `DRAGEN` | `/staging/tmp/timema_sines/v4_curated/run_20260823_103133` | ok | 597 chunks, his refined 14-subfamily partition - ground truth |
 | Timema curated v3 | `DRAGEN` | `/staging/tmp/timema_sines/v3_curated/run_20260823_063444` | ok |  |
-| Timema run_20260821_132226 | `DRAGEN` | `/staging/tmp/timema_sines/run_20260821_132226` | ok | the 161-chunk subfam referenced in PLAN_subfam_autopick.md |
+| Timema run_20260821_132226 | `DRAGEN` | `/staging/tmp/timema_sines/run_20260821_132226` | ok | 598 chunks, 59,636 members, his 8-group partition |
 | Timema run_20260821_145119 | `DRAGEN` | `/staging/tmp/timema_sines/run_20260821_145119` | ok |  |
 | hedgehog (eri) SINEderella run | `KIT` | `/data/W/toki/Genomes/Mammalia/Eulipotyphla/Erniacidae/run_20260820_221537` | ok | on KIT, not DRAGEN - this is why searches on DRAGEN found nothing |
 | snail (pom) SINEderella run | `DRAGEN` | `/staging/tmp/newsp/pom/run_20260901_131644` | ok | both snail families |

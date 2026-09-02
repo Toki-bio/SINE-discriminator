@@ -37,8 +37,10 @@ input_007.bnk        50 original sequences, headers carrying genomic coordinates
 input_007.bnk.cons   the chunk consensus, header ">input_007.bnk"
 ```
 
-- 162 chunks, 161 chunk-consensuses, **exactly 50 sequences per chunk**,
-  16,042 member sequences total (Timema, `run_20260821_132226`).
+- **598 chunks, exactly 50 sequences per chunk, 59,636 member sequences**
+  (Timema, `run_20260821_132226`, on DRAGEN at
+  `/staging/tmp/timema_sines/run_20260821_132226`). The 161/16,042 figures
+  written here earlier were wrong - they came from a different run.
 - **chunk-consensus → its 50 members is a filename lookup.** Nothing needs to be
   reconstructed.
 - Members carry genomic coordinates, so they can be **re-extracted from the
