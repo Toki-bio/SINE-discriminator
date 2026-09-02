@@ -104,12 +104,11 @@ NEW__hyd_SINE_11__top100	newsp_top100	SINE	SINE2-2_HM SINE2/tRNA Hydra vulgaris 
 NEW__hyd_SINE_10__top100	newsp_top100	SINE	SINE2-1_HM SINE2/tRNA Hydra vulgaris (239 nt)
 NEW__hyd_SINE_9__top100	newsp_top100	NOT_SINE	CR1-1_HM CR1 Hydra vulgaris (4692 nt) - definitely not sine
 NEW__hyd_SINE_8__top100	newsp_top100	SINE	SINE2-1_HM SINE2/tRNA Hydra vulgaris (239 nt)
-NEW__hyd_SINE_7__top100	newsp_top100	NOT_SINE_MICROSAT	Ginger1-10_HM Ginger1 Hydra vulgaris (6495 nt) - looks like combination of microsatellites to me, not sine - not caught by your filters! - needs new criteria on microsatellite content?
-NEW__hyd_SINE_7__top100	newsp_top100	SINE_HEAD_MOSAIC	SINE2-2_HM SINE2/tRNA Hydra vulgaris (197 nt) - good sine but beginning of the head looks mosaic or just truncated in some copies
+NEW__hyd_SINE_7__top100	newsp_top100	NOT_SINE_MICROSAT	Ginger1-10_HM Ginger1 Hydra vulgaris (6495 nt) - looks like combination of microsatellites to me, not sine - not caught by your filters! - needs new criteria on microsatellite content? [he wrote hyd_SINE_7 twice; RepBase gives its best hit as L2-10_Hmel, a 2378 bp LINE, so this reading is the one that belongs to it. The other line, SINE2-2_HM good sine with a mosaic head, is unassigned]
 NEW__hyd_SINE_6__top100	newsp_top100	NOT_SINE	not looking like sine - mosaic columns in flanks, few copies, not firm edges, unknown middle part
-NEW__hyd_SINE_5__top100	newsp_top100	NOT_SINE	not looking like sine, weak right end, mosaic left end - not caught by your criteria
 NEW__hyd_SINE_4__top100	newsp_top100	SINE	SINE2-1_HM SINE2/tRNA Hydra vulgaris (239 nt)
 NEW__hyd_SINE_3__top100	newsp_top100	SINE	SINE2-2B_HM SINE2/tRNA Hydra vulgaris (208 nt)
 NEW__hyd_SINE_2__top100	newsp_top100	NOT_SINE	too short, few copies
 NEW__hyd_SINE_1__top100	newsp_top100	SINE	SINE2-2B_HM SINE2/tRNA Hydra vulgaris (208 nt)
 NEW__hyd_SINE_0__top100	newsp_top100	SINE	SINE2-2B_HM SINE2/tRNA Hydra vulgaris (208 nt) - good sine, looks like false alarm on your side
+NEW__hyd_SINE_5__top100	newsp_top100	NOT_GOOD_SINE_UNDECIDED	looked again, see screenshot of left end - looks like mosaic, i still cant decide but its not a good sine if at all

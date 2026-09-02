@@ -8,6 +8,107 @@ after every exchange.
 
 ---
 
+## 2026-09-02 — re-evaluating the old datasets, and three bugs it flushed out
+
+He asked for the old sets to be re-run with the new criteria: *"the old tal sine,
+ere, zebrafush, timema, scorpions (need full re-run - find where they are),
+human also need to be re-evaluated using new skills in discrimination."*
+
+The talpid sets (`saq`, `ccr`, `teu`, `dmo`) and hedgehog (`eri`) **are** the
+labelled corpus. Human Alu (64 sets) and Timema (55) are in `bench_in`.
+Scorpion is *Centruroides vittatus* on KIT at `/data/W/toki/scorpio/sco.bnk`
+with three consensuses; zebrafish is GRCz11. Both are downloading on DRAGEN
+(GCF_030686945.1, GCF_000002035.6) with AnnoSINE queued behind.
+
+### The new criteria disturb nothing they should not
+
+Re-scored against the previous run:
+
+| dataset | sets | scores moved | verdict flips | new reasons |
+|---|---|---|---|---|
+| POS, MIXED10/30, NEGJITTER, NEGSPLICE, NEGTRUNC5, NEGRAND, NEGCHIM, MIXSUBFAM, NEGMOSAIC, all SIM*/MOSAIC* | 213 | **0** | **0** | none |
+| ERI (hedgehog) | 8 | 3 | 1 | FLANK_ISLANDS x4, SMALL_CORE x2 |
+| NEGLINEORF | 4 | 0 | 0 | FLANK_ISLANDS x4, SMALL_CORE x1 |
+| NEGSEGDUP | 3 | 2 | 0 | FLANK_ISLANDS x3, SMALL_CORE x1 |
+| NEGSAT | 3 | 2 | 0 | FLANK_ISLANDS x3, SMALL_CORE x1 |
+
+Every new reason lands in a flank-related or messy class and nowhere else.
+
+### Human Alu is the cleanest validation the project has
+
+| | sets | accepted | not assessable | rejected |
+|---|---|---|---|---|
+| **HUM** (Alu subfamilies) | 64 | **55** | 9 | **0** |
+| **TIMB** (Timema) | 55 | 48 | 2 | 5 |
+
+**Not one assessable human Alu is rejected.** The nine set aside are alignments
+with under 30 copies or no genomic flanks - the tool declining to answer rather
+than answering wrongly. The five Timema rejections each name their reasons
+(FLANK_ISLANDS + SMALL_CORE on four of them).
+
+### Bug: capping on INSUFFICIENT_COPIES was scoring absence as guilt
+
+`HUM__hum__AluYb9` - which he calls *"no problems good sine"* - came out at
+**45.0**, because I had put `INSUFFICIENT_COPIES` in the list of reasons that cap
+the score. That is the rule already written down in note 2 of this file and
+broken again: **an absent measurement must never be scored as guilt.**
+
+`MICROSATELLITE_ELEMENT` and `SMALL_CORE` are evidence *against*.
+`INSUFFICIENT_COPIES` and `NO_FLANKS_PRESENT` are evidence *missing*. The scorer
+now carries a third state, `assessable: false`, instead of a low score. Human
+rejections went from 1 to 0 and hydra's `hyd_SINE_2` moved from a forced
+rejection to "not assessable", which is exactly his reason for it: *"too short,
+few copies"*.
+
+### Three bugs in flank decay, all the same mistake
+
+Regenerating the decay profile over the whole corpus - it had only ever been
+computed for part of it - dropped the minimum POS score from 90.1 to **0.2**.
+Ten sets flipped to rejection including a positive and `NEGCHIM__dmo__d1`, which
+he calls a good sine. Three separate defects, each an unmeasured value treated
+as measured:
+
+1. **SATELLITE_OR_DUPLICATION was called on distance alone.** No edge guard, so
+   a set with flank identity **0.255** - pure background - was called a
+   satellite. Real satellites here sit at 0.73-0.95 at the edge; the ten
+   casualties were 0.26-0.55. Now requires `edge_max > 0.60`.
+2. **An unmeasurable distance defaulted to 400 bp**, the maximum, which then
+   collapsed the uniqueness term to zero regardless of the classification. If
+   the edge is already at background the element is isolated from its first base
+   out: that is a distance of 0, not 400.
+3. **The distance was claimed past where the profile was readable.** These
+   copies mostly do not carry 400 bp of flank, so the profile goes NaN after two
+   or three offsets. `POS__saq__s4_60seqs` is measurable to 50 bp on its right
+   flank and was being credited with 400 bp of continuous similarity. It now
+   claims only as far as it actually looked.
+
+After all three: **true positives n=132 min 81.5, true negatives n=30 max 45.0** -
+still cleanly separated, with every set now carrying real decay data instead of
+a neutral fallback.
+
+Two sets remain moved and both are defensible. `NEGTRUNC5__teu__t4` drifts
+54.9 -> 49.0, a marginal negative moving the right way. `ERI__eri__e2-3` goes
+92.6 -> 45.0 on SMALL_CORE, which converts his *"should be regarded as SINE but
+with caution and need manual reinspection"* into the tool declining to assert -
+closer to his reading than 92.6 was, though it does cross the line on a set he
+leans SINE on. Flagged, not hidden.
+
+### hyd_SINE_5, looked at again
+
+His second reading, with a screenshot of the left end: *"looks like mosaic, i
+still cant decide but its not a good sine if at all."* Still the one disagreement
+- the tool gives it 96.6 with only a subfamily note. What the screenshot shows is
+a short conserved block at the element's 5' end that only some copies carry,
+with the rest discordant there, and that is the measurement still missing:
+**whether the same copies group together in every region.** A subfamily split is
+consistent along the element; a mosaic split shuffles membership between
+regions. That is the next thing to build, and it is a different statistic from
+all four already tried.
+
+Hydra now stands at **20 agree, 1 disagree, 1 not assessable** out of 22.
+
+---
+
 ## 2026-09-02 — his 22 hydra judgements, and what they changed
 
 He judged every hydra candidate against RepBase, top100 view only, and named two

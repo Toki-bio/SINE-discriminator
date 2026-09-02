@@ -66,7 +66,20 @@ def decay(path):
                 dist = offs[i]
                 break
         if dist is None:
-            dist = MAXOFF
+            # Never saw a drop to background - but "never saw" is not "never
+            # happened". These copies usually do not carry the full 400 bp, so
+            # the profile goes unmeasurable after the first two or three
+            # offsets, and defaulting to MAXOFF claimed similarity persisted
+            # over 400 bp that nobody looked at. That collapsed the uniqueness
+            # term to zero and rejected POS__saq__s4_60seqs, whose right-flank
+            # profile is measurable only to 50 bp.
+            #
+            # Claim only as far as the profile was actually readable.
+            last_ok = 0
+            for i, v in enumerate(prof):
+                if np.isfinite(v):
+                    last_ok = offs[i]
+            dist = last_ok if (np.isfinite(edge) and edge > BG + 0.06) else 0
         out["edge_" + side] = round(edge, 3) if np.isfinite(edge) else None
         out["decay_" + side] = dist
         out["prof_" + side] = [None if not np.isfinite(x) else round(float(x), 3) for x in prof]
@@ -81,7 +94,18 @@ def classify(d):
     """The reading the profiles support, stated as a rule so it can be tested."""
     if d.get("edge_max") is None:
         return "unknown"
-    if d["decay_max"] >= 300:
+    # The distance alone is not enough, and reading it alone was a real bug: a
+    # set whose flank identity is 0.26 at the edge - pure background - was called
+    # a satellite because the profile never *confidently* dropped below the
+    # threshold, so `dist` fell through to its 400 default. That default is an
+    # unmeasured value being scored as guilt, and it rejected 10 sets outright,
+    # POS__saq__s4_60seqs among them.
+    #
+    # A satellite or a duplication is similar THROUGHOUT: the real ones here run
+    # 0.73-0.95 at the edge, while every one of those 10 sat between 0.26 and
+    # 0.55. Distance means nothing until there is elevated similarity to decay
+    # from.
+    if d["decay_max"] >= 300 and d["edge_max"] > 0.60:
         return "SATELLITE_OR_DUPLICATION"     # similarity never ends
     if d["edge_max"] > 0.55 and d["decay_max"] >= 50:
         return "ELEMENT_CONTINUES"            # a fragment of something longer

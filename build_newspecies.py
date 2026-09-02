@@ -178,6 +178,8 @@ td.call{white-space:normal;max-width:110px;font-size:12px}
 .pill{display:inline-block;font-family:var(--mono);font-size:9.5px;padding:2px 6px;border-radius:2px;margin:0 3px 3px 0;background:var(--soft);color:#4a564f;cursor:help;white-space:nowrap}
 .cln{font-family:var(--mono);font-size:9.5px;color:var(--accent)}
 .cap{font-family:var(--mono);font-size:11px;color:var(--muted);max-width:76ch}
+td.n.cap,.cap.n{color:var(--muted)}
+.n.cap{font-weight:500}
 .bar{display:inline-block;height:8px;background:var(--warn);border-radius:1px;vertical-align:middle;margin-left:6px;opacity:.75}
 </style>"""
 
@@ -211,6 +213,8 @@ def main():
     h.append('<div class="tw"><table><thead><tr><th>genome</th><th>phylum</th>'
              '<th title="candidates AnnoSINE proposed">candidates</th>'
              '<th title="scoring 50 or above on their best view">accepted</th>'
+             '<th title="too few copies or no flanks - the evidence cannot answer the '
+             'question either way">not assessable</th>'
              '<th title="candidates Sergei has read himself">judged</th>'
              '<th title="candidates where the tool and his reading agree">agree</th>'
              '</tr></thead><tbody>')
@@ -218,14 +222,17 @@ def main():
     for code, common, latin, phylum, acc in present:
         cs = [c for c in data if c.startswith(code + "_")]
         best = lambda c: (data[c].get("top100") or list(data[c].values())[0])
-        n_ok = sum(1 for c in cs if final_score(best(c)) >= 50)
+        n_ok = sum(1 for c in cs
+                   if best(c).get("assessable", True) and final_score(best(c)) >= 50)
+        n_una = sum(1 for c in cs if not best(c).get("assessable", True))
         judged = [c for c in cs if c in _calls]
         agree = sum(1 for c in judged
                     if (final_score(best(c)) >= 50) == (_calls[c][0][0] == "SINE"))
         h.append('<tr><td><a class="lnk" href="#%s">%s</a> <span class="cap">%s</span></td>'
                  '<td class="cap">%s</td><td class="n">%d</td><td class="n ok">%d</td>'
+                 '<td class="n">%s</td>'
                  '<td class="n">%s</td><td class="n %s">%s</td></tr>'
-                 % (code, common, latin, phylum, len(cs), n_ok,
+                 % (code, common, latin, phylum, len(cs), n_ok, n_una or "&mdash;",
                     len(judged) or "&mdash;",
                     "ok" if judged and agree == len(judged) else "",
                     "%d of %d" % (agree, len(judged)) if judged else "&mdash;"))
@@ -277,12 +284,15 @@ def main():
             continue
         cands.sort(key=lambda c: int(c.rsplit("_", 1)[1]))
         best = lambda c: (data[c].get("top100") or list(data[c].values())[0])
-        acc_n = sum(1 for c in cands if final_score(best(c)) >= 50)
+        acc_n = sum(1 for c in cands
+                    if best(c).get("assessable", True) and final_score(best(c)) >= 50)
+        una_n = sum(1 for c in cands if not best(c).get("assessable", True))
         h.append('<div class="rule"></div>')
         h.append("<h2 id='%s'>%s <span class='lat'>%s &middot; %s &middot; %s</span></h2>"
                  % (code, common, latin, phylum, acc))
-        h.append('<p class="cap">%d candidates, %d scoring 50 or above on their best view.</p>'
-                 % (len(cands), acc_n))
+        h.append('<p class="cap">%d candidates, %d scoring 50 or above on their best view%s.</p>'
+                 % (len(cands), acc_n,
+                    "" if not una_n else ", %d with too little evidence to assess" % una_n))
         h.append('<div class="tw"><table><thead>%s</thead><tbody>' % th)
         for k, c in enumerate(cands):
             views = data[c]
@@ -292,7 +302,8 @@ def main():
                 d = views[v]
                 isl, frac = d.get("island_cols"), d.get("island_frac")
                 icls = "bad" if (frac or 0) >= 0.10 else ("warn" if (frac or 0) >= 0.07 else "")
-                scls = "ok" if d["score"] >= 50 else "bad"
+                assessable = d.get("assessable", True)
+                scls = "cap" if not assessable else ("ok" if d["score"] >= 50 else "bad")
                 bar = ('<span class="bar" style="width:%dpx"></span>'
                        % max(2, min(56, int((frac or 0) * 160)))) if frac else ""
                 h.append('<tr%s>' % (' class="alt"' if k % 2 else ""))
@@ -303,7 +314,10 @@ def main():
                                 "" if not ann else " &middot; %s copies" % ann))
                 h.append('<td class="n">%d <span class="cap">%s</span></td>' % (d["n"], v))
                 rf = d.get("refined")
-                if rf:
+                if not assessable:
+                    h.append('<td class="n %s">%.1f<div class="cap">not assessable</div></td>'
+                             % (scls, d["score"]))
+                elif rf:
                     up = rf["score"] > d["score"] + 5
                     h.append('<td class="n %s">%.1f<div class="cap %s">repaired &rarr; '
                              '<strong>%.1f</strong></div></td>'
@@ -320,7 +334,8 @@ def main():
                     cc = calls.get(c)
                     if cc:
                         label = CALL_LABEL.get(cc[0][0], cc[0][0].replace("_", " ").lower())
-                        agree = (final_score(d) >= 50) == (cc[0][0] == "SINE")
+                        agree = (d.get("assessable", True)
+                                 and (final_score(d) >= 50) == (cc[0][0] == "SINE"))
                         cell = ('<span class="%s" title="%s">%s</span>'
                                 % ("ok" if agree else "bad",
                                    html.escape("; ".join(x[1] for x in cc if x[1])),

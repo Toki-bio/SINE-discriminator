@@ -343,3 +343,46 @@ rule needed changing to make the loop work.
 This is Sergei's second starting situation — "a library needing adjustment" —
 and it is the one place where the tool can do the adjustment rather than hand
 back advice.
+
+## 16. Evidence against and evidence missing are different answers
+
+The score answers "how much evidence that this is a SINE family". Three
+situations look alike in a single number and must not:
+
+| | example | right answer |
+|---|---|---|
+| evidence against | 52 % of the element is simple repeat | reject |
+| evidence missing | 8 copies, no flanks | **cannot say** |
+| evidence for | 93 of 100 copies in a clean core | accept |
+
+Collapsing the middle into a low score put `HUM__hum__AluYb9` - a real Alu
+subfamily - at 45.0 because it has few copies. The scorer now carries
+`assessable: false` for `INSUFFICIENT_COPIES` and `NO_FLANKS_PRESENT`, and the
+page shows it as a third state rather than a rejection. Human rejections went
+from 1 to 0.
+
+This is the same rule as "an absent measurement must never be scored as guilt",
+which has now been broken four separate times in four different places. It is
+worth checking every new reason against it before adding it.
+
+## 17. Unmeasured is not zero, and it is not the maximum either
+
+Three bugs in flank decay, found together when the profile was regenerated over
+the whole corpus for the first time, all one mistake:
+
+- a satellite was called on **distance alone**, so a set at 0.255 flank identity
+  - background - was called a satellite because its noisy profile never
+  confidently dropped
+- an unmeasurable distance **defaulted to the 400 bp maximum**, which collapsed
+  the uniqueness term to zero
+- the distance was **claimed beyond where the profile was readable**: copies
+  that carry only 50 bp of flank were credited with 400 bp of similarity
+
+Together these rejected 10 sets including a positive and a set he calls a good
+sine, dropping the minimum POS score from 90.1 to 0.2.
+
+**Rule: a measurement may only claim the range it actually covered.** Where the
+data runs out, the answer is "not measured", which feeds nothing. And a
+classification that depends on a distance must also require the thing being
+measured to be present - distance means nothing until there is elevated
+similarity to decay from.

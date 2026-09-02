@@ -865,12 +865,23 @@ def verdict(path):
     # amount. They cap it just below the acceptance line, which states exactly
     # what is true: on this evidence the question cannot be answered yes.
     # Anything the copies genuinely show is still in the groups and the flags.
+    # INSUFFICIENT_COPIES was in this list and should never have been. It says
+    # the set cannot be measured, not that the evidence points away from a SINE,
+    # and capping on it turned HUM__hum__AluYb9 - a known Alu subfamily Sergei
+    # calls "no problems good sine" - into a 45. That is the exact mistake
+    # already written down as a rule: an absent measurement must never be scored
+    # as guilt. It now sets a separate state instead of moving the score.
     capped_by = []
     for f in flags:
-        if f["code"] in ("MICROSATELLITE_ELEMENT", "SMALL_CORE", "INSUFFICIENT_COPIES"):
+        if f["code"] in ("MICROSATELLITE_ELEMENT", "SMALL_CORE"):
             capped_by.append(f["code"])
     if capped_by and score > 45.0:
         score = 45.0
+
+    # "cannot be assessed" is a third answer, not a low one. The score is still
+    # reported, but it describes too little evidence to stand on its own.
+    assessable = not any(f["code"] in ("INSUFFICIENT_COPIES", "NO_FLANKS_PRESENT")
+                         for f in flags)
 
     return {"set": os.path.basename(path).replace(".aln.fa", ""),
             "score": round(float(score), 1),
@@ -890,6 +901,7 @@ def verdict(path):
             "msat_flank": None if not ms else ms.get("msat_flank"),
             "core_frac": round(n_core / float(max(1, n)), 3),
             "capped_by": capped_by,
+            "assessable": assessable,
             "island_frac": None if not isl else isl.get("frac"),
             "island_cols": None if not isl else isl.get("cols"),
             "support_threshold": None if thr is None else round(float(thr), 3),
