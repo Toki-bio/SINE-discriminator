@@ -177,3 +177,67 @@ export PATH=/staging/conda/envs/bioinfo/bin:/staging/miniconda3/bin:/usr/local/b
 Run locations are in `DATA_LOCATIONS.md` in the SINE_discriminator repo. See also
 the `sine-orth-loc-sinederella` skill for `SINE_orth_loc.bash`, PM/MP/SINE
 orthology, and the three non-interchangeable subfamily labelling systems.
+
+## SINE-de-novo-genome-scan — the stage before SINEderella
+
+`/data/V/toki/bin/SINE-de-novo-genome-scan/` on KIT (a copy of `sine_scan.sh`
+also sits in `/data/W/toki/scorpio/denovo_scan/`). Finds SINEs in a genome with
+**no library**, on the premise that most SINEs share at least faint similarity
+with some already-known SINE.
+
+Two stages:
+
+**1. Shred a SINE database into fragments** (`01_sanitize_shred.sh`, then
+`02_filter_lc_cluster_nr85.sh`). Input deduplicated at 95 % with vsearch. Each
+SINE of length L is cut region-aware, because the head and tail are the
+diagnostic parts:
+
+| region | span | step |
+|---|---|---|
+| 5′ | bases 1-150 | 10 bp |
+| middle | 151 to L-100, only if L > 250 | 25 bp |
+| 3′ | last 99 bp, only if L > 150 | 25 bp |
+
+Headers `>SINE_ID|REGION:START-END`. IDs sanitised (`|` and `:` → `_`, uniquified)
+because EMBOSS and downstream parsers need it. Then low-complexity filtered and
+clustered to `nr85`.
+
+**2. Scan the genome** (`sine_scan.sh`): per-fragment Smith-Waterman with
+`ssearch36`, filter on identity and **query** coverage, merge hits within 500 bp
+into candidate loci, extract with flanks. Outputs `query_summary.tsv`,
+`all_hits.filtered.m8`, `candidate_loci.bed`, `candidates.fa` → feeds SubFam.
+
+Two versions exist: the newer takes `-q -g -o` and parallelises **per query**;
+the scorpio copy takes positional args and chunks the **database** into 100 Mb
+blocks under GNU parallel. Same constraint either way - `ssearch36` has no index,
+so the work has to be split somewhere.
+
+**"minus-bank"** is simply a search DB whose headers are coordinate-wrapped,
+`Scaffold_8:0-77793632()` - what `bedtools getfasta` writes when the BED has no
+strand column. It comes from the optional genome subsampling step (by fraction
+or fixed bp, random scaffolds). The script detects it from the first header and
+then *requires* `TARGET_GENOME` to be set, because hits must be mapped back to
+original scaffold coordinates:
+`shift = interval_start0 + chunk_off1 - 1`.
+
+Consequence for the discriminator: these loci are **anchors expanded to
+candidates**, not verified full elements. That is why a de novo family scores
+FRAGMENT_OF_LONGER so often - it is describing the input honestly.
+
+## Corrections to earlier notes in this file
+
+**SubFam chunks by SIMILARITY, not input order.** `mafft --retree 0 --reorder`
+emits in guide-tree order, so each 50-sequence block is a similarity
+neighbourhood. Measured on Timema: adjacent chunks share a subfamily **92 %** of
+the time, decaying with distance (0.89 at 2 apart, 0.85 at 10, 0.74 at 50, 0.53
+at 200) against **0.31** for a random pair. So chunk index is real information
+and a clustering that ignores it is discarding a strong prior.
+
+**`-plurality 18` in SubFam is hardcoded, not scaled.** It is 18/50 = 36 %, which
+matches `conse`'s 35 % only because chunks are 50. Change the chunk size and that
+constant silently becomes wrong.
+
+**SubFam's `.clw` is a plain `cat` of the per-chunk `.cons` files** - not an
+alignment despite the extension. The aligned product is `.msf`, built with
+`mafft --localpair --maxiterate 1000 --ep 0.123` (note the non-default gap
+extension penalty).
