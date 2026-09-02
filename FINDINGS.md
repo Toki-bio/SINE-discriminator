@@ -8,6 +8,98 @@ after every exchange.
 
 ---
 
+## 2026-09-02 — the peel loop, run on Timema against his own partition
+
+Input: 597 SubFam chunk consensuses from `run_20260821_132226` on DRAGEN.
+Truth: his 8 groups, assigned per chunk by majority vote of its 50 members
+against the run's own `assignment_full.tsv`. Mean chunk purity **0.953**, so a
+chunk almost always belongs cleanly to one group — the chunk-level abstraction is
+sound.
+
+### It recovers five of his eight groups cleanly, in his order
+
+Ranked by isolation — within-group identity minus the best identity to anything
+outside, which is his "cleanly isolated from alignment":
+
+| isolation | chunks | his group | purity |
+|---|---|---|---|
+| +0.414 | 30 | **t2** | **100 %** |
+| +0.409 | 69 | t3 | 45 % |
+| +0.234 | 16 | **t6** | **100 %** |
+| +0.221 | 74 | t4 | 54 % |
+| +0.161 | 55 | **t8** | **100 %** |
+| +0.135 | 297 | **t1** | **95 %** (his t1 = 288) |
+| +0.117 | 35 | **t7** | **97 %** |
+
+Residue 20 chunks. So `t1, t2, t6, t7, t8` come out at 95–100 % pure, and only
+the `t3`/`t4` pair is wrong.
+
+### His correction, which changed the result
+
+> subfam after sinederella usually doesnt need flip because consensuses used are
+> expected to be properly oriantated
+
+Correct, and my orientation pass was doing real damage. Compared directly:
+
+| | with my flipping | as SINEderella left them |
+|---|---|---|
+| `t1` | split into 210 + 89 | **one cluster, 297, 95 % pure** |
+| `t3` / `t4` | **fused**, one 143-chunk blob at 40 % | **separated**, 69 and 74 |
+
+Flipping fused t3 with t4 and split t1 in two. **Do not orient subfam chunk
+consensuses** — they inherit the orientation of the input consensuses.
+
+Worth keeping separate: orientation *is* needed for AnnoSINE seed candidates,
+where about half are reverse-complemented. It is not needed after SINEderella.
+Two different situations, one of which I applied to the other.
+
+### Single linkage chains; average linkage does not
+
+Single-link produced the 143-chunk blob whose **median within-cluster identity
+was 0.983** — the highest of any cluster — while being 40 % pure. A chain of
+groups linked through intermediates has high pairwise identity at every link, so
+no within-cluster statistic can see the join. Average linkage cannot make that
+merge.
+
+### Where it disagrees with him — and the evidence
+
+Mean pairwise identity between his groups, at chunk level, random-sampled:
+
+|  | t1 | t2 | t3 | t4 | t5 | t6 | t7 | t8 |
+|---|---|---|---|---|---|---|---|---|
+| **t1** | **0.878** | 0.467 | 0.448 | 0.421 | 0.481 | 0.447 | 0.473 | 0.448 |
+| **t2** | | **0.950** | 0.475 | 0.398 | 0.550 | 0.350 | 0.369 | 0.410 |
+| **t3** | | | **0.685** | 0.685 | **0.727** | 0.393 | 0.401 | 0.413 |
+| **t4** | | | 0.695 | **0.920** | 0.466 | 0.418 | 0.392 | 0.402 |
+| **t5** | | | | | **0.979** | 0.364 | 0.413 | 0.420 |
+| **t6** | | | | | | **0.846** | 0.594 | 0.594 |
+| **t7** | | | | | | | **0.874** | 0.665 |
+| **t8** | | | | | | | | **0.876** |
+
+Every group is internally tight — 0.85 to 0.98 — **except t3, at 0.685**. And
+t3's members are on average *more* similar to t5 (0.727) than to each other, and
+exactly as similar to t4 (0.685) as to each other.
+
+So the reason the loop cannot recover t3 is not that the loop is blind: **t3 as
+labelled does not behave like one group at chunk level.** That is a question for
+him, offered as a question — he said he may have made errors, and this is the
+one place the measurement disagrees. It is equally possible that what separates
+t3 from t4 lives in the members and is smoothed away by the consensi-of-50s,
+which is his own reason for building group consensuses from members.
+
+Also visible: t6, t7 and t8 are a related triplet (0.59–0.67 between them) while
+each is internally distinct, and t2 and t5 are the tightest things in the set.
+
+### What is still not exercised
+
+Everything peels in round one, so the re-alignment he described — the reason for
+peeling at all — never gets tested. The intrinsic defer test (re-cluster a
+candidate at a stricter threshold and hold it back if it splits) fires on
+nothing, because t3's cluster is homogeneous at 0.83 despite being impure. A
+better hold-back rule is needed before the re-alignment effect can be measured.
+
+---
+
 ## 2026-09-02 — two discovery routes, one genome, opposite answers
 
 *Centruroides vittatus* has now been through both routes, so they can be compared

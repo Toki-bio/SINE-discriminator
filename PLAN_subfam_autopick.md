@@ -175,3 +175,30 @@ he decides.
 
 This is the same standard as everywhere else in the project: his judgement is
 the standard, and a measurement that contradicts it has to argue, not overrule.
+
+---
+
+## Result of the first real run, 2026-09-02
+
+Ran on Timema `run_20260821_132226` (597 chunks) against his 8 groups.
+
+**Recovered `t1` 95 %, `t2` 100 %, `t6` 100 %, `t7` 97 %, `t8` 100 %.**
+Residue 20 chunks. Only the `t3`/`t4` pair is wrong.
+
+**Do not orient subfam chunk consensuses.** His correction — "subfam after
+sinederella usually doesnt need flip because consensuses used are expected to be
+properly oriantated" — is right, and my orientation pass was fusing t3 with t4
+and splitting t1 in two. Orientation is for AnnoSINE seed candidates, where half
+are reverse-complemented; not for post-SINEderella chunks.
+
+**Use average linkage, not single.** Single-link chained t3/t4/t5 into one
+143-chunk cluster whose median within-cluster identity was 0.983 — higher than
+any real group — while it was 40 % pure. A chain has high identity at every link,
+so no within-cluster statistic can detect the join.
+
+**Open question for him:** at chunk level every group is internally tight
+(0.85–0.98) except `t3`, at **0.685** — whose members are on average more similar
+to `t5` (0.727) than to each other. Either t3 as labelled is not one group, or
+what separates it lives in the members and is smoothed away by the
+consensi-of-50s. The second would be his own argument for building group
+consensuses from members.
