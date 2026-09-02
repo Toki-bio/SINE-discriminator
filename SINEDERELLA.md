@@ -321,3 +321,113 @@ thus the `-E 2` cutoff for borderline hits). If that is the mechanism, the vote
 is a *stability* filter and does real work; if ssearch36 is fully deterministic
 here, the 10 cycles cost 10× runtime for nothing. Testable by running one cycle
 twice and diffing. Ask before assuming either way.
+
+## Read the rest (2026-09-02). Corrections and measurements.
+
+### step1 already builds the subfam alignment you keep asking for
+
+`step1_search_extract.sh` calls `sear -k <query> <genome> 0.8 65 50` — **no `-b`**,
+so step1 does not make top100 alignments. What it *does* make, at the end, is:
+
+`genome.clean_step1/subfam_input/input.clw.al` = SubFam's chunk consensuses
+(degapped from `input.clw`) **concatenated with the family consensus bank** and
+aligned `--localpair --maxiterate 1000 --ep 0.123 --preservecase`.
+
+Timema `run_20260821_132226`: **605 rows = 597 chunk consensuses + the 8 family
+consensuses** (`>t2` etc. are in the file). That is the subfam alignment with
+anchor rows, already built. I was re-deriving it from `*.bnk.cons`.
+
+### The `(+,-)` strand, measured
+
+step1 merges hits across all consensuses **without `-s`**, so a locus hit by two
+families on opposite strands gets strand `+,-`. step8a then does
+`if (strand != "+" && strand != "-") strand = "+"`.
+
+Timema, `assigned.fasta` — 337,898 loci: `+` 128,115, `-` 128,908, **`+,-` 80,875
+= 23.9 %**, all extracted plus-strand.
+
+Actual cost, measured by identity to the consensus row: `top100` 0 flipped rows
+in 7 of 8 subfamilies (t4: 13 low, 4 genuinely reverse); `rand100` 0 in 5 of 8
+(t3: 25 low but only 4 reverse, t4: 4, t8: 1). **So it is a real defect worth
+0–4 rows per 100, not a pipeline-wrecker.** It was not the cause of the hydra
+orientation problem — that was my own code.
+
+**And `+,-` is not noise: it is the same set as CONFLICT.** 82,365 of 339,566
+regions (24.3 %) carry more than one subfamily label — near-identical to the
+23.9 % ambiguous strand. The 800 highest-bitscore loci are **all** `+,-`: the
+strongest, most complete copies are the ones several related consensuses hit.
+
+### `regions.by_subfam.bed` is NOT broken in this run
+
+The `sine-orth-loc-sinederella` skill says every line lists all subfamilies.
+Not here: 170,186 lines list `t1` alone, 33,393 `t8`, 21,199 `t7`. The multi-label
+sets are informative — the dominant one is **`t3,t4,t5` at 69,585 loci**.
+
+That is his pipeline independently reporting the same thing my peel loop found:
+t3/t4/t5 overlap. t3 measured 0.685 internal identity and was closer to t5
+(0.727) than to itself. Two independent methods agree, so it is a property of
+the families, not a clustering failure.
+
+### step3 already computes per-copy divergence — do not reinvent it
+
+- `sim_ratio` = copy-vs-its-consensus ssearch36 bitscore ÷ that consensus's
+  self-alignment bitscore. Timema: n=182,565, min 0.290, q1 0.599, **median
+  0.748**, q3 0.897, max 1.028.
+- **LEAK** = `runner_ratio >= 0.90` — the second-best consensus scores within
+  10 % of the best. Timema 9,340 copies.
+- **CONFLICT** = the locus's region carries >1 subfamily label. Timema 82,365.
+- Uses `-E 100` here, not `-E 2`.
+
+### The 10 voting cycles do real work — tested, not assumed
+
+`ssearch36 -g -3 -T 32 -Q -n -z 11 -E 2 -w 95 -W 70 -m 8`, same inputs, three runs:
+**43,396 / 43,484 / 43,657 rows, three different md5s**, and **17 of 20,000 copies
+changed their winning consensus** between run 1 and run 2. So it is
+non-deterministic under threading, and 10/10 unanimity is a genuine *stability*
+filter that discards copies whose assignment flips on thread-scheduling noise.
+Not wasted runtime.
+
+### `extract_alignments.sh` post-processes flanks — its columns are NOT homologous
+
+`postprocess_flanks()`: the consensus row's first and last non-gap column define
+the body. Outside it, **per copy, internal gaps are deleted, bases lowercased,
+and gaps padded on the outer side** — left flank right-justified against the
+body, right flank left-justified. Column count preserved, homology destroyed.
+
+**This is the "no ragged tails" convention.** Flanks are butted against the
+element edge for the eye, not aligned.
+
+Consequence: any column-wise flank statistic — island z-scores, flank identity
+decay, my `decay_L`/`decay_R` — is **meaningless on `.core.fa` / `.best50.fa`**.
+It is valid on step8a's `*_top100.aln.fa` / `*_rand100.aln.fa`, which do **not**
+get this treatment. No such `.core.fa` files exist on DRAGEN yet, so nothing I
+measured is affected — but this is a trap the moment extract_alignments is run.
+
+### step5 truncates the consensus — a second reason to prefer step8a
+
+Large subfamilies (>=400): `mafft --add "$CONS_BANK" --keeplength`. `--keeplength`
+forces the added consensus into the existing column frame, **deleting consensus
+residues that would need new columns**. Small subfamilies get `--auto`, not
+`--localpair --maxiterate 1000 --ep 0.123`. step8a cats and fully re-aligns instead.
+
+### Consensus-builder flags — my earlier note had them wrong
+
+`sine_consensus.sh input.fasta [subsample=100] [max_iters=50] [thresh=0.01]`.
+**Positional only, no flags.** Column rule: **>50 % gaps -> `-`**, otherwise
+plurality of non-gap bases, ties -> `N`. Gaps *are* in the denominator for the
+gap test. Converges on Hamming/len < 0.01, minimum 5 iterations. Says explicitly:
+*"No automatic trimming. Trim manually after visual inspection."*
+
+There is **no `-c 70 -g 30`** — I invented that. The real flags:
+
+| script | flags |
+|---|---|
+| `sine_consensus_smart.sh` | `-n` subsample, `-m` max iters, `-s` stability, **`-t`** call threshold (50), **`-c`** min coverage (30), `-k` keep |
+| `sine_pairwise_consensus.sh` | `-r` reference, `-n` max copies, **`-t`** call threshold, **`-c`** min coverage, `-j` jobs, `-N/-M/-S` bootstrap |
+
+So "trim the flanks" is **`-t 70 -c 30`**, not `-c 70 -g 30`.
+
+**Doc/code mismatch in `sine_pairwise_consensus.sh`:** its help says `-t` defaults
+to 50 and `-c` to 30; the code sets `CONS_THRESH=30`, `MIN_COVERAGE=10`. Running
+it with defaults gives a much looser consensus than the help claims. Pass them
+explicitly.
