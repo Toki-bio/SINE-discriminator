@@ -110,3 +110,66 @@ These change the design and I would rather ask than assume:
    for inspection, or is "noise" a sufficient answer?
 
 None of these block step 1, which is why step 1 starts now.
+
+---
+
+## The two points he added, 2026-09-02
+
+### 1. Peel the easy groups first, then re-align the remainder
+
+> initial subfam is big - thus i propose not clustering it directly, but first
+> gather low hanging fruits (easily defineable clusters, cleanly isolated from
+> alignment) - these should be removed from alignment, it should be re-aligned
+> if more that 100 sequences are gone at first step (less are required for
+> re-alignment in future steps) - the idea is to re-align after massive removals
+> to improve the alignment of remaining worse clusterable sequences.
+
+This changes the loop in three ways, and the third is the reason for it.
+
+**a. The selection criterion is isolation, not tightness.** The plan ranked
+clusters by "tightness x size". That is wrong for this. A cluster can be tight
+and still sit inside a larger blur; what he takes first is a group that is
+*cleanly separated from everything else*. Measured, that is a gap: high identity
+within the group, and a clear drop to its nearest neighbour outside it. A
+silhouette-style score, not a within-group average.
+
+**b. Re-alignment is part of the loop, with a size trigger.** After the first
+peel, re-align if more than 100 sequences were removed. In later steps a smaller
+removal is enough to justify it. So the trigger falls as the alignment shrinks -
+early on only a large removal changes anything, later a small one does.
+
+**c. Why it works: the easy sequences were degrading the hard ones.** A
+progressive multiple alignment is a compromise across everything in it. The
+dominant, well-conserved groups pull the column structure towards themselves, so
+the divergent remainder is aligned to a frame built for other sequences. Take
+the dominant groups out and re-align, and the remainder gets a frame of its own -
+groups that were invisible become separable. This is the same reason a mixture
+looks worse in one alignment than its parts do separately.
+
+That also means **clustering quality is not a fixed property of the data**. It
+improves as the set is peeled, so a cluster judged "not clean enough" in round 1
+may be obvious in round 3. The loop must therefore re-cluster from scratch after
+every re-alignment rather than carry scores forward.
+
+### 2. Validate against his manual separations, and argue where they differ
+
+> to learn to do it effectively, you need to experimantally follow my ground
+> truth separation in species where i performed it manually (examples - tal
+> sine, timema) and argue if you find contradiction (i may hava made errors).
+
+Two things follow.
+
+**The target is his partition, on species where he made one by hand.** Tal
+(`saq` s1-s9, `ccr` g3-g7, `teu` t1-t6, `dmo` d1-d5) and Timema. Those names in
+the corpus are his manual separations, so the recovered groups can be compared
+against them set by set, not just counted.
+
+**Disagreement is a result, not a failure.** He has said explicitly that he may
+have made errors, so where the loop lands somewhere else the job is to make the
+case: which sequences moved, what measurement says they belong where the loop
+put them, and what the alignment looks like either way. A silent match is worth
+less than a documented disagreement that turns out to be right - and either way
+he decides.
+
+This is the same standard as everywhere else in the project: his judgement is
+the standard, and a measurement that contradicts it has to argue, not overrule.
