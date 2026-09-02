@@ -460,3 +460,55 @@ Two rules:
 - never put `pkill` and the work it is clearing the way for in the same remote
   command; the kill can take the shell with it
 
+
+---
+
+## 2026-09-02 — peel on diagnostic columns, not identity
+
+MANUAL §6.1.6 defines a subfamily as a **shared diagnostic pattern** — a
+synapomorphy — and says the accumulation of private per-copy mutations is
+*noise on top of the subfamily signal*. Average pairwise identity measures
+exactly that noise, so the identity-based peel loop was answering the wrong
+question. Rebuilt on features (`peel_features.py`).
+
+**A group is a block of co-occurring (position, character) features**, and a
+sequence joins if it carries ≥60 % of the block. That tolerance is the point:
+one noisy column no longer expels a member, which is what makes the exact
+co-occurrence sets in `SINEClusterer` fragment on 600 noisy chunks.
+
+**Seeded growth, not single linkage, over the features.** Linking features
+transitively chains them the same way single linkage chained t3/t4/t5 into one
+143-chunk cluster — measured: union-find gave 5 blocks and placed 111 of 596
+sequences. Taking the widest unused feature as a seed and attaching only what
+agrees *with that seed* gave 26 blocks and placed 503.
+
+### Result on Timema, against his t1–t8
+
+| | identity-based | feature-based |
+|---|---|---|
+| placed | 111 / 596 | **503 / 596** |
+| weighted purity | — | **0.958** |
+| t3 | never recovered | 105 @ 96 %, 42 @ 98 % |
+| groups | 5 of 8 | all of t1, t2, t3, t6, t7, t8 |
+| re-align | never fired | fired twice |
+
+Per group: t1 81 @100 %, t2 29 @100 %, t3 105 @96 %, t7 32 @100 %, t8 56 @100 %,
+t6 7 @100 %. Residue 93, mostly t1.
+
+**t1 comes out as four separate pure clusters** — 81, 72, 20, 16, all 100 % —
+which is his own v4 curation splitting it into `t1_1 t1-2 t1-3 t1-4`. The
+substructure is real and the method finds it without being told.
+
+**His re-alignment rule is load-bearing, and this is the first run that showed
+it.** Round 2, after 330 sequences left and the remainder was re-aligned, found
+a t3 block of **169 co-occurring features** at 98 % purity. In round 1 that block
+did not exist. Everything peeled in round 1 under the identity method, so the
+effect could never be observed.
+
+### Correction to the ground truth itself
+
+The chunk labels were being built by matching member coordinates against
+`assignment_full.tsv` with only `(+)` and `(-)` suffixes — silently dropping the
+23.9 % of loci whose strand is `(+,-)`. Adding that suffix raised mean chunk
+purity **0.953 → 0.975** and moved chunks between t3 and t4. Earlier t3/t4
+conclusions were drawn on labels distorted by that gap.
