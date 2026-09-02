@@ -8,6 +8,75 @@ after every exchange.
 
 ---
 
+## 2026-09-02 — his de novo scan, found and checked
+
+*"sine de novo scan (not jargon, my script, find it) - find these assemblies and
+check run results."*
+
+**The script** is `/data/W/toki/scorpio/denovo_scan/sine_scan.sh`:
+`sine_scan.sh <search_db.fa> <queries.fa>`. A chunked ssearch36 fragment search
+run in parallel, ≥65 % identity and ≥0.90 query coverage, hits normalised back
+from composite chunk names to original scaffold coordinates, then merged with
+50 bp of flank. It is the stage the SINEderella README points at when it says
+"see the separate SINE-de-novo-genome-scan tool for that earlier stage".
+
+**The run completed 2026-08-14 and is sound:**
+
+| | |
+|---|---|
+| queries with hits | 792 of 958 |
+| total hits | 4,574 |
+| merged loci | **3,408** |
+| locus length | 141–304 bp, median **148** |
+| target | `NW027120657.1` — *Centruroides vittatus* |
+
+Queries are SINEBase family fragments, and every locus header names the query
+that found it. Loci per family: OK 357, CQ4 67, BbeA2 55, CQ1 50, Mar1 49, SP1
+43, Pca1 39, NV1 38, SacSINE1 38, SINE3 37 and a long tail.
+
+### The assemblies — two, not one per species
+
+Searched `/data/W/toki`, `/data/V/toki` and `/staging`. Exactly two scorpion
+genomes exist:
+
+- ***Centruroides vittatus*** — `/data/W/toki/scorpio/sco.bnk`, NCBI ASM3068694
+  (= GCF_030686945.1), 770 MB. This is the scan's target.
+- ***Buthus sindicus*** — `Genomes/lower/Arthropoda/Scorpions/unp/buthus_sindicus_contigs.fasta`,
+  SPAdes contigs (`NODE_1_length_582274_cov_6.5`), **not** from NCBI.
+
+If more species were downloaded they are not in those trees.
+
+### Grouping the loci: by query, not by SubFam chunk
+
+SubFam on the 3,408 loci gives 69 chunk consensuses whose **median pairwise
+identity is 0.205** — near random. That is expected and not a failure: SubFam
+chunks by input order after a rough reorder, so with loci drawn from 792
+different query families each 50-locus chunk spans many families. Chunk-level
+grouping only works when the input is already one family, which is how
+SINEderella uses it.
+
+For a heterogeneous de novo set the grouping is already in the data: **the query
+that found each locus.** 47 families with 20 or more loci, each consensus built
+by column majority over a MAFFT alignment of its own loci, all SINE-sized
+(117–172 bp).
+
+### My own bug: `cons -plurality 18` on a 20-sequence family
+
+The first attempt used SubFam's own consensus call, `cons -plurality 18`, and
+produced 11 consensuses of which **6 got zero blastn hits against the genome the
+loci came from** and none scored above 50.
+
+`-plurality 18` asks for 18 of the sequences to agree. In SubFam that runs on
+chunks of ~50, where 18 is a little over a third. Applied to a family of 20 it
+demands near-unanimity, so most columns come out N — and stripping the N's
+splices non-adjacent columns together into a chimera that matches nothing.
+
+**A consensus threshold is a fraction of the sequences present, never a count.**
+Rebuilt as a plain column majority over columns where at least half the copies
+have a base, the same families give 47 usable consensuses.
+
+---
+
 ## 2026-09-02 — re-evaluating the old datasets, and three bugs it flushed out
 
 He asked for the old sets to be re-run with the new criteria: *"the old tal sine,

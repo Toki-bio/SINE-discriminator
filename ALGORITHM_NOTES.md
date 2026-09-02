@@ -386,3 +386,36 @@ data runs out, the answer is "not measured", which feeds nothing. And a
 classification that depends on a distance must also require the thing being
 measured to be present - distance means nothing until there is elevated
 similarity to decay from.
+
+## 18. A consensus threshold is a fraction of the sequences, never a count
+
+Building family consensuses from his de novo scan, I reused SubFam's own call,
+`cons -plurality 18`. Six of the eleven consensuses then got **zero blastn hits
+against the very genome their loci came from**, and none scored above 50.
+
+`-plurality 18` asks for eighteen sequences to agree. Inside SubFam that runs on
+chunks of about fifty, where eighteen is a little over a third - a sensible
+majority. Applied to a family of twenty it demands near-unanimity, so most
+columns come out N; stripping the N's then splices non-adjacent columns into a
+chimera that matches nothing.
+
+Rebuilt as a plain column majority - the most common base wherever at least half
+the copies have one - the same loci give 47 usable consensuses, all SINE-sized.
+
+**Any parameter borrowed from another stage has to be re-read as a fraction of
+whatever it is now being applied to.** The same trap as measuring a background
+next to the element: a number that was right in one context, carried unchanged
+into another.
+
+## 19. Grouping a de novo locus set: use the provenance, not the clustering
+
+SubFam on the 3,408 loci from the scorpion de novo scan gives 69 chunk
+consensuses whose median pairwise identity is **0.205** - near random. That is
+not SubFam failing. It chunks by input order after a rough reorder, so it works
+when the input is already one family, which is exactly how SINEderella uses it.
+A de novo sweep is the opposite case: those loci came from 792 different query
+families, so every 50-locus chunk spans many of them.
+
+For a de novo set the grouping is already in the data - **the query that found
+each locus**. Grouping by query name gives 47 families of 20+ loci, all
+SINE-sized once their consensuses are built properly.
