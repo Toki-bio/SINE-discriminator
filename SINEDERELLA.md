@@ -543,3 +543,16 @@ and the three non-interchangeable subfamily labelling systems.
 7. **Do not iterate the final `conse` pass.** Once. It creeps outward otherwise.
 8. **Do not apply an `undetermined` step7 boundary.** Fall back to the base flank.
 9. **Check step7 population** before reusing a boundary: top100 ≠ general.
+
+## Before writing ANY script: read REINVENTED.md
+
+`REINVENTED.md` in the SINE_discriminator repo lists his tools and the scripts of
+mine that duplicate them — 16 confirmed duplicates as of 2026-09-02, including
+`sear` (I wrote `candidate_to_aln.py` with blastn and a 400 bp flank instead),
+`CutByCons` / `Trim.sh` (trim to consensus coordinates), `100sim.sh`,
+`SimilarCopies`, `PairClust.sh`, `ReadExtend`, `tsd*.sh` and `trf`/`UnitFinder.sh`.
+
+`/data/V/toki/bin/` on KIT holds ~200 executables. Search it before building
+anything. Many `sear` variants exist — `sear100`, `sear1step`, `sear2kloop*`,
+`searFULLblast`, `seart*` — so check which one fits rather than assuming plain
+`sear`.
