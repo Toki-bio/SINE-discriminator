@@ -21,7 +21,22 @@ SPECIES = [
     ("aca", "starfish", "Acanthaster planci", "Echinodermata", "GCF_001949145.1"),
     ("stu", "sturgeon", "Acipenser ruthenus", "Actinopterygii", "GCF_010645085.2"),
     ("ska", "skate", "Amblyraja radiata", "Chondrichthyes", "GCF_010909765.2"),
+    ("zeb", "zebrafish", "Danio rerio", "Actinopterygii", "GCF_000002035.6"),
+    # scorpions - one best assembly per species, all nine at NCBI
+    ("sco", "bark scorpion", "Centruroides vittatus", "Arachnida", "GCF_030686945.1"),
+    ("csc", "bark scorpion", "Centruroides sculpturatus", "Arachnida", "GCF_000671375.1"),
+    ("aeg", "Cyprus scorpion", "Aegaeobuthus cyprius", "Arachnida", "GCA_978021275.1"),
+    ("amu", "fat-tailed scorpion", "Androctonus mauritanicus", "Arachnida", "GCA_011317285.2"),
+    ("bxa", "blind scorpion", "Belisarius xambeui", "Arachnida", "GCA_982267015.1"),
+    ("bku", "Kunt's scorpion", "Buthus kunti", "Arachnida", "GCA_982656515.1"),
+    ("efe", "European scorpion", "Euscorpius feti", "Arachnida", "GCA_974489025.1"),
+    ("hta", "Indian red scorpion", "Hottentotta tamulus", "Arachnida", "GCA_056825405.1"),
+    ("oma", "Chinese scorpion", "Olivierus martensii", "Arachnida", "GCA_000484575.1"),
 ]
+
+# cvi is the same assembly as sco; scd / sce are the de novo variants of it,
+# reported in their own section rather than as separate genomes.
+SKIP_CODES = {"cvi", "scd", "sce"}
 
 # from each genome's AnnoSINE Seed_SINE.fa header: the RNA the seed came from,
 # and AnnoSINE's own copy count (note 4: a floor, not an estimate)
@@ -193,7 +208,8 @@ def main():
             sd[f[0]] = f
 
     h = [HEAD, '<div class="wrap">']
-    present = [s for s in SPECIES if any(c.startswith(s[0] + "_") for c in data)]
+    present = [s for s in SPECIES
+               if any(c.startswith(s[0] + "_") for c in data) and s[0] not in SKIP_CODES]
     n_cand = len(data)
     n_aln = sum(len(v) for v in data.values())
     names = ", ".join(s[1] for s in present[:-1]) + " and " + present[-1][1] if len(present) > 1         else present[0][1]
@@ -279,7 +295,8 @@ def main():
 
     calls = his_calls()
     for code, common, latin, phylum, acc in SPECIES:
-        cands = [c for c in data if c.startswith(code + "_")]
+        cands = [c for c in data if c.startswith(code + "_")
+                 and c.split("_")[0] not in SKIP_CODES]
         if not cands:
             continue
         cands.sort(key=lambda c: int(c.rsplit("_", 1)[1]))

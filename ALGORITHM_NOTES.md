@@ -442,3 +442,21 @@ so on a 1.7 Gb assembly the redundant 73 were about an hour of wasted search.
 Related to note 4 — a discovery tool's copy counts are a floor, not an estimate —
 and the same lesson from the other side: its candidate *list* is not a family
 list either, in both directions.
+
+## 21. A process-matching pattern that can match itself will kill the wrong thing
+
+`pgrep -f "script.py"` matches its own command line, so it reports a dead job as
+alive. Already recorded, already fixed with `pgrep -f "script[.]py"`.
+
+The same trap in the other direction is worse: **`pkill -f auto_pipeline.sh`
+matched the ssh command that contained that string and killed the session before
+the rest of the command ran.** It happened three times tonight - once killing a
+zebrafish run mid-flight, twice silently dropping the `sed` that was meant to
+follow.
+
+Two rules:
+
+- bracket a character in every `pgrep`/`pkill` pattern: `auto[_]pipeline.sh`
+- never put `pkill` and the work it is clearing the way for in the same remote
+  command; the kill can take the shell with it
+
