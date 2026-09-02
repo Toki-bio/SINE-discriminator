@@ -207,6 +207,7 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--rule);font-si
     <a href="#telling-a-sine-from-a-line-and-a-mistake">SINE vs LINE</a>
     <a href="#hedgehog-run-through-the-identical-pipel">Hedgehog</a>
     <a href="#verdicts-weighted-toward-the-hard-cases">Worked examples</a>
+    <a href="#separating-subfamilies">Subfamilies</a>
     <a href="#how-ready-this-is">Readiness</a>
   <div class="sn-sep"></div>
   <a href="newspecies.html">15 genomes &rarr;</a>
@@ -424,6 +425,61 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--rule);font-si
   <div id="list"></div>
 </section>
 
+<section id="separating-subfamilies">
+  <div class="rule"><span class="fnum">SUBFAMILIES</span><span class="chip c-ok">Recovers his partition</span></div>
+  <div class="col">
+    <h2>Separating subfamilies — on diagnostic columns, not identity</h2>
+    <p>
+      After SINEderella, the manual step is Sergei's: open the SubFam chunk consensuses in an
+      alignment viewer, find the groups that share diagnostic columns, peel them out one at
+      a time, re-align what is left, repeat. This is that step, automated and scored against
+      the partition Sergei made by hand.
+    </p>
+    <p>
+      The first attempt clustered on <b>average pairwise identity</b> and could not recover
+      Timema&rsquo;s <code>t3</code> at all. The manual is explicit about why: a subfamily is
+      <b>a specific, shared, diagnostic pattern</b> of small indels and SNPs — a synapomorphy —
+      and <i>not</i> the generic accumulation of private per-copy mutations from
+      post-insertion decay, &ldquo;which is noise on top of the subfamily signal rather than
+      the signal itself&rdquo;. Pairwise identity measures precisely that noise. It was the
+      wrong axis, not a bad threshold.
+    </p>
+    <p>
+      Rebuilt on features: a group is a <b>block of co-occurring (position, character)
+      features</b>, and a sequence joins if it carries 60&nbsp;% of the block — so one noisy
+      column no longer expels a member. Blocks are grown from a seed rather than linked
+      transitively, because linking features chains them exactly the way single linkage
+      chained <code>t3</code>/<code>t4</code>/<code>t5</code> into one 143-chunk cluster.
+    </p>
+    <div class="scroll"><table>
+      <thead><tr><th>Timema, 596 chunk consensuses</th><th>on identity</th><th>on diagnostic columns</th></tr></thead>
+      <tbody>
+        <tr><td>sequences placed</td><td class="n">111</td><td class="n">503</td></tr>
+        <tr><td>weighted mean purity</td><td class="n">&mdash;</td><td class="n">0.958</td></tr>
+        <tr><td>feature blocks found</td><td class="n">5</td><td class="n">26</td></tr>
+        <tr><td><code>t3</code></td><td class="n">not recovered</td><td class="n">105 @ 96 %, 42 @ 98 %</td></tr>
+        <tr><td>his groups recovered</td><td class="n">5 of 8</td><td class="n">t1, t2, t3, t6, t7, t8</td></tr>
+        <tr><td>re-alignment step</td><td class="n">never fired</td><td class="n">fired twice</td></tr>
+      </tbody>
+    </table></div>
+    <p>
+      Two results worth a look. <b><code>t1</code> comes out as four separate clusters</b> —
+      81, 72, 20 and 16 chunks, all 100&nbsp;% pure — which is the v4 curation splitting
+      it into <code>t1_1</code>&ndash;<code>t1-4</code>; the substructure is found without
+      being told it is there. And <b>the re-alignment rule is load-bearing</b>: round 2,
+      after 330 sequences had been peeled and the remainder re-aligned, found a
+      <code>t3</code> block of <b>169 co-occurring features</b> at 98&nbsp;% purity that did
+      not exist in round 1. Under the identity method everything peeled in round 1, so that
+      effect could never be observed.
+    </p>
+    <p>
+      Not yet passed: <b>saq</b>, nine manual subfamilies over 600 chunk consensuses, where
+      the existing first-pass assist collapses to two blobs plus one 6-sequence cluster. The
+      chunk&rarr;group labels for that set are not on disk, so that test is still open.
+    </p>
+  </div>
+</section>
+
 <section id="how-ready-this-is">
   <div class="rule"><span class="fnum">STATUS</span></div>
   <div class="col"><h2>How ready this is</h2></div>
@@ -437,9 +493,9 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--rule);font-si
       <tr><td>Truncation / LINE-like</td><td class="n">ready</td><td style="text-align:left">Two independent features agree</td></tr>
       <tr><td>Deletion mosaics</td><td class="n">ready</td><td style="text-align:left">Clean families carry long internal gaps in only 4.6 % of copies</td></tr>
       <tr><td>Segment scramble</td><td class="n">partial</td><td style="text-align:left">Detectable only on unaligned sequence — the aligner hides it</td></tr>
-      <tr><td>Subfamily structure</td><td class="n">unreliable</td><td style="text-align:left">Confounded by age and copy number</td></tr>
+      <tr><td>Subfamily structure</td><td class="n">ready</td><td style="text-align:left">On diagnostic columns: 503 of 596 Timema chunks placed at 0.958 purity; saq (9 subfamilies) untested</td></tr>
       <tr><td>Nesting, segdup, satellite</td><td class="n">partial</td><td style="text-align:left">Flank sharing only; satellites should use TRF overlap</td></tr>
-      <tr><td>Natural negatives</td><td class="n">missing</td><td style="text-align:left">No LINEs, satellites or processed pseudogenes yet</td></tr>
+      <tr><td>Natural negatives</td><td class="n">ready</td><td style="text-align:left">44 sets: 14 LINE (terminus, second copy, ORF interior), 16 chimera, 8 mosaic, 3 satellite, 3 segmental duplication</td></tr>
       <tr><td>Calibrated thresholds</td><td class="n">not started</td><td style="text-align:left">Deliberately — the five confounds come first</td></tr>
     </tbody>
   </table></div>

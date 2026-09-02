@@ -512,3 +512,82 @@ The chunk labels were being built by matching member coordinates against
 23.9 % of loci whose strand is `(+,-)`. Adding that suffix raised mean chunk
 purity **0.953 → 0.975** and moved chunks between t3 and t4. Earlier t3/t4
 conclusions were drawn on labels distorted by that gap.
+
+---
+
+## 2026-09-02 — re-running the page, and two silent-failure bugs
+
+Re-scored the whole corpus with the current code to update the site. Result
+first, because it is the boring one: **not a single set changed score.** 273
+sets, published vs fresh run, zero differences. The lowest true positive is
+81.5 of 132, exactly what the page already claims. The graph *data* was not
+obsolete — the prose around it was.
+
+### Bug 1 — the scorer silently degrades to "no evidence"
+
+`verdict.py` loads four side inputs, each in a bare `try/except → {}`:
+
+```python
+try:    _DECAY   = json.load(open("flankdecay.json"))
+except: _DECAY   = {}
+```
+…and the same for `flank_islands.json`, `microsat.json`, `region_part.json`.
+
+A missing or *wrong* file is therefore indistinguishable from "this set has no
+flank signal", and no-evidence scores **high**. Running the corpus without them
+put every negative at 100 and gave a separation of −55 — with no error, no
+warning, nothing in the log.
+
+Worse, the files exist under two naming schemes. The corpus versions are
+`flankdecay_corpus.json`, `islands_corpus.json`, `microsat_corpus.json`,
+`corpus_regionpart.json` (673/673 coverage of `aln_c`). The generic names that
+`verdict.py` actually opens hold the **new-species** data — 119 keys, **0 of
+which match any corpus set**. Anyone who runs the scorer in that directory
+scores the corpus with the flank evidence switched off and is told nothing.
+
+This is the same failure shape as the zero-byte `genome.sizes` that made all 150
+zebrafish alignments contain only the consensus row: an input that is absent or
+wrong reads as an input that is legitimately empty. **Load these with an
+explicit key-overlap check against the corpus and refuse to score at 0 %
+overlap.**
+
+### Bug 2 — step7's background is deflated by soft-masking
+
+`step7_boundary_refine.sh` samples 300 random 70 bp genomic regions and compares
+them **positionally and case-sensitively**:
+
+```python
+ident = (1 - sum(1 for i in range(min_len) if a[i] != b[i]) / min_len) * 100
+```
+
+The Timema genome is **48.4 % soft-masked**, so lowercase-vs-uppercase counts as
+a mismatch. Measured on `genome.clean.fa`:
+
+| | mean identity | elevated_frac(>45 %) |
+|---|---|---|
+| case-sensitive (as written) | **13.640 %** | 0.000 % |
+| case-insensitive | **27.176 %** | 0.100 % |
+
+13.640 reproduces the `background_identity_pct` in his Timema
+`boundary_refinement.tsv` exactly, and scorpion's 14.586 is the same effect.
+The true background is ~27 %, near the 0.25 the discriminator assumes.
+
+**Scope of the damage: the reported number, not the calls.** The decision
+variable is `elevated_frac`, which is 0.000 case-sensitive against 0.100
+case-insensitive, both far under the 5 % threshold — so boundaries are
+unaffected. But `background_identity_pct` is wrong in every
+`boundary_refinement.tsv` written so far. One `.upper()` fixes it.
+
+### What was actually obsolete on the page
+
+- **"Subfamily structure — unreliable — confounded by age and copy number."**
+  Superseded: 503 of 596 Timema chunks at 0.958 purity on diagnostic columns.
+- **"Natural negatives — missing — no LINEs, satellites or processed
+  pseudogenes yet."** Contradicted by the page's own data, which already
+  contains **44** of them: 14 LINE, 16 chimera, 8 mosaic, 3 satellite,
+  3 segmental duplication.
+- **No subfamily section at all**, despite that being the strongest result.
+
+Added a Subfamilies section, fixed both rows, added the nav entry. Verified by
+rendering the page in headless Chrome: no console errors, table fits, nav has
+the new entry.
