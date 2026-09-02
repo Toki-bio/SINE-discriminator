@@ -698,3 +698,136 @@ saq, all 9 consensuses through `sear --slop 50,70 -b 100`, ~380 000 hits each:
 
 s8 specifically: 541 bases at 73 % gaps → **307 bases at 14 %**. The element is
 ~253 bp, so ~54 bp of flank is still called — down from ~288 bp over.
+
+---
+
+# Reading pass 2 (2026-09-03) — and an honest read/unread ledger
+
+I previously wrote "read every script end to end". That was false: I had read
+roughly a third and mapped the rest by grep and header. This pass fixes part of
+it. The ledger at the bottom says exactly what is still unread — do not claim
+otherwise again.
+
+## `extract_top100_rand100_subfam.sh` — THE species-page generator
+
+```
+extract_top100_rand100_subfam.sh <RUN_ROOT> <SPECIES_CODE> <OUT_DIR>
+```
+
+Inputs: `step2/step2_output/assigned.fasta`, `consensuses.clean.fa`,
+`genome.clean.fa` + `.fai`. Constants: `FLANK_L=50 FLANK_R=70 TOPN=100
+RANDN=100 SEED=42 BINSIZE=50 N_SAMPLE=10000 MIN_COPIES_SUBFAM=400`.
+
+Three outputs per subfamily:
+
+| file | how it is built |
+|---|---|
+| `{sp}_{sf}_top100.aln.fa` | bitscore parsed from the `>ctg:start-end(strand)\|subfam\|bits` header, top 100, **re-extracted from the genome with 50 L + 70 R strand-aware flanks**, consensus appended, mafft, `postprocess_flanks`, `@U@`→`_` |
+| `{sp}_{sf}_rand100.aln.fa` | same, but sampled with his own `/data/V/toki/bin/sample` (unseeded, shuf-based; inline fallback where that binary is absent) |
+| `{sp}_{sf}_subfam.aln.fa` | **only at ≥400 copies**: seed-42 sample of up to 10 000, `SubFam input.fasta 50`, `input.clw` degapped to `input_reps.fasta`, consensus appended, mafft. **Not flanked** — matches Tier C |
+
+`MAFFT_OPTS = --thread N --localpair --maxiterate 1000 --ep 0.123 --nuc
+--reorder --preservecase --quiet`. Consensus record is renamed
+`{sf}_CONSENSUS`, which is what `postprocess_flanks` matches on.
+
+**Its header already documents everything I "discovered" on 2026-09-02:**
+
+- **50 bp left, not 30.** "That script's own header comment says 30bp left, but
+  the actual historical commits… and explicit user confirmation both say 50bp
+  left — used 50 here, not the script's 30."
+- **The `(+,-)` bug, already found and fixed by him.** "merged/overlapping hits
+  can produce `(+,-)`, which the old `\([+-]\)$` pattern did not match. Left
+  un-stripped, `(+,-)` contains a literal `-` that corrupted the coordinate
+  split below (silently dropping the BED line, which meant these hits ended up
+  unflanked in the alignments with no error — **found by direct verification,
+  not by trusting the success-looking logs of the pipeline itself**)."
+- **The `@U@` leak**, citing `SINEderella:214, gsub(/_/,"@U@",hdr)`, "so
+  top100/rand100 headers leaked `@U@` all the way to the published alignments
+  (e.g. `NC@U@080165.1`)… Fixed by restoring `_` right before writing."
+- **A SIGPIPE trap**: `shuf | head` under `set -o pipefail` kills the script;
+  write intermediates to files instead.
+
+Provenance it cites: `/data/V/toki/bin/SINEderella/extract_alignments.sh`,
+md5-identical to `/data/W/toki/extract_alignments_sq.sh`, log at
+`/data/W/toki/extract_alignments_sq.log`.
+
+## `run_subfam_per_sf.sh` — where the `subfam/*.al` files come from
+
+Per subfamily: sample up to `N_SAMPLE=10000` from `assigned.fasta`, **skip if
+fewer than `MIN_COPIES=400`**, `SubFam input.fasta 50`, degap `input.clw` →
+`input_reps.fasta`, `cat input_reps.fasta {sf}.cons` → mafft (same options) →
+`{sf}.al`. Output dir `<run>/results/subfam_alignments`.
+
+So a species has a `.al` only for subfamilies with ≥400 assigned copies. That is
+why the counts differ per species, and the files are pipeline output, not manual.
+
+## step7 — the walk itself
+
+Not a growing region: at each step it tests **one `STEP_BP`-wide window sitting
+`ext` bp out from the element edge**, strand-aware (upstream/downstream swap for
+minus copies), reverse-complemented so every window reads in element orientation.
+`ext` starts at `FLANK_BASE` and grows by `STEP_BP` to `MAX_EXT_BP`.
+
+Stop conditions: `elevated_frac <= BG_FRAC + 5` → `confirmed`, `boundary_bp=ext`;
+running off the contig → also `confirmed`; exhausting `MAX_EXT_BP` →
+`undetermined` with `boundary_bp = MAX_EXT_BP`; fewer than 20 members →
+`insufficient_data` on all four rows.
+
+Populations: **general** = random sample capped at 2000 (seed 42); **top100** =
+`sort -k6,6nr | head -100`, which matches step8a's actual top100 sample exactly
+rather than approximating it.
+
+## step3 — outputs in full
+
+`summary.by_subfam.tsv` columns: `subfam, firm_assigned, soft_assigned,
+total_assigned, leak_n, conf_alt_n, firm_pct, total_pct, leak_pct,
+conf_alt_pct, sim_mean, sim_median`.
+
+- `firm_pct` / `total_pct` are fractions of **total extracted**, not of assigned.
+- `leak_pct` / `conf_alt_pct` are fractions of **firm assigned**.
+- `conf_alt=yes` means the conflict list contains a subfamily **other than** the
+  assigned one — i.e. genuinely contested, not merely overlapping itself.
+- `sim_ratio` per copy = best ssearch36 bitscore against its own consensus ÷ that
+  consensus's self-alignment bitscore, both at `-E 100`.
+
+Sanity counters printed at the end: `runner_ratio_tags`, `LEAK_rows`,
+`CONFLICT_rows`, `conf_alt_yes_any`, `sim_ratio_scored`,
+`unassigned_soft_assigned`.
+
+## step2 — outputs, and what incremental adds
+
+Both modes write `assigned.fasta` (`>seqID|subfamily|bitscore`),
+`unassigned.fasta`, `subfamilies/{sf}.fasta`, `assignment_stats.tsv`
+(`Subfamily, Assigned, TopN_Bitscore, Threshold`), `assignment_full.tsv`,
+`summary.txt`.
+
+Incremental additionally writes **`all_votes.tsv`** (per-sequence best vote for
+every sequence) and appends **`no_unanimous`** rows to `assignment_full.tsv` for
+sequences that had a best vote but never reached 10/10. Full mode does not.
+
+---
+
+## Read/unread ledger
+
+**Read in full:** `SINEderella` (1036), `step1_search_extract.sh` (278),
+`step1b` (50), `sear` (653), `SubFam` (58), `conse` (8), `asSINEment` (440),
+`step2_asSINEment.sh` (900), `step3_postprocess.sh` (591),
+`step5_align_subfamilies.sh` (231), `step6_report.sh` (37),
+`step7_boundary_refine.sh` (332), `step8a_extract_alignments.sh` (410),
+`step8b_publish_report.sh` (206), `extract_top100_rand100_subfam.sh` (462),
+`run_subfam_per_sf.sh` (188), `cluster_assist.js` (132),
+`sine_consensus.sh` (185).
+
+**Read in part:** `extract_alignments.sh` (577 — `postprocess_flanks` and the
+helper map), `subfam_cluster_lib.js` (504 — read to line 340),
+`step4_diagnostic.py` (1190 — `compute_position_weights` only),
+`step6_report.py` (1748 — function list and the CSS block),
+`sine_consensus_smart.sh` (288 — options and the consensus rule),
+`sine_pairwise_consensus.sh` (686 — usage and defaults).
+
+**Not read at all — headers only:** `sear_multi` (416),
+`SINEderella_multi` (659), `assembly_qc.sh` (197), `step4_plots.sh` (197),
+`step4_diagnostic.sh` (95), `step5_direct.sh` (150),
+`run_step5_wrapper.sh` (78), `extract_subfam_only.sh` (161).
+
+Roughly 4 000 lines remain unread. **Do not describe those as understood.**
