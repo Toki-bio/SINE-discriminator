@@ -591,3 +591,87 @@ unaffected. But `background_identity_pct` is wrong in every
 Added a Subfamilies section, fixed both rows, added the nav entry. Verified by
 rendering the page in headless Chrome: no console errors, table fits, nav has
 the new entry.
+
+---
+
+## 2026-09-02 — the alignments were never built with `sear`
+
+`grep -rn "sear " *.py *.sh` over the whole repo returns **nothing**. Every
+alignment in this project was built by `candidate_to_aln.py`, which is my
+reimplementation of his search:
+
+```python
+FLANK = 400
+blastn -query q -subject genome -evalue 1e-10 -word_size 11 -dust no
+       -outfmt '6 sseqid sstart send pident length bitscore sstrand'
+```
+
+then a hand-written single-pass overlap dedupe and `bedtools slop`.
+
+**`sear -b100` already does this, better, and was sitting there the whole time:**
+top N by bitscore → ±50 bp flanks → `getfasta -s` → query prepended as row 1 →
+`mafft --localpair --maxiterate 1000 --ep 0.123`. Correctly oriented by
+construction. What differs:
+
+| | his `sear` | my `candidate_to_aln.py` |
+|---|---|---|
+| engine | `ssearch36`, Smith-Waterman | `blastn -word_size 11` |
+| hit filter | span ≥80 % of query length, ≥65 % identity | `evalue 1e-10`, my own `hi-lo >= 40` |
+| merge | `bedtools merge -s` | hand-written single-pass overlap loop |
+| flank | 50 | **400** |
+| top-100 alignment | built in, `-b100` | rebuilt by hand |
+| orientation | stranded extraction, consensus row 1 | `--adjustdirection`, lost |
+
+That single `FLANK = 400` is upstream of everything in this conversation:
+`conse` on 400 bp-flanked copies calls **541 bases for a 253 bp element**, and
+the over-extension then propagates through
+`measure_c.py:91` / `justify_all.py:24`, which take the element window as the
+consensus's first-to-last non-gap column with no validation.
+
+**Sixth reimplementation.** SubFam, conse, sine_consensus.sh,
+step7_boundary_refine.sh, step8a, and now sear.
+
+### His calibration call on NEGTRUNC5__saq__s5_5seqs
+
+He read the alignment by eye and said the consensus should start at **AGTTCGA**.
+Measured, copy occupancy through the consensus:
+
+| consensus base | occupancy |
+|---|---|
+| 1 | 0.34 |
+| 25 | 0.51 |
+| 43 | 0.56 |
+| 61 | 0.70 |
+| **64 = AGTTCGA** | **0.77** |
+| 70–88 | 0.82 / 0.74 / 0.77 / 0.79 |
+
+Occupancy rises monotonically and **plateaus at AGTTCGA**. My `OCC >= 0.50`
+threshold fires at base 25 — 39 bases too early. **The boundary he sees is where
+the occupancy curve flattens, not where it crosses a fixed fraction.**
+`GTTCGA` is the tRNA B-box core, so these copies are 5′-truncated back to the
+B box, which is exactly what the NEGTRUNC5 class is constructed to be.
+
+His second observation on the same file — "flanks are incompletely sampled in
+many copies and the left end of the flank is hardly identifiable" — is the same
+fact from the other side: below 0.5 occupancy half the copies have no base
+there, so there is no flank edge to see.
+
+### Flank sizes
+
+**50 L / 70 R**, his instruction. (`extract_alignments.sh` uses 30/70;
+`step8a_extract_alignments.sh` uses `BASE_UP=50`, `BASE_DOWN=70`. The step8a
+values are the ones to use.)
+
+### What this means for the rebuild
+
+Not a patch to the alignments. The product has to be rebuilt from the search up:
+
+1. `sear -b100 <consensus> <genome>` for the top-100 view, `sear` + sampling for
+   rand100 — his tool, his filters, his orientation handling.
+2. Flanks 50 L / 70 R.
+3. Keep a separate 400 bp extraction **only** for decay/island/microsatellite
+   measurement, which is what `run_species.py` always said it was for — and
+   never publish those files to the viewer.
+4. Boundary from the occupancy plateau, calibrated against his AGTTCGA call.
+5. Block on consensus length vs median copy length, so a 541-base consensus for
+   a 253 bp element cannot ship.
