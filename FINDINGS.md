@@ -8,6 +8,49 @@ after every exchange.
 
 ---
 
+## 2026-09-02 — two discovery routes, one genome, opposite answers
+
+*Centruroides vittatus* has now been through both routes, so they can be compared
+on identical DNA.
+
+| route | candidates | scored | at 50+ | dominant reason |
+|---|---|---|---|---|
+| **AnnoSINE_v2** (structure: TSD, poly-A, pol-III boxes) | 15 | 12 | **7 clean at 100.0** | none - six are flagless |
+| **his de novo fragment scan** (SINEBase fragments, 65 % over 50 bp) | 47 | 19 | 3 | **FRAGMENT_OF_LONGER, 16 of 19** |
+
+The structural route gives `sco_SINE_1, 2, 3, 4, 6, 7` at **100.0 with no flags
+at all** - identity 0.69-0.91, 74-98 of 100 copies in the core, flank background
+0.27-0.31, which is the signature of independent insertions.
+
+The fragment route gives the opposite signature on the same genome: 16 of 19
+families are read as **fragments of something longer**, 14 carry flank islands,
+and flank backgrounds run 0.40-0.98. Extending every one of them by its decay
+distance and re-searching does not rescue them - only `CQ4` (0.0 -> 64.7) and
+`AFC3` (52.2 -> 70.6) improve, while `Mar1`, `MARE3` and `NV1` get worse.
+
+### What that means
+
+A cross-species SINE fragment matched at 65 % identity over 50 bp is weak
+evidence on its own, and in a repeat-rich scorpion genome most of those matches
+land inside longer repeats rather than at independent SINE insertions. The
+discriminator says so consistently and for a stated reason, which is the useful
+part: **the fragment sweep needs a structural or flank-independence filter
+behind it, and the discriminator is that filter.**
+
+Two details worth keeping:
+
+- `sco_OK`, built from the single most abundant query family (357 loci), fires
+  **MICROSATELLITE_ELEMENT** - the most common thing the sweep found in this
+  genome is simple repeat.
+- `sco_SINE_5` from the structural route is rejected at 0.0 with flank
+  background **0.885**, so the structural route is not immune either; it is
+  caught by the same rule.
+
+Neither route has been looked at by eye yet. The alignments are published and
+the seven clean AnnoSINE families are the ones worth his time first.
+
+---
+
 ## 2026-09-02 — his de novo scan, found and checked
 
 *"sine de novo scan (not jargon, my script, find it) - find these assemblies and
