@@ -556,3 +556,145 @@ mine that duplicate them — 16 confirmed duplicates as of 2026-09-02, including
 anything. Many `sear` variants exist — `sear100`, `sear1step`, `sear2kloop*`,
 `searFULLblast`, `seart*` — so check which one fits rather than assuming plain
 `sear`.
+
+---
+
+# Full read of SINEderella (2026-09-02)
+
+From reading the scripts end to end, after admitting I had only read parts. What
+I had dismissed as "plots and HTML" contained the report template and the
+diagnostic-position machinery.
+
+## The orchestrator
+
+Four modes: `full`, `add`, `exclude`, `resume`.
+
+- **`@U@` originates here, not in `sear`.** `sanitize_fasta` in **genome** mode
+  does `gsub(/_/,"@U@",hdr)`; **consensus** mode does not — it only strips
+  everything after the first whitespace. Genome contigs carry `@U@`, consensus
+  names do not.
+- Every mode copies the step scripts into the run dir as a frozen copy. **But
+  `--resume` overwrites them** from the current installation, so resuming
+  replaces a run's frozen scripts. The reproducibility guarantee does not
+  survive a resume.
+- **`--resume` never runs step6** when step2+3 are already complete: that branch
+  rebuilds the `results/` symlink farm and stops. Only `run_step2_step3` calls
+  step6, so a resumed run has no report unless step6 is run by hand.
+- `find_latest_run` requires a completed run: `consensuses.clean.fa`,
+  `genome.clean.fa`, `extracted.fasta`, and an `assignment_full.tsv`.
+- `results/` is a symlink farm rebuilt with `rm -rf results`, which is why step6
+  must run after it — a bug hit on three runs before being fixed.
+- `rebuild_from_searches` (used by `add` and `exclude`) re-merges with
+  `bedtools merge -c 4,5,6 -o max,max,distinct` — **no `-s`**, the same
+  strand-collapsing as step1, so `+,-` intervals are regenerated on every add.
+- `add` and `exclude` do **not** copy `assembly_qc.sh` into the new run.
+
+## step2 incremental mode
+
+`--incremental --old-assignment <tsv> --new-beds <bed>` partitions the copies:
+
+- **Tier 1** — firmly assigned (10/10) in the old run, still present, **and not
+  overlapping the new consensus's BED hits** → carried forward untouched.
+- **Tier 2** — everything else → the full 10-cycle vote.
+
+So `--add` does not globally re-open old assignments. A locus re-competes only if
+the new family actually hit it: an added family cannot take a locus it did not
+find itself.
+
+## step3 soft assignment (stage 3.5)
+
+Loci that fail assignment are not discarded. Each is intersected with
+`all_hits.labeled.bed` to recover which search query found it; the
+highest-scoring query becomes `Soft_Subfamily`, every query that hit it is listed
+in `All_Queries`, with a `Reason`, alongside the ssearch best subfamily, votes
+and bitscore. Written to `unassigned.tsv`.
+
+## step8b — how alignments reach the report
+
+Reads `results/alignments/manifest.tsv` (**not** a directory listing), builds
+`<section id="alignments">` with one row per subfamily and `top100` / `rand100` /
+`subfam` links, and splices it into `results/report.html` at the placeholder
+`"alignments not yet available"`.
+
+- **If the placeholder is absent it appends before `</body>`** — so running
+  step8b twice duplicates the entire section.
+- It has slots for exactly three variants. **There is no slot for the manual
+  `subfam/*.al` files**, which is why they are unlinked on every species page.
+
+`--raw-base-url` turns links into MSA-viewer URLs; without it they stay local
+relative paths.
+
+## Where the species pages come from
+
+- **`run_subfam_per_sf.sh`** — "Run SubFam per subfamily… Output:
+  `{out_dir}/{sf}.al` (FASTA alignment: chunk-consensuses + sf-consensus)".
+  **This generates the `subfam/*.al` files in the Tal repo** — pipeline output,
+  not hand-made.
+- **`extract_top100_rand100_subfam.sh`** — generalises it; its header says it
+  "produces all three variants used on the existing species pages
+  (saq/ccr/toc/teu/gpy/dmo)".
+- Then `step6_report.py` renders and `step8b` wires the links.
+
+**That chain is the template.** Every hand-built page in the discriminator repo
+should be replaced by it.
+
+## `step4_diagnostic.py` — diagnostic positions, already implemented
+
+`compute_position_weights()` scores every alignment column three ways:
+
+| method | what it captures |
+|---|---|
+| **Mutual information** `I(Position; Subfamily)` | how much a column tells you about the label |
+| **Random Forest importance** (`n_estimators=200, max_depth=5`) | **interactions between positions** |
+| **KL divergence** | pairwise discrimination between subfamilies |
+
+`combined = 0.4·MI_norm + 0.3·KL_norm + 0.3·RF_norm`, sorted, top-K to
+`diagnostic_positions.tsv`. Also emits `position_weights.tsv`,
+`copy_diagnostic_state.tsv` (per-copy nucleotide at each diagnostic position),
+`diagnostic_scores.tsv` (per-copy score against every subfamily),
+`diagnostic_flags.tsv` (**fp_risk, fn_risk, chimera**), a copies × positions
+heatmap, a diagnostic-vs-bitscore scatter with discordance quadrants, synergy
+detection, and PCA on the subfamily bitscore matrix.
+
+**This is MANUAL §6.1.6's definition, implemented.** `peel_features.py` is a
+crude binary version of the same idea.
+
+**The one real difference, and the only reason the peel work survives:** his is
+**supervised** — MI is computed against known subfamily labels — while the peel
+proposes a partition where none exists. They compose: peel to propose, then
+`step4_diagnostic.py` to weight, validate and flag chimeras. **The peel must not
+reimplement position weighting.**
+
+## `sear_multi`
+
+"Processes ALL consensus queries in a single ssearch36 pass per genome fragment.
+One ssearch36 call per fragment instead of N", with per-query outputs identical
+to separate `sear` calls. For the 9-consensus saq run this is one pass, not
+nine — I ran nine sequential `sear` calls without checking for it.
+
+## The rest
+
+- **`assembly_qc.sh`** — flags assemblies likely to yield false hits: N-rich
+  scaffold edges (padding artefacts), low contiguity, high gap fraction.
+  Verdict WARN / CAUTION / OK, diagnostic only, never blocks.
+- **`step4_plots.sh`** — per-copy divergence histogram, per-position nucleotide
+  frequency stacked bars.
+- **`step5_direct.sh`** — single-run alignment into `<run>/alignments/`;
+  `run_step5_wrapper.sh` picks the right step5 for the directory layout.
+- **`extract_subfam_only.sh`** — Tier C only, for when Tier A/B already ran
+  without SubFam available.
+- **`SINEderella_multi`** — multi-genome orchestration plus a cross-species
+  summary table.
+
+## Verification: the rebuild works
+
+saq, all 9 consensuses through `sear --slop 50,70 -b 100`, ~380 000 hits each:
+
+| | blastn + 400 bp flanks | `sear --slop 50,70` |
+|---|---|---|
+| copy length (median) | 1054 bp | **366–381 bp** |
+| `conse` at 35 % calls | **541 bases** | **281–321** |
+| gaps in the consensus body | 47–73 % | **13–23 %** |
+
+s8 specifically: 541 bases at 73 % gaps → **307 bases at 14 %**. The element is
+~253 bp, so ~54 bp of flank is still called — down from ~288 bp over.

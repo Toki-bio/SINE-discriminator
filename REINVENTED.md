@@ -27,6 +27,11 @@ guessing by filename.
 | **`postprocess_flanks()`** in `extract_alignments.sh` | flank gaps deleted, lowercased, butted to the element edge | `justify_all.py`, `fix_alignments.py` |
 | **`tsd1.sh` … `tsd33.sh`** | TSD detection via ssearch36 | the `tsd_frac` computation in `verdict.py` |
 | **`trf`, `trf2bed`, `UnitFinder.sh`, `SatComp.sh`** | tandem repeat finding; "represent locus sequence as a graphical scheme of its parts" | `microsat.py`, `segmap.py`, `mosaic_kmer.py` |
+| **step4_diagnostic.py** | diagnostic position weights: mutual information + Random Forest importance + KL divergence, combined 0.4/0.3/0.3, top-K; per-copy diagnostic state, per-copy scores vs each subfamily, fp_risk/fn_risk/chimera flags, synergy detection | peel_features.py's binary (position, character) test |
+| **run_subfam_per_sf.sh** | SubFam per subfamily to {sf}.al, chunk-consensuses + sf-consensus | subfam_group.py, and the .al files I assumed were hand-made |
+| **extract_top100_rand100_subfam.sh** | all three per-subfamily variants used on the existing species pages | build_viewer_data.py, newsp_all.py |
+| **sear_multi** | all queries in ONE ssearch36 pass per genome fragment | nine sequential sear calls |
+| **step6_report.py + step8b** | the species-page template and its alignment-link wiring | index.html, newspecies.html, benchmark.html, review.html, flanks.html |
 
 ## Not duplicates — his tools with no equivalent of mine
 
