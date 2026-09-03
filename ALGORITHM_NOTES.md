@@ -1104,3 +1104,62 @@ MI / RandomForest / KL weighting needs a partition to compute against; this need
 nothing. That makes it usable at the point in the peel where no partition exists
 yet — propose candidate positions with the variable-site filter, cluster on them,
 then hand the resulting partition to step4_diagnostic for proper weighting.
+
+---
+
+## The separator between variable sites is evidence, not bookkeeping
+
+His point: "one difficult to account but need to be considered is the separator
+inserted in place of ignored similarity columns". The viewer records these as
+`_varSiteHiddenRanges` and draws them as breakpoints with a count.
+
+He is right, and it changes two things.
+
+### 1. It corrects my own arithmetic
+
+I reported t3-1/t3-2 as having "14 gap columns at |diff| 0.95". Those columns
+were **207-218, contiguous** — that is **one indel**, not fourteen independent
+diagnostics. Collapsing runs into events is the honest count.
+
+It also means `MIN_BLOCK = 3` in the peel is trivially satisfied by any indel of
+3 bp or more while believing it has three separate pieces of evidence. A block
+built from one indel and a block built from three dispersed substitutions are
+scored identically and should not be.
+
+### 2. The separator distribution is itself a discriminator
+
+Variable sites at the 15 % threshold, collapsed into events (consecutive sites
+merged):
+
+| | sites | events | median separator | single-column events | runs >=3 |
+|---|---|---|---|---|---|
+| **t3-1/t3-2** (he named it instantly) | 25 | **14** | **14 cols** | 12 of 14 | 2 |
+| **t1-4/t1-2** (faint but real) | 214 | **78** | **3 cols** | 24 of 78 | 41 |
+
+**t3's evidence is dispersed and independent**: twelve isolated single columns a
+median of 14 columns apart, plus one 8-column indel. That is what a set of
+distributed synapomorphies looks like.
+
+**t1-4's is packed**: a median of 3 columns between events and 41 runs of three
+or more. Its 214 variable sites are really about 78 events, and those events sit
+in local clusters — which is the signature of alignment-uncertainty patches and
+hypervariable regions rather than evidence spread across the element.
+
+The sites-to-events ratio says the same thing more compactly: **1.8 for t3, 2.7
+for t1-4**.
+
+### What to do with it
+
+- **Count events, not columns**, everywhere a block or a feature set is scored.
+- **Report the separator distribution** alongside a proposed split. Dispersed
+  evidence (large median separator, mostly single-column events) is stronger than
+  the same number of variable sites packed into a few patches.
+- This is a second axis independent of the adjacency score: adjacency says *how
+  consistently* the groups sort apart, the separator distribution says *whether
+  the evidence is independent*. t1-4 scores moderately on the first (0.55) and
+  badly on the second (median separator 3) — which is a fuller description of
+  "faint" than either number alone.
+
+Still to check: whether the packed t1-4 events coincide with regions where MAFFT
+itself is uncertain, which would confirm the alignment-artefact reading. The
+viewer's realign-and-compare would answer it.
