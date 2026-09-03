@@ -828,3 +828,59 @@ on/off, and everything-loosest:
   have hidden.
 
 Full table: `sweep_table.txt` in this repo.
+
+---
+
+## Calibration table — his eye against measured column separation
+
+The core idea of the project: he shows an alignment, says what he sees, and I
+record the call and compute variables against it. This is the table. Two entries
+so far, both on Timema v4, measured at **copy level** (one representative copy
+per chunk, taken from the 50-member `.bnk` banks) with an **occupancy guard** —
+a column only counts as a base difference when both groups are at least 30 %
+present, otherwise "all of A has T, none of B does" is just where B's copies end.
+
+| pair | his call | cols \|diff\| ≥0.8 | best gap col | best base col | cols ≥0.5 |
+|---|---|---|---|---|---|
+| **t3-1 / t3-2** | saw it immediately, named the insertion | **14** | **0.95** (0.97 vs 0.02) | — | 14 |
+| **t1-4 / t1-2** | "faint difference in 3' part by small deletion and few other places. still very borderline" | **0** | 0.66 (5' end, cols 4-16) | 0.55 (col 345) | 18 gap + 4 base |
+
+**Working threshold from these two points:** a separation he names instantly
+carries features at **\|diff\| ≥ 0.9**; one he calls borderline tops out around
+**0.5-0.66 with nothing above 0.8**. Needs more of his calls to firm up, but it
+is the first quantitative handle on "is this a subfamily".
+
+His "small deletion in the 3' part" is real and measurable: in the 3' half the
+best base column is 0.55 (col 345) and the best gap column 0.51 (col 441) - the
+deletion is present in about half of t1-4 and absent from about 80 % of t1-2.
+
+### What this says about the peel, and it is not a bug
+
+`CARRY = 0.60` asks a sequence to carry 60 % of a block's features. When no
+feature exceeds 0.66, block membership is inherently unstable, so t1-4 shattering
+into eight pieces is **the correct response to a signal that weak**, not
+something to tune away. The sweep already showed no setting recovers it whole;
+this says why.
+
+**Consequence for the method:** the peel needs to report *confidence*, not just a
+partition. A group whose best feature is 0.5 should come out labelled grey-zone,
+the way he labelled it by eye - not silently fragmented into eight clusters that
+look like eight findings.
+
+### Two method lessons from the same exchange
+
+- **Use the general subfam alignment as the source.** He read t1-4's weak
+  separation off the full SINEderella-hit subfam alignment, where the competing
+  groups are present. Extracting one group and re-aligning it alone destroys the
+  comparison that makes a separation visible - which is what I did first, and he
+  could not read it.
+- **Drop to the banks for a grey-zone call.** Chunk consensuses are
+  `cons -plurality 18` over 50 copies: a majority rule, so a diagnostic carried
+  by a minority of copies within each chunk cannot survive it. Any weak or
+  partially penetrant difference is invisible at chunk level regardless of
+  parameters. The `.bnk` member banks are one level down and keep it.
+- **The nearest competitor falls out of the peel for free.** I guessed t1-3 from
+  the screenshot layout; he corrected it to t1-2. My own output already said so -
+  the only t1-4 chunks that leaked into another group's clusters went to t1-2
+  clusters (2+2+1), none to t1-3. Leak destination identifies the nearest
+  competitor at no extra cost.
