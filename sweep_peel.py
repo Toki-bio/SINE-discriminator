@@ -64,9 +64,12 @@ def run_one(fa, work, truth, over):
     env = dict(os.environ)
     for k, v in over.items():
         env["PEEL_" + k] = str(v)
+    # universal_newlines, not text= : KIT nodes carry python 3.5, where text=
+    # is not a keyword (added in 3.7) and capture_output does not exist either.
     r = subprocess.run(
         [sys.executable, os.path.join(HERE, "peel_features.py"), fa, work, truth],
-        capture_output=True, text=True, env=env, timeout=3600)
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        universal_newlines=True, env=env)
     return r.stdout
 
 

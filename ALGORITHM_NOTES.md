@@ -1284,3 +1284,72 @@ Chunk level is for proposing candidates; copy level is for judging them.
 All 45 chunk-level pairs also show `best` at 0.97-1.00 with one exception, which
 is another way of saying the same thing: at chunk level almost everything looks
 separable.
+
+---
+
+## saq recreated from scratch — 9 groups, three consensuses recovered exactly
+
+He was asked for the s1-s9 chunk labels and answered "i dont know, recreate from
+scratch?". So: the peel run on saq's 600 chunk consensuses
+(`run_20260425_110449`), unsupervised, no labels.
+
+### The size cap was the binding constraint
+
+Default settings give 4 groups and 157 unplaced. The sweep found why:
+
+| setting | groups | placed | residue |
+|---|---|---|---|
+| default (`MAX_FRAC 0.50`) | 4 | 443 | 157 |
+| `MIN_BLOCK 2` | 8 | 595 | 5 |
+| **`MAX_FRAC 0.90`** | **9** | **598** | **2** |
+
+`MAX_FRAC` caps a group at a fraction of the **remaining** pool, and after each
+peel the pool shrinks — so a legitimately large group is refused once the pool is
+small enough. saq's s8 is 225 of 600 (37 %) and s7g 172 (29 %), both under 50 %
+of the *original* pool but not of what remains. This is inherited from
+`SINEClusterer`'s 50 % cap, which has a relaxed-upper-bound retry for exactly this
+case; mine gated it too tightly.
+
+Also: saq yields only **79 features** in round 1 against Timema's **616** from a
+similar number of chunks. Its subfamilies differ far more subtly, which is why it
+is the hard case.
+
+### Result: 9 groups, matched to his by consensus identity
+
+| mine | chunks | best match | identity | runner-up |
+|---|---|---|---|---|
+| grp05 | **43** | **s3_43seqs** | **1.000** | s7g 0.969 |
+| grp06 | 40 | **s2_38seqs** | **1.000** | s9 0.947 |
+| grp02 | 109 | **s8_225seqs** | **1.000** | s4 0.980 |
+| grp04 | 70 | s1_30seqs | 0.996 | s9 0.988 |
+| grp03 | 99 | s7g_172seqs | 0.996 | s9 0.981 |
+| grp09 | 8 | s7g_172seqs | 0.985 | s9 0.984 |
+| grp07 | 39 | s7g_172seqs | 0.981 | s3 0.977 |
+| grp01 | 155 | s4_60seqs | 0.968 | **s5 0.968 (tied)** |
+| grp08 | 35 | s8_225seqs | 0.964 | s3 0.945 |
+
+Sizes: mine `155 109 99 70 43 40 39 35 8` (598 placed, 2 residue) against his
+`225 172 60 43 38 30 20 7 5`.
+
+**Three consensuses recovered exactly** (s2, s3, s8), two more at 0.996 (s1,
+s7g). `grp05` matches `s3_43seqs` at 43 chunks *and* an identical consensus.
+
+For scale: `cluster_assist.js` on this same data gives 2 blobs of 293 and 307
+plus one 6-sequence cluster.
+
+### Two failure modes, both structural
+
+- **Over-splits the two largest.** s7g goes to three pieces (99, 39, 8) and s8 to
+  two (109, 35). The peel removes a group as soon as a block is exclusive enough,
+  so a large group with internal structure is taken in pieces across rounds and
+  never reassembled. There is no merge step.
+- **Loses the three smallest** — s5 (5 chunks), s6 (7), s9 (20) never appear.
+  `MIN_GROUP = 5` and `MIN_SET = 5` put a floor under what can be found, and s5
+  at 5 chunks sits exactly on it.
+
+Both are fixable in principle: a merge pass that reconsiders whether two peeled
+groups belong together (using the `best` test at copy level), and a lower floor
+for late rounds when little is left.
+
+**Not yet judged by him.** The matching above is against his *consensuses*, which
+is indirect — his actual chunk-to-group assignment is still not on disk.
