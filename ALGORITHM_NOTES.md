@@ -1353,3 +1353,86 @@ for late rounds when little is left.
 
 **Not yet judged by him.** The matching above is against his *consensuses*, which
 is indirect — his actual chunk-to-group assignment is still not on disk.
+
+---
+
+## Correction: the `subfam/*.al` files are NOT all the same 200 chunks
+
+I reported that saq's nine `.al` files "all contain the same 200 chunks", and
+concluded they were per-group views of one shared sample rather than a partition.
+**Wrong, and the error was mine.**
+
+`run_subfam_per_sf.sh` runs SubFam **separately for each subfamily**, on that
+subfamily's own sampled copies. Each run numbers its chunks `input_001…` from
+scratch. So nine files carrying `input_001.bnk` through `input_200.bnk` hold nine
+**different** sets of chunk consensuses that happen to share names.
+
+The set-overlap test I ran compared names, so it reported 100 % overlap and I
+believed it. The test was measuring a naming collision.
+
+**Rule: never compare SubFam chunk identities by name across runs.** `input_042`
+means "the 42nd chunk of whichever run produced this file". Compare by sequence,
+or by the genomic coordinates of the members in the `.bnk`.
+
+What this means for saq: each `.al` *is* per-group data — the chunk consensuses of
+that group's own copies, plus that group's consensus. It is not the assignment of
+the original 600 chunks to nine groups, because those chunk numbers belong to a
+different SubFam run. That assignment is still being looked for.
+
+---
+
+## Where the saq chunk assignment is — searched, and what the search established
+
+He said "i never delete important data, try harder to find it or tell me how to
+do from start", and later "dragen?".
+
+**I could not find it.** What the search established positively:
+
+- **KIT `.bash_eternal_history` is the decisive evidence.** Between
+  `SINEderella GCA_004024925.1… tal.bnk` at **11:04** on 25 Apr 2026 (which
+  created `run_20260425_110449`) and `tal.bnk` appearing at **18:21** holding
+  exactly the nine `s*` consensuses, there are no relevant commands on KIT at
+  all. The curation was not done on the server.
+- Every file under the saq tree in that window (12:15-12:30) is pipeline output
+  from run_110449.
+- **DRAGEN**: the only saq files are my own corpus derivatives from 2026-08-31.
+
+So the grouping was made visually in MSA-viewer and what came back to the server
+was the consensus bank, not the assignment. That points at the browser's
+localStorage or a local download — neither reachable from here. **If it is on
+another machine, or exported under a name I did not try, that changes the
+answer.**
+
+### `asSINEment` cannot reconstruct it — measured
+
+Running his own assignment engine, the nine consensuses as references against the
+600 chunk consensuses:
+
+| subfamily | chunks assigned |
+|---|---|
+| s2_38seqs | 32 |
+| s3_43seqs | 21 |
+| s6_7seqs | 7 |
+| s5_5seqs | 4 |
+| s7g_172seqs | 1 |
+| **total** | **65 of 600** |
+
+**The 10/10 unanimity rule is why.** His nine consensuses are 96-99 % identical to
+each other, so across ten stochastic `ssearch36` cycles the winner flips and
+unanimity almost never holds. The rule is designed for genomic copies competing
+between *distinct families*; it does not transfer to chunk consensuses competing
+between near-identical *subfamilies*.
+
+This is a real limit worth remembering: **asSINEment is not a tool for assigning
+chunks to subfamilies.** The peel is.
+
+### How to redo it from start, in order of cost
+
+1. **Re-export from MSA-viewer** if the session survives in that browser profile —
+   it keeps cluster state in localStorage and can download it.
+2. **Re-curate visually** — load `run_20260425_110449`'s
+   `genome.clean_step1/subfam_input/input.clw.al` (600 chunks plus the
+   g-consensuses), group by eye, export each group. This is the original route.
+3. **Correct my reconstruction** — 9 groups, 598 of 600 placed, three consensuses
+   recovered at identity 1.000, over-splitting s7g and s8 and missing the three
+   smallest. A starting partition to fix, not an answer.

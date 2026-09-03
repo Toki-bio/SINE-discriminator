@@ -226,6 +226,17 @@ more variable sequence rather than real divergence — not offered as settled.
 - **The nearest competitor falls out of the peel for free** — the group its
   strays leak into.
 
+
+### 7a. Never compare SubFam chunk names across runs
+
+`run_subfam_per_sf.sh` runs SubFam separately per subfamily, and each run numbers
+its chunks `input_001…` from scratch. Nine `.al` files all containing
+`input_001.bnk` hold nine **different** chunk sets sharing names. I compared them
+by name, got 100 % overlap, and reported that the files were all the same 200
+chunks — measuring a naming collision.
+
+Compare by sequence, or by the genomic coordinates of the members in the `.bnk`.
+
 ---
 
 ## 8. Open
@@ -244,9 +255,14 @@ more variable sequence rather than real divergence — not offered as settled.
   adjacency score and separator statistics per group, so a grey-zone group is
   labelled rather than silently shattered into eight clusters that look like
   eight findings.
-- **saq s1–s9** — 9 subfamilies over 600 chunks, where his own `cluster_assist.js`
-  collapses to two blobs. The chunk→group labels are not on disk; asked, not yet
-  resolved.
+- **saq s1–s9** — recreated from scratch: 9 groups, 598 of 600 placed, three of
+  his consensuses recovered at identity 1.000. Over-splits s7g (3 pieces) and s8
+  (2), loses the three smallest (5, 7, 20 chunks). His original chunk→group
+  labels could not be found; the KIT shell history shows the curation was done
+  visually in MSA-viewer, not on the server, so it would be in browser
+  localStorage or a local download. **`asSINEment` cannot reconstruct it** —
+  it assigns only 65 of 600, because 10/10 unanimity almost never holds between
+  consensuses that are 96–99 % identical to one another.
 - Bottom-of-scale calibration anchor still missing.
 
 ---
