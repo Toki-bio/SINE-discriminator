@@ -1940,3 +1940,56 @@ made — but the number must always be reported with the frame attached.
 | 6 | s3 | 40 | 43 | 0.9962 / 260 | <= 30 |
 
 Plus two sets he refused, both with zero diagnostics and a negative gap in frame.
+
+## MAFFT's ordering reproduces his partition almost exactly — measured
+
+His two remarks: *"thats kinda reason for my gradual depletion"* (on diagnostics
+being relative to what remains), and *"note how accurately mafft sorting works, I
+never had to rearrange sequences"*.
+
+Tested by labelling every chunk with the group he actually assigned it to over six
+peels, then counting maximal runs in the ORIGINAL `mafft --reorder` ordering of the
+609-row alignment. Perfect would be one run per label.
+
+    UNASSIGNED(193) s3(40) UNC9(9) s2(36) UNC18(18) s4blk(88) s5(5)
+    s4blk(55) s6(7) UNASSIGNED(3) s8(143) garbage(3)
+
+**12 runs for 10 labels. Eight of the ten labels are a single contiguous run.**
+
+| label | n | runs |
+|---|---|---|
+| s8 | 143 | 1 |
+| s3 | 40 | 1 |
+| s2 | 36 | 1 |
+| UNC18 | 18 | 1 |
+| UNC9 | 9 | 1 |
+| s6 | 7 | 1 |
+| s5 | 5 | 1 |
+| garbage | 3 | 1 |
+| s4blk | 143 | **2** |
+| UNASSIGNED | 196 | 2 |
+
+**The one real split is explained by nesting, not by error.** s4blk breaks into 88
+and 55 with s5 sitting between them — exactly what he said when he peeled it: "s5
+is amidst s4 sequences but they form a group". MAFFT placed s5 inside s4's span,
+which is where it belongs, and removing s5 makes the two halves adjacent. His
+depletion order resolves the nesting; no rearrangement was ever needed.
+
+### Three further things the run structure shows
+
+1. **Both refused sets sit exactly on boundaries.** UNC9 lies between s3 and s2;
+   UNC18 between s2 and s4blk. He called them transitional and expected them to
+   "join something around it" — the ordering independently puts them in the seams.
+   Nothing else in the structure is positioned that way.
+2. **All three garbage rows are contiguous at the very bottom.** The length
+   outliers separated themselves.
+3. **This is why gradual depletion works.** Diagnostics are frame-relative and the
+   ordering is nested; peeling the inner group first exposes the outer one as a
+   single block. A one-pass method has neither property available to it.
+
+### Correction to an earlier claim in this file
+
+I previously recorded that the ordering "does not block up — 95 blocks for 9
+labels". That measurement used **my** nearest-consensus labels, which are now known
+to be wrong (they under-filled s8 by 85 chunks). Against his real partition the
+ordering is near-perfect. The sorting was never the problem; my labels were.
