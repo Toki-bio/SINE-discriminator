@@ -103,19 +103,35 @@ survives both.
 
 ### 4b. Separator distribution — *is the evidence independent*
 
-Collapse consecutive variable sites into **events**. Report the number of events,
-the median separator between them, and how many are single columns.
+Collapse consecutive variable sites into **events**, and count them **in a
+reference sequence's coordinates, not in alignment columns** — gap columns split
+one event into several and inflate the count (t1-4 reads 78 in column space, 31
+in reference space).
 
 Contiguous variable columns are **one mutational event**, not many. t3's "14 gap
 columns" at 207–218 are one indel.
 
-| at 15 % | sites | events | median separator | single-col events | sites/event |
-|---|---|---|---|---|---|
-| t3-1/t3-2 | 25 | 14 | **14 cols** | 12 of 14 | 1.8 |
-| t1-4/t1-2 | 214 | 78 | **3 cols** | 24 of 78 | 2.7 |
+| at 15 %, reference coords | reference | variable cols | events | sites/event | median separator | largest event |
+|---|---|---|---|---|---|---|
+| **t3-1/t3-2** | 282 bp | 25 (**9 %**) | 13 | 1.9 | **19 bp** | 1 bp |
+| **t1-4/t1-2** | 263 bp | 213 (**81 %**) | 31 | 6.9 | **1 bp** | **51 bp** |
 
-Dispersed evidence is stronger than the same count packed into patches. Packed
-events are the signature of alignment-uncertainty regions.
+**Events are not alignment noise** — realigned five ways (localpair ±`--ep
+0.123`, `--auto`, `--retree 2`, `--globalpair`), 100 % of events in both pairs
+survive every aligner. My hypothesis that packed events were artefacts was tested
+and rejected.
+
+The real reading:
+
+- **few, strong, dispersed, consistent** → a real subfamily split (t3: 9 % of the
+  element variable, columns up to |diff| 0.95, median 19 bp apart)
+- **many, weak, packed, inconsistent** → one heterogeneous group (t1-4/t1-2:
+  **81 %** of the element variable and still nothing above |diff| 0.66 — two pools
+  each internally diverse and mutually overlapping)
+
+**Add to the score: the fraction of the reference that is variable.** A genuine
+split is sparse and consistent; pervasive variation with no strong column is the
+signature of one pool, not two.
 
 ---
 
@@ -123,8 +139,8 @@ events are the signature of alignment-uncertainty regions.
 
 | pair | his words | adjacency (15 % var sites) | median separator |
 |---|---|---|---|
-| **t3-1 / t3-2** | named the insertion at a glance | **0.90** | 14 cols |
-| **t1-4 / t1-2** | "faint difference in 3' part by small deletion and few other places. still very borderline" | **0.55** | 3 cols |
+| **t3-1 / t3-2** | named the insertion at a glance | **0.90** | 19 bp, 9 % variable |
+| **t1-4 / t1-2** | "faint difference in 3' part by small deletion and few other places. still very borderline" | **0.55** | 1 bp, 81 % variable |
 
 Provisional bands, two points only:
 
