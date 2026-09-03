@@ -2177,3 +2177,70 @@ tested yet:
   a random 10 % of rows; a clade boundary should move
 - his threshold-sensitivity signal, already observed on saq: a clean block gives
   the same consensus from 30 % to 50 %, a mixed one does not
+
+## A labelled benchmark, from his own prior art
+
+He asked why I wasn't using the ready alignment on the teu page:
+`Toki-bio/Tal/main/teu/alignments/teu_subfam_input.aln.fa`, noting it "lists twice
+more sequences than expected". I had rebuilt from the run's `subfam_input/*.cons`
+instead — a rebuild I did not need.
+
+**Structure of that file, resolved.** 1206 rows = 1200 chunks + 6 consensuses, over
+only **200 distinct chunk names each appearing 6 times**. It is six blocks of 201
+(200 chunks + that subfamily's consensus) at rows 1-201, 202-402, 403-603, 604-804,
+805-1005, 1006-1206; `input_001` sits at exactly 1, 202, 403, 604, 805, 1006. It is
+`run_subfam_per_sf.sh` output — each subfamily's *genomic copies* re-chunked into
+200 — not the genome-wide 600. Hence 6 x 200, which is the doubling he saw.
+
+Columns are comparable across blocks (within-block identity 0.915 / 0.959 / 0.860 /
+0.924 / 0.928 / 0.898 on the diagonal, lower off it), so it is one alignment.
+
+**This makes it the labelled benchmark the project has never had.** Group
+membership is known by construction. Saved on KIT as
+`/data/W/toki/SINE_disc/teu_curate/teu_sf_uniq.fa` with names made unique by
+appending the original row index, plus `teu_sf_truth.tsv`.
+
+**A trap in it:** because the chunk names repeat six times, any scoring that tracks
+chunks by name silently mixes blocks. My first scoring pass did exactly that and
+produced a purity figure that was meaningless. Names in this file must be
+disambiguated by row before use.
+
+### Result on the benchmark
+
+| stopping threshold | weighted purity |
+|---|---|
+| MIN_GAP 0.02, the value fitted on saq | **0.5025** |
+| MIN_GAP 0.004, tuned after seeing the labels | **0.8235** |
+
+The saq-fitted constant cost 0.32 of purity. That is a concrete measure of what the
+saq-derived numbers are worth off their own data.
+
+### Both failure modes appear in the same run
+
+At MIN_GAP 0.004:
+
+| subfamily | outcome |
+|---|---|
+| t3 | 192 chunks, clean |
+| t4 | 179 of 186 |
+| t5 | 184 of 200 |
+| **t1 + t2** | merged into one 383-chunk block — **under-split** |
+| **t6** | fragmented into 82 + 56 + 56 + smaller — **over-split** |
+
+t1 and t2 are the closest pair in the file (between-block identity 0.88), so they
+merge. t6 is the most heterogeneous, so it shatters. **One threshold, both errors,
+simultaneously.** His subfamilies do not sit at a common depth, so no single
+cohesion cutoff can be correct for all of them.
+
+This is the level problem demonstrated against ground truth rather than inferred
+from a consensus mismatch, and it is the sharpest statement of it so far:
+
+    the quantity that must be estimated is not "is this block coherent"
+    but "is this block at the depth his subfamilies live at" --
+    and that depth is not constant across subfamilies of one family.
+
+### Note on discipline
+
+The 0.8235 figure was obtained by tuning a threshold *after* seeing the labels. It
+is not a blind result. The blind result on this file is **0.5025**. What is
+transferable is the shape of the failure, not the tuned number.
