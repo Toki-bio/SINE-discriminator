@@ -1809,3 +1809,65 @@ prediction is that it falls between `input_388` and `input_407`.
 
 **This one is already contaminated** — he was told before he called it. It cannot
 count as a test. Kept only so the rule has its origin attached.
+
+## Round 5 on saq: s2 peeled, and his uncertain set measured
+
+His call: "267-591 (bottom set after deletion) are a bit uncertain, i did not
+consider them, cause probably they dont form self-contained subfamily, will
+probably join something around it. so s2 down to 221 is next subfamily."
+
+He names blocks by chunk number and by landmark, mixing both freely — here "s2"
+meant the `CONS__s2_38seqs` landmark row and "221" meant `input_221.bnk`. My first
+reading took "2" for a row index or `input_002`; both measured badly and I asked
+rather than guessing. **Worth remembering: his anchors are landmark names and chunk
+numbers, never row indices.**
+
+### His uncertain set is confirmed, by a negative cohesion gap
+
+Rows 284-301 of r5, `input_267` .. `input_591`, 18 chunks:
+
+| | value |
+|---|---|
+| unanimous diagnostics at <= 2 % outside | **0** |
+| within-group identity | 0.8963 |
+| between-group identity | **0.8983** |
+
+The gap is **negative** — these 18 are marginally *less* like each other than like
+the rest of the alignment. That is what "don't form a self-contained subfamily"
+means quantitatively, and it is the first time his uncertainty has been given a
+number. Compare the groups that did work: s6 +0.117, s5 +0.109, s4 block +0.162,
+s2 +0.076.
+
+**A negative or near-zero within-minus-between gap is the signature of a
+non-group.** It is cheap to compute and it agrees with his eye.
+
+They are retained in the remainder rather than discarded, since he said they will
+probably join something around them.
+
+### s2: Type A, close but not exact
+
+Rows 248-283, **36 chunks** against the label's 38.
+
+| | value |
+|---|---|
+| unanimous & <= 2 % outside | 1 (col 19 `T`, in 1.000 out 0.012) |
+| unanimous & <= 5 % outside | 3 (adds col 69 `C`, col 51 gap) |
+| cohesion | within 0.9334, between 0.8575 |
+| consensus vs his `s2_38seqs` | **0.9960** at threshold <= 40 % |
+
+One residual difference, at col 225: his consensus has `A`, the block gives `G`.
+This is **the first block that lands close without landing exact**, and the count
+is 2 short of the label. Recorded as an open discrepancy, not resolved.
+
+### Running score
+
+| round | peeled | chunks | label | consensus identity | threshold |
+|---|---|---|---|---|---|
+| 1 | s8 | 143 | 225 | 1.0000 / 254 | any |
+| 2 | s6 | 7 | 7 | 1.0000 / 250 | any |
+| 3 | s5 | 5 | 5 | 1.0000 / 247 | <= 40 |
+| 4 | s4 block | 143 | 60 | 0.9727 / 255 | <= 30 |
+| 5 | s2 | 36 | 38 | 0.9960 / 250 | <= 40 |
+
+Four of five blocks are Type A with real diagnostics; s8 remains the only one with
+none.
