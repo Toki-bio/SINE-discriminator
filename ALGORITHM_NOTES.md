@@ -1993,3 +1993,71 @@ I previously recorded that the ordering "does not block up — 95 blocks for 9
 labels". That measurement used **my** nearest-consensus labels, which are now known
 to be wrong (they under-filled s8 by 85 chunks). Against his real partition the
 ordering is near-perfect. The sorting was never the problem; my labels were.
+
+## Where the method stops: the s7g / s1 / s9 trio
+
+His call: "next comes big disagreement. i see consensus of s9, but i dont see 1)
+clear group under it (mixed at best). and 2) it does not correspond well to the
+consensus. Cons name says 20seqs - but there are more under it. Means I was using
+DIFFERENT subfam consensus."
+
+All three observations verified:
+
+- **No clear group.** The 61 rows below `CONS__s9` sit at mean identity 0.9432 to
+  s9, 0.9398 to s1 and 0.9300 to s7g — all three landmarks within 0.013, and the
+  single best row down there matches **s1** (0.9848) better than s9 (0.9768).
+- **No correspondence.** No contiguous block reproduces his s9 consensus; the best
+  reaches 0.9923 and needs 57 chunks.
+- **20seqs against 61 rows below it.** Confirmed.
+
+### But the different-consensus hypothesis is not needed
+
+His nine consensuses fall into two clusters:
+
+| cluster | members | mutual identity |
+|---|---|---|
+| I | s7g, s1, s9, (s3, s2 loosely) | 0.93 - 0.97 |
+| II | s4, s5, s6, s8 | 0.92 - 0.95 |
+| between clusters | | 0.77 - 0.87 |
+
+**Every group successfully peeled is cluster II.** What remains is cluster I's core:
+s7g, s1, s9 at mutual 0.951 / 0.962 / **0.973** — tighter than any pair that was
+separated (s4 vs s5 = 0.9412). s9 is a 20-chunk group embedded in a 172-chunk s7g
+that is 96 % identical to it.
+
+Against the hypothesis directly: s8, s6 and s5 reproduced his consensuses
+**byte-exactly**. A foreign bank would not do that three times and then fail. The
+bank is the curation-time bank; the trio is simply inseparable at this resolution.
+This is the same grey zone he described for t1-2 / t1-4.
+
+**Recommendation recorded: stop the saq walkthrough here.** The remaining 220 chunks
+are the ancestral core plus the closest trio, where the criterion has no purchase.
+Forcing calls he says he cannot see would manufacture calibration data rather than
+collect it.
+
+### The failure is itself a result
+
+It locates the method's boundary. Everything the peel handled had between-group
+consensus identity <= 0.95; everything it could not handle is >= 0.95. That is a
+concrete, falsifiable operating range, and it should be the first thing tested on a
+new species.
+
+### What is established, and what is still unvalidated
+
+Established over six peels and two refusals:
+
+1. the procedure, as executable steps
+2. the criterion — current frame, >= 1 column at f_in >= 0.90 / f_out <= 0.02, plus
+   a positive cohesion gap
+3. identity is dead as a membership rule (296 in at 0.930, 342 out at 0.918)
+4. Type A versus residual, which explains three separate earlier failures
+5. why depletion is necessary — frame-relative diagnostics plus nested ordering,
+   12 runs for 10 labels
+6. the blind spot of curation by eye — diagnostics are visible only in
+   near-invariant columns
+7. six reproductions: three byte-exact, two at 0.996, one at 0.973
+8. two negative controls with a measurable signature
+
+**Unvalidated:** every number above is calibrated on saq. None of it has been
+tested against a partition it did not help produce. The next step that adds
+information is a blind run on a species he has already separated — not more saq.
