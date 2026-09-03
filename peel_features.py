@@ -86,21 +86,39 @@ def realign(src, dst, threads=32):
 
 
 def features(A):
-    """(pos, char) -> boolean membership vector, subject to his two filters."""
+    """(pos, char) -> boolean membership vector. GAP is a state, not a skip.
+
+    SINEClusterer skips gap columns outright - "gaps are not diagnostic" - and I
+    copied that. It is wrong here, and it is exactly why t3-1 and t3-2 never
+    separated.
+
+    MANUAL 6.1.6 defines a subfamily by "a specific, shared, diagnostic pattern
+    of small indels/SNPs" - indels named first - and t3 is that case: a ~15 bp
+    insertion present in t3-2 and absent in t3-1. Measured on the v4 alignment,
+    14 columns sit at 90-97 % gap in t3-1 against 2 % in t3-2, a cleaner
+    discriminator than any base-level column. Skipping gaps makes the t3-1 side
+    unrepresentable, because its defining feature IS the gap.
+
+    The global-dominance filter still counts BASES only, as his does: a column
+    that is mostly gap across the whole alignment but carries a distinctive base
+    subset has to survive, or a minority insertion is filtered away before it can
+    be used at all.
+    """
     n, L = A.shape
     out = []
     for j in range(L):
         col = A[:, j]
-        ok = col != GAP
-        if ok.sum() < MIN_SET:
-            continue
-        vals, counts = np.unique(col[ok], return_counts=True)
-        if counts.max() / float(n) > GLOBAL_CONS:      # non-diagnostic column
-            continue
-        for v, c in zip(vals, counts):
+        nongap = col != GAP
+        n_ng = int(nongap.sum())
+        vals, counts = np.unique(col[nongap], return_counts=True)
+        if n_ng and counts.max() / float(n_ng) > GLOBAL_CONS:
+            continue                                   # non-diagnostic column
+        for v in list(vals) + [GAP]:
+            m = (col == v)
+            c = int(m.sum())
             if c < MIN_SET or c > MAX_FRAC * n:
                 continue
-            out.append(((j, v), col == v))
+            out.append(((j, v), m))
     return out
 
 

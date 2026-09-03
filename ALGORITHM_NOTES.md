@@ -723,3 +723,55 @@ plus a 6-sequence cluster.
   retry firing earlier.
 
 Residue 102 chunks, 89 of them `t1-2`.
+
+---
+
+## 2026-09-03 — t3-1/t3-2: the peel was blind to indels
+
+He looked at the subfam alignment and saw it immediately:
+
+```
+t3-1   CTCTGACAAGACAT-----------------
+t3-2   CTCTGACAAGACGTGTATTAATCACAA
+```
+
+A ~15 bp insertion, present in t3-2, absent in t3-1. Measured on the v4
+alignment: **14 columns sit at 90-97 % gap in t3-1 against 2 % in t3-2** - a
+cleaner discriminator than any base-level column (21 columns differ in majority
+base, and those alone were not enough).
+
+`peel_features.py` skipped gaps entirely, copied verbatim from `SINEClusterer`'s
+"gaps are not diagnostic". **That makes an indel-defined subfamily
+unrepresentable**: t3-1's defining feature IS the gap. MANUAL 6.1.6 names
+"small indels" *first* in its definition of a subfamily, so the rule I inherited
+contradicts the definition it was meant to implement.
+
+Fix: gap is a feature state alongside A/C/G/T. The global-dominance filter still
+counts bases only - a column mostly gap across the alignment but carrying a
+distinctive base subset must survive, or a minority insertion is filtered before
+it can be used.
+
+### Result on the v4 13-group partition
+
+| | gaps skipped | gap as a state |
+|---|---|---|
+| chunks placed | 493 / 595 | **584 / 595** |
+| weighted purity | 0.826 | **0.926** |
+| t3-1 | one 119-chunk cluster at 58 % | **63 @ 100 %** |
+| t3-2 | (same cluster) | **53 @ 94 %** |
+| t1-2 | 45+12+16 pure, 53 @ 49 %, 89 residue | **88 @ 100 %** |
+| residue | 102 | **11** |
+
+Also 100 % pure: t1_1 (46), t1-3 (25), t2 (22), t8-1 (16), t8-2 (31).
+
+**Still failing:** t1-4 fragments into five pieces (24 @ 67 %, 14 @ 79 %,
+14 @ 86 %, 11 @ 100 %, 10 @ 90 %) and accounts for the entire 11-chunk residue;
+t6-1 sits at 69 %.
+
+**What this says about the method, not just the bug:** every earlier conclusion
+about t3 was drawn with the discriminating signal switched off. The identity
+peel called t3 "internally incoherent at 0.685"; the feature peel called
+t3-1/t3-2 "the one group that fails". Both were measuring a set whose actual
+defining character had been discarded before measurement. His `t345.al` grouping
+is still evidence that t3/t4/t5 are close - but "cannot be separated" was my
+artefact, not their property.
