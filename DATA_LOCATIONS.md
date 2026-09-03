@@ -44,6 +44,8 @@ lost while sitting on DRAGEN.
 | saq s1-s9 consensus bank | `KIT` | `/data/W/toki/Genomes/Mammalia/Eulipotyphla/saq/run_20260425_182219/consensuses.clean.fa` | ok | his 9 manual subfamily consensuses; names encode group size, 30+38+43+60+5+7+172+225+20 = 600 |
 | saq copy assignment | `KIT` | `/data/W/toki/Genomes/Mammalia/Eulipotyphla/saq/run_20260425_182219/results/assignment_full.tsv` | ok | 306,212 copies assigned to s1-s9 |
 | saq peel benchmark (staged) | `KIT` | `/data/W/toki/SINE_disc/saq_bench` | ok | both runs degapped + realigned per MANUAL 6.1.1: 600 seqs, 400 and 536 cols |
+| saq curation alignment (source) | `KIT` | `/data/W/toki/SINE_disc/saq_curate` | ok | 9 CONS__ rows + 600 degapped chunks, mafft L-INS-i per SubFam line 53; 609 rows x 411 cols |
+| saq curation alignment (hosted) | `GitHub` | `SINE-discriminator/alignments/CURATE__saq__chunks600_s1-s9.aln.fa` | ok | raw URL verified 200, 263716 B; open in MSA-viewer to recreate the s1-s9 chunk assignment |
 
 ## Connecting
 
