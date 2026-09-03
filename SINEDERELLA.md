@@ -831,3 +831,130 @@ helper map), `subfam_cluster_lib.js` (504 — read to line 340),
 `run_step5_wrapper.sh` (78), `extract_subfam_only.sh` (161).
 
 Roughly 4 000 lines remain unread. **Do not describe those as understood.**
+
+---
+
+# Reading pass 3 (2026-09-03)
+
+## Correction to pass 2
+
+I wrote that step8b "has no slot for the manual `subfam/*.al` files, which is why
+they are unlinked on every species page". Half wrong.
+
+**`step6_report.py --tal-species-code <code>` builds its own alignments section
+and DOES link them**, from
+`raw_subfam = https://raw.githubusercontent.com/Toki-bio/Tal/main/<code>/subfam/`
+as `{sf}.al`, alongside `{code}_{sf}_top100.aln.fa`, `{code}_{sf}_rand100.aln.fa`,
+plus two section-level links: `{code}_consensuses.fa` and
+`{code}_subfam_input.aln.fa`. Verified: a report regenerated from the Timema v4
+run carries all 14 `.al` links, 49 `aln-link` anchors total.
+
+`step8b_publish_report.sh` is the *other* path, has only top100/rand100/subfam
+slots, and no `.al`. The published `tim/report.html` lacks `.al` links because it
+was not built with `--tal-species-code`.
+
+**A trap that follows:** the section links `{sf}.al` for **every** subfamily in
+`assignment_stats.tsv`, but `run_subfam_per_sf.sh` only writes `.al` for
+subfamilies with **>=400 copies**. Regenerating tim's report against the v4
+14-group partition therefore links `t1_1.al`, `t1-2.al` ... which do not exist —
+`tim/subfam/` still holds the older 6-group set (`t1 t2 t345 t6 t7 t8`). Run the
+`.al` generator for the current partition before publishing a regenerated report.
+
+Also: the cross-species nav bar in `step6_report.py` is hardcoded to
+`saq <-> ccr` only; every other species gets an empty link.
+
+## `sear_multi`
+
+`sear_multi [-k] [--slop L,R] <multi_query.fa> <bank.fa> [Slf=0.8] [Hom=65] [Flank=50]`
+
+Same 2500/2000 sliding split and same bank sanitisation as `sear`. One
+`ssearch36` call per split with the **multi-query FASTA**, then the output is
+split by query name (column 1) into per-query files, each filtered with **its
+own** `flen = int(Slf x that query's length)`. Coordinates translated back from
+the `_sliding` offsets exactly as in `sear`.
+
+Outputs `<tax>-<queryname>.bed` and `.bnk` per query, with `@U@` restored.
+**Names come from the FASTA header, not the file path** — so it does not have
+`sear`'s failure where a query in a subdirectory writes to `gen-q/...` and dies.
+
+**It has no `-b/--best` and no `-m/--minus`.** So it cannot build the top100
+alignment; it only produces hits and flanked extractions.
+
+## `assembly_qc.sh`
+
+Single-pass awk over the genome. Metrics: scaffolds, total bases, total ACGT,
+total N, `gap_pct`, N50, L50, largest scaffold, `short_scaffolds_pct` (<1000 bp),
+and `edge_N_pct` — N fraction in the first and last **500 bp** of every scaffold,
+described as "the Anilios bituberculatus signature" for padding artefacts.
+
+Flags: N50 >=10 Mb ok / >=1 Mb caution / else warn; gap <5 % ok / <15 % caution;
+edge N <5 % ok / <20 % caution; short scaffolds <5 % ok / <20 % caution.
+Verdict: any warn -> **WARN**; >=2 cautions -> **CAUTION**; else **SOLID**.
+
+(Note: the orchestrator's message text expects `OK`, but the script emits `SOLID`.)
+
+## `step4_plots.sh`
+
+Per subfamily, subsampled to `MAX_SEQS=10000` with `seqkit sample -s 42`:
+
+1. `ssearch36 -E 100 -m 8` consensus vs copies, best hit per copy, **column 3
+   (% identity)** -> divergence histogram.
+2. `mafft --addfragments <copies> --adjustdirection` against the consensus
+   alone — pairwise against a reference, **not** a full MSA -> per-position
+   nucleotide frequency.
+
+Then `plot_subfamily.py` writes `{sf}_divergence.png/pdf` and
+`{sf}_nucfreq.png/pdf` into `<step2_out>/plots/`. It picks a python3 that can
+actually `import matplotlib` rather than trusting bare `python3`.
+
+## `step5_direct.sh` and `run_step5_wrapper.sh`
+
+`step5_direct.sh <run_dir>` — single-run version writing to `<run>/alignments/`.
+Under 400 copies: sample 200, cat with the **whole consensus bank**, `mafft
+--auto`. At 400+: subsample 10 000, SubFam, then `mafft --add --keeplength`
+(the consensus-truncating path already noted for step5).
+
+`run_step5_wrapper.sh` fakes the multi-species layout step5 expects
+(`<multi>/<Species>/run_*`) with a symlink in a temp dir, runs step5, then moves
+the alignments back into the run.
+
+## `extract_subfam_only.sh`
+
+Tier C only, for runs where Tier A/B finished without SubFam available.
+Threshold `>400` copies, sample **2500** (not 10 000), `SubFam input.fa 50`.
+
+**Differs from the other two SubFam paths:** it feeds `input.clw` to mafft
+**without degapping** — `cat consensus.fa input.clw > tierC_input.fa`. Both
+`run_subfam_per_sf.sh` and `extract_top100_rand100_subfam.sh` degap `.clw` to
+`input_reps.fasta` first, and MANUAL 6.1.1 says `.clw` is not a converged
+alignment. Skips existing outputs, so it is resumable.
+
+## `SINEderella_multi`
+
+Subcommands `full | add | exclude | plots | summary`.
+`genomes.tsv` is tab-separated: `Species_Name  /genome.fa  [consensus.fa]  [workdir]`,
+`#` comments allowed; column 3 is a per-species consensus override, column 4 an
+existing run dir for add/exclude. Options `--project`, `--parallel N`,
+`--threads N`, `--resume`.
+
+Output `multi_YYYYMMDD_HHMMSS/` with `project_manifest.tsv`, per-species dirs,
+and `summary/cross_species_summary.tsv`: a wide table
+`Species | Total_Loci | <sf>_firm | <sf>_total ... | Unassigned_n | Unassigned_pct`.
+It detects old vs new `summary.by_subfam.tsv` layouts by checking whether column
+2 is named `firm_assigned`, falling back to treating column 2 as both firm and
+total. Also calls `generate_sinekb_report.py` if present — a script I have not
+seen.
+
+## Ledger update
+
+**Now read in full, additionally:** `sear_multi` (416), `assembly_qc.sh` (197),
+`step4_plots.sh` (197), `step5_direct.sh` (150), `run_step5_wrapper.sh` (78),
+`extract_subfam_only.sh` (161), `SINEderella_multi` (structure, genomes.tsv
+format and the summary builder).
+
+**Still unread:** the bulk of `step4_diagnostic.py` (~1000 lines beyond
+`compute_position_weights`), the bulk of `step6_report.py` (~1400 lines of
+figure builders — its section structure, CSS and alignment section are read),
+`sine_pairwise_consensus.sh` (~620), the rest of `extract_alignments.sh` (~400),
+`subfam_cluster_lib.js` past line 340 (~160), `sine_consensus_smart.sh` (~170),
+`plot_subfamily.py`, `generate_sinekb_report.py`, `step4_diagnostic.sh` (95).
