@@ -1163,3 +1163,59 @@ for t1-4**.
 Still to check: whether the packed t1-4 events coincide with regions where MAFFT
 itself is uncertain, which would confirm the alignment-artefact reading. The
 viewer's realign-and-compare would answer it.
+
+---
+
+## Event stability tested — my artefact hypothesis was wrong, and the answer is better
+
+I predicted t1-4's packed events were alignment artefacts and would move under
+re-alignment. **Tested and rejected.** Both pairs realigned five ways — localpair
+with and without `--ep 0.123`, `--auto`, `--retree 2`, `--globalpair` — with
+events mapped into a fixed reference sequence's coordinates so alignments of
+different width can be compared:
+
+| | events | present in all 5 alignments |
+|---|---|---|
+| t3-1/t3-2 | 13 | **13 (100 %)** |
+| t1-4/t1-2 | 31 | **31 (100 %)** |
+
+Neither is alignment noise. Column counts drift a little (t1-4: 212-228) and
+event boundaries shift by a base or two, but with 2 bp slop every event survives
+every aligner.
+
+### A measurement error this exposed
+
+I earlier reported t1-4 as having **78 events**. That was counted in
+**alignment-column** space, where gap columns split one event into several. In
+**reference coordinates** it is **31**. Count events in a reference frame, not in
+alignment columns.
+
+### The real contrast, in reference coordinates
+
+| | reference | variable cols | events | sites/event | median separator | largest event |
+|---|---|---|---|---|---|---|
+| **t3-1/t3-2** | 282 bp | 25 (**9 %**) | 13 | 1.9 | **19 bp** | 1 bp |
+| **t1-4/t1-2** | 263 bp | 213 (**81 %**) | 31 | 6.9 | **1 bp** | **51 bp** |
+
+**t1-4 and t1-2 differ over 81 % of the element, and still nothing reaches
+|diff| 0.66.** That is not a faint difference between two tight groups — it is
+two pools that are each internally diverse and mutually overlapping, with no
+consistent signal to separate them. Every t1-4 event is stable and real; none is
+diagnostic.
+
+t3 is the mirror image: difference at only 9 % of positions, but consistent (up
+to 0.95) and dispersed a median of 19 bp apart.
+
+### The rule this gives
+
+- **few, strong, dispersed, consistent** → a real subfamily split
+- **many, weak, packed, inconsistent** → one heterogeneous group, do not split
+
+This is stronger support for his "merge t1-2 and t1-4" than anything offered
+before, and it arrives from the opposite direction to my guess. The packedness is
+not artefact; it is what pervasive low-level divergence looks like when two
+groups have no synapomorphy between them.
+
+**Add to the score:** fraction of the reference that is variable. t3 9 %,
+t1-4 81 %. A genuine split should be *sparse* and consistent; pervasive variation
+with no strong column is the signature of one pool.

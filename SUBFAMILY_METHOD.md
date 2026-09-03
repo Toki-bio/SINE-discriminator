@@ -191,10 +191,13 @@ more variable sequence rather than real divergence — not offered as settled.
 
 - **t1-4 is the one genuine remaining failure**: 88 chunks, fragments at every one
   of 26 settings, best 41 @ 88 %. His call is to merge it into t1-2.
-- **Are t1-4's packed events alignment artefacts?** Median separator 3 columns
-  suggests uncertainty regions. Testable by realigning and asking whether the
-  same events survive — MSA-viewer ships MAFFT as WASM and a
-  `consensus-realign-test.js` for exactly this.
+- ~~Are t1-4's packed events alignment artefacts?~~ **Tested and rejected.**
+  Realigned five ways, 100 % of events survive in both pairs. In reference
+  coordinates t1-4 has 31 events (not the 78 I reported from alignment-column
+  space) covering **81 % of the element**, against t3's 25 columns over **9 %**.
+  The rule that falls out: *few, strong, dispersed, consistent* = a real split;
+  *many, weak, packed, inconsistent* = one heterogeneous group. This is the
+  strongest support yet for merging t1-2 and t1-4.
 - **`EXCL_MIN` is inert** — four values give byte-identical output. Remove it.
 - **The peel reports a partition, not a confidence.** It should emit the
   adjacency score and separator statistics per group, so a grey-zone group is
