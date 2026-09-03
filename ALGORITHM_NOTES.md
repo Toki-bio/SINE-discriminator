@@ -775,3 +775,56 @@ t3-1/t3-2 "the one group that fails". Both were measuring a set whose actual
 defining character had been discarded before measurement. His `t345.al` grouping
 is still evidence that t3/t4/t5 are close - but "cannot be separated" was my
 artefact, not their property.
+
+---
+
+## 2026-09-03 — three of the viewer's ideas, applied to the subfam peel
+
+Taken from MSA-viewer, not invented:
+
+1. **Trim before clustering.** `getSeqsForClustering()` applies the soft trim
+   boundaries first, so ragged ends cannot manufacture features. Ported
+   `getTrimBoundaries` (sliding window, gap fraction) and run it per round on the
+   feature-finding view only — members are still peeled from untrimmed rows. His
+   saved preset's 0.6/0.6 with a 20-column window, not the library's 0.50/0.80/15.
+2. **Sweep instead of a single run** (`analyzeClusterability`), with an
+   "everything loosest" run, because "a single run cannot distinguish settings
+   that are too strict from data with no structure to find".
+3. Parameters made overridable from the environment so the sweep can drive them.
+
+### What trimming alone bought
+
+| | purity | t1-4 |
+|---|---|---|
+| no trim | 0.926 | 24 @ 67 % |
+| trimmed | **0.937** | **34 @ 91 %** |
+
+### What the sweep says about the three open groups
+
+26 runs over MIN_SET, MIN_BLOCK, FEAT_JACCARD, CARRY, EXCL_MIN, MAX_FRAC, trim
+on/off, and everything-loosest:
+
+- **t3-1 / t3-2 — solved and robust.** 63 @ 100 % and 53 @ 94 % in 22 of 26
+  settings. They only re-merge at `MIN_BLOCK 8` (120 @ 57 %) and under
+  everything-loosest. This is no longer a borderline result.
+- **t6-1 — not unseparable, under-resolved.** 16 @ 69 % at default, but a pure
+  **8–9 @ 100 %** core appears whenever stringency rises (`MIN_BLOCK 2`,
+  `FEAT_JACCARD 0.60` or `0.75`, `CARRY 0.75`). The default cluster of 16 is
+  contaminated; the real group has a clean core of about 8 with a soft edge.
+- **t1-4 — the one genuine failure.** 88 chunks in truth, and it fragments at
+  *every* setting: 34 @ 91 %, 41 @ 88 %, 29 @ 93 %, 43 @ 81 %, 98 @ 78 %,
+  19 @ 53 %, 16 @ 56 %, absent entirely at `FEAT_JACCARD 0.75`. No setting
+  recovers it whole. This one is worth his eye.
+
+### Two findings about my own parameters
+
+- **`EXCL_MIN` is inert.** 0.15 / 0.25 / 0.35 / 0.50 give byte-identical output
+  on every column. A knob I invented that does nothing — the other filters
+  dominate it. Remove or re-think it, do not tune it.
+- **Best settings are not the defaults I chose.** `MIN_SET 8` gives 591 placed at
+  **0.941** with a residue of 4, against 583 / 0.937 / 12 at `MIN_SET 5`.
+  `FEAT_JACCARD 0.75` reaches 0.977 purity but places only 306 of 597 — purity
+  bought by placing less, which the sweep makes visible and a single run would
+  have hidden.
+
+Full table: `sweep_table.txt` in this repo.

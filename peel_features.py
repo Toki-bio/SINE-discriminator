@@ -44,17 +44,68 @@ from collections import Counter, defaultdict
 import numpy as np
 
 GAP = "-"
-MIN_SET = 5          # a feature must mark at least this many sequences
-MAX_FRAC = 0.50      # ...and at most this fraction of the pool (his 50% cap)
-GLOBAL_CONS = 0.80   # skip columns where one base holds >80% of the whole aln
-FEAT_JACCARD = 0.45  # two features belong to the same block above this
-MIN_BLOCK = 3        # a block needs this many features
-CARRY = 0.60         # a sequence joins if it carries this fraction of the block
-EXCL_MIN = 0.35      # required gap between member carriage and non-member carriage
-MIN_GROUP = 5
+
+
+def _p(name, default, cast=float):
+    """Parameters are overridable from the environment so they can be SWEPT.
+
+    Borrowed from MSA-viewer's analyzeClusterability, whose own comment is the
+    reason this exists: "A single run answers 'did these settings cluster?',
+    which cannot distinguish settings that are too strict from data with no
+    structure to find." Every subfamily I have called unseparable so far was one
+    run at one setting. sweep_peel.py drives this.
+    """
+    v = os.environ.get("PEEL_" + name)
+    return cast(v) if v not in (None, "") else default
+
+
+MIN_SET = _p("MIN_SET", 5, int)       # a feature must mark at least this many
+MAX_FRAC = _p("MAX_FRAC", 0.50)       # ...and at most this fraction of the pool
+GLOBAL_CONS = _p("GLOBAL_CONS", 0.80)  # skip columns one base dominates
+FEAT_JACCARD = _p("FEAT_JACCARD", 0.45)  # features join a block above this
+MIN_BLOCK = _p("MIN_BLOCK", 3, int)   # a block needs this many features
+CARRY = _p("CARRY", 0.60)             # join if carrying this much of the block
+EXCL_MIN = _p("EXCL_MIN", 0.35)       # member vs non-member carriage gap
+MIN_GROUP = _p("MIN_GROUP", 5, int)
 REALIGN_FIRST = 100
 REALIGN_LATER = 40
-MAX_ROUNDS = 12
+MAX_ROUNDS = _p("MAX_ROUNDS", 12, int)
+
+# Trim before clustering, as the viewer does: getSeqsForClustering() applies the
+# soft trim boundaries first, so ragged ends cannot manufacture features. His
+# saved "optimal" preset uses 0.6/0.6 with a 20-column window, not the library
+# defaults of 0.50/0.80/15.
+TRIM = _p("TRIM", 1, int)             # 0 disables
+TRIM_WINDOW = _p("TRIM_WINDOW", 20, int)
+TRIM_LEFT = _p("TRIM_LEFT", 0.60)
+TRIM_RIGHT = _p("TRIM_RIGHT", 0.60)
+
+
+def trim_boundaries(A):
+    """Port of MSA-viewer's getTrimBoundaries: sliding-window gap fraction.
+
+    Walk a window in from each end; while the windowed gap fraction exceeds the
+    threshold keep trimming, and stop at the first column that passes.
+    """
+    n, L = A.shape
+    if not TRIM or L < 3 * TRIM_WINDOW:
+        return 0, L
+    gaps = (A == GAP).sum(axis=0).astype(float)
+    lo = 0
+    for j in range(L):
+        a = max(0, j - TRIM_WINDOW + 1)
+        if gaps[a:j + 1].sum() / ((j - a + 1) * n) > TRIM_LEFT:
+            lo = j + 1
+        else:
+            break
+    hi = L
+    for j in range(L - 1, -1, -1):
+        b = min(L, j + TRIM_WINDOW)
+        if gaps[j:b].sum() / ((b - j) * n) > TRIM_RIGHT:
+            hi = j
+        else:
+            break
+    return (0, L) if hi - lo < 50 else (lo, hi)
 
 
 def read_fa(p):
@@ -193,6 +244,13 @@ def main():
             break
         A = np.array([list(s.upper()) for s in seqs])
         n = len(names)
+
+        # Cluster the trimmed region, as getSeqsForClustering() does. Members are
+        # peeled from the untrimmed rows; only feature-finding sees the trim.
+        t_lo, t_hi = trim_boundaries(A)
+        if (t_lo, t_hi) != (0, A.shape[1]):
+            print("  trimmed to columns %d-%d of %d" % (t_lo + 1, t_hi, A.shape[1]))
+        A = A[:, t_lo:t_hi]
 
         fe = features(A)
         bl = blocks(fe)
