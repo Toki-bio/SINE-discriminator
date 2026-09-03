@@ -958,3 +958,124 @@ figure builders — its section structure, CSS and alignment section are read),
 `sine_pairwise_consensus.sh` (~620), the rest of `extract_alignments.sh` (~400),
 `subfam_cluster_lib.js` past line 340 (~160), `sine_consensus_smart.sh` (~170),
 `plot_subfamily.py`, `generate_sinekb_report.py`, `step4_diagnostic.sh` (95).
+
+---
+
+# Reading pass 4 (2026-09-03)
+
+## `step4_diagnostic.py` — all nine stages
+
+1. **Bitscore matrix** — one `ssearch36 -E 100 -m 8` run, all consensuses as
+   queries against all assigned copies, giving a copies × subfamilies matrix of
+   best bitscores. Falls back to `assignment_full.tsv` if ssearch36 fails.
+2. **PCA** on that matrix, with consensus loading arrows and a cumulative
+   variance panel; writes `pca_coordinates.tsv`.
+3. **Position weights** — MI + RandomForest importance + KL, combined
+   0.4/0.3/0.3, top-K (default 30).
+4. **Per-copy diagnostic state** — copies aligned to the longest consensus with
+   `mafft --add`, nucleotide read at each diagnostic position.
+5. **Diagnostic scoring and discordance flags.**
+6. Copies × positions heatmap.
+7. Diagnostic-score vs `sim_ratio` scatter with discordance quadrants.
+8. **Volcano plots per subfamily pair.**
+9. `sineplot_input.txt` — all-vs-all `ssearch36 -m 8` over consensuses + copies,
+   for `SINEplot.py`.
+
+### The flag rules, exactly
+
+| flag | condition |
+|---|---|
+| `fp_risk` | assigned, and diagnostic score < 0.5 with a higher-scoring runner-up → *"overall similarity says X, diagnostic pattern says Y"*; or diagnostic score < 0.3 (low confidence) |
+| `fn_risk` | **not** assigned, but diagnostic score > 0.7 → the pattern matches a subfamily the vote rejected |
+| `chimera_suspected` | the 5′ half of the diagnostic positions best-matches one subfamily and the 3′ half another, **each at ≥60 % of that half's positions** |
+
+**`chimera_suspected` is a working mosaic detector, and it already exists.**
+When he asked whether mosaicism is properly estimated, the answer was that
+`verdict.py`'s `homogeneity` is saturated (1.000 for 72 % of sets, including
+8/8 NEGMOSAIC and 6/6 SIMMOSAIC) — but this is the tool that actually tests it,
+by splitting the diagnostic pattern rather than averaging a similarity.
+
+## `sine_pairwise_consensus.sh` — the projection
+
+Each copy is `mafft --auto --op 5` aligned to the reference **alone**, then
+projected column by column: at every reference (non-gap) column the copy's base
+is emitted; columns where the reference has a gap are counted as an insertion and
+recorded as `refpos:length` in a per-copy insertion list. Every projection is
+therefore exactly `REF_LEN` long, and the script checks that.
+
+Frequency call per reference position: coverage gate `nongap >= n × MIN_COVERAGE`,
+then plurality among A/C/G/T with `freq = max_count / n` — **gaps in the
+denominator** (`n` = number of copies) — kept only if `freq >= CONS_THRESH`.
+Ties → `N`. Writes `freqtable.tsv`
+(`Pos Ref A C G T Gap Nongap Total Called Freq`).
+
+**Insertion hotspots**: positions where more than 10 % of copies carry an
+insertion are counted and reported, with the advice to re-run against a longer
+reference.
+
+## `extract_alignments.sh` — four tiers, not three
+
+- **Tier A** `{sf}.core.fa` — random 50, 30 L + 70 R.
+- **Tier B** `{sf}.best50.fa` — top 50 by bitscore, same flanks.
+- **Tier C** `{sf}.subfam.fa` — **>400 copies**, subsample **2500**, `SubFam
+  input.fa 50`, then `cat consensus.fa input.clw` — **`.clw` NOT degapped**, same
+  as `extract_subfam_only.sh` and unlike `run_subfam_per_sf.sh`.
+- **Tier D** `{sf}.evidence.txt` — for subfamilies with **zero** copies, runs
+  `sear <cons> <genome> 0.5 30 20` (relaxed: 50 % identity, 30 bp, 20 flank) in a
+  shared work dir so the genome splits are built once, and writes the first 10
+  BED hits as evidence that the family is genuinely absent rather than untested.
+
+**It pools firm + soft copies.** Soft-assigned copies are pulled from
+`unassigned.fasta` by `Soft_Subfamily` in `unassigned.tsv` and re-headed
+`>seqid|subfam|0|SOFT`. So its tiers include soft copies, while
+`extract_top100_rand100_subfam.sh` uses `assigned.fasta` only — the two
+generators do not sample the same population.
+
+## `getTrimBoundaries` in `subfam_cluster_lib.js`
+
+A second boundary tool, operating on the alignment rather than the genome.
+Sliding window of **15 columns** from each end; while the windowed gap fraction
+exceeds the threshold, keep trimming; stop at the first acceptable column.
+
+**Thresholds are asymmetric: 0.50 on the left, 0.80 on the right** — the 3′ end
+tolerates far more gap before being cut, which is what a poly-A tail needs.
+
+`boundary.py` duplicates this as well as `CutByCons`.
+
+## `sine_consensus_smart.sh`
+
+Bootstrap as in `sine_consensus.sh`, plus: it keeps the last
+`VARIANCE_WINDOW=3` change values, and if their mean exceeds
+`VARIANCE_LIMIT=0.15` after `MIN_ITERS=10`, it stops early and stamps
+`QUALITY: LOW_CONFIDENCE` — "likely garbage/FP-contaminated data". Uses
+`esl-alistat` for average identity per iteration when available. Writes
+`{base}_consensus.fasta`, and with `-k` a `{base}_trace.aln.fasta` holding every
+iteration's mini-consensus plus the final.
+
+## `step6_report.py` — the two PCAs are different
+
+- **`build_pca_fig`** (this file): **mutation-space** PCA. Each copy becomes a
+  binary vector — 1 at alignment columns where it differs from its assigned
+  subfamily's consensus — via `mafft --add --keeplength`, then SVD for PC1/PC2.
+  Stratified sample of up to 200 copies per subfamily, seed 42.
+- **`run_pca`** in `step4_diagnostic.py`: PCA on the **bitscore** matrix.
+
+Also `build_sineplot_iframe`: locates `SINEplot`, requires `ssearch36`, samples
+copies per subfamily (seed 42) and embeds the resulting HTML as an
+`<iframe srcdoc>`. Falls back from per-subfamily fastas to `assigned.fasta` when
+the former are empty.
+
+## Ledger
+
+**Now read:** `step4_diagnostic.py` (all stages and flag rules),
+`sine_pairwise_consensus.sh` (projection + frequency call + insertion hotspots),
+`extract_alignments.sh` (all four tiers, soft-copy pooling),
+`subfam_cluster_lib.js` (complete, including `getTrimBoundaries`),
+`sine_consensus_smart.sh` (complete), `step6_report.py` (section structure, CSS,
+alignment section, both PCA builders, SINEplot iframe).
+
+**Still not read:** the remaining plotly figure builders in `step6_report.py`
+(`fig_funnel`, `fig_similarity_kde`, `fig_divergence_kde`, `fig_sim_violins`,
+`fig_conservation`, `kde_curve`, table renderers — roughly 700 lines of chart
+construction), `plot_subfamily.py`, `generate_sinekb_report.py`, `SINEplot.py`,
+`step4_diagnostic.sh` (95, a thin wrapper), `analyze_convergence.sh`.
