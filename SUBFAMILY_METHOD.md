@@ -129,9 +129,34 @@ The real reading:
   **81 %** of the element variable and still nothing above |diff| 0.66 — two pools
   each internally diverse and mutually overlapping)
 
-**Add to the score: the fraction of the reference that is variable.** A genuine
-split is sparse and consistent; pervasive variation with no strong column is the
-signature of one pool, not two.
+**Fraction-variable was tested across pairs and does NOT work** — it measures
+evolutionary distance, not separability. The clearly-distinct t2/t8-2 pair has the
+highest value (0.70) of the three judged pairs. The discriminator is **`best`**,
+the strongest single consistent column: 0.96 and 1.00 for splits, **0.66** for the
+pair he merges. His instruction to reject anything below the t1-4 case sets the
+bar at **>= 0.85 split, <= 0.70 merge**. See §4c.
+
+
+### 4c. `best` — *is any of the difference consistent* (the primary test)
+
+The strongest single column, max over |gap-fraction difference| and
+occupancy-guarded |majority-base difference|. Measured on **copies**, never chunk
+consensuses.
+
+| pair | his call | frac_var | **best** |
+|---|---|---|---|
+| t3-1 / t3-2 | split, named at a glance | 0.08 | **0.96** |
+| t1-4 / t1-2 | merge | 0.39 | **0.66** |
+| t2 / t8-2 | distant, distinct | 0.70 | **1.00** |
+
+**Threshold: >= 0.85 split, <= 0.70 merge**, from his instruction to reject
+anything below the t1-4 case.
+
+**Chunk consensuses give the wrong answer here.** At chunk level t1-2/t1-4 reads
+`frac_var 0.13, best 0.86` — a clean split — because `cons -plurality 18` over 50
+copies smooths each chunk. Across all 45 chunk-level pairs `best` is 0.97-1.00
+almost everywhere: at chunk level nearly everything looks separable. Chunk level
+proposes candidates; copy level judges them.
 
 ---
 

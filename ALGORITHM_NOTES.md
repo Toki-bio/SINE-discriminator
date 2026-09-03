@@ -1219,3 +1219,68 @@ groups have no synapomorphy between them.
 **Add to the score:** fraction of the reference that is variable. t3 9 %,
 t1-4 81 %. A genuine split should be *sparse* and consistent; pervasive variation
 with no strong column is the signature of one pool.
+
+---
+
+## Fraction-variable tested across pairs — it does NOT work. `best` does.
+
+He asked whether the 9 %-vs-81 % figure holds up as a discriminator. Tested on
+every pair, and on three pairs at copy level. **It does not.**
+
+### At copy level, the three pairs whose status he has judged
+
+| pair | his call | `frac_var` | `best` |
+|---|---|---|---|
+| t3-1 / t3-2 | named the insertion at a glance — **split** | 0.08 | **0.96** |
+| t1-4 / t1-2 | "more plausible to merge" — **reject** | 0.39 | **0.66** |
+| t2 / t8-2 | distant, obviously distinct | **0.70** | **1.00** |
+
+`frac_var` runs 0.08 → 0.39 → 0.70 with no relation to the calls, and the most
+clearly distinct pair has the **highest** value. It measures evolutionary
+**distance**, not separability: two distant subfamilies differ nearly everywhere
+*and* carry consistent diagnostics. Pervasive variation is not evidence against a
+split.
+
+`best` — the strongest single consistent column, max over gap-fraction difference
+and occupancy-guarded majority-base difference — tracks his calls exactly.
+
+**Threshold, from his instruction to reject anything below the t1-4 case:**
+
+| `best` | reading |
+|---|---|
+| **>= 0.85** | split — a consistent diagnostic exists |
+| 0.70 – 0.85 | untested band |
+| **<= 0.70** | merge — nothing consistent, whatever the distance |
+
+One pass over columns. Cheaper than the adjacency score, the tree, and the
+k-mer distance combined.
+
+### Where my earlier framing went wrong
+
+"9 % vs 81 %" was a real measurement attributed to the wrong cause. Two further
+errors in it, both stated for the record: the 81 % used one reference sequence's
+full length as denominator, where the shared element span gives 0.39; and the
+contrast I read as sparse-vs-pervasive was really consistent-vs-inconsistent.
+
+### The chunk consensuses lie — measured
+
+Surveying all 45 pairs of the 10 well-populated v4 groups **in the general subfam
+alignment of chunk consensuses**:
+
+| pair | frac_var | best | reading at chunk level | truth |
+|---|---|---|---|---|
+| t3-1 / t3-2 | 0.03 | 0.97 | split | correct |
+| **t1-2 / t1-4** | **0.13** | **0.86** | **split** | **wrong — he merges it** |
+
+At chunk level t1-2/t1-4 looks *sparse and consistent*. At copy level the same
+pair is `best 0.66`. `cons -plurality 18` over 50 copies smooths each chunk, so
+an overlapping pair acquires a clean apparent difference that its copies do not
+support.
+
+**This is not a refinement of his instruction to use the banks — it is the reason
+for it.** A grey-zone call made on chunk consensuses gets the wrong answer.
+Chunk level is for proposing candidates; copy level is for judging them.
+
+All 45 chunk-level pairs also show `best` at 0.97-1.00 with one exception, which
+is another way of saying the same thing: at chunk level almost everything looks
+separable.
