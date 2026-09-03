@@ -1871,3 +1871,72 @@ is 2 short of the label. Recorded as an open discrepancy, not resolved.
 
 Four of five blocks are Type A with real diagnostics; s8 remains the only one with
 none.
+
+## Round 6: s3 peeled, and two corrections to the criterion
+
+His call: "next few are uncertain (9seq, 096-004) - skipping them. next batch of 41
+sequences, s3 consensus down to 087."
+
+All three anchors landed exactly: the uncertain nine are r6 rows 238-246
+(`input_096` .. `input_004`), and the s3 batch is rows 197-237, 41 sequences
+*including* the consensus, so **40 chunks against the label's 43**. His "N
+sequences" counts always include the landmark row.
+
+### Correction 1: strict unanimity is wrong, f_in >= 0.90 is right
+
+s3 has **zero** columns that are unanimous among members and rare outside. Its
+best is col 55 `G` at f_in 0.925, f_out 0.009 — 37 of 40, not 40 of 40. The
+criterion as I stated it to him would have rejected a group he accepted.
+
+Relaxing the membership fraction to **f_in >= 0.90** recovers s3 and changes
+nothing for the groups that already passed.
+
+### Correction 2: diagnostics are relative to the current alignment, not absolute
+
+The s4 block measured **18** unanimous diagnostics against r4's remaining 296
+chunks. Measured against all 597 chunks it has **zero**. Same rows, same columns —
+the two numbers answer different questions, and neither is wrong.
+
+| block | n | cols at f_in>=0.90, f_out<=0.02, vs all 597 | cohesion gap in its own frame |
+|---|---|---|---|
+| s2 | 36 | 8 | +0.121 |
+| s6 | 7 | 3 | +0.117 |
+| s5 | 5 | 1 | +0.111 |
+| s3 | 40 | 1 | +0.096 |
+| s4block | 143 | 0 | +0.119 |
+| s8 | 143 | 0 | +0.094 |
+| UNC-18 | 18 | 0 | **-0.004** |
+| UNC-9 | 9 | 0 | **-0.004** |
+
+**This makes his sequential procedure load-bearing rather than merely convenient.**
+A subfamily can be invisible against the whole set and obvious against the
+remainder, because the chunks that mask its diagnostics have already been removed.
+Any method that scores all groups once, against everything, will miss exactly the
+groups he finds last.
+
+It also qualifies the negative-gap result from the previous round: UNC-18 and UNC-9
+sit at -0.004 in the frames he was actually looking at, but at +0.042 and +0.054
+against all 597. **His frame is the correct one** — that is where the decision is
+made — but the number must always be reported with the frame attached.
+
+### The criterion, restated
+
+    In the CURRENT alignment, a candidate block is a subfamily if
+      (a) it has >= 1 column with f_in >= 0.90 and f_out <= 0.02, and
+      (b) its within-minus-between cohesion gap is clearly positive
+    Blocks with 0 such columns and a gap near or below zero are the ones he skips.
+    Membership of an individual chunk = carriage of those columns, never identity.
+    The residual (s8, s4block) has no diagnostics of its own at any stage.
+
+### Running score
+
+| round | peeled | chunks | label | consensus identity | threshold |
+|---|---|---|---|---|---|
+| 1 | s8 | 143 | 225 | 1.0000 / 254 | any |
+| 2 | s6 | 7 | 7 | 1.0000 / 250 | any |
+| 3 | s5 | 5 | 5 | 1.0000 / 247 | <= 40 |
+| 4 | s4 block | 143 | 60 | 0.9727 / 255 | <= 30 |
+| 5 | s2 | 36 | 38 | 0.9960 / 250 | <= 40 |
+| 6 | s3 | 40 | 43 | 0.9962 / 260 | <= 30 |
+
+Plus two sets he refused, both with zero diagnostics and a negative gap in frame.
