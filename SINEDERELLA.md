@@ -841,6 +841,157 @@ too.
 
 ---
 
+---
+
+# How SINEderella works — the design layer
+
+Read from `MANUAL.md` (1535 lines), `README.md` and `PLAN_alignment_viewer.md`,
+after having read the code. This is the *why*, which the code does not state.
+It changed two things I had built.
+
+## The system is bigger than the pipeline
+
+```
+genome + consensus bank
+      → SINEderella (single species) / SINEderella_multi (many)
+      → sinekb_report.json          (generate_sinekb_report.py)
+      → SINE-KB                     (sine-kb/models.py, taxonomy + consensus bank)
+      → docs/data.json              (sine-kb/export_to_github_pages.py)
+      → SINEdb, https://toki-bio.github.io/SINEdb/
+```
+
+**SINEdb is a published single-page app** with tabs for Subfamilies, Families,
+Instances, Taxonomy, Sequences and a **Summary species × subfamily heatmap**. All
+fields are editable in-browser via localStorage, and the edited `data.json` can
+be downloaded and re-imported. Per-species `report.html` pages (step6) are a
+*separate* product from SINEdb.
+
+Round trip from a finished multi-run is documented step by step in MANUAL §13,
+including `tar -czh` — **the `-h` matters, because `results/` is a symlink farm**.
+
+Import behaviour: existing subfamilies matched by name and updated, **user-edited
+fields preserved** (notes, NCBI taxid, aliases, module annotations, top100/rand100
+identity); new subfamilies land in an auto-created "Unassigned" family for manual
+triage; zero-assignment subfamilies skipped; re-importing the same report is safe.
+
+Related repos: `SINEdb`, `SINE_consensus`, `SubFam`.
+
+## Why the pipeline is shaped this way
+
+- **10 cycles** — `ssearch36 -z 11` shuffles the database for Z-score
+  normalisation, so bitscores fluctuate **±1–3 %** between runs. Requiring 10/10
+  eliminates borderline cases where stochastic variation flips the winner. (My
+  own test: three identical runs gave three different md5s and 17 of 20 000
+  copies changed winner — this is documented, not a discovery.)
+- **0.45 × TopN** — chosen to reject severely truncated or degraded copies while
+  retaining most genuine members; the N-th best (N = min(10, count)) is used
+  rather than the best, for robustness against outliers.
+- **`--add`'s BED-overlap tiering** — empirically, no existing 10/10 assignment
+  ever flips when a consensus is added; bitscores drift ±1–26 but unanimity
+  prevents reassignment. Only loci overlapping the new family's own hits are
+  re-evaluated. Thresholds are then recalculated from the merged unanimous set.
+- **`sim_ratio` is normalised** because raw bitscores are not comparable across
+  subfamilies of different lengths. Reading: **≈1.0** young/intact, **0.5–0.7**
+  typical moderately diverged, **<0.3** highly degraded or truncated. `sim_mean`
+  and `sim_median` per subfamily are a proxy for the subfamily's age.
+- **LEAK means something biological** — chimeric insertions spanning two
+  subfamily boundaries, intermediate forms, or regions where subfamily
+  differentiation is minimal. Flagged, not removed.
+- **CONFLICT means something biological** — genomic hotspots where multiple
+  subfamilies co-occur: nested insertions, fragmented copies, subfamily-dense
+  regions.
+- **Soft assignment exists so nothing is discarded.** Failure reasons are
+  explicit: `no_unanimous_votes`, `rejected_low_bitscore`, `no_ssearch_data`.
+  Soft copies count in `total_assigned`, never in `firm_assigned`.
+
+## What each alignment tier is *for* (PLAN_alignment_viewer.md)
+
+| tier | purpose, his words |
+|---|---|
+| **A — random 50** | "Unbiased view of subfamily diversity" |
+| **B — best 50** | "See best-preserved copies, **estimate master sequence**" |
+| **C — SubFam consensuses (>400 copies)** | "**Reveal internal subfamily structure / age layers**" |
+| **D — zero/low hits** | "Document absence / justify 'not found' status" — a screenshot-equivalent proof |
+
+**Minimum copies = 1**: "even a single copy could be the master copy and warrants
+investigation". Low-copy families are flagged for manual inspection, never
+dropped.
+
+**Flanks exist for three stated reasons**: to prove both true ends of the element
+exist, to inspect direct repeats at the boundaries, and to identify possible
+TSDs. They are for the *eye*.
+
+`--ep 0.123` is described as "gap extension penalty (**tuned for SINEs**)", not a
+default.
+
+## §16.9 — two filters deliberately NOT adopted, and my discriminator breaks both
+
+This is the most consequential thing in the manual for the discriminator.
+
+### TSD must not be an assignment or confidence criterion
+
+His three reasons:
+
+1. **TSDs erode with age.** The oldest, most diverged copies — exactly the ones
+   the divergence histograms care about — are least likely to retain a scoreable
+   TSD, so a TSD-based flag makes the high-divergence tail of every subfamily
+   look artificially low-confidence.
+2. **Some SINE families lack TSDs by mechanism**, not erosion. For those,
+   "TSD-consistent" is permanently unreachable regardless of assignment quality.
+3. **TSDs are not SINE-specific.** Other TE classes produce them, so TSD
+   presence is not a good discriminator for "is this a SINE" in the first place.
+
+"If added at all, TSD annotation belongs as an optional, clearly-labeled bonus
+field in step 3's output — **never as a criterion feeding LEAK/CONFLICT or any
+assignment decision**."
+
+**Conflict with what I built:** `verdict.py` scores on `tsd_frac`, and the
+published workbench page presents `tsd_frac = 0.00 against 0.83` as one of "two
+independent signals" separating a LINE interior from a SINE. Reason 3 says that
+separation should not be treated as evidence of SINE-ness. This needs raising
+with him rather than silently keeping or silently removing — the empirical
+separation was real on that data, and his argument is about what it licenses.
+
+Note the consistency in his design: flanks are shown so a human **can look at**
+TSDs; the objection is to a machine **scoring** on them.
+
+### Tandem-repeat pre-filtering is not applied
+
+1. `sear`'s criterion — ≥80 % of consensus length at ≥65 % identity against an
+   aperiodic ~300 bp consensus — is **structurally immune** to the tandem-repeat
+   false-positive mode these filters exist to catch. That mode is a vulnerability
+   of k-mer/short-fragment discovery tools (AnnoSINE's structural scanner,
+   BWR-finder), not of whole-consensus homology search.
+2. TRF-class scans are not free, and paying that cost to guard against a failure
+   mode the method does not have is a net loss — the same efficiency logic behind
+   `--add` existing at all.
+3. **Some real SINEs are tightly satellite-adjacent or satellite-derived.** A
+   tandem-repeat filter "would not just remove noise — it would discard a
+   genuinely interesting subset of true positives".
+
+**Conflict with what I built:** `microsat.py` adds microsatellite content as a
+discriminator axis, with `MICROSATELLITE_ELEMENT` / `MICROSATELLITE_FLANK` flags
+in `verdict.py`. By reason 3 those flags may be discarding exactly the subset he
+finds interesting. (Measured earlier: every corpus class has a median
+microsatellite score of 0.000, so the axis fires rarely — but when it fires, this
+is what it may be firing on.)
+
+## Doc/code notes from this pass
+
+- MANUAL §16.1 glosses `sear`'s third positional argument as "Sequence Fraction
+  Length: a match must cover at least 80 % of the query consensus length", and
+  the fifth as "Additional parameter for match evaluation" — the code shows the
+  fifth is the flank size, and that the length test is on the **hit's span in the
+  bank**, not on query coverage.
+- MANUAL §16.2 reads the ssearch36 flags as `-g` = "global/gapped alignment" and
+  `-3` = "forward strand + reverse complement". The code passes them as
+  `-g -3` together. Two readings are possible (`-g` with value `-3`, i.e. gap
+  penalty, versus two independent flags) and his documentation is the authority
+  on intent — but the difference matters for whether both strands are searched.
+  Do not assert either reading without checking `ssearch36 -h`.
+- README §step1 says "≥0.9 length, ≥0.65 similarity"; the orchestrator and
+  MANUAL §16.1 both use **0.8**.
+
 ## Read/unread ledger
 
 **Read in full:** `SINEderella` (1036), `step1_search_extract.sh` (278),
@@ -864,8 +1015,12 @@ SINEplot iframe.
 `benchmark_sear.sh` (294), `import_squamata_run.py` (325), and the whole of
 `step6_report.py`'s parsing, table and figure logic.
 
-**Not read:** `generate_sinekb_report.py` and `sine-kb/models.py` (the
-knowledge-base import path), `SINEplot.py`, `step4_diagnostic.sh` (95, a thin
-wrapper around the python), and the MANUAL's 70 KB beyond §6 and §7.
+**Docs read:** `MANUAL.md` §1-5, §12, §13, §16 (algorithm details and the two
+deliberately-omitted filters), `README.md`, `PLAN_alignment_viewer.md`,
+`RESEARCH_DIRECTIONS.md`, `ALIGNMENT_DEPLOYMENT.md`, `QUALITY_FLAGGING_README.md`.
+
+**Not read:** `generate_sinekb_report.py`, `sine-kb/models.py` and
+`sine-kb/export_to_github_pages.py` (the knowledge-base and SINEdb export path),
+`SINEplot.py`, `step4_diagnostic.sh`, and MANUAL §14, §17, §18, §19.
 
 **Do not describe anything in the second list as understood.**
