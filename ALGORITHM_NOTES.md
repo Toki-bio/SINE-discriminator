@@ -1597,3 +1597,101 @@ Running score: two peels, two consensuses reproduced byte-exactly.
 |---|---|---|---|---|
 | 1 | s8 | 143 | 225 | 1.0000 over 254 |
 | 2 | s6 | 7 | 7 | 1.0000 over 250 |
+
+## Round 3 on saq: s5, the first case where the threshold mattered
+
+His call: "s5 is amidst s4 sequences but they form a group, from s5 consensus down
+to 296." In r3 that is rows 391-395: `input_386`, `input_387`, `input_421`,
+`input_385`, `input_296` — five chunks, matching `s5_5seqs`.
+
+### The boundary is confirmed by the only decisive test available
+
+Consensus of the block against his `CONS__s5_5seqs`, by the viewer rule:
+
+| block | thr 50 % | thr 40 % | thr 35 % | thr 30 % |
+|---|---|---|---|---|
+| all 5, his boundary | 0.9960 | **1.0000** | **1.0000** | **1.0000** |
+| 4, dropping 296 | 0.9960 | 0.9960 | 0.9960 | 0.9960 |
+
+The single difference is ungapped position 247, where his consensus has `T`.
+`input_421` and `input_296` carry that `T` and the other three carry a gap. At
+threshold 50 % two of five cannot call it, so it renders as a gap; at 40 % it
+calls `T` and the match is exact. **Drop 296 and it is one of four, which no
+threshold down to 30 % can call, so the block can never reproduce his consensus.**
+
+Two conclusions. His boundary at 296 is right, and he must have lowered the
+threshold on this block — which is exactly the option he described and the first
+block where it was load-bearing. *Recording the threshold a block needed is
+therefore not a diagnostic of messiness alone; it is part of the block's
+definition.*
+
+### Identity in the 0.92-0.93 band carries no information about membership
+
+`input_296` is the identity outlier of its own group and sits closer to the
+neighbouring s4 rows than to its own members:
+
+| | to own group | to the 88 s4-block rows |
+|---|---|---|
+| input_386 | 0.9774 | 0.9412 |
+| input_387 | 0.9774 | 0.9412 |
+| input_421 | 0.9714 | 0.9410 |
+| input_385 | 0.9734 | 0.9364 |
+| **input_296** | **0.9300** | **0.9599** |
+
+Set that beside the previous round:
+
+| chunk | mean identity to the group | call | diagnostics carried |
+|---|---|---|---|
+| input_342 | 0.918 | **excluded** | 0 of 4 |
+| input_296 | 0.930 | **included** | 3 of 3 unanimous |
+
+Nearly the same identity, opposite calls, and identity puts 296 *further* from its
+own group than 342 was from the one it was thrown out of. **No similarity threshold
+can reproduce both calls.** What separates them is diagnostic carriage: 296 carries
+every unanimous diagnostic of its group and merely dissents at two columns that are
+consequently 4-of-5 (ungapped 100, where the outside is C 439/439, and 235); 342
+carried the outside state at all four of s6's.
+
+The operative membership rule, stated computably:
+
+    member      <- carries the group's unanimous diagnostics
+    non-member  <- carries the outside state at all of them
+    identity is a ranking aid and nothing more
+
+### Why he sees some diagnostics and not others — the colouring rule
+
+He said his two positions "were directly indicated by colouring in current
+alignment view". `_computeConservationForColumn` (script.js:4508) and
+`applyConservationShadeClass` (6387): conservation = maxCount / nonGapCount, and a
+base is shaded black/dark/light only if it is in the column's majority set AND
+conservation clears the threshold. A minority base in a near-invariant column falls
+through to `other` — pale against black.
+
+Measured on the four s6 diagnostics:
+
+| ungapped | group base | column conservation | visible? |
+|---|---|---|---|
+| 200 | T | 0.985 | yes — he named it |
+| 225 | - | 1.000 | yes — he named it |
+| 188 | G | 0.652 | no — mid-shaded, no contrast |
+| 55 | A | 0.657 | no — mid-shaded, no contrast |
+
+**The colouring reveals a diagnostic only when the column is otherwise
+near-invariant.** A perfectly unanimous group diagnostic in a column that is
+already biallelic across the family is invisible, however real it is. That is the
+systematic blind spot of curation by eye, it is measurable, and it is the clearest
+statement yet of what an automated discriminator adds: not better judgement on the
+columns he sees, but the columns the shading cannot show him.
+
+His own note on the gap after ungapped 55 — "also part informative considering
+existence of edge cases or 50s forced to consensus" — is a caution on the same
+columns: a gap there can be a chunk artefact rather than an indel, because a chunk
+of 50 loci can be forced to a consensus it does not really have.
+
+### Running score: three peels, three consensuses reproduced byte-exactly
+
+| round | peeled | chunks | label says | identity | threshold needed |
+|---|---|---|---|---|---|
+| 1 | s8 | 143 | 225 | 1.0000 over 254 | any, 30-50 |
+| 2 | s6 | 7 | 7 | 1.0000 over 250 | any, 30-50 |
+| 3 | s5 | 5 | 5 | 1.0000 over 247 | **<= 40** |
