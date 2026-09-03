@@ -409,6 +409,61 @@ a report against a newer partition links files that do not exist. And the
 cross-species nav bar is **hardcoded to `saq ↔ ccr`**; every other species gets
 an empty link.
 
+Charts are emitted as Plotly **dicts built by hand** — the plotly Python library
+is never imported. `kde_curve` is a hand-rolled Gaussian KDE with Scott's
+bandwidth `h = std · n^(-1/5)`, no scipy. `conservation_curve` plots the
+per-position frequency of the consensus base. `stratified_sample_sim` samples up
+to 3000 copies per subfamily for the density plots. `fig_funnel` shows
+hits → unanimous 10/10 → assigned → unassigned.
+
+### Two defects in the report, verified against data
+
+**The LEAK column is always zero.** `count_flags_per_subfam` reads `parts[8]`
+for both flags, but step3's ALL table puts `leak_flag` in column 8 (`parts[7]`)
+and `conflict_flag` in column 9 (`parts[8]`), so the `elif "LEAK" in flag` branch
+tests the conflict field and never fires. Measured on Timema
+`run_20260821_132226`: the file holds **9 340 LEAK rows**, and the parser returns
+`CONFLICT=82 365, LEAK=0, OK=257 201`. `flags_table` then renders a LEAK column
+of zeros. That hides a signal his own notes call diagnostic — real Timema
+families run 0.00–0.18 % leak, noisy ones 65–98 %.
+
+**The "Threshold/Self" column is not on a usable scale.** `thresholds_table`
+computes `(threshold / 100.0) / real_self_bits`, but `asSINEment` writes the
+threshold as a plain bitscore (`0.45 × the N-th best`), not ×100. On Timema:
+t1 `threshold=782`, `self_bits_real=179.1` → the column shows **0.0437**, while
+`threshold/self` is **4.366**. The two are on different scales whichever way it
+is divided — thresholds come out several times larger than the recorded
+consensus self-bitscore. Ask which of the two numbers is the unexpected one
+before changing anything.
+
+## `plot_subfamily.py`, `analyze_convergence.sh`, `benchmark_sear.sh`
+
+**`plot_subfamily.py`** — the step4 plotting helper. Divergence histogram of
+`100 − %identity` with mean and median lines; per-position stacked nucleotide
+frequency using the **consensus row's non-gap columns as the position axis**, so
+the x-axis is consensus coordinates and each tick is the consensus base itself.
+Everything non-ACGT counts as `gap`. It strips mafft's `_R_` prefix from names
+(added by `--adjustdirection`).
+
+**`analyze_convergence.sh <logdir>`** — batch-summarises `*_consensus.log` into
+a CSV (`NAME,SEQS,ITERS,BP,STATUS,AVG_CHANGE`) and flags problems:
+`ITERS > 30` = slow convergence, likely mixed or FP-contaminated data;
+`NOT_CONVERGED` = hit the 50-iteration cap; `AVG_CHANGE > 0.01` = noisy.
+
+**`benchmark_sear.sh <genomes.tsv> <consensus.fa> [max_mb] [n_queries]`** —
+he has already benchmarked `sear` per query against `sear_multi`: truncates
+genomes to a size cap, picks N queries, runs both approaches, and compares wall
+time, hit counts and BED identity. Read this before re-deriving which is faster.
+
+## SINE-KB — the downstream knowledge base
+
+`SINEderella_multi` calls `generate_sinekb_report.py`, and
+`import_squamata_run.py` loads the resulting `sinekb_report.json` into a system
+under `sine-kb/` via `models.import_sinekb_report()`: per-genome copy counts, a
+taxonomy tree extended per import, and a rebuilt consensus bank. The squamata
+import covers **79 genomes and 9 subfamilies**. Neither `sine-kb/models.py` nor
+`generate_sinekb_report.py` has been read.
+
 ## step8b — the other way alignments reach a report
 
 Reads `results/alignments/manifest.tsv` (**not** a directory listing), builds
@@ -805,10 +860,12 @@ too.
 `step6_report.py` — section structure, CSS, alignment section, both PCA builders,
 SINEplot iframe.
 
-**Not read:** the remaining plotly figure builders in `step6_report.py`
-(`fig_funnel`, `fig_similarity_kde`, `fig_divergence_kde`, `fig_sim_violins`,
-`fig_conservation`, `kde_curve`, table renderers — roughly 700 lines of chart
-construction), `plot_subfamily.py`, `generate_sinekb_report.py`, `SINEplot.py`,
-`step4_diagnostic.sh` (95, a thin wrapper), `analyze_convergence.sh`.
+**Also read:** `plot_subfamily.py` (283), `analyze_convergence.sh` (62),
+`benchmark_sear.sh` (294), `import_squamata_run.py` (325), and the whole of
+`step6_report.py`'s parsing, table and figure logic.
+
+**Not read:** `generate_sinekb_report.py` and `sine-kb/models.py` (the
+knowledge-base import path), `SINEplot.py`, `step4_diagnostic.sh` (95, a thin
+wrapper around the python), and the MANUAL's 70 KB beyond §6 and §7.
 
 **Do not describe anything in the second list as understood.**
