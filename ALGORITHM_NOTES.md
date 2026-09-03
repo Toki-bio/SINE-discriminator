@@ -2061,3 +2061,47 @@ Established over six peels and two refusals:
 **Unvalidated:** every number above is calibrated on saq. None of it has been
 tested against a partition it did not help produce. The next step that adds
 information is a blind run on a species he has already separated — not more saq.
+
+---
+
+# BLIND TEST ON TALPA EUROPAEA (teu) — prediction committed before comparison
+
+Run `20260427_130055`, 600 chunk consensuses, MAFFT L-INS-i `--reorder`, his six
+curated consensuses present in the alignment as landmarks but **excluded from every
+computation**. Nothing about t1-t6 was consulted while producing what follows.
+
+Procedure applied exactly as calibrated on saq, by script `blind_peel.py`:
+
+    step 0  drop ungapped length > 1.15*p95 or < 0.70*median
+    step 1  over contiguous intervals of the CURRENT order, take the block with the
+            most columns at f_in >= 0.90 and f_out <= 0.02, measured against the
+            rest of the CURRENT alignment
+    step 2  require cohesion gap (within - between) > 0.02
+    step 3  peel, strip all-gap columns, repeat
+
+Step 0 dropped 4: `input_266` (421), `input_265` (505), `input_264` (516),
+`input_600` (120). On saq this same rule picks out exactly the three he called
+garbage and nothing else.
+
+## The committed prediction
+
+| round | n | diagnostics | within | between | gap | first .. last |
+|---|---|---|---|---|---|---|
+| 1 | 214 | 16 | 0.8988 | 0.7435 | +0.1554 | input_291 .. input_438 |
+| 2 | 18 | 7 | 0.9146 | 0.7724 | +0.1422 | input_222 .. input_148 |
+| 3 | 105 | 5 | 0.9170 | 0.8378 | +0.0792 | input_436 .. input_578 |
+| 4 | 4 | 2 | 0.8727 | 0.8123 | +0.0603 | input_591 .. input_195 |
+| 5 | 54 | 1 | 0.9509 | 0.9012 | +0.0497 | input_059 .. input_065 |
+| 6 | 4 | 1 | 0.9239 | 0.8999 | +0.0240 | input_215 .. input_230 |
+| residual | 197 | — | — | — | — | — |
+
+399 chunks assigned, 197 residual, 596 total after the 4 drops.
+
+**His bank, for reference only — not used above:** t1 45, t2 75, t3 27, t4 92,
+t5 31, t6 324, summing to 594 of 600.
+
+**Stated in advance:** t6 at 324 should behave like saq's s8 — a residual with no
+diagnostics of its own. My largest group is 214 and my residual is 197; if t6 is
+the residual then neither matches it, and that is a prediction that can fail.
+
+Member lists are in `/data/W/toki/SINE_disc/teu_curate/blind_group_0*.txt`.
