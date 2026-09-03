@@ -1093,6 +1093,102 @@ Design/progress documents not yet read: `CLUSTER_COLOR_REORDER_TASK.md`,
 `FEATURE_AUDIT_*`, `PERF_AUDIT_*`, `CRASH_FIX_*`, `LOADHANG_*`,
 `PRESUBMIT_AUDIT_*`, `CANVAS-EDITOR-REWRITE-PLAN.md`, `PERFORMANCE_BENCHMARKS.md`.
 
+---
+
+## MAFFT's ordering — read from the C source
+
+Why: he pointed at MAFFT's sequence ordering and said "separation is faint and
+real at the same time — mafft has its good intuition. Can you learn how mafft
+uses its magic?"
+
+Source: `GSLBiotech/mafft`, `core/disttbfast.c` and `core/mltaln9.c`. The
+`disttbfast.js` in MSA-viewer is minified Emscripten output with no readable
+algorithm — go to the C.
+
+### The distance, exactly
+
+```
+tuplesize = 6                                        disttbfast.c:214
+shared    = commonsextet_p(A, B)                     mltaln9.c:14871
+bunbo     = MIN(selfscore_i, selfscore_j)            disttbfast.c:4053
+lenfac    = 1 / ( shorter/longer * 0.1
+                  + 2500/(longer + 2500)
+                  + 0.01 )                           disttbfast.c:4049
+dist      = (1 - shared/bunbo) * lenfac * 2.0        disttbfast.c:4057
+```
+
+`D6LENFACA 0.01, D6LENFACB 2500, D6LENFACC 2500, D6LENFACD 0.1`
+(`disttbfast.c:49`). Amino acid and 10-mer modes have their own constants.
+
+**`commonsextet_p` is a multiset intersection.** Walking B's k-mer occurrences,
+an occurrence counts only while B has not yet used up A's copies of that k-mer:
+
+```c
+tmp = memo[point]++;
+if( tmp < table[point] ) value++;
+```
+
+`seq_grp_nuc` drops any non-ACGT before k-merising, and marks a sequence
+unusable if it is shorter than `tuplesize`.
+
+Ported and verified in `mafft_dist.py`: self-distance 0.0; on a 24 bp toy, one
+substitution costs 0.574 and a 5 bp deletion 0.662.
+
+### Three properties worth taking
+
+1. **Normalised by MIN(self), not by a union.** A short sequence wholly contained
+   in a longer one scores similarity 1.0. This is containment, not Jaccard, and
+   it is tolerant of truncation — which is what SINE copies of varying
+   completeness need. Nothing in my peel has that tolerance.
+2. **It aggregates weak evidence.** No single column has to be diagnostic; a
+   difference that is faint everywhere but consistent still accumulates. That is
+   the mechanism behind "faint and real at the same time".
+3. **An indel is weighted by its k-mer footprint, not its column count.** A
+   deletion of length L destroys L+k−1 overlapping k-mers; a substitution
+   destroys at most k. A 5 bp indel therefore counts ~10 against a SNP's ~6 —
+   indels outweigh substitutions automatically, which is the weighting MANUAL
+   §6.1.6 asks for ("small indels/SNPs", indels named first). **My peel counts a
+   5 bp indel as 5 features and a SNP as 1** — under-weighting indels by roughly
+   a factor of two relative to MAFFT, in the wrong direction.
+
+**His edge rule falls out of the same arithmetic.** K-mers spanning a ragged edge
+are mostly unique, so they enter `bunbo` (the denominator) but never `shared` —
+ragged edges inflate distance systematically. That is a mechanical reason to trim
+or downweight edges *before* computing a distance, not after, and it matches his
+instruction: edges are used in comparison only when they carry firm evidence well
+above the noise level characteristic of simple repeats.
+
+### Tested, and it does NOT work as a group statistic
+
+Mean pairwise MAFFT distance, on representative copies, against his two calls:
+
+| pair | within A | within B | between | separation |
+|---|---|---|---|---|
+| t3-1 / t3-2 — he named it instantly | 0.562 | **0.994** | 0.888 | **−0.105** |
+| t1-4 / t1-2 — he called it faint but real | 1.697 | 1.775 | 1.781 | +0.006 |
+
+**It fails on the easy pair.** t3-2's internal spread (0.994) exceeds its distance
+to t3-1 (0.888), so a group-mean test says t3 is not separable — the opposite of
+what he saw in one glance, and of what the 14 gap columns at |diff| 0.95 say.
+
+**Conclusion: the aggregate distance is not the magic, and I measured the wrong
+thing.** He said *sorting*. MAFFT's ordering comes from the guide tree, which
+joins nearest neighbours — local structure. A group mean averages exactly that
+away. A heterogeneous group with a tight sub-lineage looks bad by mean and fine
+by tree.
+
+### Next step, not yet done
+
+Test the **tree**, not the mean: build the UPGMA/nearest-neighbour tree on this
+distance and ask whether t3-1/t3-2 fall into separate clades and t1-4/t1-2 into
+partially separate ones. The viewer already exposes this as "guide-tree groups",
+cutting the 6-mer tree into N groups and **reporting the height of the next
+merge** — a ready-made isolation measure, better than the one I invented.
+
+The likely synthesis, to be tested rather than assumed: use diagnostic columns to
+*propose* a split, and the guide-tree cut height to say how isolated it is —
+identity for isolation, synapomorphy for identity-of-group.
+
 ## Read/unread ledger
 
 **Read in full:** `SINEderella` (1036), `step1_search_extract.sh` (278),
