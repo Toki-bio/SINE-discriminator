@@ -1535,3 +1535,65 @@ gappy columns.
 
 The round-2 alignment is clean: core columns 1..285 of 289, left overhang 1, right
 overhang 3. Dropping `input_587` removed the entire 119-column artefact.
+
+## Round 2 on saq: s6 peeled, and the exclusion rule made concrete
+
+His call, verbatim: "Next comes s6, few sequence with 2 point differences - T at
+about 200-201 positon, and T deleted after position 225 (approximate) - find it
+yourself? BUT 3 lower ones are not in this group, i just discard them (possible
+very minor subfamily) - 437,438 (similar) and 342 (probably some transitional one
+- subfam has this problem in 50s of loci where it is composed of sequences from
+adjacent subfamilies)".
+
+**His coordinates are ungapped element positions, not alignment columns.** Both
+landed exactly:
+
+| his call | ungapped pos | aln col | the 7 | all 444 others |
+|---|---|---|---|---|
+| "T at about 200-201" | 200 | 223 | `T` | `C` 444/444 |
+| "T deleted after position 225" | 225 | 251 | `-` | `T` 444/444 |
+
+Two further columns are equally unanimous and he did not name them: ungapped 188
+(`G`, 0/444 outside) and ungapped 55 (`A`, 1.6 % outside). So the group carries
+**four** diagnostics, not two. He called it on the two he happened to see; the
+others are there.
+
+### The exclusion is the valuable part
+
+`input_437`, `input_438`, `input_342` carry the *outside* state at all four
+diagnostics. They share **zero** derived columns with the seven. But by identity:
+
+| | mean identity to the 7 | to 120 outside rows |
+|---|---|---|
+| input_437 | 0.9152 | 0.7900 |
+| input_438 | 0.8959 | 0.7720 |
+| input_342 | 0.9180 | 0.7833 |
+| the 7, internally | **0.9939** | — |
+
+**0.92 identity to a group that is 0.994 internally is still an exclusion.** Every
+similarity threshold sweeps these three in; only the diagnostic columns keep them
+out. This is the cleanest demonstration so far that MANUAL 6.1.6 is not a stylistic
+preference but the operative criterion, and it is a calibration point with a number
+attached: the gap that matters is within-group 0.994 against candidate 0.92, and
+identity ranks the candidates correctly while still giving the wrong answer.
+
+His note on why they exist is worth keeping: a chunk of 50 loci can be "composed of
+sequences from adjacent subfamilies", so a chunk consensus can be genuinely
+transitional rather than merely noisy. That is a property of the chunking, not of
+the genome, and it means some chunks have no correct assignment.
+
+They are kept in `CURATE__saq__s6_discarded_3.aln.fa` rather than deleted - he
+called 437/438 a possible very minor subfamily.
+
+### Second exact reproduction
+
+Viewer-rule consensus of the 7, at thresholds 50/40/35/30 %: identity **1.0000**
+to his `CONS__s6_7seqs` over all 250 columns, and the count matches the label
+exactly (7 chunks, `s6_7seqs`). Threshold-insensitive again.
+
+Running score: two peels, two consensuses reproduced byte-exactly.
+
+| round | peeled | chunks | label says | consensus identity |
+|---|---|---|---|---|
+| 1 | s8 | 143 | 225 | 1.0000 over 254 |
+| 2 | s6 | 7 | 7 | 1.0000 over 250 |
