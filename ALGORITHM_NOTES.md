@@ -1436,3 +1436,102 @@ chunks to subfamilies.** The peel is.
 3. **Correct my reconstruction** — 9 groups, 598 of 600 placed, three consensuses
    recovered at identity 1.000, over-splitting s7g and s8 and missing the three
    smallest. A starting partition to fix, not an answer.
+
+---
+
+## His manual peel, walked step by step — round 1 on saq (2026-09-03)
+
+He walked me through what he actually does, instead of me inferring it. Recorded
+verbatim as a procedure, because this is the loop the whole discriminator is meant
+to replace.
+
+**Step 1 — throw away the garbage rows.** "last3 sequences are garbage and need to
+be thrown away". In the 609-row curation alignment those were `input_587.bnk`
+(368 bp), `input_599.bnk` (155 bp), `input_600.bnk` (92 bp) — against a 254 bp
+median and a 262 bp 95th percentile. MAFFT's `--reorder` puts them last.
+`input_587` alone was generating **119 columns of pure gap in 608 of 609 rows**,
+29 % of the alignment width.
+
+*The operational rule: length outliers at the bottom of the reorder are removed
+before anything else is judged.* They are `split -l 50` remainders and fused
+chunks, not subfamily material.
+
+**Step 2 — peel the clearly-defined block.** "a group of sequences below s8 are
+clearly defined, so i copy them into new alignment, and remove from original".
+His boundary: from `CONS__s8_225seqs` (row 462) down to `input_592.bnk` (row 605)
+= **143 chunks**.
+
+**Step 3 — consensus of the peeled block.** "i copy sequences from s8 to 592 to new
+viewalign window and use its internal consensus creation tool - copy consensus
+button - with default threshold 50% or lower it if some positions need it".
+
+So the consensus tool is **MSA-viewer's Copy Consensus**, not `conse`.
+
+**Step 4 — continue with the rest.** Remainder is realigned and the loop repeats.
+
+### The falsification this produced
+
+Before he gave the boundary I computed adjacent-row MAFFT 6-mer distance jumps
+below s8 and proposed the two largest as candidate boundaries: row 529 (a block of
+67) and row 566 (a block of 104), jumps 0.418 and 0.446. **He drew the boundary at
+605 — all 143.** So those jumps are *internal structure inside a single subfamily*,
+and their magnitude is indistinguishable from a real boundary's.
+
+**Adjacent-row distance jumps do not locate subfamily boundaries.** Rejected, on
+his call, the same way mean pairwise distance was rejected on t3.
+
+### What did validate: three consensus routes agree exactly
+
+On the 143 peeled chunks:
+
+| route | ungapped len | identity to his `s8_225seqs` |
+|---|---|---|
+| `conse` (EMBOSS `cons`) at plurality 25 / 35 / 50 % | 254 | **1.0000** |
+| MSA-viewer Copy Consensus at threshold 50 / 40 / 35 / 30 % | 254 | **1.0000** |
+
+254 of 254 columns, zero differences, zero gap differences, at every threshold.
+
+Two things follow. First, **the peel found exactly his s8** — this is the first
+step of the reconstruction that reproduces his curation at the sequence level, not
+just approximately. Second, **threshold-insensitivity is itself a signal**: a
+well-defined group gives the same consensus from 30 % to 50 %, so needing to lower
+the threshold (which he named as a possibility) marks a group that is *not* clean.
+That is a free, cheap statistic to record per block.
+
+Note the count: 143 chunks here against the 225 encoded in his bank name, and the
+consensus is still byte-identical. Consensus identity therefore does **not**
+constrain group membership tightly — worth remembering before using consensus
+agreement as evidence that a grouping is right.
+
+### MSA-viewer's Copy Consensus, ported exactly
+
+`script.js:2469`, `_computeConsensusCharForColumn`. Defaults from `DEFAULTS`
+(`script.js:339`): threshold 50, minCoverage 30, consType `normal`, fallbackMode
+`gap`.
+
+```
+col      = every row at pos, uppercased, missing -> '-'
+nonGap   = col without '-' and '.'
+if nonGap empty                     -> '-'
+if len(nonGap)/len(col) < 0.30      -> '-'          # coverage floor
+counts over nonGap only
+freq = maxCount / len(col)                          # DENOMINATOR INCLUDES GAPS
+if freq >= threshold -> top base, ACGT preferred, ties alphabetical
+else                 -> '-'                         # fallbackMode 'gap'
+```
+
+**The denominator including gaps is the part that differs from EMBOSS `cons`**, and
+the source comments it as deliberate: "for consistency with display". A column that
+is mostly gap can never clear the threshold. Ported in `viewer_cons.py`; it agrees
+with `conse` on this block, but the two are not the same rule and will diverge on
+gappy columns.
+
+### Round 1 output
+
+| file | rows | cols |
+|---|---|---|
+| `CURATE__saq__s8_peeled_143.aln.fa` | 143 chunks + his consensus | 271 |
+| `CURATE__saq__round2_after_s8.aln.fa` | 454 chunks + 8 landmark consensuses | 289 |
+
+The round-2 alignment is clean: core columns 1..285 of 289, left overhang 1, right
+overhang 3. Dropping `input_587` removed the entire 119-column artefact.
