@@ -1037,3 +1037,70 @@ depends on the k-mer size and on edge trimming (ragged edges inflate distance
 systematically, since edge k-mers enter the denominator but never the shared
 count); and it measures *ordering*, so it says a difference is consistent, not
 what the difference is. Pair it with the diagnostic columns, which say what.
+
+---
+
+## Variable-sites-only, borrowed from the viewer — it sharpens the score
+
+His observation: the viewer has a variable-sites-only mode, and "at even 15 %
+difference it shows a much more readable picture of difference between upper and
+lower sequences".
+
+### The exact rule (script.js:5555-5570)
+
+```
+covered   = sequences whose OWN first..last non-gap span covers this column
+counts    = character tally over those sequences, gaps counted as '-'
+diffCount = covered - max(counts)          # size of the minority
+keep column if diffCount >= ceil(pct/100 * nSeq)
+```
+
+Two details already in it that I had to rediscover the hard way:
+
+- **The occupancy guard.** A sequence that does not reach a column is not
+  counted, so ragged ends cannot manufacture a difference. This is exactly the
+  guard I had to add by hand for the TACAT test after my first pass reported 31
+  "perfect" discriminators that were only where t1-2 copies end.
+- **Internal gaps are a character.** An indel inside a sequence's own span makes
+  the column variable — the same fix that made t3-1/t3-2 separable in the peel.
+
+Note the threshold is a fraction of **all** sequences, not of the covered ones.
+
+### Measured: it improves both calibration pairs and widens the gap
+
+Ordering-adjacency score, restricted to variable sites:
+
+| threshold | columns (t3) | **t3** (he named it instantly) | columns (t1-4) | **t1-4/t1-2** (faint but real) | gap |
+|---|---|---|---|---|---|
+| all sites | 591 | 0.652 | 557 | 0.497 | 0.16 |
+| 5 % | 94 | 0.826 | 265 | 0.514 | 0.31 |
+| 10 % | 34 | **0.896** | 249 | 0.514 | 0.38 |
+| **15 %** | 25 | **0.896** | 214 | 0.547 | **0.35** |
+| 20 % | 22 | 0.878 | 173 | 0.581 | 0.30 |
+| 30 % | 19 | too few | 106 | 0.564 | — |
+
+**t3 rises from 0.65 to 0.90 on 25 of 591 columns** — a 24-fold reduction that
+makes the signal sharper rather than noisier. t1-4 rises more modestly, 0.50 to
+0.55 at 15 %, peaking at 0.58 at 20 %.
+
+His 15 % is a good default: near the top for both, and the gap between his
+"obvious" and his "borderline" call is widest in the 10-15 % band.
+
+### Revised calibration bands (variable sites at 15 %)
+
+| his call | score |
+|---|---|
+| named at a glance (t3-1/t3-2) | **0.90** |
+| "faint and real at the same time" (t1-4/t1-2) | **0.55** |
+
+Better separated than the 0.72 / 0.51 obtained on all sites.
+
+### The part worth keeping beyond this measurement
+
+At 15 % the filter leaves ~25 columns for t3 — the same scale as the 14 gap
+columns found by comparing the labelled groups directly. **So the variable-sites
+filter is an unsupervised diagnostic-position finder.** `step4_diagnostic.py`'s
+MI / RandomForest / KL weighting needs a partition to compute against; this needs
+nothing. That makes it usable at the point in the peel where no partition exists
+yet — propose candidate positions with the variable-site filter, cluster on them,
+then hand the resulting partition to step4_diagnostic for proper weighting.
