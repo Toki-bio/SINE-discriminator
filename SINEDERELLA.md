@@ -1189,6 +1189,63 @@ The likely synthesis, to be tested rather than assumed: use diagnostic columns t
 *propose* a split, and the guide-tree cut height to say how isolated it is —
 identity for isolation, synapomorphy for identity-of-group.
 
+---
+
+## The measure that reproduces his eye: adjacency in MAFFT's leaf order
+
+Three attempts on the same two calibration pairs. Only the third works.
+
+| test | t3-1/t3-2 (he named it instantly) | t1-4/t1-2 ("faint and real") |
+|---|---|---|
+| **mean 6-mer distance**, between minus within | **−0.105** — says not separable | +0.006 |
+| **guide-tree cut** at k=2 | splits 119 vs 2 — peels an outlier | splits 279 vs 1 |
+| **adjacency in leaf order** | **0.858** vs chance 0.512 | **0.785** vs chance 0.569 |
+
+Normalised to a 0-1 scale, where 0 is a random ordering and 1 is perfectly
+contiguous — `(observed − chance) / (max − chance)`, with `max = (n−2)/(n−1)`
+for two groups:
+
+| pair | his call | **score** |
+|---|---|---|
+| t3-1 / t3-2 | named it at a glance | **0.72** |
+| t1-4 / t1-2 | "faint and real at the same time" | **0.51** |
+
+**Both well above chance, t3 clearly stronger.** That is his reading, as a number.
+
+### Why the first two failed and this one does not
+
+- A **group mean** asks "are these two clouds apart". It fails when a group is
+  internally heterogeneous, which t3-2 is: its within-group distance (0.994) is
+  larger than its distance to t3-1 (0.888), so the mean says unseparable while
+  the eye says obvious.
+- A **top-level tree cut** asks "does the highest split fall here". On diverged
+  copies the highest splits are driven by outliers — at k=2 it peels off two
+  sequences and leaves 119 together.
+- **Adjacency** asks "do members of a group sit next to each other in the
+  ordering". It survives internal heterogeneity, because it only ever looks at
+  neighbours. That is exactly what he is reading off the screen when he says the
+  sorting shows it.
+
+This is the same statistic that measured SubFam's chunk ordering — adjacent
+chunks share a subfamily 0.916 of the time against 0.313 for a random pair. The
+same tool answers both questions and I did not connect them until now.
+
+### Standing use
+
+Report an **ordering-adjacency score** alongside any proposed split, as the
+confidence figure the peel currently lacks. Working bands from these two points,
+to be firmed up with more of his calls:
+
+- **≥ 0.70** — a separation he names without hesitating
+- **~0.50** — real but faint; the grey zone, report as such rather than splitting
+- **≈ 0.0** — no structure in the ordering
+
+Caveats worth keeping: two calibration points is not a calibration; the score
+depends on the k-mer size and on edge trimming (ragged edges inflate distance
+systematically, since edge k-mers enter the denominator but never the shared
+count); and it measures *ordering*, so it says a difference is consistent, not
+what the difference is. Pair it with the diagnostic columns, which say what.
+
 ## Read/unread ledger
 
 **Read in full:** `SINEderella` (1036), `step1_search_extract.sh` (278),
