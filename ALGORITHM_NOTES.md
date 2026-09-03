@@ -2105,3 +2105,75 @@ diagnostics of its own. My largest group is 214 and my residual is 197; if t6 is
 the residual then neither matches it, and that is a prediction that can fail.
 
 Member lists are in `/data/W/toki/SINE_disc/teu_curate/blind_group_0*.txt`.
+
+## BLIND TEST RESULT — the criterion finds clades, not subfamilies
+
+Prediction committed at `682f3aa` before any comparison. Result:
+
+### Flat run: 0 of 6 reproduced
+
+| blind group | n | best match among t1-t6 |
+|---|---|---|
+| g01 | 214 | t2 0.9340 |
+| g02 | 18 | t3 0.9798 |
+| g03 | 105 | t6 0.8505 |
+| g04 | 4 | t3 0.9222 |
+| g05 | 54 | t5 0.9319 |
+| g06 | 4 | t6 0.9143 |
+| residual | 197 | t6 0.9211 |
+
+### With recursion (added AFTER seeing the failure — not blind): 1 of 6 exact
+
+| leaf | n | best match |
+|---|---|---|
+| L05 | 44 | **t1 1.0000** |
+| L06 | 18 | t3 0.9798 |
+| L04 | 53 | t2 0.9340 |
+| L03 | 54 | t5 0.9319 |
+| L00 | 197 | t6 0.9211 |
+| L02 | 96 | t4 0.9130 |
+
+### One pre-registered prediction held
+
+"t6 at 324 should behave like saq's s8 — the residual, no diagnostics of its own."
+L00 is the terminal block, terminated with reason `no diagnostic`, and its best
+match is t6. **Confirmed in kind, wrong in extent** (197 against 324).
+
+### The diagnosis
+
+**The criterion identifies clades at every level and has nothing that prefers the
+subfamily level.** The flat run's first pick was a 214-chunk block with 16
+diagnostics — the strongest signal in the alignment — spanning t1 + t2 + t4, whose
+labels sum to 45 + 75 + 92 = 212. A clade has diagnostics against the rest exactly
+as a subfamily does.
+
+This is the same failure as saq's s4 block: 143 chunks containing s4's 60 plus 83
+others, recorded there as an oddity. **It is systematic, and saq's walkthrough
+concealed it because he supplied every boundary.**
+
+**Recursion is not the fix.** It recovered t1, but it also split the 50-chunk block
+that matched t1 exactly into 44 + 6, and both halves still match t1 (1.0000 and
+0.9767) — a spurious split. The criterion can say "this block is coherent". It
+cannot say "this block is a subfamily rather than a clade or a fragment". There is
+no stopping rule, and his eye is what supplies one.
+
+### What this does to the earlier results
+
+The saq numbers were **fitted, not validated**. Three byte-exact reproductions
+there came from him naming the boundaries; the same criterion, choosing boundaries
+itself, gets one of six. Every claim in this file derived from saq must be read as
+calibration, not evidence.
+
+### What is actually needed
+
+A **level** criterion, not a better column statistic. Candidates worth testing, none
+tested yet:
+
+- diagnostic *density* per member: a clade spanning three subfamilies should have
+  fewer diagnostics per chunk than each subfamily has on its own
+- the within-block cohesion *distribution*: a clade should be bimodal or
+  multimodal, a subfamily unimodal
+- stability under resampling: a real subfamily's boundary should survive dropping
+  a random 10 % of rows; a clade boundary should move
+- his threshold-sensitivity signal, already observed on saq: a clean block gives
+  the same consensus from 30 % to 50 %, a mixed one does not
