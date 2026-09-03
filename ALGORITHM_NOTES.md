@@ -1695,3 +1695,86 @@ of 50 loci can be forced to a consensus it does not really have.
 | 1 | s8 | 143 | 225 | 1.0000 over 254 | any, 30-50 |
 | 2 | s6 | 7 | 7 | 1.0000 over 250 | any, 30-50 |
 | 3 | s5 | 5 | 5 | 1.0000 over 247 | **<= 40** |
+
+## The criterion, as it stands after three peels — and it is two criteria, not one
+
+He asked: "what is the current criterion which fits the data so far?" Measured in
+one common frame (the 609-row parent alignment, 597 chunks after the three garbage
+rows), against the three groups peeled with him.
+
+### Strongest column per group, by f_in - f_out
+
+| group | n | best column | f_in | f_out | diff |
+|---|---|---|---|---|---|
+| s6 | 7 | col 374 `-` | 1.000 | 0.000 | **1.000** |
+| s5 | 5 | col 389 `A` | 1.000 | 0.015 | **0.985** |
+| s8 | 143 | col 285 `C` | 0.902 | 0.236 | **0.666** |
+
+**s8 has no diagnostic column.** Not at unanimity, not at 95 / 90 / 80 % of
+members, at no outside cutoff from 2 % to 10 %. Its commonest states are carried by
+a quarter of everything else.
+
+Cohesion does not separate the cases — s8 within/between 0.9593/0.8781, s6
+0.9939/0.8773, s5 0.9659/0.8566, a +0.08 to +0.12 gap in all three. So the
+difference between s8 and the other two is not that s8 is looser. It is that s8
+has nothing derived of its own.
+
+### Type A — defined positively, by synapomorphy
+
+A group carrying at least one column unanimous among members and <= 2 % outside.
+s6 and s5 qualify (4 and 1 columns at f_out <= 5 %). Membership is carriage of
+those columns, and the separation is total:
+
+| group | diagnostics | members carry | 150 sampled non-members |
+|---|---|---|---|
+| s6 | 4 | min 1.00, mean 1.00 | mean 0.01, max 0.25 |
+| s5 | 1 | min 1.00, mean 1.00 | mean 0.00, max 0.00 |
+
+and the three he discarded carry **0.00** of s6's, which is the call he made by eye.
+
+Membership is **not** identity, proven both ways within this data: input_296 at
+0.930 mean identity to its group is IN, input_342 at 0.918 is OUT, and 296 is
+closer to the neighbouring s4 rows (0.9599) than to its own group.
+
+### Type B — the residual, defined only by subtraction
+
+s8 carries no derived state of its own; it is what remains once the Type A groups
+are removed. The ancestral subfamily, paraphyletic by construction.
+
+This one fact explains three separate failures already recorded here:
+
+- nearest-consensus assignment under-filled s8 by 85 chunks (142 against 225) —
+  chunks sitting on the ancestral state are pulled to whichever derived consensus
+  happens to be marginally closer;
+- `asSINEment` assigned only 65 of 600 — its ten-cycle unanimity cannot hold
+  between consensuses that mostly share the ancestral state;
+- he peeled s8 by **position in the MAFFT ordering** and named diagnostics for s6
+  and s5 but none for s8. His own procedure already encodes the distinction.
+
+### The procedure, stated
+
+    1. drop length outliers at the bottom of the reorder
+    2. peel Type A groups by their diagnostic columns
+    3. membership = carriage of those columns, never an identity threshold
+    4. the residual is Type B and needs no positive definition
+
+### What is NOT yet established
+
+- **s8's boundary at 143 is not reproducible from any column statistic.** It came
+  from position in the ordering. If s8 is the residual then its extent is only
+  meaningful after the other groups are out, so 143 is provisional and may grow
+  toward the labelled 225 as s1-s4, s7g and s9 are peeled.
+- **The 2 % outside cutoff is fitted on two groups**, and s5 clears it with exactly
+  one column. Not validated.
+- **Six of nine groups untested.**
+
+### Ruled out, all measured
+
+| candidate | how it failed |
+|---|---|
+| mean pairwise distance | t3-2 internal spread 0.994 > its distance to t3-1 0.888 |
+| adjacent-row distance jumps | proposed s8 boundary at 529/566; his call was 605 |
+| nearest-consensus assignment | s8 142 against 225; s6 21-62 against 7 |
+| any identity threshold | 296 in at 0.930, 342 out at 0.918 |
+| fraction-variable | measures distance, not separability |
+| `asSINEment` unanimity | 65 of 600 assigned |
