@@ -1778,3 +1778,34 @@ This one fact explains three separate failures already recorded here:
 | any identity threshold | 296 in at 0.930, 342 out at 0.918 |
 | fraction-variable | measures distance, not separability |
 | `asSINEment` unanimity | 65 of 600 assigned |
+
+## Process rule: compute, hold, reveal after his call
+
+While peeling the s4 block I measured an internal split and told him where I
+expected his next cut. He stopped it: "we are now following my subjective actions
+sequence, and you are documenting it and trying to digitize my motivations."
+
+He is right and the error is structural, not stylistic. The method depends on his
+judgement being independent of my measurements. A boundary announced before he
+calls it makes the resulting datapoint worthless — if he cuts where I said, nobody
+can tell whether he saw it or I planted it.
+
+**Rule for every walkthrough of his procedure:** compute freely, say nothing about
+boundaries, memberships, discards or thresholds he has not yet called. Predictions
+go into this file with a timestamp and are checked *after* his call, which
+preserves their value as a test of the method while removing their power to steer.
+Direct questions still get full answers — the restriction is on volunteering
+forecasts.
+
+### Held prediction, made 2026-09-03, before his call on the s4 block
+
+Recorded here rather than said to him. Inside the 144-row s4 block (143 chunks +
+`CONS__s4_60seqs`), the first 60 chunks (rows 2-61, `input_307` .. `input_388`)
+reproduce his `s4_60seqs` consensus at 0.9961 and match the labelled count exactly;
+the remaining 83 (rows 62-144, `input_407` .. `input_433`) match none of his nine
+consensuses distinctly, sitting at s6 0.9643, s8 0.9569, s4 0.9531, s5 0.9484 —
+four within 0.016 with no winner. If a split is called inside this block, the
+prediction is that it falls between `input_388` and `input_407`.
+
+**This one is already contaminated** — he was told before he called it. It cannot
+count as a test. Kept only so the rule has its origin attached.
