@@ -992,6 +992,107 @@ is what it may be firing on.)
 - README §step1 says "≥0.9 length, ≥0.65 similarity"; the orchestrator and
   MANUAL §16.1 both use **0.8**.
 
+---
+
+## Clustering in MSA-viewer (viewalign) — read from the live repo
+
+`github.com/Toki-bio/MSA-viewer`, `origin/main`. The local clone at
+`C:\work\MSA-viewer` was **31 commits behind**; read with
+`git show origin/main:<file>` rather than from the working tree.
+
+Live `cluster.js` is **800 lines** against the **504** vendored into SINEderella
+as `subfam_cluster_lib.js`. The extra 300 lines are performance work —
+`MessageChannel`-based yielding (setTimeout(0) has a ~4 ms floor in some
+browsers), a lazy `_columnCharCounts` map so outside-counts are O(1), a
+`_globalMaxSizeCache`, and 16 ms chunked yielding with cancellation. **The
+algorithm is unchanged, including the gap blindness:**
+
+```js
+if (ch === '-' || ch === '.') continue;   // gaps are not diagnostic
+```
+
+So the viewer's own "Cluster Now" cannot separate an indel-defined pair either —
+t3-1/t3-2 would collapse there for the same reason they collapsed for me.
+
+### The viewer has TWO clustering methods, and it names the difference
+
+| | **Cluster Now** (`SINEClusterer`) | **Guide-tree groups** (`clusterByGuideTree`) |
+|---|---|---|
+| basis | shared **diagnostic positions** | overall sequence similarity |
+| method | peel loop over (pos, char) features | cut the **6-mer k-mer guide tree** into N groups |
+| coverage | leaves an **unassigned** pile | **every sequence lands in a group** |
+| speed | "cost grows far faster than the alignment" | milliseconds |
+| reports | features per cluster | cut height, and **the next merge height** |
+
+Its own UI text: *"This groups by overall sequence similarity. It does not
+identify diagnostic positions — use Cluster Now for that."*
+
+That is the identity-versus-synapomorphy distinction, made explicit in his tool.
+The guide-tree cut is the same principle as SubFam's `--reorder` chunking, and
+reporting the *next* merge height is a directly usable measure of how isolated a
+cut is — better than the isolation score I invented for the peel loop.
+
+### The UI does not use the library defaults
+
+| parameter | `_makeOptions` | UI default | "optimal" preset |
+|---|---|---|---|
+| minSize | 3 | 3 | 3 |
+| minPerfect | 4 | **5** | 5 |
+| maxIterations | 20 | **10** | 10 |
+| qualitySmall | 85 | **90** | **80** |
+| qualityMedium | 75 | **80** | **70** |
+| qualityLarge | 65 | **70** | **60** |
+| minOccurrences | 2 | **5** | **3** |
+
+The preset carries a comment on the last row: `minOccurrences: 3  // KEY: LOW
+initial value (not 10 or 16)!`
+
+Trimming in the preset is `leftGapThresh 0.6, rightGapThresh 0.6, edgeWindow 20`
+— against `getTrimBoundaries`' own defaults of 0.50 / 0.80 / 15. So the
+asymmetric 0.50/0.80 is the library default, not what he actually runs.
+
+**`getSeqsForClustering` applies the soft trim boundaries before clustering.**
+Clustering runs on the trimmed region, not the full alignment — the trim and the
+cluster are coupled, and trimming settings change clustering results.
+
+### `analyzeClusterability` — the part I most needed
+
+A parameter sweep, run from the UI, over `minSize [2,3,4,5]`,
+`minPerfect [1,3,5,10]`, `minOccurrences [2,3,5,10]`, quality triples
+`[90/80/70, 80/70/60, 60/50/40, 40/30/20]`, plus an **"everything loosest"** run
+at `minSize 2, minPerfect 1, minOccurrences 1, quality 0/0/0`. It tabulates
+clusters found, sequences assigned, and largest cluster for each.
+
+Its stated reason, verbatim:
+
+> A single run answers "did these settings cluster?", which cannot distinguish
+> settings that are too strict from data with no structure to find. This runs the
+> clusterer over a spread of settings and reports what changed the outcome and
+> what did not, so a zero can be read for what it is.
+
+**Every conclusion I have reported about a subfamily failing to separate came
+from a single parameter setting.** "t3 is internally incoherent", "t3-1/t3-2 is
+the one group that fails", "t1-4 fragments" — all single-setting runs, read as
+properties of the data. t3 has already been shown to be my artefact. t1-4 has
+not been swept and must not be described as unseparable until it has.
+
+There is also a note in the sweep code about keeping the loosest run in step with
+the panel's own minimums: it previously passed `minOccurrences 2` while the panel
+accepts 1, so the survey "could conclude nothing clusters without ever trying the
+lowest setting a user can pick".
+
+### Other files in that repo worth knowing about
+
+`tree-draw.js` (640), `disttbfast.js`, `mafft-wasm.js` — MAFFT compiled to WASM,
+so the viewer can realign in-browser. `blast-worker.js`, `doter-worker.js` and
+`doter-word-worker.js` — search and dotplot workers. `benchmark.js`,
+`consensus-realign-test.js`, `test-realign-real.js`. `script.js` is 19 879 lines.
+
+Design/progress documents not yet read: `CLUSTER_COLOR_REORDER_TASK.md`,
+`CLUSTER_PERF_TASK.md`, `CLUSTER_COLOR_PROGRESS.md`, `CLUSTER_PERF_PROGRESS.md`,
+`FEATURE_AUDIT_*`, `PERF_AUDIT_*`, `CRASH_FIX_*`, `LOADHANG_*`,
+`PRESUBMIT_AUDIT_*`, `CANVAS-EDITOR-REWRITE-PLAN.md`, `PERFORMANCE_BENCHMARKS.md`.
+
 ## Read/unread ledger
 
 **Read in full:** `SINEderella` (1036), `step1_search_extract.sh` (278),
