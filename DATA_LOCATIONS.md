@@ -67,3 +67,5 @@ lost while sitting on DRAGEN.
 `find A -o B` without an explicit `-print` can return nothing while both
 match. Always write `find ... \( -a -o -b \) -print`, or run two finds.
 A negative result from a malformed search is not a negative result.
+| teu ORIGINAL post-SubFam, whole loci set | `KIT` | `run_20260427_130055/genome.clean_step1/subfam_input/input.msf` | ok | HIS ACTUAL SubFam output: 600 chunk consensuses, 732 cols, guide-tree order. `input.clw` beside it is the pre-alignment `cat`. THIS is the file to peel, not the Tal page's teu_subfam_input.aln.fa |
+| teu ORIGINAL, converted + hosted | `GitHub` | `SINE-discriminator/alignments/CURATE__teu__subfam_ORIGINAL_600.aln.fa` | ok | seqret msf->fasta, names trimmed, otherwise untouched |

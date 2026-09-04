@@ -2389,3 +2389,44 @@ sibling scripts are part of the design and I should check them before writing
 My earlier note recorded the `seqkit split2 -s 50` call but never wrote down that
 it makes the chunk *count* `ceil(copies/50)`. Without that line the 600-vs-1200
 question has no answer in the document, so it had to be re-derived each time.
+
+## Correction: the Tal page's teu alignment is not the SINEderella subfam output
+
+He said the six-blocks-of-200 file is "not what sinederella subfam should give.
+maybe claude when building this page misinterpreted the task. i need original
+post-subfam on whole loci set, not pre-split into subfamilies."
+
+He is right, and I had been treating the wrong file as authoritative.
+
+**The real article** is `run_20260427_130055/genome.clean_step1/subfam_input/input.msf`
+— the output of `SubFam input.fasta "$BINSIZE"` at `step1_search_extract.sh:219`,
+run over the whole loci set:
+
+| | |
+|---|---|
+| rows | **600** chunk consensuses |
+| columns | 732 |
+| order | MAFFT guide-tree (`input_001, 087, 002, 006, 007, 005, …`) |
+| `BINSIZE` | `${4:-50}`, so the default 50 — `-plurality 18` is correct for this run |
+| core | cols 1-560, 279 columns at >= 50 % occupancy; right overhang 171 |
+| bottom rows | `input_596, 598, 599, 600` — the short tail |
+
+`input.clw` beside it is the pre-alignment `cat` of the 600 `.cons`, per
+`SubFam.sh:58`.
+
+**`subfam_log.txt` contains no "Skipping short batch" lines**, which confirms this
+run used the older KIT `SubFam` rather than the repo version — hence `input_599`
+and `input_600` survive into the alignment.
+
+### What this invalidates
+
+Everything measured on `Tal/teu/alignments/teu_subfam_input.aln.fa` describes six
+concatenated per-subfamily runs, not the genome-wide subfam step. That includes the
+"labelled benchmark" framing: its labels are real, but they label a *different
+object* than the one his procedure operates on. The purity numbers from it
+(0.5025 blind, 0.8235 tuned) measure performance on per-subfamily re-chunkings, and
+should not be quoted as performance on the subfam step.
+
+The blind test on my own rebuild (`CURATE__teu__chunks600_t1-t6`) was closer to
+right, since that was built from the same 600 `.cons` files — but it was still a
+rebuild. **`input.msf` is his actual output and is what should be peeled.**
