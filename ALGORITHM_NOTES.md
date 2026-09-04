@@ -2336,3 +2336,46 @@ clade — his original lumping is a level choice, not an error.
 
 **Fix:** a globally sorted version is being built as `teu_sf_sorted.aln.fa` — the
 same 1206 sequences degapped and re-aligned with `--reorder`.
+
+## SubFam, read end to end — answering the 600-vs-1200 wall
+
+He asked twice whether SubFam has a reordering bug and why the file has 1200 rows
+where he expected 600. Both answered from the source rather than inferred, and the
+full line-by-line is now in `SINEDERELLA.md`.
+
+**1. SubFam has no reordering bug.** Line 53 is
+`mafft --localpair --maxiterate 1000 --ep 0.123 --nuc --reorder` on the `.clw`.
+Its final output *is* sorted, matching his memory. Confirmed downstream too: each
+`Tal/teu/subfam/t*_*.al` is 201 rows, internally guide-tree ordered, with its own
+column count (t1 508, t6 294) — six independent alignments.
+
+The unsorted file is `teu_subfam_input.aln.fa`, which is those six concatenated and
+re-aligned into one 908-column frame by a *later* step that did not pass
+`--reorder`. The seams at rows 202, 403, 604, 805, 1006 are concatenation joints.
+
+**2. The 1200 is not 600 doubled.** They are different objects:
+
+| file | what it is | chunks |
+|---|---|---|
+| `run_20260427_130055/genome.clean_step1/subfam_input/*.cons` | the SINEderella subfam step: **one** SubFam run over the whole genome bank | 600 |
+| `Tal/teu/alignments/teu_subfam_input.aln.fa` | **six** per-subfamily SubFam runs, concatenated | 6 x 200 = 1200 |
+
+Chunk count is `ceil(copies / 50)` — `seqkit split2 -s` is sequences per part. So
+600 chunks means ~30 000 copies in the bank and 200 means ~10 000.
+
+**All six teu subfamilies give exactly 200 despite ranging from t3 at 27 to t6 at
+324**, so the bank is capped upstream of SubFam. That cap is not in SubFam and I
+have not established where it lives — flagged, not asserted.
+
+**3. A latent bug found while reading: `-plurality 18` is hardcoded at line 43
+while `BnkSz` is a parameter.** 18/50 = 36 % is correct only at the default. At
+`BnkSz=100` it silently becomes 18 %; at `BnkSz=10` a plurality of 18 is
+unreachable, so every column would fall to `N` and then to `-` by the line-44 awk.
+**SubFam is only correct at its default chunk size** — worth knowing before anyone
+passes `$2`.
+
+### Why this kept recurring
+
+My earlier note recorded the `seqkit split2 -s 50` call but never wrote down that
+it makes the chunk *count* `ceil(copies/50)`. Without that line the 600-vs-1200
+question has no answer in the document, so it had to be re-derived each time.

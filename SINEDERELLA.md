@@ -176,15 +176,52 @@ consensuses**. That is the subfamily alignment with anchor rows, already built.
 
 ## `SubFam`
 
-`SubFam <bank.fa> [chunk=50]`: `mafft --retree 0 --reorder` → `seqkit split2 -s
-50` → align each chunk → **one consensus per chunk** (`cons -plurality 18`) →
-`.clw` → `mafft --localpair --maxiterate 1000 --ep 0.123` → `.msf`.
+**Read end to end from `/data/V/toki/bin/SubFam` on 2026-09-04.** Line numbers are
+that file's. `SubFam1.sh` is the same script with the per-chunk loop serial instead
+of `xargs -P`; `SubFam10.sh` differs only in the same region.
 
-**A "subfamily alignment" is an alignment of chunk-consensus rows, not copies.**
+    SubFam <bank.fa> [BnkSz=50]
 
-**Chunking is by SIMILARITY, not input order** — `--reorder` emits in guide-tree
-order, so each 50-block is a similarity neighbourhood. Measured on Timema's 550
-labelled chunks:
+| line | what it does |
+|---|---|
+| 18-21 | `BnkSz` defaults to **50**, overridable as `$2` |
+| 24 | `mafft --nuc --quiet --retree 0 --reorder $1` — **the ordering step**. `--retree 0` skips iterative refinement, so this is a fast guide-tree sort, not a careful alignment |
+| 25 | `seqkit split2 -s $BnkSz` — `-s` is sequences **per part**, so the number of chunks is `ceil(copies / BnkSz)` |
+| 26-27 | rename `stdin.part*` to `<bank>_NNN.bnk` |
+| 38-39 | each chunk re-aligned: `mafft --nuc --reorder` -> `<chunk>.bnk.al`, parallel over `nproc` |
+| 41-46 | `cons -plurality 18` per chunk -> `.cons`, then `N`/`n` -> `-`, **and the per-chunk `.al` is deleted (line 45)** |
+| 51 | `cat <bank>_*.cons > <bank>.clw` — a plain concatenation, **not an alignment** |
+| 53-54 | `mafft --localpair --maxiterate 1000 --ep 0.123 --nuc --reorder` on the `.clw`, then `seqret -osformat2 msf` -> `.msf` |
+
+**A "subfamily alignment" is an alignment of chunk-consensus rows, not of copies.**
+
+**SubFam DOES reorder its final output** (line 53). Any unsorted file downstream is
+the fault of a later combining step, not of SubFam.
+
+### The chunk count is not capped by SubFam
+
+`ceil(copies / 50)`, nothing more. So:
+
+| observed | implies |
+|---|---|
+| 600 chunks (saq and teu genome-wide SINEderella step) | ~30 000 copies in the bank |
+| 200 chunks (each of the six teu per-subfamily runs) | ~10 000 copies in each bank |
+
+All six teu subfamilies giving **exactly** 200 despite ranging from t3 at 27 to t6
+at 324 means the **bank is capped upstream**, before SubFam is called. The cap is
+not in this script; where it lives is not yet established.
+
+### Latent bug: `-plurality 18` is hardcoded while `BnkSz` is a parameter
+
+Line 43 always passes `-plurality 18`. That is 18/50 = 36 % only at the default
+`BnkSz=50`. Pass `BnkSz=100` and it becomes 18 %; pass `BnkSz=10` and a plurality of
+18 is unreachable, so every column falls to `N` and then to `-`. **SubFam is only
+correct at its default chunk size.** Worth raising before anyone runs it with `$2`.
+
+### Chunking is by SIMILARITY, not input order
+
+`--reorder` at line 24 emits in guide-tree order, so each 50-block is a similarity
+neighbourhood. Measured on Timema's 550 labelled chunks:
 
 | chunks apart | same subfamily |
 |---|---|
@@ -195,20 +232,24 @@ labelled chunks:
 | 200 | 0.530 |
 | random pair | **0.313** |
 
-**`-plurality 18` is hardcoded** — 18/50 = 36 %, correct only because chunks are
-50.
+### `.clw` is a `cat`, not an alignment
 
-**`.clw` is a plain `cat` of the per-chunk `.cons` files**, not an alignment.
-MANUAL §6.1.1: degap and realign before measuring anything off it:
+MANUAL 6.1.1: degap and realign before measuring anything off it.
 
 ```bash
 seqkit seq -w 0 input.clw | seqkit seq -g > input.degapped.fasta
 mafft --auto --quiet input.degapped.fasta > input.realigned.fasta
 ```
 
-**Redundancy before SubFam is load-bearing** (§6.1.5): guide-tree order puts a
+**Redundancy before SubFam is load-bearing** (6.1.5): guide-tree order puts a
 family's near-identical copies in the same chunk, and `cons -plurality 18` needs
 that volume. An upstream CD-HIT-style dedup would starve it.
+
+### Correction to the earlier version of this section
+
+It said chunking used `seqkit split2 -s 50` without stating that this makes the
+chunk **count** `ceil(copies/50)`. That omission is why the 600-versus-1200
+question kept recurring: 1200 is not 600 doubled, it is six separate runs of 200.
 
 ---
 
