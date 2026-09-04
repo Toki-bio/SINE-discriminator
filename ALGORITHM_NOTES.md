@@ -2287,3 +2287,52 @@ This sharpens the level problem rather than dissolving it. The question is not
 hierarchy he chooses to call a subfamily**, and t6 shows that he lumps structure
 together that is diagnosable by the same criterion he uses to split elsewhere.
 Whatever governs that choice is still not captured.
+
+## Why `teu_subfam_input.aln.fa` is six blocks and not one sort
+
+He expected MAFFT to have sorted the whole file and asked why it hadn't.
+
+**It did align them all together; it was simply not asked to reorder at the final
+step.** Evidence:
+
+1. **The blocks share one column frame.** Comparing the same six t-consensuses in
+   this file and in a freshly built joint alignment gives a mean difference of only
+   **+0.0138** (max +0.036). If the blocks had been aligned separately and padded,
+   cross-block identity would be badly degraded. It is not, so all 1206 rows went
+   through one alignment. Cross-block measurements on this file are therefore
+   valid, and the low t1/t3 identity (0.576) is real divergence, not an artefact.
+2. **Row order is input order.** Without `--reorder`, MAFFT emits rows as given.
+   The input was six per-subfamily SubFam outputs concatenated, so the six blocks
+   stack in file order at rows 1-201, 202-402, 403-603, 604-804, 805-1005,
+   1006-1206.
+3. **Each block is internally guide-tree sorted** — that is SubFam's own
+   `--reorder` (`SubFam:53`) inside each per-subfamily run. Hence the non-numeric
+   order within a block and each consensus sitting at an interior row: 32, 300,
+   467, 608, 925, 1190.
+
+### Why this matters for his procedure
+
+The saq method rests on MAFFT's ordering being trustworthy — measured there at 12
+runs for 10 labels, never needing a rearrangement. **That property holds inside
+each block of this file and not across the seams.** The apparent structure at rows
+202, 403, 604, 805 and 1006 is concatenation, not similarity.
+
+His t5 call ran from row 805 to the bottom, 321 sequences, and picked up 120 chunks
+from the t6 block below the seam at 1006. His own note — "a big bunch of bottom
+sequences is not looking like the same subfamily" — was correct, and those 120 are
+exactly the t6 residual measured in the previous round (0 diagnostics, the material
+left after his 75-chunk core and minor five).
+
+| | identity |
+|---|---|
+| within the t5 part (200) | 0.9230 |
+| within the t6 part (120) | 0.9094 |
+| between the two parts | 0.8419 |
+| t6 part vs outside the span | 0.7712 |
+| t5 part vs outside the span | 0.7282 |
+
+Both parts are closer to each other than to anything else outside, so they do form a
+clade — his original lumping is a level choice, not an error.
+
+**Fix:** a globally sorted version is being built as `teu_sf_sorted.aln.fa` — the
+same 1206 sequences degapped and re-aligned with `--reorder`.
