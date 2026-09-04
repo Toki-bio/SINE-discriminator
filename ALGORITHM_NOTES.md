@@ -2244,3 +2244,46 @@ from a consensus mismatch, and it is the sharpest statement of it so far:
 The 0.8235 figure was obtained by tuning a threshold *after* seeing the labels. It
 is not a blind result. The blind result on this file is **0.5025**. What is
 transferable is the shape of the failure, not the tuned number.
+
+## teu walkthrough round 1: t6 is not atomic
+
+He started the teu peel in `teu_subfam_input.aln.fa` (1206 rows), calling "81
+sequences at bottom from 117 down to 177 are good t6 group", then a minor note:
+"bottom 5 sequences are probably another minor subfamily - 175 to 179".
+
+Resolved: his span is rows 1123-1203, which is 81 *sequences* because the t6
+consensus sits at row 1190 inside it — his count includes the landmark, same
+convention as saq. The bottom five are rows 1199-1203, which are `input_175, 179,
+176, 178, 177` — the name range 175-179 exactly, though not in that row order.
+
+### Measured against the labels this file carries by construction
+
+| block | n | truth | diagnostics | within | between | gap |
+|---|---|---|---|---|---|---|
+| his core, rows 1123-1198 | 75 | t6:75 | 3 | 0.9548 | 0.7810 | **+0.1738** |
+| his minor five, 1199-1203 | 5 | t6:5 | 1 | 0.9434 | 0.7687 | **+0.1747** |
+| rest of the t6 block | 120 | t6:120 | **0** | 0.9070 | 0.7904 | +0.1165 |
+
+His minor five are supported: a unanimous diagnostic of their own at col 39 (a gap
+state, f_in 1.00 / f_out 0.01) and a cohesion gap marginally *higher* than the
+core's. The remaining 120 carry no diagnostic — the residual signature again.
+
+The core's consensus reaches 0.9286 against his t6 consensus, which is expected:
+his t6 consensus derives from all of t6, not from these 75.
+
+### This reframes the blind-test scoring
+
+**t6 is not atomic.** One of his own named subfamilies contains a 75-chunk
+diagnosable core, a 5-chunk diagnosable minor group, and a 120-chunk residual with
+no diagnostics.
+
+So when the recursive peel shattered t6 into 82 + 56 + 56, scoring that as
+over-splitting *against his labels* was too harsh — t6 genuinely has internal
+structure and the peel was partly detecting it. The purity figures on that
+benchmark measure agreement with his chosen level of lumping, not correctness.
+
+This sharpens the level problem rather than dissolving it. The question is not
+"which blocks are coherent" — the peel finds those. It is **which level of the
+hierarchy he chooses to call a subfamily**, and t6 shows that he lumps structure
+together that is diagnosable by the same criterion he uses to split elsewhere.
+Whatever governs that choice is still not captured.
