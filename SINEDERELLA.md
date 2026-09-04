@@ -211,6 +211,35 @@ All six teu subfamilies giving **exactly** 200 despite ranging from t3 at 27 to 
 at 324 means the **bank is capped upstream**, before SubFam is called. The cap is
 not in this script; where it lives is not yet established.
 
+### The canonical source is `github.com/Toki-bio/SubFam`, and KIT's copy is older
+
+`/data/V/toki/bin/SubFam` **lacks the short-batch guard** that `SubFam.sh` in the
+repo has at lines 30-36:
+
+```sh
+for b in $(find . -maxdepth 1 -name "${1%.*}_*.bnk" -type f | sort); do
+        Count=$(grep -c '^>' "$b")
+        if [ "$Count" -lt "$BnkSz" ]; then
+                echo "Skipping short batch $b ($Count sequences < $BnkSz)"
+                rm -f "$b"
+        fi
+done
+```
+
+Everything else is identical, `--reorder` and `-plurality 18` included.
+
+**This is why the last chunk is always garbage in runs made with the KIT copy.**
+`seqkit split2 -s 50` gives a final part holding the remainder, so its consensus is
+built from fewer than 50 copies and comes out short and noisy — saq `input_599`
+(155 bp) and `input_600` (92 bp), teu `input_600` (120 bp). The repo version drops
+those batches before they ever produce a `.cons`; the KIT copy emits them, and he
+has been deleting them by hand at the start of every peel.
+
+**Check which copy produced a run before treating short tail chunks as data.**
+
+The repo also carries `annotate_aligned_by_ssearch_seqkit.sh` (13 KB), not present
+in `/data/V/toki/bin` under that name — unread.
+
 ### Chunk size and plurality are coupled — use the matching variant script
 
 Line 43 passes `-plurality 18`, which is 36 % of the default `BnkSz=50`. That

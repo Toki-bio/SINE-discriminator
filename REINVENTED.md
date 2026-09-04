@@ -59,3 +59,9 @@ duplicated effort — it is that my version is worse in ways I do not notice:
 for a 253 bp element, which is why the element window is wrong, which is why the
 flanks render ragged and the mosaic statistic saturates. One unchecked
 reimplementation produced every symptom in that chain.
+
+`SubFam`'s canonical source is `github.com/Toki-bio/SubFam`, not the copy in
+`/data/V/toki/bin`. The repo version deletes short final batches (lines 30-36); the
+KIT copy does not, which is why runs made there end in a short noisy chunk that has
+to be removed by hand. Check the repo before reading behaviour off KIT. The repo
+also holds `annotate_aligned_by_ssearch_seqkit.sh`, unread.
