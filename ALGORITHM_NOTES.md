@@ -2367,12 +2367,22 @@ Chunk count is `ceil(copies / 50)` — `seqkit split2 -s` is sequences per part.
 324**, so the bank is capped upstream of SubFam. That cap is not in SubFam and I
 have not established where it lives — flagged, not asserted.
 
-**3. A latent bug found while reading: `-plurality 18` is hardcoded at line 43
-while `BnkSz` is a parameter.** 18/50 = 36 % is correct only at the default. At
-`BnkSz=100` it silently becomes 18 %; at `BnkSz=10` a plurality of 18 is
-unreachable, so every column would fall to `N` and then to `-` by the line-44 awk.
-**SubFam is only correct at its default chunk size** — worth knowing before anyone
-passes `$2`.
+**3. Corrected — the plurality is not a bug.** I first wrote up
+`cons -plurality 18` being hardcoded while `BnkSz` is a parameter as a latent
+defect. He pushed back that SubFam is long-tested, and he is right: `SubFam10.sh`
+is the same script with `BnkSz=10` and `-plurality 6`, so the coupling between
+chunk size and plurality is deliberate and already handled by a matched variant.
+
+| script | BnkSz | plurality | ratio |
+|---|---|---|---|
+| `SubFam`, `SubFam1.sh` | 50 | 18 | 36 % |
+| `SubFam10.sh` | 10 | 6 | 60 % |
+
+Chunk size is changed by choosing the variant, not by passing `$2`. **The lesson is
+about me, not the tool:** reading one script in isolation and finding a hardcoded
+constant is not enough to call a defect in software with a long run history — the
+sibling scripts are part of the design and I should check them before writing
+"bug".
 
 ### Why this kept recurring
 

@@ -211,12 +211,20 @@ All six teu subfamilies giving **exactly** 200 despite ranging from t3 at 27 to 
 at 324 means the **bank is capped upstream**, before SubFam is called. The cap is
 not in this script; where it lives is not yet established.
 
-### Latent bug: `-plurality 18` is hardcoded while `BnkSz` is a parameter
+### Chunk size and plurality are coupled — use the matching variant script
 
-Line 43 always passes `-plurality 18`. That is 18/50 = 36 % only at the default
-`BnkSz=50`. Pass `BnkSz=100` and it becomes 18 %; pass `BnkSz=10` and a plurality of
-18 is unreachable, so every column falls to `N` and then to `-`. **SubFam is only
-correct at its default chunk size.** Worth raising before anyone runs it with `$2`.
+Line 43 passes `-plurality 18`, which is 36 % of the default `BnkSz=50`. That
+coupling is **deliberate and already handled**: `SubFam10.sh` is the same script
+with `BnkSz=10` and `-plurality 6`.
+
+| script | BnkSz | plurality | ratio |
+|---|---|---|---|
+| `SubFam`, `SubFam1.sh` | 50 | 18 | 36 % |
+| `SubFam10.sh` | 10 | 6 | 60 % |
+
+So the way to change chunk size is to pick the variant, not to pass `$2`. The `$2`
+override exists in all three and would break the pairing if used — that is a usage
+note, not a defect. **SubFam is long-tested and correct as run.**
 
 ### Chunking is by SIMILARITY, not input order
 
