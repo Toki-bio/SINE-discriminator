@@ -71,3 +71,9 @@ in it are worth borrowing rather than reinventing: the transition-bias homology 
 (`Censor.pm:788`, keep a hit if `MM/TR <= 2`) and the idea of GC-matched scoring
 matrices (`Censor.pm:1180`, 90 matrices in `mat/nt`). Analysis in
 `C:\work\SINEderella\CENSOR_vs_SINEderella.md`.
+
+`SubFamSep` (written 2026-09-05, installed at `/data/V/toki/bin/SubFamSep`, copy in
+`C:\work\SINEderella\SubFamSep`) implements his separation test: N best copies of
+each subfamily, aligned jointly with L-INS-i, separation read off MAFFT's reorder.
+It self-calibrates by splitting each subfamily in half as a negative control. Do not
+write another separation metric without checking it first.
