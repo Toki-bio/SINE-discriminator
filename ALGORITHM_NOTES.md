@@ -2430,3 +2430,66 @@ should not be quoted as performance on the subfam step.
 The blind test on my own rebuild (`CURATE__teu__chunks600_t1-t6`) was closer to
 right, since that was built from the same 600 `.cons` files — but it was still a
 rebuild. **`input.msf` is his actual output and is what should be peeled.**
+
+## His separation criterion, made measurable — and it beats everything I built
+
+Asked him 2026-09-05 what he uses when two subfamilies are >= 0.92 identical and
+have no private diagnostic columns. Verbatim:
+
+> "on the verge of subjectiveness, but if i take 50 best copies of each and see
+> clear separation in mafft alignment with reorder, then they are different. but we
+> must work thoroughly on finding measureable criteria, so lets keep exploring."
+
+**I had been testing the wrong object.** Every level-criterion experiment — all four
+candidate statistics, the whole labelled benchmark — ran on **chunk consensuses**.
+His test uses **individual copies**, the 50 best of each, aligned jointly, read off
+MAFFT's guide-tree order. He had already told me this once ("switching to original
+50's banks sequences and looking at representative individual copies, not
+consensuses") and I recorded it without acting on it.
+
+### Operationalised and run on all 15 teu pairs
+
+50 highest-bitscore copies of each subfamily, `mafft --retree 0 --reorder`, scored by
+**blocks** (contiguous runs in the output order; 2 = perfect) and **purity** (best
+achievable two-block split).
+
+| pair | consensus identity | blocks | purity | |
+|---|---|---|---|---|
+| t1/t3 | 0.5761 | 2 | 1.000 | separated |
+| t1/t4 | 0.7624 | 2 | 1.000 | separated |
+| t1/t5 | 0.6450 | 2 | 1.000 | separated |
+| t1/t6 | 0.6547 | 2 | 1.000 | separated |
+| t3/t4 | 0.6868 | 2 | 1.000 | separated |
+| t4/t5 | 0.8061 | 2 | 1.000 | separated |
+| t4/t6 | 0.8137 | 2 | 1.000 | separated |
+| t1/t2 | 0.8605 | 4 | 0.990 | separated |
+| t2/t3 | 0.6570 | 3 | 0.970 | separated |
+| t2/t5 | 0.7564 | 3 | 0.970 | separated |
+| t2/t6 | 0.7673 | 3 | 0.970 | separated |
+| t2/t4 | 0.8893 | 5 | 0.960 | partial |
+| t3/t5 | 0.7744 | 4 | 0.880 | partial |
+| t3/t6 | 0.7736 | 5 | 0.780 | partial |
+| **t5/t6** | **0.9658** | **17** | **0.670** | **MIXED** |
+
+### Why this matters
+
+**13 of 15 pairs separate; t5/t6 shatters.** That is now **four independent
+measurements naming the same pair**: highest consensus identity, zero private
+diagnostic columns under any formulation, 100 % mutual leakage in the assignment
+data (`leakage_by_pair.tsv`), and now his own copy-level test.
+
+**And it is graded where the diagnostic-column approach was binary.** t3/t5 and
+t3/t6 come out partial (0.880, 0.780) at only 0.774 identity, while t2/t4 separates
+at 0.960 despite 0.889 identity. **Consensus identity does not predict separability;
+this test does.** t3 is harder than its identity suggests — worth understanding.
+
+### Caveats before this is trusted
+
+- I used `mafft --retree 0 --reorder` (SubFam's fast ordering pass) and defined
+  "best" as highest bitscore against the copy's own consensus. Neither choice is his,
+  stated. A sensitivity run over `--retree 0` / L-INS-i / `--auto`, over top /
+  random / spread selection, and over N = 25 / 50 / 100 is in progress.
+- One species, one bank. Nothing here is validated on ccr or dmo.
+- The scoring (blocks, two-block purity) is mine, not his. "Clear separation" is what
+  he reads by eye; block count is a proxy for it that has not been calibrated against
+  his eye on a case he calls borderline.
