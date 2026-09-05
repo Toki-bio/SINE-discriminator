@@ -2493,3 +2493,57 @@ this test does.** t3 is harder than its identity suggests — worth understandin
 - The scoring (blocks, two-block purity) is mine, not his. "Clear separation" is what
   he reads by eye; block count is a proxy for it that has not been calibrated against
   his eye on a case he calls borderline.
+
+### CORRECTION, same day — the MIXED verdict was an artefact of my alignment choice
+
+Sensitivity run over mafft settings, copy selection and N. **Every negative verdict
+above disappears under a proper alignment.**
+
+| pair | `--retree 0` (used above) | **L-INS-i** | `--auto` |
+|---|---|---|---|
+| t5/t6, 25 best | 10 blocks, 0.720 | **4, 0.980** | 4, 0.980 |
+| t5/t6, 50 best | 17 blocks, **0.670** | **7, 0.950** | 7, 0.950 |
+| t5/t6, 100 best | 30 blocks, 0.720 | **8, 0.965** | 10, 0.920 |
+| t3/t6, 50 best | 5 blocks, 0.780 | **2, 1.000** | — |
+| t1/t4, 50 best | 2, 1.000 | 2, 1.000 | — |
+
+`--retree 0 --reorder` is SubFam's **chunking** pass (`SubFam:24`), not its final
+alignment (`SubFam:53`, L-INS-i). I used the fast ordering pass for a judgement it is
+not good enough to make.
+
+**Under his criterion, properly implemented, all fifteen teu pairs separate.**
+
+### And "best" is load-bearing, not incidental
+
+t5/t6, L-INS-i, 50 copies:
+
+| selection | purity |
+|---|---|
+| **top by bitscore** | **0.950** |
+| random | 0.770 |
+| spread across the bitscore range | 0.758 |
+
+Best copies separate; random ones do not. The best copies are the least degraded and
+still carry the diagnostic differences; decayed copies have converged. **That is why
+he specifies "best", and it is not an arbitrary convenience.**
+
+### Three claims retracted
+
+1. **"t5/t6 is inseparable."** False. It is the *closest* pair — highest consensus
+   identity, no consensus-level diagnostics, total mutual leakage — but its best
+   copies separate at 0.95-0.98. **Close is not inseparable**, and this file had been
+   conflating them.
+2. **"The operating range is <= 0.95 consensus identity"** (SCHOOLING_ASSESSMENT.md).
+   Wrong: t5/t6 at 0.9658 separates.
+3. **"Four independent measurements name t5/t6 as the problem pair."** Three say it is
+   *close*; his test says it is still *separable*. Different claims.
+
+### What this does to the level-criterion work
+
+The failures were **methodological, not a boundary in the data**: chunk consensuses
+instead of individual copies, and a fast ordering pass instead of a real alignment.
+The correct protocol is his — **N best copies, L-INS-i, read the reorder** — and it
+has now separated every pair in teu including the one everything else called hopeless.
+
+**Priority change:** re-run the level-criterion benchmark on copies with L-INS-i
+before any further work on consensus-level statistics.

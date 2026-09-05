@@ -299,8 +299,16 @@ specific reasons rather than optimism:
 3. A two-statistic rule reaches **6 of 6 with 8.5 % false accepts** on labelled
    data. Fitted, but the signal exists to be fitted to.
 
+**RETRACTED 2026-09-05.** This section claimed pairs above ~0.92 consensus identity
+may be unseparable. That is wrong. Asked directly, he named his criterion — **N best
+copies of each, aligned jointly, separation read off MAFFT's reorder** — and under
+it, with L-INS-i, **t5/t6 at 0.9658 separates at purity 0.95-0.98**, as does every
+other teu pair. My negative result came from using chunk consensuses and
+`--retree 0` (SubFam's chunking pass) instead of copies and a real alignment. The
+original text follows, kept for the record.
+
 **What is genuinely hard, and may not be solvable:** pairs whose consensuses are
-≥ 0.92 identical (t5/t6 here; s7g/s1/s9 on saq at 0.951–0.973) have no private
+>= 0.92 identical (t5/t6 here; s7g/s1/s9 on saq at 0.951-0.973) have no private
 diagnostics under any formulation tried. For those, either a different kind of
 evidence is needed — copy age distributions, insertion sites, genome context — or
 they are genuinely one subfamily and his split is a convention. **Nothing measured
