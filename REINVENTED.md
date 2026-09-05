@@ -65,3 +65,9 @@ reimplementation produced every symptom in that chain.
 KIT copy does not, which is why runs made there end in a short noisy chunk that has
 to be removed by hand. Check the repo before reading behaviour off KIT. The repo
 also holds `annotate_aligned_by_ssearch_seqkit.sh`, unread.
+
+CENSOR 4.2.31 source is extracted at `C:\work\SINEderella\censor_src\`. Two things
+in it are worth borrowing rather than reinventing: the transition-bias homology test
+(`Censor.pm:788`, keep a hit if `MM/TR <= 2`) and the idea of GC-matched scoring
+matrices (`Censor.pm:1180`, 90 matrices in `mat/nt`). Analysis in
+`C:\work\SINEderella\CENSOR_vs_SINEderella.md`.
