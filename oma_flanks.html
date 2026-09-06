@@ -1,0 +1,141 @@
+<title>oma flank fix - real tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@600&display=swap">
+<style>
+
+:root{
+  --ground:#f4f6f2;--surface:#fff;--surface-2:#eceee8;--ink:#131c1a;--ink-2:#3d4b47;
+  --muted:#68766f;--rule:#d6dcd4;--rule-2:#c2cbc0;--accent:#1f6f5c;--accent-soft:#e2efe9;
+  --warn:#a8501d;--warn-soft:#f6e8de;--edge:#7a5c12;--edge-soft:#f5eed8;
+  --bA:#2f7d5c;--bC:#2b6b96;--bG:#9a6a12;--bT:#a4453c;--mism:#c94f3d;
+  --div-lo:#2a78d6;--div-mid:#b9bcb6;--div-hi:#eb6834;
+  --f1:#2a78d6;--f2:#eb6834;--f3:#1baf7a;--f4:#eda100;--f5:#e87ba4;--f6:#008300;--f7:#4a3aa7;--f8:#e34948;
+  --t1:#1baf7a;--t2:#2a78d6;--t3:#eda100;--t4:#4a3aa7;--t5:#e34948;
+  --band:#e9efe9;--grid:#e2e7e0;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0e1413;--surface:#161f1d;--surface-2:#1d2825;--ink:#e4eae6;--ink-2:#b3c0ba;
+  --muted:#8a9992;--rule:#27332f;--rule-2:#35443f;--accent:#57c1a2;--accent-soft:#173029;
+  --warn:#dd8a4e;--warn-soft:#2e2015;--edge:#d9b64e;--edge-soft:#2a2413;
+  --bA:#5fc08a;--bC:#6bb4de;--bG:#d6a748;--bT:#e07f74;--mism:#e8705c;
+  --div-lo:#3987e5;--div-mid:#5e6b66;--div-hi:#d95926;
+  --f1:#3987e5;--f2:#d95926;--f3:#199e70;--f4:#c98500;--f5:#d55181;--f6:#008300;--f7:#9085e9;--f8:#e66767;
+  --t1:#199e70;--t2:#3987e5;--t3:#c98500;--t4:#9085e9;--t5:#e66767;
+  --band:#1b2523;--grid:#212c29;}}
+:root[data-theme="dark"]{
+  --ground:#0e1413;--surface:#161f1d;--surface-2:#1d2825;--ink:#e4eae6;--ink-2:#b3c0ba;
+  --muted:#8a9992;--rule:#27332f;--rule-2:#35443f;--accent:#57c1a2;--accent-soft:#173029;
+  --warn:#dd8a4e;--warn-soft:#2e2015;--edge:#d9b64e;--edge-soft:#2a2413;
+  --bA:#5fc08a;--bC:#6bb4de;--bG:#d6a748;--bT:#e07f74;--mism:#e8705c;
+  --div-lo:#3987e5;--div-mid:#5e6b66;--div-hi:#d95926;
+  --f1:#3987e5;--f2:#d95926;--f3:#199e70;--f4:#c98500;--f5:#d55181;--f6:#008300;--f7:#9085e9;--f8:#e66767;
+  --t1:#199e70;--t2:#3987e5;--t3:#c98500;--t4:#9085e9;--t5:#e66767;
+  --band:#1b2523;--grid:#212c29;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:15.5px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px 90px}
+.col{max-width:70ch}
+header.mast{border-bottom:1px solid var(--rule);padding:52px 0 28px;margin-bottom:40px}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);display:flex;gap:18px;flex-wrap:wrap;margin-bottom:20px}
+h1{font-family:"IBM Plex Serif",Georgia,serif;font-size:clamp(29px,4.4vw,44px);line-height:1.1;
+  letter-spacing:-.015em;margin:0 0 14px;max-width:19ch;text-wrap:balance}
+.standfirst{font-size:17.5px;color:var(--ink-2);margin:0;max-width:66ch}
+section{margin-top:56px}
+h2{font-family:"IBM Plex Serif",Georgia,serif;font-size:24px;margin:0 0 8px;
+  letter-spacing:-.01em;max-width:36ch;text-wrap:balance}
+h3{font-size:14.5px;font-weight:600;margin:28px 0 8px}
+p{margin:0 0 15px}ul{margin:0 0 15px;padding-left:20px}li{margin-bottom:8px}
+code{font-family:"IBM Plex Mono",monospace;font-size:.9em;background:var(--surface-2);
+  padding:1px 5px;border-radius:3px}
+.rule{border-top:2px solid var(--ink);padding-top:13px;margin-bottom:14px;
+  display:flex;gap:13px;align-items:baseline;flex-wrap:wrap}
+.fnum{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);letter-spacing:.1em}
+.chip{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.09em;
+  text-transform:uppercase;padding:4px 9px;border-radius:2px}
+.c-ok{background:var(--accent-soft);color:var(--accent)}
+.c-warn{background:var(--warn-soft);color:var(--warn)}
+.c-edge{background:var(--edge-soft);color:var(--edge)}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden;margin:30px 0}
+.strip div{background:var(--surface);padding:15px 17px}
+.strip b{display:block;font-family:"IBM Plex Mono",monospace;font-size:23px;font-weight:500;
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.strip span{display:block;font-size:11px;color:var(--muted);margin-top:3px;
+  letter-spacing:.06em;text-transform:uppercase}
+.scroll{overflow-x:auto;margin:20px 0;border:1px solid var(--rule);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+caption{text-align:left;padding:13px 16px 11px;font-size:12px;color:var(--muted);
+  border-bottom:1px solid var(--rule)}
+th,td{padding:7px 12px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left}
+thead th{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:500;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--rule-2)}
+tbody tr:last-child td{border-bottom:none}
+td.n{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+td.f{font-family:"IBM Plex Mono",monospace;font-size:12.5px;text-align:left}
+.cell{display:inline-block;min-width:44px;padding:2px 5px;border-radius:2px;
+  font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:12px}
+.note{border-left:2px solid var(--accent);background:var(--surface);padding:13px 17px;
+  margin:20px 0;font-size:14.5px;color:var(--ink-2)}
+.note.w{border-left-color:var(--warn)}
+.note b{color:var(--ink)}
+
+</style>
+<div class="wrap">
+<header class="mast">
+  <div class="eyebrow"><span>Opistophthalmus &middot; oma</span><span>flank fix</span><span>2026-09-07</span></div>
+  <h1>Flanks rebuilt with the real, tested tools</h1>
+  <p class="standfirst">The earlier oma alignments used the wrong MAFFT parameters and
+  no flank post-processing. This rebuild runs the project's own <code>justify_all.py</code>
+  and <code>trim_flanks.py</code> (de-gap and justify, then cap column width so one
+  long-flanked outlier stops padding every other copy) and its own
+  <code>newsp_all.island_scan</code> for flank uniqueness &mdash; the same calibrated
+  tool used on the pom/aca/hyd candidates, with the same thresholds
+  (clean &le; 0.067, borderline &le; 0.19, caution &le; 0.37, else reject band).
+  Nothing here is a new algorithm; the only new code is a naming adapter and a
+  cosmetic case pass to restore the lowercase-flank display convention that
+  justify_all's numeric round-trip drops.</p>
+</header>
+<section>
+  <div class="rule"><span class="fnum">01</span><h2>Per-family flank uniqueness</h2></div>
+  <div class="scroll"><table>
+  <thead><tr><th>family</th><th>core (50 random copies)</th><th>best50 (top by bitscore)</th></tr></thead>
+  <tbody>
+<tr><td><code>oma_SINE10</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE10.core.fixed.fa&title=oma%20SINE10%20core%20%28fixed%29' target='_blank'>0.000 bp clean cols=0</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE10.best50.fixed.fa&title=oma%20SINE10%20best50%20%28fixed%29' target='_blank'>n/a bp n/a cols=None</a> <span class='chip muted'>n/a</span></td></tr>
+<tr><td><code>oma_SINE19</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE19.core.fixed.fa&title=oma%20SINE19%20core%20%28fixed%29' target='_blank'>0.000 bp clean cols=0</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE19.best50.fixed.fa&title=oma%20SINE19%20best50%20%28fixed%29' target='_blank'>0.099 bp borderline cols=24</a> <span class='chip c-edge'>borderline</span></td></tr>
+<tr><td><code>oma_SINE2</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE2.core.fixed.fa&title=oma%20SINE2%20core%20%28fixed%29' target='_blank'>0.000 bp clean cols=0</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE2.best50.fixed.fa&title=oma%20SINE2%20best50%20%28fixed%29' target='_blank'>0.980 bp reject band cols=99</a> <span class='chip c-warn'>reject band</span></td></tr>
+<tr><td><code>oma_SINE22</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE22.core.fixed.fa&title=oma%20SINE22%20core%20%28fixed%29' target='_blank'>0.000 bp clean cols=0</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE22.best50.fixed.fa&title=oma%20SINE22%20best50%20%28fixed%29' target='_blank'>0.083 bp borderline cols=9</a> <span class='chip c-edge'>borderline</span></td></tr>
+<tr><td><code>oma_SINE26</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE26.core.fixed.fa&title=oma%20SINE26%20core%20%28fixed%29' target='_blank'>0.000 bp clean cols=0</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE26.best50.fixed.fa&title=oma%20SINE26%20best50%20%28fixed%29' target='_blank'>0.000 bp clean cols=0</a> <span class='chip c-ok'>clean</span></td></tr>
+<tr><td><code>oma_ancient78</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_ancient78.core.fixed.fa&title=oma%20ancient78%20core%20%28fixed%29' target='_blank'>0.000 bp clean cols=0</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_ancient78.best50.fixed.fa&title=oma%20ancient78%20best50%20%28fixed%29' target='_blank'>0.000 bp clean cols=0</a> <span class='chip c-ok'>clean</span></td></tr>
+<tr><td><code>oma_big76</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_big76.core.fixed.fa&title=oma%20big76%20core%20%28fixed%29' target='_blank'>0.000 bp clean cols=0</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_big76.best50.fixed.fa&title=oma%20big76%20best50%20%28fixed%29' target='_blank'>0.000 bp clean cols=0</a> <span class='chip c-ok'>clean</span></td></tr>
+<tr><td><code>oma_grp321</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_grp321.core.fixed.fa&title=oma%20grp321%20core%20%28fixed%29' target='_blank'>0.000 bp clean cols=0</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_grp321.best50.fixed.fa&title=oma%20grp321%20best50%20%28fixed%29' target='_blank'>0.060 bp clean cols=6</a> <span class='chip c-ok'>clean</span></td></tr>
+<tr><td><code>oma_SINE31</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE31.core.fixed.fa&title=oma%20SINE31%20core%20%28fixed%29' target='_blank'>0.009 bp clean cols=6</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE31.best50.fixed.fa&title=oma%20SINE31%20best50%20%28fixed%29' target='_blank'>0.175 bp borderline cols=18</a> <span class='chip c-edge'>borderline</span></td></tr>
+<tr><td><code>oma_long12</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_long12.core.fixed.fa&title=oma%20long12%20core%20%28fixed%29' target='_blank'>0.025 bp clean cols=6</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_long12.best50.fixed.fa&title=oma%20long12%20best50%20%28fixed%29' target='_blank'>0.667 bp reject band cols=66</a> <span class='chip c-warn'>reject band</span></td></tr>
+<tr><td><code>oma_SINE32</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE32.core.fixed.fa&title=oma%20SINE32%20core%20%28fixed%29' target='_blank'>0.039 bp clean cols=9</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE32.best50.fixed.fa&title=oma%20SINE32%20best50%20%28fixed%29' target='_blank'>0.089 bp borderline cols=9</a> <span class='chip c-edge'>borderline</span></td></tr>
+<tr><td><code>oma_SINE16</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE16.core.fixed.fa&title=oma%20SINE16%20core%20%28fixed%29' target='_blank'>0.049 bp clean cols=7</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE16.best50.fixed.fa&title=oma%20SINE16%20best50%20%28fixed%29' target='_blank'>0.779 bp reject band cols=67</a> <span class='chip c-warn'>reject band</span></td></tr>
+<tr><td><code>oma_SINE24</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE24.core.fixed.fa&title=oma%20SINE24%20core%20%28fixed%29' target='_blank'>0.050 bp clean cols=36</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE24.best50.fixed.fa&title=oma%20SINE24%20best50%20%28fixed%29' target='_blank'>0.127 bp borderline cols=61</a> <span class='chip c-edge'>borderline</span></td></tr>
+<tr><td><code>oma_SINE7</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE7.core.fixed.fa&title=oma%20SINE7%20core%20%28fixed%29' target='_blank'>0.056 bp clean cols=8</a> <span class='chip c-ok'>clean</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE7.best50.fixed.fa&title=oma%20SINE7%20best50%20%28fixed%29' target='_blank'>0.186 bp borderline cols=24</a> <span class='chip c-edge'>borderline</span></td></tr>
+<tr><td><code>oma_SINE4</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE4.core.fixed.fa&title=oma%20SINE4%20core%20%28fixed%29' target='_blank'>0.159 bp borderline cols=17</a> <span class='chip c-edge'>borderline</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE4.best50.fixed.fa&title=oma%20SINE4%20best50%20%28fixed%29' target='_blank'>0.214 bp caution cols=30</a> <span class='chip c-warn'>caution</span></td></tr>
+<tr><td><code>oma_SINE9</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE9.core.fixed.fa&title=oma%20SINE9%20core%20%28fixed%29' target='_blank'>0.163 bp borderline cols=36</a> <span class='chip c-edge'>borderline</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE9.best50.fixed.fa&title=oma%20SINE9%20best50%20%28fixed%29' target='_blank'>0.850 bp reject band cols=85</a> <span class='chip c-warn'>reject band</span></td></tr>
+<tr><td><code>oma_SINE25</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE25.core.fixed.fa&title=oma%20SINE25%20core%20%28fixed%29' target='_blank'>0.203 bp caution cols=33</a> <span class='chip c-warn'>caution</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE25.best50.fixed.fa&title=oma%20SINE25%20best50%20%28fixed%29' target='_blank'>0.904 bp reject band cols=94</a> <span class='chip c-warn'>reject band</span></td></tr>
+<tr><td><code>oma_g1</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_g1.core.fixed.fa&title=oma%20g1%20core%20%28fixed%29' target='_blank'>0.239 bp caution cols=28</a> <span class='chip c-warn'>caution</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_g1.best50.fixed.fa&title=oma%20g1%20best50%20%28fixed%29' target='_blank'>0.300 bp caution cols=30</a> <span class='chip c-warn'>caution</span></td></tr>
+<tr><td><code>oma_SINE18</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE18.core.fixed.fa&title=oma%20SINE18%20core%20%28fixed%29' target='_blank'>0.244 bp caution cols=29</a> <span class='chip c-warn'>caution</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE18.best50.fixed.fa&title=oma%20SINE18%20best50%20%28fixed%29' target='_blank'>0.333 bp caution cols=34</a> <span class='chip c-warn'>caution</span></td></tr>
+<tr><td><code>oma_SINE21</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE21.core.fixed.fa&title=oma%20SINE21%20core%20%28fixed%29' target='_blank'>0.351 bp caution cols=40</a> <span class='chip c-warn'>caution</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE21.best50.fixed.fa&title=oma%20SINE21%20best50%20%28fixed%29' target='_blank'>0.135 bp borderline cols=48</a> <span class='chip c-edge'>borderline</span></td></tr>
+<tr><td><code>oma_SINE5</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE5.core.fixed.fa&title=oma%20SINE5%20core%20%28fixed%29' target='_blank'>0.390 bp reject band cols=62</a> <span class='chip c-warn'>reject band</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE5.best50.fixed.fa&title=oma%20SINE5%20best50%20%28fixed%29' target='_blank'>0.709 bp reject band cols=73</a> <span class='chip c-warn'>reject band</span></td></tr>
+<tr><td><code>oma_SINE27</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE27.core.fixed.fa&title=oma%20SINE27%20core%20%28fixed%29' target='_blank'>n/a bp n/a cols=None</a> <span class='chip muted'>n/a</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_SINE27.best50.fixed.fa&title=oma%20SINE27%20best50%20%28fixed%29' target='_blank'>n/a bp n/a cols=None</a> <span class='chip muted'>n/a</span></td></tr>
+<tr><td><code>oma_group34</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_group34.core.fixed.fa&title=oma%20group34%20core%20%28fixed%29' target='_blank'>n/a bp n/a cols=None</a> <span class='chip muted'>n/a</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_group34.best50.fixed.fa&title=oma%20group34%20best50%20%28fixed%29' target='_blank'>n/a bp n/a cols=None</a> <span class='chip muted'>n/a</span></td></tr>
+<tr><td><code>oma_grp080</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_grp080.core.fixed.fa&title=oma%20grp080%20core%20%28fixed%29' target='_blank'>n/a bp n/a cols=None</a> <span class='chip muted'>n/a</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_grp080.best50.fixed.fa&title=oma%20grp080%20best50%20%28fixed%29' target='_blank'>n/a bp n/a cols=None</a> <span class='chip muted'>n/a</span></td></tr>
+<tr><td><code>oma_grp128</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_grp128.core.fixed.fa&title=oma%20grp128%20core%20%28fixed%29' target='_blank'>n/a bp n/a cols=None</a> <span class='chip muted'>n/a</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_grp128.best50.fixed.fa&title=oma%20grp128%20best50%20%28fixed%29' target='_blank'>0.025 bp clean cols=6</a> <span class='chip c-ok'>clean</span></td></tr>
+<tr><td><code>oma_sub515</code></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_sub515.core.fixed.fa&title=oma%20sub515%20core%20%28fixed%29' target='_blank'>n/a bp n/a cols=None</a> <span class='chip muted'>n/a</span></td><td><a class='aln-link' href='https://toki-bio.github.io/MSA-viewer/?url=https%3A%2F%2Fraw.githubusercontent.com%2FToki-bio%2FSINE-discriminator%2Fmain%2Falignments%2Foma_fixed%2Foma_sub515.best50.fixed.fa&title=oma%20sub515%20best50%20%28fixed%29' target='_blank'>n/a bp n/a cols=None</a> <span class='chip muted'>n/a</span></td></tr>
+  </tbody></table></div>
+  <div class="note w"><b>core and best50 disagree sharply for several families</b>
+  (e.g. SINE2: clean on core, 0.98 reject-band on best50). This is the same pattern
+  already interpreted for aca_SINE_0 in FINDINGS.md: when only the most-similar copies
+  share a flank and a random sample does not, that points to a subset of copies sitting
+  inside a shared duplicated context, not the family as a whole. Not yet confirmed for
+  oma specifically &mdash; flagged, not concluded.</div>
+</section>
+</div>
