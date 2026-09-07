@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>oma_SINE5 top100 — consensus tool comparison</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@600&display=swap">
+<style>
+:root{--ground:#f4f6f2;--surface:#fff;--surface-2:#eceee8;--ink:#131c1a;--muted:#68766f;
+--rule:#d6dcd4;--accent:#1f6f5c;}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:"IBM Plex Sans",sans-serif;font-size:15px;line-height:1.55}
+.wrap{max-width:1100px;margin:0 auto;padding:32px 24px 80px}
+h1{font-family:"IBM Plex Serif",serif;font-size:28px;margin:0 0 12px}
+h2{font-size:18px;margin:36px 0 10px}
+.note{background:var(--surface);border-left:3px solid var(--accent);padding:12px 16px;margin:20px 0}
+table{border-collapse:collapse;width:100%;font-size:13px;background:var(--surface);border:1px solid var(--rule);margin:16px 0}
+th,td{padding:8px 10px;border-bottom:1px solid var(--rule)}
+th{text-align:left;font-family:"IBM Plex Mono",monospace;font-size:10px;text-transform:uppercase;color:var(--muted)}
+td.n{font-family:"IBM Plex Mono",monospace;text-align:right}
+td.f{font-family:"IBM Plex Mono",monospace;font-size:12px;text-align:left}
+code{font-family:"IBM Plex Mono",monospace;background:var(--surface-2);padding:1px 4px}
+.seq{font-family:"IBM Plex Mono",monospace;font-size:11px;word-break:break-all;line-height:1.45;
+background:var(--surface);border:1px solid var(--rule);padding:10px 12px;margin:8px 0 20px}
+</style></head><body><div class="wrap">
+<h1>oma_SINE5 top100 — consensus rebuild comparison</h1>
+<p class="note">Element window from copy-supported boundary walk on <code>oma_SINE5_top100</code>
+(100 copies). Consensus row: <code>oma_SINE5</code>. Old consensus span 272 alignment columns
+&rarr; copy-supported span 275 (extended 5&prime; 2, 3&prime; 1). Run 2026-09-07 on DRAGEN.</p>
+<p>Same input for <code>conse</code> and <code>sine_consensus.sh</code>: ungapped element
+sequences from top100 copies. Peel reference: <code>conse</code> 50% on <code>SINE5.aln</code>
+(204 loci).</p>
+<h2>Results</h2>
+<table><thead><tr><th>method</th><th>length</th><th>notes</th></tr></thead><tbody>
+<tr><td class='f'>conse_35</td><td class='n'>185</td><td class='f'>@ 35% plurality</td></tr>
+<tr><td class='f'>conse_50</td><td class='n'>185</td><td class='f'>@ 50% plurality</td></tr>
+<tr><td class='f'>sine_consensus</td><td class='n'>185</td><td class='f'>converged iter 5</td></tr>
+<tr><td class='f'>peel_loci_conse50</td><td class='n'>170</td><td class='f'>peel rebuild MSA</td></tr>
+<tr><td class='f'>boundary_row0</td><td class='n'>170</td><td class='f'>current alignment consensus</td></tr>
+</tbody></table>
+<h2>Pairwise identity (ungapped global)</h2>
+<table><thead><tr><th>method</th><th>conse_35</th><th>conse_50</th><th>sine_consensus</th><th>peel_loci</th><th>row0</th></tr></thead><tbody>
+<tr><td class='f'>conse_35</td><td class='n'>1.000</td><td class='n'>1.000</td><td class='n'>1.000</td><td class='n'>0.222</td><td class='n'>0.222</td></tr>
+<tr><td class='f'>conse_50</td><td class='n'>1.000</td><td class='n'>1.000</td><td class='n'>1.000</td><td class='n'>0.222</td><td class='n'>0.222</td></tr>
+<tr><td class='f'>sine_consensus</td><td class='n'>1.000</td><td class='n'>1.000</td><td class='n'>1.000</td><td class='n'>0.222</td><td class='n'>0.222</td></tr>
+<tr><td class='f'>peel_loci_conse50</td><td class='n'>0.222</td><td class='n'>0.222</td><td class='n'>0.222</td><td class='n'>1.000</td><td class='n'>1.000</td></tr>
+<tr><td class='f'>boundary_row0</td><td class='n'>0.222</td><td class='n'>0.222</td><td class='n'>0.222</td><td class='n'>1.000</td><td class='n'>1.000</td></tr>
+</tbody></table>
+<h2>Consensus sequences</h2>
+<p><strong>conse / sine_consensus (identical, 185 bp)</strong></p>
+<div class="seq">ACGACGTACTTGGTTAACGACGAGTGGTTGTAAGAAAAAAATGTCTTGGTTAACGACGCAGGCTTTGGTTAACGACTCCTGATTATGTGAACTTCCGACAAAATAGAGCTCTGTAAAACAGCTCGTCATCGCATCACGTGATTCGTTAGCTCAGTTGTTAATCGTTATTTTTTTTATCACAATCA</div>
+<p><strong>peel loci conse / row-0 (170 bp)</strong></p>
+<div class="seq">CTTGGTTAACGACGAGTGGTTGTAAGAAAAAATGTCTTGGTTAACGACCAGCTTTGGTTAACGACTCCTGATTATGTGAACTTCCGACAAAATAGAGCTCTGTAAAACAGCTCGTCATCGCATCACGTGATTTTAGCTCAGTTGTTAATGTTATTTTTTTTATCACAATC</div>
+<p style="color:var(--muted);font-size:12px">Top100 methods extend ~15 bp vs row-0, mostly 5&prime;
+(<code>ACGACGTACT…</code>) plus internal base fixes. Full conservation SVG tracks on DRAGEN copy at
+<code>/staging/tmp/scorpions/oma/sd2/flank_border/run1/</code>.</p>
+</div></body></html>
