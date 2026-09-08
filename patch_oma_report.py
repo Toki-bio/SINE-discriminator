@@ -133,38 +133,52 @@ def fig_divergence_kde(by_sf: Dict[str, List[float]], title: str,
     return {"data": traces, "layout": layout}
 
 
+def bin_divergence(vals: List[float], bin_width: float = 1.0) -> Dict[float, int]:
+    """Divergence bins: 100 − pctid, 1% bins (Tal step4 / ccr report style)."""
+    counts: Dict[float, int] = {}
+    for v in vals:
+        d = max(0.0, 100.0 - float(v))
+        bin_start = math.floor((d + 1e-9) / bin_width) * bin_width
+        bin_start = round(bin_start, 6)
+        counts[bin_start] = counts.get(bin_start, 0) + 1
+    return counts
+
+
 def fig_pctid_divergence(by_sf: Dict[str, List[float]]) -> dict:
-    """Divergence = 100 - ssearch36 %identity (Tal step4 metric)."""
+    """Binned copy counts — same metric as step4 gallery PNGs, not KDE."""
     sf_sorted = sorted(by_sf.keys())
     traces = []
+    max_bin_end = 0.0
+    bin_width = 1.0
     for i, sf in enumerate(sf_sorted):
-        vals = [max(0.0, 100.0 - v) for v in by_sf[sf]]
-        if not vals:
+        counts = bin_divergence(by_sf[sf], bin_width)
+        if not counts:
             continue
-        x, y = kde_curve(vals)
-        if not x:
-            continue
+        bins = sorted(counts)
+        max_bin_end = max(max_bin_end, max(bins) + bin_width)
         traces.append({
-            "type": "scatter", "mode": "lines",
-            "x": [round(max(0.0, v), 3) for v in x],
-            "y": [round(v, 6) for v in y],
+            "type": "scatter",
+            "mode": "lines",
+            "x": [round(b + bin_width / 2.0, 3) for b in bins],
+            "y": [counts[b] for b in bins],
             "name": sf,
             "line": {"color": SF_PALETTE[i % len(SF_PALETTE)], "width": 2},
             "hovertemplate": (
-                "%{fullData.name}<br>divergence %{x:.1f}%"
-                "<br>density %{y:.5f}<extra></extra>"),
+                "%{fullData.name}<br>divergence ~%{x:.0f}%"
+                "<br>copies %{y:,d}<extra></extra>"),
         })
+    x_range_max = min(100.0, max(5.0, math.ceil(max_bin_end / 5.0) * 5.0))
     return {
         "data": traces,
         "layout": {
             "title": "ssearch36 %identity divergence (step4 — Tal gallery metric)",
             "xaxis": {"title": "Divergence (100 − %identity to consensus)",
-                      "rangemode": "nonnegative", "range": [0, None]},
-            "yaxis": {"title": "Density"},
+                      "rangemode": "nonnegative", "range": [0, x_range_max]},
+            "yaxis": {"title": "Copies"},
             "legend": {"title": {"text": "Subfamily (click to toggle)"}},
             "height": 460,
             "margin": {"t": 60, "r": 20, "b": 60, "l": 70},
-            "uirevision": "oma-pctid-kde",
+            "uirevision": "oma-pctid-hist",
         },
     }
 
@@ -177,6 +191,7 @@ def fig_pctid_violins(by_sf: Dict[str, List[float]]) -> dict:
         vals = [round(max(0.0, 100.0 - v), 2) for v in by_sf[sf]]
         if not vals:
             continue
+        hi = max(vals)
         traces.append({
             "type": "violin",
             "y": vals,
@@ -184,6 +199,8 @@ def fig_pctid_violins(by_sf: Dict[str, List[float]]) -> dict:
             "box": {"visible": True},
             "meanline": {"visible": True},
             "points": False,
+            "spanmode": "hard",
+            "span": [0, hi + 1],
         })
     return {
         "data": traces,
@@ -192,6 +209,7 @@ def fig_pctid_violins(by_sf: Dict[str, List[float]]) -> dict:
             "yaxis": {
                 "title": "Divergence (100 − %identity to consensus)",
                 "rangemode": "nonnegative",
+                "range": [0, None],
             },
             "xaxis": {
                 "title": "Subfamily",

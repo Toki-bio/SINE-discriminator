@@ -75,10 +75,10 @@
     var xy = collectXY(gd);
     var xr = minMax(xy.xs);
     var yr = minMax(xy.ys);
-    var xPad = padRange(Math.max(0, xr[0]), xr[1], 0.06);
+    var xPad = padRange(Math.max(0, xr[0]), xr[1], 0.04);
     axisLocks[divId] = {
       'xaxis.range': xPad ? [0, xPad[1]] : [0, null],
-      'yaxis.range': padRange(Math.max(0, yr[0]), yr[1], 0.08),
+      'yaxis.range': padRange(0, yr[1], 0.08),
       'xaxis.autorange': false,
       'yaxis.autorange': false,
       uirevision: divId + '-fixed',
@@ -95,7 +95,7 @@
     });
     var yr = minMax(ys);
     axisLocks[divId] = {
-      'yaxis.range': padRange(Math.max(0, yr[0]), yr[1], 0.06),
+      'yaxis.range': [0, padRange(0, yr[1], 0.06)[1]],
       'yaxis.autorange': false,
       uirevision: divId + '-fixed',
     };
