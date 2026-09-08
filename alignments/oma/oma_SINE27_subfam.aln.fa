@@ -1,6 +1,6 @@
 >oma_SINE27
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
---CGGGTT------CGC-TCCCGGGTCT-----------------------------------------GGTATCTC-TG
+--CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGT-CTGGGCCCGGCCC---GGCGA
 TC---------------CCCGTCCTTCACCATCCGG--------------------------------------------
 CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
@@ -16,7 +16,7 @@ TC---------------CCCGTCCTTCACCATCCGG--------------------------------------------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAT
 GCAAA-------------------------------------------AAAAA----
->_R_input_001.bnk
+>input_001.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTACCACGCTGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGTGA
@@ -25,7 +25,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGTCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGACGT-AAAATAT
 ATAAA-------------------------------------------AAAAAAaa-
->_R_input_006.bnk
+>input_006.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCTGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -43,7 +43,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_032.bnk
+>input_032.bnk
 -GGCCGGATGGCCGAGTGGTAACGT-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -70,7 +70,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_019.bnk
+>input_019.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CG-GTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -79,7 +79,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_002.bnk
+>input_002.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTACCACGCTGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGAT-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGTGA
@@ -106,7 +106,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGTCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGACGT-AAAATAT
 ACAAA-------------------------------------------AAAAAAa--
->_R_input_003.bnk
+>input_003.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTACCACGCTGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGAT-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGTGA
@@ -115,7 +115,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAaa-
->_R_input_004.bnk
+>input_004.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTACCACGCTGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGAT-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGTGA
@@ -124,7 +124,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAaa-
->_R_input_005.bnk
+>input_005.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTACCACGCTGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGAT-TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -133,7 +133,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAaaa
->_R_input_012.bnk
+>input_012.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCTGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGAT-TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -151,7 +151,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_023.bnk
+>input_023.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGAT-TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -178,7 +178,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_009.bnk
+>input_009.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -187,7 +187,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_016.bnk
+>input_016.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -196,7 +196,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_026.bnk
+>input_026.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -205,7 +205,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_029.bnk
+>input_029.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -214,7 +214,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_033.bnk
+>input_033.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -223,7 +223,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAA----
->_R_input_066.bnk
+>input_066.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -304,7 +304,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_010.bnk
+>input_010.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -313,7 +313,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_015.bnk
+>input_015.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -322,7 +322,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_022.bnk
+>input_022.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -331,7 +331,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_024.bnk
+>input_024.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -340,7 +340,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_027.bnk
+>input_027.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -349,7 +349,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_028.bnk
+>input_028.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -358,7 +358,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_034.bnk
+>input_034.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -367,7 +367,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_049.bnk
+>input_049.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -466,7 +466,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAACCTTAGTAATCTCCCTGATTGGAAAGGGGGCGTAAAATATGCAAAAAAAa--
->_R_input_031.bnk
+>input_031.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCAC-CAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -475,7 +475,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_021.bnk
+>input_021.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGAT-TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -511,7 +511,7 @@ TC---------------CCCGTCCTTCACCATCCGG--------------------------------------------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAA----
->_R_input_035.bnk
+>input_035.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT-------GCGTCCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -520,7 +520,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAaa-
->_R_input_017.bnk
+>input_017.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CG---TCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -529,7 +529,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_030.bnk
+>input_030.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CG---CTCCGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -538,7 +538,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_018.bnk
+>input_018.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGC--TCCGGGTCT-----------------------------------------GGTCCC-----
 -GGA--TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -619,7 +619,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GAAAA-------------------------------------------AAAAA----
->_R_input_052.bnk
+>input_052.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTACT-CCTG
 AAAAG-TTTTTTCG----------------------------------------GGG-TCTGGGCCCGGCCC---GGCGA
@@ -637,7 +637,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCGC---------CTTAGTA
 ATCTCCTTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCTAA-------------------------------------------AAAAAAa--
->_R_input_037.bnk
+>input_037.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -646,7 +646,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_043.bnk
+>input_043.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -664,7 +664,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_044.bnk
+>input_044.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCC-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -673,7 +673,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_039.bnk
+>input_039.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -682,7 +682,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_047.bnk
+>input_047.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -691,7 +691,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_048.bnk
+>input_048.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -700,7 +700,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_077.bnk
+>input_077.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -754,7 +754,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_038.bnk
+>input_038.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTAACTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -763,7 +763,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_053.bnk
+>input_053.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTAACTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -772,7 +772,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_041.bnk
+>input_041.bnk
 -GGCCGGATGGCCAAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -781,7 +781,7 @@ CCTCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_051.bnk
+>input_051.bnk
 -GGCCGGATGGCCGAGTGGTAATGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -799,7 +799,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GAAAA-------------------------------------------AAAAA----
->_R_input_046.bnk
+>input_046.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -808,7 +808,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 AAAAA-------------------------------------------AAAAA----
->_R_input_060.bnk
+>input_060.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -817,7 +817,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 AAAAA-------------------------------------------AAAAA----
->_R_input_068.bnk
+>input_068.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -826,7 +826,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 AAAAA-------------------------------------------AAAAAA---
->_R_input_076.bnk
+>input_076.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -844,7 +844,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_072.bnk
+>input_072.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTTG----------------------------------------GGGT-CTGGGCCCGGCCC---GGCGA
@@ -853,7 +853,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCAT-AAAATAT
 AAAAA-------------------------------------------AAAAAA---
->_R_input_082.bnk
+>input_082.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGT-CTGGGCCCGGCCC---GGCGA
@@ -862,7 +862,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_042.bnk
+>input_042.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTC------------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -889,7 +889,7 @@ CCCCCCT------------------------------------------CCATGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCAT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_058.bnk
+>input_058.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -898,7 +898,7 @@ TC---------------CCCGTCCTTCACCATCCGG--------------------------------------------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAA
 AAAAA-------------------------------------------AAA------
->_R_input_070.bnk
+>input_070.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -925,7 +925,7 @@ TC---------------CCCGTCCTTCACCATCCGG--------------------------------------------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_069.bnk
+>input_069.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTA-CTCCTG
 -AAAA-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGTGA
@@ -943,7 +943,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_040.bnk
+>input_040.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTC------------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -952,7 +952,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAATG
 CAAAA-------------------------------------------AAAAA----
->_R_input_054.bnk
+>input_054.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -961,7 +961,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAATG
 CAAAA-------------------------------------------AAAA-----
->_R_input_078.bnk
+>input_078.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1006,7 +1006,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAATG
 CAAAA-------------------------------------------AAAAAA---
->_R_input_056.bnk
+>input_056.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -1015,7 +1015,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_086.bnk
+>input_086.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -1024,7 +1024,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCTCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAT
 GAAAA-------------------------------------------AAAAAA---
->_R_input_085.bnk
+>input_085.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1033,7 +1033,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCA---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCACTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAT
 AAAAA-------------------------------------------AAAA-----
->_R_input_093.bnk
+>input_093.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1060,7 +1060,7 @@ TCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCACTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAA
 AAAAA-------------------------------------------AAA------
->_R_input_088.bnk
+>input_088.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1078,7 +1078,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCA-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAA
 AAAAA-------------------------------------------AAAA-----
->_R_input_045.bnk
+>input_045.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGC-TCCCGGGTGC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -1087,7 +1087,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAATG
 CAAAA-------------------------------------------AAAA-----
->_R_input_074.bnk
+>input_074.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGC-TCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1105,7 +1105,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAATG
 AAAAA-------------------------------------------AAAAA----
->_R_input_075.bnk
+>input_075.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCATGCAGGAGGACC------------------------------
 --CGGGTT------CG-GTCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -1123,7 +1123,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCA---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCACTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAA
 AAAAA-------------------------------------------AAA------
->_R_input_081.bnk
+>input_081.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1195,7 +1195,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_092.bnk
+>input_092.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1204,7 +1204,7 @@ TC---------------CCCGTCCTTCACCATCCGG--------------------------------------------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCACTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAA
 AAAAA-------------------------------------------AAA------
->_R_input_067.bnk
+>input_067.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTC------------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGG-TCTGGGCCCGGCCC---GGCGA
@@ -1222,7 +1222,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAA
 AAAAA-------------------------------------------A--------
->_R_input_073.bnk
+>input_073.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------C---CTCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1231,7 +1231,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAATG
 AAAAA-------------------------------------------AAAAA----
->_R_input_091.bnk
+>input_091.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CG--TCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1267,7 +1267,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCC--CCC---------CTTAGTA
 ATCTCACTGATTGG-----------------------------------------------AAA-GGGGCTA-AAAAATA
 AAAAA-------------------------------------------AAA------
->_R_input_090.bnk
+>input_090.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CC--TCCCGGGTCT-----------------------------------------GGCATCT-CTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1303,7 +1303,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCACTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAA
 AAAAA-------------------------------------------AAA------
->_R_input_057.bnk
+>input_057.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCC-GGTCT-----------------------------------------GGTATCTCCTG
 AAAAG--TTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -1330,7 +1330,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAA
 AAAAA-------------------------------------------AAA------
->_R_input_059.bnk
+>input_059.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTT-------------------------------------------GGATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -1348,7 +1348,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAATAT
 GAAAA-------------------------------------------AAAAA----
->_R_input_055.bnk
+>input_055.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT--------CCTCCCGGGTCT-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGCGA
@@ -1357,7 +1357,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAATA
 TAAAA-------------------------------------------AAAAAA---
->_R_input_079.bnk
+>input_079.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGC-TCCCGGGTCT-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1384,7 +1384,7 @@ TC---------------CCTGTCCTTCACCATCCGG--------------------------------------------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTC-CTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_096.bnk
+>input_096.bnk
 -GGCCGGATGGCCGAGTGGTAACG--GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGG-TCCCGGGTCC-----------------------------------------GGTATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1393,7 +1393,7 @@ TT---------------CCCATCCTTCACCATCCGG--------------------------------------------
 ------------------------------------------TGGTTGGAACTGGCCTCG-CCC---------CTTAGTA
 ATCTT-ATGATTGG-----------------------------------------------AAA-GGGCTAA-AAAAAAA
 AA-------------------------------------------------------
->_R_input_083.bnk
+>input_083.bnk
 -GGCCGGATGGCCGAGTGGTAACGT-GTTGGCGTGCCATGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTC------------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGTGA
@@ -1402,7 +1402,7 @@ TCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTC-CTGATTGG-----------------------------------------------AAA-GGGGCAT-AAAATAT
 AAAAA-------------------------------------------AAAAAA---
->_R_input_094.bnk
+>input_094.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGG-TCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1411,7 +1411,7 @@ TC---------------CCCGTCCTTCACCATCCGG--------------------------------------------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTA-TA
 ATCTCACTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAT
 AAAAA-------------------------------------------A--------
->_R_input_095.bnk
+>input_095.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCC-----------------------------------------GGCATCT-CTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCCGGGCCCGGCCC---GGCGA
@@ -1420,7 +1420,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCACTGATTGG-----------------------------------------------AAA-GGGGCTA-AAAATAA
 AAAAA-------------------------------------------A--------
->_R_input_065.bnk
+>input_065.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGCATCTCCTG
 AAAAG-ATTTTTTC----------------------------------------GGGGTCTGGGCCCGGCCC---GGTGA
@@ -1438,7 +1438,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCCGCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GGGGCTA-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_089.bnk
+>input_089.bnk
 -GGCCGGATGGCCGA-TGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CG--TCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1456,7 +1456,7 @@ TC---------------CCCGTCCTTCACCATCCGG--------------------------------------------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTC-ATGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAT
 AAAAA-------------------------------------------AAAA-----
->_R_input_061.bnk
+>input_061.bnk
 -GGCCGGATGACCACGTGGTAACGC-GTTGGCGTGTCACGCAGGAGGA--------------------------------
 -------------------CCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCCTGGTGCGGCCC---GGTGA
@@ -1465,7 +1465,7 @@ TCCCCCT------------------------------------------CCACGTGTGTAGGTGCAGCCCA---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCT---------CTTAGTA
 ATCTCACTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAA
 AAAAT-------------------------------------------AAAA-----
->_R_input_063.bnk
+>input_063.bnk
 -GGCCGGATGACCACGTGGTAACGC-GTTGGCGTGTCACGCAGGAGGA--------------------------------
 -------------------CCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCCGGGTCCGGCCC---GGCGA
@@ -1492,7 +1492,7 @@ TCCCCCT------------------------------------------CCACGTGTGTAGGTGCAGCCCA---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCACTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAA
 AAAAA-------------------------------------------AAAA-----
->_R_input_062.bnk
+>input_062.bnk
 -GGCCGGATGACCACGTGGTAACGT-GTTGGCGTGTCACGCAGGAGGA--------------------------------
 -------------------CCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCCGGGTCCGGCCC---GGCAA
@@ -1519,7 +1519,7 @@ TCCCCCT------------------------------------------CCACGGGTGTAGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAATTGGCCCCG-CCT---------TTTAGTA
 ATCTCACTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAACAA
 AAAAA-------------------------------------------AAAAAA---
->_R_input_080.bnk
+>input_080.bnk
 -GGCCGGATGGCCGCGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTC------CGT----------------------------------------------CGGT--GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GAGTTCCGGGCCCGGCCC---GGCGA
@@ -1537,7 +1537,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAAAAT
 AAAAA-------------------------------------------AAAAA----
->_R_input_064.bnk
+>input_064.bnk
 -GGCCGGATGGCCA-GTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGTTGC----------TCCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAG-TTTTTTCG----------------------------------------GGGTTCTGGGCCCGGCCC---GGCGA
@@ -1546,7 +1546,7 @@ TCCCCCT------------------------------------------CCACGGGTGTAGGTGCAGCCCA---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------CTTAGTA
 ATCTCACTGATTGG-----------------------------------------------AAA-GGGGCGT-AAAAAAA
 AAAAA-------------------------------------------AAAAA----
->_R_input_050.bnk
+>input_050.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GG-ATCTCCTA
 AAAA---TTTTTTC----------------------------------------GGGGTCTGGGCCCGGCCC---GGTGA
@@ -1555,7 +1555,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCC---CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCAT-AAAATAT
 GCAAA-------------------------------------------AAAAAAa--
->_R_input_025.bnk
+>input_025.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCC-GGTTT-----------------------------------------GCCCT------
 ------TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -1564,7 +1564,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAaaa
->_R_input_036.bnk
+>input_036.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------TGCGTCCC-GGTCT-----------------------------------------GGT--------
 -CGGA-TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -1573,7 +1573,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCG--CCC---------CTTAGTA
 ATCTCCTTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAAaa-
->_R_input_013.bnk
+>input_013.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCC-GGTCT-----------------------------------------GGTCCC-----
 --GGA-TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -1582,7 +1582,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGTCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAA-----
->_R_input_014.bnk
+>input_014.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGC-TCCCGGGTCT-----------------------------------------GGTCCC-----
 --GGA-TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -1600,7 +1600,7 @@ TC---------------CCCGTCCTTCACCATCCGG--------------------------------------------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_084.bnk
+>input_084.bnk
 -GGCCGGATGGCCACGTGGTAACGT-GTTGGCGTGCCATACAGGAGGA--------------------------------
 -------------------CCCGGGTCC-----------------------------------------GGCATCTCCTG
 AAAAGATTTTTTGG----------------------------------------GGATTCCGGGCCCGGCCC---GGCGA
@@ -1618,7 +1618,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTCCCTGATTGGG----GGTTGGAACTG-----GCGCCCCTTATAATCT-CCTGATTGGAAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAAA---
->_R_input_020.bnk
+>input_020.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT-------------CGGGTCT-----------------------------------------GGTCCC-----
 --GGA-TTTTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -1627,7 +1627,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCGCCCC---------CTTAGTA
 ATCTTCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAA----
->_R_input_071.bnk
+>input_071.bnk
 ------GATGGCCG-ATGGTAA-GA-GTTGGCGTGCCACGCAGGAGGACC------------------------------
 --CGGGTT------CGCGTCCCGGGTCT-----------------------------------------GGTAACTCCTG
 AAAAG-TTTTTTCG----------------------------------------AGGTGTTGGGCCAGTTCC---GGCGA
@@ -1645,7 +1645,7 @@ TC---------------ACCGTCCTTCACCATCCGG--------------------------------------------
 ------------------------------------------TAGTTGGAACTGGCCCCA-CCC---------CTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAA-GAGACGTAAAAATAT
 GTAAA-------------------------------------------AAAAA----
->_R_input_087.bnk
+>input_087.bnk
 --------------------------------------------AGAGCC------------------------------
 --TAGGGC------CGCGTCCCGGGTCC-----------------------------------------GGCATCTAGTG
 AAAAA-TTTTTTCA----------------------------------------GGGTGCCGGGCCAGGCCC---AGCAC
@@ -1681,7 +1681,7 @@ ACCCCCT------------------------------------------CCACAGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCG-CCC---------TTTAGTA
 ATCTCTCTGATTGG-----------------------------------------------AAA-GGAGCGT-AAAATAT
 GCAAA-------------------------------------------AAA------
->_R_input_011.bnk
+>input_011.bnk
 -GGCCGGATGGCCGAGTGGTAACGCTGTCGGCGTGCCACGCAGGAGGACG------------------------------
 -----GTT------CGCGTCCCGGGTCT-----------------------------------------GGTCCC---GG
 ATTTT-TTCTTTCG----------------------------------------GGGTACTGGGCCCGGCCC---GGTGA
@@ -1690,7 +1690,7 @@ CCCCCCT------------------------------------------CCACGGGTGTGGGTGCAGCCCG---------
 ------------------------------------------TGGTTGGAACTGGCCCCACCCCGATGGCCCGCTTAGTA
 ATCTCCCTGATTGG-----------------------------------------------AAAGGGGGCGT-AAAATAT
 GCAAA-------------------------------------------AAAAA----
->_R_input_008.bnk
+>input_008.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTGCCACGCTGGAGGACC------------------------------
 --CGGGTT----------GCCCGGGTCTGGTCCCGGATTTTTTTCGGGGTGCTGGGCCCGGCCCGGTGATGGGTCTGGTC
 CCGGA-TTTTTTCGGGGTGCTGGGCCCGGCCCGGTGATCACCGTCCATGGTCCGGGGGTCTGGGCCCGGCCC---GGTGA
@@ -1717,7 +1717,7 @@ TC---------------CCCATCCTTCACCATCCGG--------------------------------------------
 ------------------------------------------TGGTTGGAACTGGCCCTG-CCC---------CTTAGTA
 ATCTC-TTGATTGG-----------------------------------------------AAA-GGGTAAA-AAAAAAA
 AAAAA----------------------------------------------------
->_R_input_007.bnk
+>input_007.bnk
 -GGCCGGATGGCCGAGTGGTAACGC-GTTGGCGTACCACGCTGGAGGATG------------------------------
 --CCGGGTTTC---GGCGACCCGGGTCTGGTCCCGGATTTTTTTCGGGGTGCTGGGCCCGGCCCGGTGATGGGTCTGGTC
 CCGGA-TTTTTTCG----------------------------------------GGGTGCTGGGCCCGGCCC---GGTGA
@@ -1753,7 +1753,7 @@ AA---------------CCCATCCTTCACTGATGGC--------------------------------------------
 ------------------------------------------TGGTGGGCATTGGAATCC-CGC---------CTTAGTA
 CACTGTG------------------------------------------------------GAA-AGCGCGT-AAAACAC
 AAGAA-------------------------------------------AAAA-----
->_R_input_097.bnk
+>input_097.bnk
 -------------------------------------TTCATTGGAGATT------------------------------
 --TGTATT------TAA-TTCTGGGTCT-----------------------------------------CATACTTCC--
 --AAT-TTTTT-------------------------------------------AGATTTCAGGTC--GCCC---ATTCA
@@ -1762,7 +1762,7 @@ CCAATGT-------------------------------------------ACCAGG-GTGTGGGTAGCCTG---------
 ------------------------------------------TGGTGAGCATTGGAATGCCCAG---------CTACTTA
 GTAACCAATAATAG-----------------------------------------------AAA-GCAGCAT-AAAATAC
 AAAAG-------------------------------------------AAAAAA---
->_R_input_098.bnk
+>input_098.bnk
 ------------------------------------------TGAGGATC------------------------------
 --CAGGTT------TAA-TTCCGGGTCT-----------------------------------------CATACTTCC--
 --AAA-TTTTTCAGAA--------------------------------------AGGATCTGGATC--TACT---ATTGA
@@ -1771,7 +1771,7 @@ CTAATCT------------------------------------------CACCAGGAGTATG-GTAGCCCA---------
 ------------------------------------------TGGTGGGCACTGGAATAACCTA---------CCGCTTA
 GTAACAC-TGTTGG-----------------------------------------------AAA--GCGCGT-AAAACAA
 CAAAG-------------------------------------------AAAAAA---
->_R_input_099.bnk
+>input_099.bnk
 -----------------------------------------CTGGAGATC------------------------------
 --CAGGTT------CAT-TCCCGGGTCT-----------------------------------------CATACTTCC--
 --AAA-TTTTTTCAGA--------------------------------------AGGATCTGGATC--TACT---TTTGA
@@ -1780,7 +1780,7 @@ CTAATCT------------------------------------------CACCAGGGGTATGGGTGGCCCA---------
 ------------------------------------------TGGTGGGCACTGGAATAC-CTG---------CCGCTTA
 GTACCACTTGTTGG-----------------------------------------------AAA--GCGCGT-AAAACCA
 CAAGA-------------------------------------------AAAAA----
->_R_input_100.bnk
+>input_100.bnk
 -------------------------------------------------------------------------------T
 AATCGGTT------TAT-TTCTGGATTT--------------------------------------------ACATCT--
 --AAA-ATTTTTTA----------------------------------------AGAT-----GGCCGGCTC---GTTGA

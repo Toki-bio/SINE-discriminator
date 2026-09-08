@@ -3,29 +3,29 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-------------------------------------------A-------------------------------------
-------------------------------------T-------------------------------------------
+------------------------------------------A-AAT-TT----A-T----------A------------
+----------------T-------------------T---ACT-ACAAGGGGAGGACACAGCTGA-CCCCCCACCGATTT
+TGATCC------------------------------------------------GCTTGCGTATGGTG------------
 --------------------------------------------------------------------------------
+---------------------------------------AAAAT-----ACATCAAAAATGAGTGAATACGTGTCCGAGC
+TT---------------------------------------------------------------------------TTC
+ATTGAATATGGCCTTCTAATAG-TATTTTTT-AACACTTGAAAAATCGAACTTTTGATAATTCAGCT-------------
+---------------------------------------------------TAAAAGCGATGGATAGATAACAGATCACC
+AGGTGCACAGATGGCGCACTCGATAAATACGTGGCTCGTAATCTGAAGGTAGTGGGTTCGAATCCGGGTTGATGTGCA--
+-----TTTTTTTTTTT----------------------------------------------------TATGCATT----
+------------------------GAAAAATTATTTTTTATTTTTCAT--TTTTTTATTTTTTATGTACTGTACATTT--
+-TAA------------------------------------------------------------------TTAATTTATT
+TTAATTATTATTAATTT-----------------------------TATATATATTGGTTA------TCAC-ATAATTCG
+TATGCAT--TAATATATTTATTTACAAAACAAAA-----TACTCTATT----------------ACTCTACGGGGATCGT
+CCGACGAGATAGGGAACGAAGA----------------------------------------------------------
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-----------------------------------------------------------------------TTTTTACTCT
+----------------------------------CATAAAA-----GAATAATG--------------------------
+----GAAGAATAACGTAA-TTTTTT-------------------------------------------------------
+------TTATTCACTCTCTCCCAGGTTTGATCT--------------CCGGGTCAGATAGCTCT----------------
+--CTCTCTAGCGCAT---------TATGTTAA-------TATTGTGTTTTATTTCCTA-TTTTTTT--------------
+-----AAATAAATATATGTTATTTGT--------------------TTTGAATAAG---------TATCGAAATC-----
+------TCTCCTATCCTGGATCCTTGCGT-------------------------------------CACTTACTCG--CG
+ATCCTATTCG------AAAGTATGCT----------------ATAA-------TTTATCGATATACGTG-TTTTTACTCT
 GA--CATACATTGTGGG---------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ attattgttaggattaaattttttatttaactttattcattattttcatcagcttttattgttatttgtcattgatttat
 gttatatttattttttaattatttgaattatttttattcatatgcaagcggatcaaaatcggtggggggtcagctgtgtc
 ctccccttgttagtgtttgtcagtatttttgtcttcagtccaaagaaattaaaagaaaatacgaagaaaaagaaaagatt
 ctctctaataggtatgtttatagtctgtctcacattaaactatacatctgtctc-----
->_R_AYEL01090255.1:34915-36746(+)
+>AYEL01090255.1:34915-36746(+)
 -----ttacagtatcgaaaacgtttctaaataaaagtttttagtctatttttaatactgctgagtgtgctagttaattgt
 ttttattcgttgttatacatgtcaaataaactcataaattgagtctatgaaagaaacaaaccaagggatccaatgacttg
 atgtcatagattccaatcaaataaaccagcataactttattctgtatcaatctgacactaaagattgagtgactaaagaa
@@ -154,7 +154,7 @@ ttaggtattactgaaattcagaacacggtttttacttaacatatttagaaaattacgtttactctcccacaacacaaaac
 attttcattaattcttataaatccacattatggatactcaatacacacataaaatgcaatcattaggaaatactttacga
 aggtcgagtttagattcataattattgtactgtagaagtcacgaatttaatgaaataataataaatacataattatagta
 ataagatatttttaaacaagattattgtttcgtcagggctaatcccggaaa--------
->_R_AYEL01063461.1:12955-14786(+)
+>AYEL01063461.1:12955-14786(+)
 ----------------atgactgagtccaggttttggataattattggcaatgaatggtctagtcagctgtttctttttt
 cattcatttgattttcatactctgaagacaatgttttcttcaggatgttggtctctttttaattcgattataaaattgag
 tataattactgaaacttgcataaattttatacgcatataactttcgttatcattctgccttgttaaatatttggactctt
@@ -271,7 +271,7 @@ atataattttatacttaaaatatttgaaaaaattttattgaaaaatttagagtttaatgtgaaaaacgagttacatgatt
 cttaacattaggcaaaaaaatatttctctactactatgaatttgaatgaatttacttcatatatatacattatatatata
 tatatatatataattacagaaataggcctcaattagtgagaataatgggtcccatgaatttctcacactattcgaagtat
 taactatatgtaaaatatggtaattggttcttgctttgtgagattccagccattagcca
->_R_AYEL01090185.1:8311-10141(+)
+>AYEL01090185.1:8311-10141(+)
 -tacatttataaatatttttttctgtttatttatgtaaactaaaactatttaagagggtttaatcaaactgaaagcattc
 cagtttgtttataaatgtaaataaataattctaagttaaataactgagcttgcatctattgtgtacataaaaagatagaa
 aatgatatttattatgaaaaatttatttgaagatgataataaatttgattcctttgcttataaattattgtaaatacttg
@@ -310,7 +310,7 @@ atataattttatacttaaaatatttgaaaaaattttattgaaaaatttagagtttaatgtgaaaaacgagttacatgatt
 cttaacattaggcaaaaaaatatttctctactactatgaatttgaatgaatttacttcatat------------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01074509.1:6395-8226(+)
+>AYEL01074509.1:6395-8226(+)
 -aaaagtaatactcagcaataaaaagtagaaatcttgtcatatttacacttctaaaaaaaaaaaaaaatgttaatttatg
 taatactaagttctttggccagaagttgaattttttaatgtaatattgatgtataaatgctaatatatgacaatgaaacc
 aaactgcttaaactctttctaatacttaaagattatagaagcacaaccagcaactgagtaaatactttaataaacataga
@@ -427,7 +427,7 @@ tcagagaatattctgaataataagtaatttgaaaattataacaacatattgcaattgtgagacgtatactcaccagttaa
 tgtgatccgattttcgcggaaaattgattaaataattagttaaaagtatattcaacaaagacgtatattttataaaaatt
 ctctaatagagaacatagatatacttagaaatcaacgtatatactaagaatgctgtgaaacatttaatttatgaatataa
 atctagattttttttatctataagcatatgaatctagatttttacctcctattgtatat
->_R_AYEL01074204.1:50870-52701(+)
+>AYEL01074204.1:50870-52701(+)
 ----------------atttctttctctgtgctattattattagtgattcctctaggagtaaataacaaaagtttactta
 aaaggaataatgaacaaagtttatgagatgtgcttatttgtacaaattcaacagttatattgaattatctcagacattca
 aaaattaaaacaaaattagcttttagtgtttacatttattttcaaaactgtgctccctttatgggatgtgtgtttggtgg
@@ -544,7 +544,7 @@ accacactacattgtattttctatttatcatagacatcattagatataatttttactctggtgaaccactgaatgagtaa
 aaaccagatatttgttttggctttattatgtaaatgttatcacaaatctgcctatgggataatatgacaggtctacaata
 atagaaatgtttaaaattgcaattaaaatgaatgagttttgtacaatttctcgatttatgtattattttaggtttacatg
 cttattttaagtattagtttgtgattaaattcagataattttccttttgaaata-----
->_R_AYEL01091163.1:26678-28515(-)
+>AYEL01091163.1:26678-28515(-)
 -----------------taaatagattatgacatatattattttaaaaattaaaatcagaatgtacatggtggttttgaa
 actttatttgctgttttttcatatcacttcatattattattttttaaaaatttcttagtgatttcttcctcaatacttca
 gctgtcttttcattcttttatttttctctttcatggatgctatgttctttggaagcttgcttagaccaaattaatggcct
@@ -583,7 +583,7 @@ accacactacattgtattttctatttatcatagacatcattagatataatttttactctggtgaaccactgaatgagtaa
 aaaccagatatttgttttggctttattatgtaaatgttatcacaaatctgcctatgggataatatgaca-----------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01072848.1:13994-15830(-)
+>AYEL01072848.1:13994-15830(-)
 ----------------ttgagattctaataaaatgtttagttgaaaaaaataactgttttaataaggataaaaacaaaat
 gaggcagaaaaaatcatgcaaaatgaaaacaaataatattgggattttagtatttgtttttatttaatattttaattaaa
 ttgaaaaaatagatcacatttcaataatgttgaaaaaataattttatttgttttacaattactgagagttttattaaaat
@@ -700,7 +700,7 @@ aatcagtcagaaatttaaagaatgggattcactggactggacctgaatcctccagaaaaactggaggtgtaggatctgga
 attgaactcagatcgtccaagatggtaaataactgttttaccatacagccatctggctgagatcatcaaaccatgcaagc
 tattaaattttattgtgatattataaaagttatttaaaatagatgacactgatgtttgaacttaggagaatttaggacag
 taaagtagcattaatgataatgataaaaaatttcaacataaataataattt--------
->_R_AYEL01018865.1:4102-5935(+)
+>AYEL01018865.1:4102-5935(+)
 tagtttacagatattcttctatttatgttaatttgatcttatgatgactcttaaatgatattccaacaaggctgtcaatt
 ttttggctattttcattgcatattgactttttctgttttattaaaaatttatagttagccaatggccaatttatcaactt
 ataaattgaccaattttatcaacttgaaagcctataaattggccaattttagcaacttataaattggccattggccaatt
@@ -739,7 +739,7 @@ aatcagtcagaaatttaaagaatgggattcactggactggacctgaatcctccagaaaaactggaggtgtaggatctgga
 attgaactcagatcgtccaagatggtaaataactgttttaccatacagccatctggctgagatca---------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01070592.1:0-1228(-)
+>AYEL01070592.1:0-1228(-)
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -817,7 +817,7 @@ gttgatttcataaaaatcttatttcattatctaaagcagtgatttctaagctttttttctctgagtcaaacttttacagt
 gaaaattttcttgtgaactctgaattttttattattaagaaatagcgataatctggaatttttgtaaaattctacaagtt
 tctatacatatatagtatttattataatatatcacaagtaacagaataagaaaaagaccttcatatttatttttggcata
 tgtattttttgaaaatgtgtgtaaattcttgtctttcaatcttcccactaaacc-----
->_R_AYEL01088126.1:94912-96743(+)
+>AYEL01088126.1:94912-96743(+)
 --------tatgccattttgctattgtttaaaatttttatataatttttgaaattttcgaaaatttgaaaacaaaatggc
 atgttcatatgtacaaaggtcatttgtttgtataaattgagaatcatcagtgacaagctttttctagggcctaaccagaa
 cacatacttaccagactagtcacaagcacaagtcacatcctggatttatgacattcaatgtgttttttcacatctttatt
@@ -895,7 +895,7 @@ ctctggagtcactaaacattaacaggttgactgagggtcaattaaatgtttttactcatattttaggctatttctagaaa
 tcaaagaaatagtgatgattttactactaaaatataaaatatatatattttctggatatgccttgtttttataagttcca
 ttaagttattaaaataaataaatgaatttgtaaaatttatttacatatgagattagttatatcatgaacaaagctgagta
 gaatattaagcagtctaaccttaatgaagcaatttgtagcatcactcaccagcg-----
->_R_AYEL01053300.1:5621-7454(+)
+>AYEL01053300.1:5621-7454(+)
 -atttaataagaatgtaattttcctattctacaatgccataatgttgttctataaaaactgaatgacttatgtatttaat
 ataatcatttcagtctaaacaattaacaaatattttgattttattttattctgattagtcattgtgctcgacattcccat
 ctcgagaaatcttaatatttacaagaaaatttcattcctgattctcgagaatttattattattattattattattattat
@@ -1012,7 +1012,7 @@ ttagtaataattagtatttagcaaggtgtgtatattgaagtggaactggctaagtgacaatttgaattgcttgtaaaaat
 tgccaatggtttaaaacttgtatcggtagtggaggtattagtaataattagtatttaaagatatagttattgtgaatatt
 tttttttttggatatctgaactttgattaaataagttttgttggttagctaaattctgctttattattgcttaaataaag
 cttttgctacatttttgtaagtgttttgagtaaaataaattttatattttattatttaa
->_R_AYEL01067751.1:19353-21188(-)
+>AYEL01067751.1:19353-21188(-)
 -ctggaattttgcaatatattagaatatataactatgtaaactactgcattgtgaagaagttaactctgacctatcctgt
 ttattattttattatgcttatttattatttatcgttattttcagtattatttaacatattatattttagtttaagagtta
 gcttacttttcatgttctctgtctcagcagttagcaatcatgtgttagagaatggaaatacgtcatctaatctaaataag
@@ -1129,7 +1129,7 @@ aacctttatgaatcatcctgtatagtatctctcaaaagtgtaggcaataaaatctttggttaaattttaatatgaaaaat
 tatttgacaaaaattctaattatatatttagaggtgattattaaaaaaaataataataatttttatattttcaaatattt
 gctttattaaaaaatttggaaaaaataaaaaaataaatgtataaataaacttccatttgtattaatggtataacaataaa
 taaataagttttttcgaagtggaaaaaattatctctcttttttccactttgaaa-----
->_R_AYEL01054804.1:26917-28752(-)
+>AYEL01054804.1:26917-28752(-)
 -------aaatttttatttgtattttaaaatcatctattaatttttactactaaaaaactatcctaaaaaatttagatca
 tcaagaatagatttgtttattaaattagtttgaccaattatttaaatgaaatataattgttttacaaatgtagcattcaa
 tttcgaacattattatttttgaatgttaaattgctatgttcaaaaattaatgctacgttggtaaaaaaattatgtttcat
@@ -1207,7 +1207,7 @@ catgtttaatgaaatagtatacattgagttctcatttaacatcaggattagattcctgaaaatcatgacttcaactgaaa
 ccagaaattcatagacctagtaatttatagtgttttctttctgatactaaagagatattatttgataatgtttggcatct
 aatcattactgtattggtaataatggatgatgtgtgaatgaagcaattatttaattataaattttaattgtaaaatgtta
 tatagtaataatgtgatgatttatagataagataattattttataataataaacacttt
->_R_AYEL01084573.1:45441-47272(+)
+>AYEL01084573.1:45441-47272(+)
 gtctgtatgtgtgtctgtatgtgtgtctgtatgtgtgtctgtatgtgtgtctgtatgtgtgtctgtgtgtgtgtctgtgt
 gtctgtatatataaattgtgaaacaaacaagtggtcaaaggggcagaatgaaaagttaaatatctccaaatttatgtaag
 tcagatttacataaattggggtattactgtatttattcattacttttgcatttaataaaacagatttttttttttttttt
@@ -1285,7 +1285,7 @@ gatttttgccaaaaatctttgttttataattatatcagcagcatcttgataatatattgcaaagttaatcatctctacca
 tcttgataatatattgcaaagttaatcagttatttaaagtgttagcacattaaataactaattagttttgcaatatatta
 ctactagataattttatcataataattccttaaattttttaaaaatatgaaaataaaatgatgtgtttgcatatacaaat
 gatcataactagagcaatactctttctttatctgttaaatctttcataacga-------
->_R_AYEL01013777.1:35589-37422(-)
+>AYEL01013777.1:35589-37422(-)
 ---------------tgagctgcttgagaggtatagctggagtgatgtgatgactgtgtctcaactgatgacatttgaaa
 gtactgtggaaaaaaaggaatgtgagagatgtgatatgtaagctaacattaagatggtttttccatatggagctaatgag
 tggaaagcaattaacaaagcaagtatatgctagattatgaattataaataaagtttaaaatagtcatattgttgttgaaa
@@ -1363,7 +1363,7 @@ ctgctagcaattattagagaaattttaaatctacaaagaagcattattgaaatagtggcttaaaaatagaaaactaagat
 caaaaccaatacaaataaaattttatggtaatagttggaatggaaatgcagccagtcaacatcaatcagccagaagtgca
 gatcattatcctggctcgtaattcataaatttattgtattttatttatttttataggtagtgctgctgttgcctatacta
 aaagtaataaaaaaataattacctgttatataagcaataacagttaaataagtaaataa
->_R_AYEL01074482.1:10659-12488(+)
+>AYEL01074482.1:10659-12488(+)
 cttgatttattaaaaaaaaattaagtaattttgtcttaattataaacttacaaaagatatgaaataagatattaaatatt
 gatgatgtatcttaaatgcatctaaaaacattataaatgtactttgcactcaaaaatacatttataaagtttgtaatcaa
 aagtagaataaaattaaaaaatccaaattttgcagtaatatgtatttcactgtatatacaataaaatgattccttattct
@@ -1402,7 +1402,7 @@ ctgctagcaattattagagaaattttaaatctacaaagaagcattattgaaatagtggcttaaaaatagaaaactaagat
 caaaaccaatacaaataaaattttatggtaatagttggaatggaaatgcagccagtcaaca-------------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01073402.1:1103-2934(+)
+>AYEL01073402.1:1103-2934(+)
 aagacaaagaatgatataaaagttctataatgagtcagaacaaatcccacatatactgcagttagactatagcagagttg
 ctcaacaaatcaatcgcaagcctccatccatcttacaatcaactcatttgttaaacttccactttacaatacataataaa
 ggttcttcttgaaacaagaaaagtgaaattatccctacgtgtttccattctttgtgtcttttatcatttttcagtaatag
@@ -1519,7 +1519,7 @@ gtgtttttaaaactatttaaatttaaaatcacaacctttaaatttttacctttaactttttatttcttagcaaaaataac
 agttaaacattaacagaaatttttatcatattttcaataagtattgaaacaattaaaaaatactttttaattttaaaaat
 taatatcatcaatacataatgagaaatacttaaatttattaatgacatcatctgtttatgaaaaaaacatatatgatcat
 tgatggaagttgattcttattttatttaatgatgagaaacagtctctcagctta-----
->_R_AYEL01077355.1:33265-35096(-)
+>AYEL01077355.1:33265-35096(-)
 atctgatgcctaaggctgaactcgcatgaaccacaacagaaccacaccacaaccacaaaatggtggttactgtgtggttg
 gattgtggtcgaaatcagccacttacgaactacttatatgcgcaatccgttatcaattgctgattgaaagaaagcactgt
 tggtggctagtggttgttatgtcgcatttatgtgagttgcactcaaccaatgacaaccacaattttgtggatgatatcga
@@ -1558,7 +1558,7 @@ attaggctagattccatatcttgagtctaattttcaattatatgatcataaaaatgctttttttaagagaacaggtttcc
 agatttataatctttaatacaaataataagttcatttatttctcattctttaataggaagagt-----------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01075635.1:50940-52771(+)
+>AYEL01075635.1:50940-52771(+)
 ----tacctatttcccatgtttaataattcatttatctctattcccttgtatctgtattataaaaactattttatattat
 agataatacaatagctttaaatgtttattttgcaaattaatttgttattttgaatattcaaaacagcatttctgttgtat
 tatcgtaatgcaatatgcatagaattgttgaataacaattttgttattttggtaatgaatgtctgcagaaacaaatctaa
@@ -1636,7 +1636,7 @@ aaattatatataagattcatgtattgttagttgtcatattgtagatttaaaacaaagtgtatgttgctgttttaaatgct
 tcttttctacttacttttcaatcttacctttgagtgcagatgagagacgaactttactgtttacaccatgagcccaactg
 atccttaatccatctccctttgcctcaggaaaataatccaataaatttggaggcatgcttttatcaggattgaaaaattc
 tctgaaatcaaatcaaattaattttaatataggatatattaatatgagaagata-----
->_R_AYEL01068153.1:47503-49334(+)
+>AYEL01068153.1:47503-49334(+)
 --------aataggttattaatactcctttatacaggattaggtgctcacatgtgtcattatgtagattgagttggaaca
 gtcctttgcttgttctatatttttgcatttatttttggggcataacagcttccttagtactctatttgaatagaaagggg
 caatcaaaatttagccaccaagcttactatacaaaagaaaaaaagatcttgagtcatgatgatctctatgatttgagatt
@@ -1675,7 +1675,7 @@ aaattatatataagattcatgtattgttagttgtcatattgtagatttaaaacaaagtgtatgttgctgttttaaatgct
 tcttttctacttacttttcaatcttacctttgagtgcagatgagagacgaactttactgtttacacca------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01086495.1:7414-9245(-)
+>AYEL01086495.1:7414-9245(-)
 ------------------attttctatttaattataatgatcattatatatgatattcaaatacaagtagtccttgactt
 atgatagaatttggttccaaaaattttgaatcccactgtcataagtcagaaatgcccaaaatttatagatttttaattta
 tggacactatattatcttaataaaaataaagaacacaaaaatacaggaatcatacagaaaaaaggatgcttttcatatac
@@ -1714,7 +1714,7 @@ ttcaacctttactatgacttgatctttttcaagatttaaaatactgctgaaaatataagataatttataatatctattat
 ttattttgttttaatttttcaggtaataacaatttttttaatcataatacaaatgattgattt-----------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01068777.1:19463-21299(+)
+>AYEL01068777.1:19463-21299(+)
 -----aataatgtttatacaaaatgtctgccagatagtctcaaattggatacctgtctcgacgaatgttggagaaataaa
 catcatctttctcatcccgggaaaaggtgaacgaaaaggtcactggatttaagagctaactttgcccgaggaccgacgca
 cttgttctccggttcatccgtcggaaaggatacaaaaatctttggtccgacacatctgctccttcccgtctcataacgtc
@@ -1792,7 +1792,7 @@ ttcagtttctttttttatttaaaagtatttatatctttgtagtttagtaagcctgacttcaaaaacttttctgtagtaaa
 attttattaaaaataaaagtaattctacaacttgtatatatagttcaaaagaactgaaaattaatgataatatcatgaat
 ttatgatatcatcttgaaaacaaacatccataggttcttattttcaccatatgcaagtggatcaaaattggtggggggtc
 agctgtgtcctccccttgttaattttttagtttagcattaggaaaatcgaacaacccat
->_R_AYEL01080526.1:4321-6151(+)
+>AYEL01080526.1:4321-6151(+)
 ------atttgcctgatgaaagccaataacaaatctcctcctatatgttaaaacatgaaattccctctataaaccgccac
 ctcactaatcgccaacctaaaaatccttctgctactcagcaatttatttctgattacctttaattaaatgaaacaatgtc
 attctagtctatacatgttttctcacatgttaccataaaccctccataaaccgccaccctcctttaccgccagagaggac
@@ -2026,7 +2026,7 @@ gtggcatatcattaatttttttttatcttttattattgttatatttccaattatttttgaatatccttaggttacactct
 ttacaataaaatataatatatgttatctgattacaaataaactcttcttatctcttaatttacaatatttagtactgtga
 ttgttatgaccacacatttgacatatcttgccggaactatttgttgaaaatctattacttgtagagtcaaaatttcttga
 aattttatccacaatagctgtgcatgttatttcttctgtttccttattagccagt----
->_R_AYEL01077876.1:40589-42421(-)
+>AYEL01077876.1:40589-42421(-)
 -tgcttatcagaaatttatcttattgaataatgaataaagagcactaatggcagtagtgactttaacaaactaatttatt
 tcaaacttttgaaataagttagtttgttaaaatcactactgccattagtgctctttattcattattgtattagtgttaca
 ggcagttgatatcttgttttatcttatcttattgatctttagtaagaagatcaataagataaatttccgataggcaaaaa
@@ -2065,7 +2065,7 @@ gtggcatatcattaatttttttttatcttttattattgttatatttccaattatttttgaatatccttaggttacactct
 ttacaataaaatataatatatgttatctgattacaaataaactcttcttatctcttaatttaca----------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01070022.1:260-2091(+)
+>AYEL01070022.1:260-2091(+)
 -----------tacaatgcaatactgagatgatcacttaaggaacaagtaatgttaagatggccacactaaacattcaaa
 ttagttgcacacataattgtttatattttaaaacaaactctgttttataagaaaataaaatttgaaaaaatttagtatat
 tctataagtaaactaaatagataaaattgagtttatttaatttattatttaaattaatgaggttttctttattatcatat
@@ -2338,7 +2338,7 @@ ctttctttaactcccttttataagcgctccggatgttgttaattttttaattactaattcacgatccgcattaggttcta
 tttctttcaattttgagactaatttttcataggctgtgtttttcttcatctgatcaatcactgtaatctctgctcttaat
 tttccaaacagcaagcaatgttctataaattcagtcataaattcgtgtgaataaatatgcaaatcgtgagaagaatcttg
 cattgtgcagagaaatcatcacttggaagaacagaagaatgtgctatcagtctg-----
->_R_AYEL01080106.1:14253-16086(-)
+>AYEL01080106.1:14253-16086(-)
 ------tatgagataaatcagaaacttctagatattttatatgtatattcaaaaaatacaatcaaattttatcttagaaa
 tagaaaagtatctggactaatgtcttaaaaaaattacataacttaataatttaaacatctcttttaaaataaatttcttt
 tgtaacagtataatttactcagtatcagaaagcaaactactactgttgatgtgaacatttttaaaaataatttttggaaa
@@ -2377,7 +2377,7 @@ aagcaatgatattgcttagttcttcctattttgatgatgtttattatcaattacagccatgagaagctactttatagcca
 tgagaacttaagcgagtaatttgttctaaataatatatatgaacaagttattcacttactggccaattcg----------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01079261.1:3460-5290(+)
+>AYEL01079261.1:3460-5290(+)
 agatagatagataaacatgcaacaaataagcccacatgaaggctcgaatgttttgtagatgatgcagagggaatggagaa
 ggaatgtaactgggtgttaatcaaacaacttccccaggaaaaggattgctttataaatcggtcagaggggaaagtttggg
 gatgctgacaaagaaaaagtcggacctcatccaaatgggagagttggagtttgacctgcgaagaagagagtaaaaatgag
@@ -2416,7 +2416,7 @@ tctgctctataacaaggtatttgtcctctgacagtgcttgtcaggagttaagtttgtaaaactctctgtcttcaataaag
 gaagttgttcttttaagaatgtagtctctgtgtcgttgtctttagatctcattatctatccggctta-------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01085020.1:106720-108555(+)
+>AYEL01085020.1:106720-108555(+)
 taaaacattctataacatctatacaatttttgtactggttaggatcaataagaaagatcaaaaattttttacataaatta
 aaattattttctgctaatagtgcttatttaaatgatctcccatacttcaattgatgccaatctcatcgtggatatggtgg
 tgctggattagccttaccatttagtaacttctagctagaaagagcaaaaaaatatataataataaacggtcatgatgggt
@@ -2455,7 +2455,7 @@ ctggagatatgggatctttaggttgaaagcatagcagactttcactgtggttatccagtcaacagtatttccagttaaaa
 aatggcctaaaacgagagaagaaggtcctacactgagaatttgtgtagaaaaaacccggcaaaacct-------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01066790.1:70289-72120(+)
+>AYEL01066790.1:70289-72120(+)
 --------------------------------------------------------------------------------
 -----gattatttggataagttctctctggttttgaatgctttattctgttaaatttttcaaagcaaaaatctgttgatg
 gaaaaagtaattaagtactgaatatttaattttttgttatattgattattacctaaaaagttatatttgatttgaaatgg
@@ -2494,7 +2494,7 @@ tatataaaactatgtagttttttcattagataaatatacattattattaaatatgatttaagaaaaacaatattaatcta
 aattatagcaatcttcattagcaatctgattcctcaagattcactgttatagaatagaatata-----------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01088546.1:9257-11090(-)
+>AYEL01088546.1:9257-11090(-)
 aaatatagtattttttccgaaaaatttgttgagaagtataaatccatcctctttacacagttacagctatattttatgat
 tatttgctttattggttcagaaaatacctattcaattaatagtaattagttctatgttaataggcagcacagaaatttcc
 tgagaagaaaatgatgatatagttgctagccaacaatctaattgcttacatgccatgcccatttaaaatgtcggaatatt
@@ -2533,7 +2533,7 @@ aagttcaacttgaagtcaacaaaagattatgaagatattttgttaagtttcaattatttaacaaatttatttttaaaatg
 ttttatcgaatttcctattattaaatttgaacaggaatatagtataaatatataaaatttatttacgttt----------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01068291.1:16491-18321(-)
+>AYEL01068291.1:16491-18321(-)
 --------------ttcattatggcggcttaactaaaactaatctttaaatagtataagtgtataataatgttgaataaa
 ccctgtttatttttttaaaatgaggaaaatatctatctcatgactatcagcattttatgtaagtaaaaataaaataattc
 atataaaaacaaagttggaatgtttaagttattttcatgtgtccaagttttttaaggctgcatagtaatgcagtcattta
@@ -2572,7 +2572,7 @@ tcagatctaaccatgaattgccctaatggtagagtcagcaggattttaccatagatggataggtggatcgaagctcaggc
 agagttatcaaaacattttccaaggcacggaatccaaattctatccaagcagtctaggatcaaat---------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01074794.1:15135-16965(-)
+>AYEL01074794.1:15135-16965(-)
 --atttttttttttaattttaggatttatccaagattggaccaaattatgaatctttaataagagctggacaagtcaaac
 aaccaatgcaagattttgcattcaatcaaagtggtaatatatagtgtagtttaacaataatttattattatataaatatg
 tcaaactattataatttctcttatgaaaagtacacttatctcttgataaagccataccaactacaaactaattaagagtt
@@ -2611,7 +2611,7 @@ gctgccatatataatatatccaatgtgctatatggcagtttaattaaaactaacctaatctaatttttaacaatgatatc
 ataatatatatatgggaagatatgaaatatgaaaataaaaataaaagatatgtcttctttca------------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01077844.1:7260-9089(+)
+>AYEL01077844.1:7260-9089(+)
 -----------------cacaaatttggaggtgattttgttgttatatgcaatattattatattaaatcacatgattaca
 tttctgctcatttatatgagcaagtaacttctagtttgtaataaatctaaatttgttgctgttttaatatctggaataat
 agaaattgcatgatttttatagctacatatatctgtagaaaactctaaagtcaactggatatttgagagccagatttata
@@ -2650,7 +2650,7 @@ atgtatttgtagactgactctacagcatgaaatttggtctagatagatataagcttttgtgtgaaattgcaattgaattt
 gtgtgtcttctcataattttcactctaggtgattgcctcactctagatccagcactggtaatatttc-------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01061629.1:17762-19596(-)
+>AYEL01061629.1:17762-19596(-)
 tacaaatatgttttcctaaattactgatgacatccaaacatttaaattatcttcataatcagctgggagagatttaacat
 tttgaagcatctttgttttgcataaacttaaaattaaaacactgcttatactgactatatcattccatacaaaaaacagc
 accaaatcgcagcatagtttaaaatatttattaaacagaataatgctaacgttttcggctatatagccatcatcaggcac
@@ -2689,7 +2689,7 @@ ggaaagactgtctttcccttaaagcattctatccagtcattactacctttaaaattttcagcattaagttttttcatgat
 ttctttggctttttctctaagaattagactgaaattggaacatttttagattggcaaatttcagca--------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01084388.1:20937-22767(-)
+>AYEL01084388.1:20937-22767(-)
 --------------gttaaaatctaagcactttctattaaaccgttcttatgttagtgattgtaatttagtgctgatgat
 gattgcatagcaattgaaagtattatttatgcaagcaaagttttttattgattaatctactgctgttggtgcttagattt
 taaccatatatgctcttccatattttttttaaatgtgaatttgtactattttttatttcttgcattgaatatatttatta
@@ -2728,7 +2728,7 @@ ttaagaaattataactgatgcttagaacagaaataaatacagtagaacttcctgttaactggtccttactgaaccagatc
 tcatgtcagataaacaaatgaatagttaatctaaaaacatatgcaaaatactatttatgagt------------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01087314.1:2252-2936(+)
+>AYEL01087314.1:2252-2936(+)
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -2767,7 +2767,7 @@ ccgagcttttcattctggaataaaacagtcgccctatcgagccatgttcaggatagacccaagaataagactcacgactt
 cagcattgctatcagatgttctcgaaaacactgaagatgaggacgaacttcagagtgtcatc------------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01073267.1:10502-12333(-)
+>AYEL01073267.1:10502-12333(-)
 --------------------------------------------------------------------------------
 -ttattacacttgaagcaggataaaaaactaatttattattagatattatataattacttgaagcaggataaaaaactaa
 tttattattagatatatataatatttcacccaggctcccgaagctccccagaaacacagccgtctaggcaccagcccgcc
@@ -2806,7 +2806,7 @@ taattttatttctttaaaggactgtacaagtagtccttttctattaaatatatactacatatgcatacatcaaaaatccg
 gaattttcaaaaatctggcaattctcaggtcccgatgtttctggatttttgattatcaaccta-----------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01059715.1:37060-38889(-)
+>AYEL01059715.1:37060-38889(-)
 atctttcaaaaacttaaacagaatataaaaaataaaactttgataacaattatttttatcaatttaaatcaagttatgat
 tttttaatgtttaactataagctctcctttctatcaaaaaaaggatatactgtcaagttttgttgggttctgggaaatgt
 tggtattcaggataacgaactggctgatatcgctgccaaatcggctattcctatccatttacgtttttagaataaataag
@@ -2845,7 +2845,7 @@ aagaaaacaggaaaataaaaattcgacgaggactcaaggaaatagcatctcatcgaaactgttcataacctgcctagaaa
 aaaatattccgacaaataaatggatgggaacataagggaataaacaccaatggagattatt-------------------
 --------------------------------------------------------------------------------
 -----------------------------------------------------------
->_R_AYEL01076290.1:40113-41944(+)
+>AYEL01076290.1:40113-41944(+)
 -------------------------------------------------cttgtacgactaatttaaataataaaaacaa
 aaacatttattgatactaacaaggactatttaattacatcccactttctttcttattagatactaacaaggggagaggtc
 tttacaaaattctttacactgcaaaacacttacaaggggaggacacattgagaatgcattcaataaaaagtattactaac
@@ -2962,7 +2962,7 @@ cctgtataagatagtcatttttatttaatttcttcatataatttattacagtttctataaattatacaattttattaaat
 atatttaaaattttgcagaatttggaagctaacatgaggcctgatacagcattggtatctattatggctgttaataatga
 aattggtgtgaagcaaccaattaaagaaataggtgaaaaatatcataaagcagttataataattgcaaatattgtattgc
 ttcatacttttattataaaattataatttttattttaggagaactatgcaaagcaa---
->_R_AYEL01064503.1:24189-26020(+)
+>AYEL01064503.1:24189-26020(+)
 cgtacaacatttcctaagcccattggatatacctattcatgattaaaaaatacatatctgtgaataaagctatcactcca
 gtattaatgttcctttgaagtttctaaaattttcatgatttttttcatttaaatgaatttattttgaatataataaaata
 agttgaatttttaagctcaccatacgttactgttttaataggaaaaaaatattgaataaaattaaaaattgtaagattaa
@@ -3352,7 +3352,7 @@ atctgtgcacctgctgatatgctattcttcagattacgagccacgtatttatcgagtgcaccatctgcgcacatatggat
 atgttgcgcttttaaagctgaattacaaaagttcgatttttcaagtgttaaaaaatactattagaaggccatagtttcaa
 aaattcaatttttcaagtgttaaaaaatactattagatggacatattcaggaaaagctcggacacgtattcactcatttt
 tgatgtattttcaccatatacaagcggatcaaaatcggtggggggtcagctgtg-----
->_R_AYEL01076964.1:16047-17876(+)
+>AYEL01076964.1:16047-17876(+)
 ------------------aatttgttttatataagtaaaaaaaaatactctctcaaaagttctgaagccaaaatttgagt
 atagataaagtttggtggtagtttatttgtatacatatcacaatcctggattaaaataagataaagtacagactgatact
 attgaatttgaatttcaaagcttttcaaatttaatatattaaaatgtaactggtgcttacctgagaattaggttgaaaac
@@ -3508,7 +3508,7 @@ ataattttttgactagagtaggaaaaggtgcactttaaacagtcctagtactgaaatcatcgaataatctattatgcatc
 cttaacatgatcgtcccataagaagttctgtcttacatataaaagacaatatttttaatggatcataaaaagatcttcca
 atatagaaaaaacaaacctagaaaatcatacctaatcctgaaaaatatatatattcacacaatatatgaagagtttcatc
 atcatcttgatatcattacaatttggactatcagtaaaatcaaataagtgttgttgttg
->_R_AYEL01084441.1:13382-15211(-)
+>AYEL01084441.1:13382-15211(-)
 --------------------------------------------------------------------------------
 -----------------------------------cagtctctttggatcataatggccacgtgagactgctcagtaact
 aaattaatggcagatatctagcactgttcagtatattattttgttaaactattgaacttcagatctcatattaaaaggtt
@@ -3664,7 +3664,7 @@ tgtcataaaagtaaaatggcataatgtgaccataaagcagaggaaatctgtatatatatatataaaccagagaatgtcta
 taattttcggtttttgaattgtattattgcaatgaagaataaaataattaacagattatggaaaagcattcaacttatta
 ttaaatttgaaaaattaataaaattaaataattagcttgtttgaatttataatcagatttaaacttcatgacaaatatat
 tgttctaggatttagctgctgaaaagtgttcaatgccctatagagctcctgaattattt
->_R_AYEL01083375.1:2037-3872(-)
+>AYEL01083375.1:2037-3872(-)
 -----------------------------------gaggacacagctgaccccccaccgattttgatctgcttaagttat
 ggtgaaaatacatcaaaaatgagtgaatacgtgtctgagcttttccctgaatatgtccatctaatagtattttttaacac
 ttgaaaaattgaatttttgaaactatggccttctaatagtattttttaacacttgaaaaatcgaactttgttgccttcta
@@ -3742,7 +3742,7 @@ ttattatggtttctttagtctttcagtaaagttattgaaataaccggtcatttaataagtttattgaaacagctcattta
 aattattttaaatcatacagttatattttgaataattacaacataaagagaatttaattcttgaattataaaaatacttt
 aagatattggttaagttcaaatctcaggaatatcaacttactacattatgaattaggagtt-------------------
 -----------------------------------------------------------
->_R_AYEL01050751.1:19819-21650(+)
+>AYEL01050751.1:19819-21650(+)
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
