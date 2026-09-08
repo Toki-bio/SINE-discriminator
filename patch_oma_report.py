@@ -164,6 +164,54 @@ def fig_pctid_divergence(by_sf: Dict[str, List[float]]) -> dict:
             "legend": {"title": {"text": "Subfamily (click to toggle)"}},
             "height": 460,
             "margin": {"t": 60, "r": 20, "b": 60, "l": 70},
+            "uirevision": "oma-pctid-kde",
+        },
+    }
+
+
+def fig_pctid_violins(by_sf: Dict[str, List[float]]) -> dict:
+    """Per-subfamily violin of divergence = 100 - ssearch36 %identity."""
+    sf_sorted = sorted(by_sf.keys())
+    traces = []
+    for i, sf in enumerate(sf_sorted):
+        vals = [round(max(0.0, 100.0 - v), 2) for v in by_sf[sf]]
+        if not vals:
+            continue
+        col = SF_PALETTE[i % len(SF_PALETTE)]
+        traces.append({
+            "type": "violin",
+            "y": vals,
+            "name": sf,
+            "legendgroup": sf,
+            "scalegroup": "pctid",
+            "side": "both",
+            "box": {"visible": True},
+            "meanline": {"visible": True},
+            "points": False,
+            "line": {"color": col, "width": 1},
+            "fillcolor": col,
+            "opacity": 0.65,
+            "hovertemplate": (
+                "%{fullData.name}<br>divergence %{y:.1f}%<extra></extra>"),
+        })
+    return {
+        "data": traces,
+        "layout": {
+            "title": "ssearch36 %identity divergence per subfamily (step4)",
+            "yaxis": {
+                "title": "Divergence (100 − %identity to consensus)",
+                "rangemode": "nonnegative",
+            },
+            "xaxis": {
+                "title": "Subfamily",
+                "categoryorder": "array",
+                "categoryarray": sf_sorted,
+            },
+            "violinmode": "group",
+            "legend": {"title": {"text": "Subfamily (click to toggle)"}},
+            "height": 520,
+            "margin": {"t": 60, "r": 20, "b": 80, "l": 70},
+            "uirevision": "oma-pctid-violins",
         },
     }
 
@@ -298,42 +346,21 @@ def export_fragments(data_dir: Path, plots_dir: Path,
     html = ""
     js = ""
     gallery = ""
+    pctid: Dict[str, List[float]] = {}
     if data_dir and data_dir.is_dir():
-        sim = data_dir / "sim_scores.tsv"
-        assign = data_dir / "assignment_full.tsv"
-        if sim.is_file() and assign.is_file():
-            filt_sim = stratified_sample_sim(sim, assign, min_sim=SIM_FLOOR_PCT)
-            pctid_dir = plots_dir if plots_dir and plots_dir.is_dir() else data_dir / "plots"
-            pctid = load_pctid_by_sf(pctid_dir)
-            html = (
-                '<h3>Bitscore divergence — copies above similarity floor '
-                f'({SIM_FLOOR_PCT:.0f}% of self-bitscore)</h3>'
-                '<p class="intro">Same bitscore-based metric as above, but copies with '
-                'similarity below the step2 floor are excluded. Values below ~45% often '
-                'reflect marginal assignments, not real subfamily divergence.</p>'
-                '<div class="plot" id="plot_div_kde_filtered"></div>'
-            )
-            js = plotly_js("plot_div_kde_filtered", fig_divergence_kde(
-                filt_sim,
-                "Bitscore divergence — filtered (sim ≥ %.0f%%)" % SIM_FLOOR_PCT,
-            ))
-            if pctid:
-                html += (
-                    '<h3>ssearch36 %identity divergence (step4)</h3>'
-                    '<p class="intro">Nucleotide %identity from ssearch36 against the '
-                    'subfamily consensus — the same metric as Tal&rsquo;s per-subfamily '
-                    'binned histograms in the Gallery. Compare with the bitscore plots above '
-                    'and pick which you trust.</p>'
-                    '<div class="plot" id="plot_pctid_kde"></div>'
-                )
-                js += plotly_js("plot_pctid_kde", fig_pctid_divergence(pctid))
+        pctid_dir = plots_dir if plots_dir and plots_dir.is_dir() else data_dir / "plots"
+        pctid = load_pctid_by_sf(pctid_dir)
+        if pctid:
+            js = plotly_js("plot_pctid_kde", fig_pctid_divergence(pctid))
     if plots_dir and plots_dir.is_dir():
         counts = load_copy_counts_from_summary(
             data_dir / "summary.by_subfam.tsv" if data_dir else Path())
         gallery = build_gallery_section(
             plots_dir, counts, min_copies=min_copies,
             img_base_url=GALLERY_IMG_BASE)
-    return {"html": html, "js": js, "gallery": gallery}
+    return {"html": html, "js": js, "gallery": gallery,
+            "violins_js": plotly_js("plot_sim_violins", fig_pctid_violins(pctid))
+            if pctid else ""}
 
 
 def patch_divergence_section(text: str, data_dir: Path) -> Tuple[str, bool]:
@@ -491,6 +518,9 @@ def main():
             fragments["js"], encoding="utf-8")
         (out_dir / "gallery.html").write_text(
             fragments.get("gallery", ""), encoding="utf-8")
+        if fragments.get("violins_js"):
+            (out_dir / "violins.js").write_text(
+                fragments["violins_js"], encoding="utf-8")
         print("wrote fragments to", out_dir)
         return
 

@@ -1,10 +1,8 @@
-/* Plot controls for oma_report.html — uncheck-all + fixed PCA axis scale. */
+/* Plot controls for oma_report.html — hide/show + fixed axis scales. */
 (function () {
   'use strict';
 
-  function plotIds() {
-    return ['plot_pctid_kde', 'plot_sim_violins', 'plot_pca'];
-  }
+  var axisLocks = {};
 
   function allTraces(divId) {
     var gd = document.getElementById(divId);
@@ -17,6 +15,7 @@
     if (!gd || !gd.data || !gd.data.length) return;
     var vis = gd.data.map(function () { return show ? true : 'legendonly'; });
     Plotly.restyle(gd, { visible: vis }, allTraces(divId));
+    setTimeout(function () { restoreAxisLock(divId); }, 0);
   }
 
   function addControls(divId) {
@@ -34,63 +33,119 @@
         'margin-right:4px;padding:1px 6px;font-size:.72rem;line-height:1.2;cursor:pointer;';
       btn.addEventListener('click', function () {
         setAllVisible(divId, btn.getAttribute('data-act') === 'all');
-        if (divId === 'plot_pca') restorePcaRange();
       });
     });
   }
 
-  var pcaRange = null;
+  function minMax(vals) {
+    var lo = Infinity;
+    var hi = -Infinity;
+    vals.forEach(function (v) {
+      if (v == null || v !== v) return;
+      if (v < lo) lo = v;
+      if (v > hi) hi = v;
+    });
+    return [lo, hi];
+  }
 
-  function capturePcaRange() {
-    var gd = document.getElementById('plot_pca');
-    if (!gd || !gd.data || !gd.data.length) return;
-    var xs = [], ys = [];
+  function padRange(lo, hi, frac) {
+    if (!isFinite(lo) || !isFinite(hi)) return null;
+    if (lo === hi) {
+      lo -= 0.5;
+      hi += 0.5;
+    }
+    var m = (hi - lo) * (frac || 0.06);
+    return [lo - m, hi + m];
+  }
+
+  function collectXY(gd) {
+    var xs = [];
+    var ys = [];
     gd.data.forEach(function (tr) {
-      if (!tr.x || tr.visible === 'legendonly') return;
-      tr.x.forEach(function (v) { xs.push(v); });
-      tr.y.forEach(function (v) { ys.push(v); });
+      (tr.x || []).forEach(function (v) { xs.push(v); });
+      (tr.y || []).forEach(function (v) { ys.push(v); });
     });
-    if (!xs.length) {
-      gd.data.forEach(function (tr) {
-        (tr.x || []).forEach(function (v) { xs.push(v); });
-        (tr.y || []).forEach(function (v) { ys.push(v); });
-      });
-    }
-    if (!xs.length) return;
-    function pad(min, max) {
-      var m = (max - min) * 0.06 || 0.5;
-      return [min - m, max + m];
-    }
-    pcaRange = {
-      x: pad(Math.min.apply(null, xs), Math.max.apply(null, xs)),
-      y: pad(Math.min.apply(null, ys), Math.max.apply(null, ys)),
+    return { xs: xs, ys: ys };
+  }
+
+  function captureKdeAxes(divId) {
+    var gd = document.getElementById(divId);
+    if (!gd || !gd.data || !gd.data.length) return;
+    var xy = collectXY(gd);
+    var xr = minMax(xy.xs);
+    var yr = minMax(xy.ys);
+    axisLocks[divId] = {
+      'xaxis.range': padRange(xr[0], xr[1], 0.06),
+      'yaxis.range': padRange(Math.max(0, yr[0]), yr[1], 0.08),
+      'xaxis.autorange': false,
+      'yaxis.autorange': false,
+      uirevision: divId + '-fixed',
     };
-    Plotly.relayout(gd, {
-      'xaxis.range': pcaRange.x,
-      'yaxis.range': pcaRange.y,
-      uirevision: 'oma-pca-fixed',
-    });
+    applyAxisLock(divId);
   }
 
-  function restorePcaRange() {
-    if (!pcaRange) return;
-    var gd = document.getElementById('plot_pca');
-    if (!gd) return;
-    Plotly.relayout(gd, {
-      'xaxis.range': pcaRange.x,
-      'yaxis.range': pcaRange.y,
+  function captureViolinAxes(divId) {
+    var gd = document.getElementById(divId);
+    if (!gd || !gd.data || !gd.data.length) return;
+    var ys = [];
+    var names = [];
+    gd.data.forEach(function (tr) {
+      if (tr.name) names.push(tr.name);
+      (tr.y || []).forEach(function (v) { ys.push(v); });
     });
+    var yr = minMax(ys);
+    axisLocks[divId] = {
+      'yaxis.range': padRange(Math.max(0, yr[0]), yr[1], 0.06),
+      'yaxis.autorange': false,
+      'xaxis.autorange': false,
+      'xaxis.categoryorder': 'array',
+      'xaxis.categoryarray': names,
+      uirevision: divId + '-fixed',
+    };
+    applyAxisLock(divId);
   }
 
-  function wirePcaLegendLock() {
-    var gd = document.getElementById('plot_pca');
+  function capturePcaAxes(divId) {
+    var gd = document.getElementById(divId);
+    if (!gd || !gd.data || !gd.data.length) return;
+    var xs = [];
+    var ys = [];
+    gd.data.forEach(function (tr) {
+      (tr.x || []).forEach(function (v) { xs.push(v); });
+      (tr.y || []).forEach(function (v) { ys.push(v); });
+    });
+    var xr = minMax(xs);
+    var yr = minMax(ys);
+    axisLocks[divId] = {
+      'xaxis.range': padRange(xr[0], xr[1], 0.06),
+      'yaxis.range': padRange(yr[0], yr[1], 0.06),
+      'xaxis.autorange': false,
+      'yaxis.autorange': false,
+      uirevision: divId + '-fixed',
+    };
+    applyAxisLock(divId);
+  }
+
+  function applyAxisLock(divId) {
+    var gd = document.getElementById(divId);
+    var lock = axisLocks[divId];
+    if (!gd || !lock) return;
+    Plotly.relayout(gd, lock);
+  }
+
+  function restoreAxisLock(divId) {
+    applyAxisLock(divId);
+  }
+
+  function wireAxisLock(divId) {
+    var gd = document.getElementById(divId);
     if (!gd) return;
     gd.on('plotly_legendclick', function () {
-      setTimeout(restorePcaRange, 0);
+      setTimeout(function () { restoreAxisLock(divId); }, 0);
       return true;
     });
     gd.on('plotly_restyle', function () {
-      setTimeout(restorePcaRange, 0);
+      setTimeout(function () { restoreAxisLock(divId); }, 0);
     });
   }
 
@@ -99,8 +154,12 @@
     addControls('plot_sim_violins');
     addControls('plot_pca');
     setTimeout(function () {
-      capturePcaRange();
-      wirePcaLegendLock();
+      captureKdeAxes('plot_pctid_kde');
+      wireAxisLock('plot_pctid_kde');
+      captureViolinAxes('plot_sim_violins');
+      wireAxisLock('plot_sim_violins');
+      capturePcaAxes('plot_pca');
+      wireAxisLock('plot_pca');
     }, 300);
   }
 
