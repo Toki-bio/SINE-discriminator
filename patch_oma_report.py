@@ -146,7 +146,7 @@ def fig_pctid_divergence(by_sf: Dict[str, List[float]]) -> dict:
             continue
         traces.append({
             "type": "scatter", "mode": "lines",
-            "x": [round(v, 3) for v in x],
+            "x": [round(max(0.0, v), 3) for v in x],
             "y": [round(v, 6) for v in y],
             "name": sf,
             "line": {"color": SF_PALETTE[i % len(SF_PALETTE)], "width": 2},
@@ -159,7 +159,7 @@ def fig_pctid_divergence(by_sf: Dict[str, List[float]]) -> dict:
         "layout": {
             "title": "ssearch36 %identity divergence (step4 — Tal gallery metric)",
             "xaxis": {"title": "Divergence (100 − %identity to consensus)",
-                      "rangemode": "nonnegative"},
+                      "rangemode": "nonnegative", "range": [0, None]},
             "yaxis": {"title": "Density"},
             "legend": {"title": {"text": "Subfamily (click to toggle)"}},
             "height": 460,
@@ -170,29 +170,20 @@ def fig_pctid_divergence(by_sf: Dict[str, List[float]]) -> dict:
 
 
 def fig_pctid_violins(by_sf: Dict[str, List[float]]) -> dict:
-    """Per-subfamily violin of divergence = 100 - ssearch36 %identity."""
+    """Per-subfamily violin — same layout as step6_report.py."""
     sf_sorted = sorted(by_sf.keys())
     traces = []
-    for i, sf in enumerate(sf_sorted):
+    for sf in sf_sorted:
         vals = [round(max(0.0, 100.0 - v), 2) for v in by_sf[sf]]
         if not vals:
             continue
-        col = SF_PALETTE[i % len(SF_PALETTE)]
         traces.append({
             "type": "violin",
             "y": vals,
             "name": sf,
-            "legendgroup": sf,
-            "scalegroup": "pctid",
-            "side": "both",
             "box": {"visible": True},
             "meanline": {"visible": True},
             "points": False,
-            "line": {"color": col, "width": 1},
-            "fillcolor": col,
-            "opacity": 0.65,
-            "hovertemplate": (
-                "%{fullData.name}<br>divergence %{y:.1f}%<extra></extra>"),
         })
     return {
         "data": traces,
@@ -204,13 +195,11 @@ def fig_pctid_violins(by_sf: Dict[str, List[float]]) -> dict:
             },
             "xaxis": {
                 "title": "Subfamily",
-                "categoryorder": "array",
-                "categoryarray": sf_sorted,
+                "tickangle": -45,
             },
-            "violinmode": "group",
-            "legend": {"title": {"text": "Subfamily (click to toggle)"}},
             "height": 520,
-            "margin": {"t": 60, "r": 20, "b": 80, "l": 70},
+            "showlegend": False,
+            "margin": {"t": 60, "r": 20, "b": 140, "l": 70},
             "uirevision": "oma-pctid-violins",
         },
     }
