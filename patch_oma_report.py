@@ -144,83 +144,82 @@ def bin_divergence(vals: List[float], bin_width: float = 1.0) -> Dict[float, int
     return counts
 
 
-def fig_pctid_divergence(by_sf: Dict[str, List[float]]) -> dict:
-    """Binned copy counts — same metric as step4 gallery PNGs, not KDE."""
-    sf_sorted = sorted(by_sf.keys())
-    traces = []
-    max_bin_end = 0.0
-    bin_width = 1.0
-    for i, sf in enumerate(sf_sorted):
-        counts = bin_divergence(by_sf[sf], bin_width)
-        if not counts:
-            continue
-        bins = sorted(counts)
-        max_bin_end = max(max_bin_end, max(bins) + bin_width)
-        traces.append({
-            "type": "scatter",
-            "mode": "lines",
-            "x": [round(b + bin_width / 2.0, 3) for b in bins],
-            "y": [counts[b] for b in bins],
-            "name": sf,
-            "line": {"color": SF_PALETTE[i % len(SF_PALETTE)], "width": 2},
-            "hovertemplate": (
-                "%{fullData.name}<br>divergence ~%{x:.0f}%"
-                "<br>copies %{y:,d}<extra></extra>"),
-        })
-    x_range_max = min(100.0, max(5.0, math.ceil(max_bin_end / 5.0) * 5.0))
+def fig_pctid_histogram(sf: str, counts: Dict[float, int],
+                        bin_width: float = 1.0) -> dict:
+    """One subfamily: plain bar histogram (copy count vs divergence %)."""
+    bins = sorted(counts)
+    if not bins:
+        return {"data": [], "layout": {}}
+    x = [round(b + bin_width / 2.0, 1) for b in bins]
+    y = [counts[b] for b in bins]
+    xmax = min(100.0, max(5.0, math.ceil((max(bins) + bin_width * 2) / 5.0) * 5.0))
     return {
-        "data": traces,
+        "data": [{
+            "type": "bar",
+            "x": x,
+            "y": y,
+            "width": round(bin_width * 0.92, 2),
+            "marker": {"color": "#4C72B0"},
+            "hovertemplate": "divergence ~%{x:.0f}%<br>copies %{y:,d}<extra></extra>",
+        }],
         "layout": {
-            "title": "ssearch36 %identity divergence (step4 — Tal gallery metric)",
-            "xaxis": {"title": "Divergence (100 − %identity to consensus)",
-                      "rangemode": "nonnegative", "range": [0, x_range_max]},
-            "yaxis": {"title": "Copies"},
-            "legend": {"title": {"text": "Subfamily (click to toggle)"}},
-            "height": 460,
-            "margin": {"t": 60, "r": 20, "b": 60, "l": 70},
-            "uirevision": "oma-pctid-hist",
-        },
-    }
-
-
-def fig_pctid_violins(by_sf: Dict[str, List[float]]) -> dict:
-    """Per-subfamily violin — same layout as step6_report.py."""
-    sf_sorted = sorted(by_sf.keys())
-    traces = []
-    for sf in sf_sorted:
-        vals = [round(max(0.0, 100.0 - v), 2) for v in by_sf[sf]]
-        if not vals:
-            continue
-        hi = max(vals)
-        traces.append({
-            "type": "violin",
-            "y": vals,
-            "name": sf,
-            "box": {"visible": True},
-            "meanline": {"visible": True},
-            "points": False,
-            "spanmode": "hard",
-            "span": [0, hi + 1],
-        })
-    return {
-        "data": traces,
-        "layout": {
-            "title": "ssearch36 %identity divergence per subfamily (step4)",
-            "yaxis": {
-                "title": "Divergence (100 − %identity to consensus)",
-                "rangemode": "nonnegative",
-                "range": [0, None],
-            },
+            "title": sf,
             "xaxis": {
-                "title": "Subfamily",
-                "tickangle": -45,
+                "title": "Divergence (100 − %identity to consensus)",
+                "range": [0, xmax],
+                "dtick": 5,
             },
-            "height": 520,
-            "showlegend": False,
-            "margin": {"t": 60, "r": 20, "b": 140, "l": 70},
-            "uirevision": "oma-pctid-violins",
+            "yaxis": {"title": "Copies", "rangemode": "tozero"},
+            "height": 400,
+            "margin": {"t": 44, "r": 16, "b": 48, "l": 52},
+            "bargap": 0.05,
         },
     }
+
+
+def export_divergence_picker(by_sf: Dict[str, List[float]]) -> str:
+    """JS: subfamily dropdown + one bar histogram at a time."""
+    bin_width = 1.0
+    per: Dict[str, dict] = {}
+    for sf in sorted(by_sf):
+        counts = bin_divergence(by_sf[sf], bin_width)
+        fig = fig_pctid_histogram(sf, counts, bin_width)
+        per[sf] = {
+            "n": len(by_sf[sf]),
+            "data": fig["data"],
+            "layout": fig["layout"],
+        }
+    default = max(by_sf, key=lambda s: len(by_sf[s]))
+    return (
+        "window.OMA_DIV=%s;\n"
+        "window.OMA_DIV_DEFAULT=%r;\n"
+        "(function(){var sel=document.getElementById('div_sf_select');"
+        "if(!sel)return;"
+        "Object.keys(window.OMA_DIV).sort().forEach(function(sf){"
+        "var o=document.createElement('option');o.value=sf;"
+        "o.textContent=sf+' ('+window.OMA_DIV[sf].n+' copies)';"
+        "sel.appendChild(o);});"
+        "sel.value=window.OMA_DIV_DEFAULT;"
+        "function draw(){var h=window.OMA_DIV[sel.value];"
+        "Plotly.react('plot_divergence',h.data,h.layout,{displayModeBar:false});}"
+        "sel.addEventListener('change',draw);draw();})();\n"
+    ) % (json.dumps(per, separators=(",", ":")), default)
+
+
+def divergence_section_html() -> str:
+    return (
+        '  <section class="card" id="divergence">\n'
+        '    <h2>Divergence from consensus</h2>\n'
+        '    <p class="intro">Divergence = 100 &minus; ssearch36 %identity of each '
+        'assigned copy to its subfamily consensus. Bar height = number of copies in '
+        'that 1% bin (same as the Gallery histograms).</p>\n'
+        '    <p><label>Subfamily&nbsp; '
+        '<select id="div_sf_select" style="font-size:.85rem;max-width:100%"></select>'
+        '</label></p>\n'
+        '    <div class="plot" id="plot_divergence"></div>\n'
+        '    <p class="small muted">Source: step4 <code>*_pctid.tsv</code>.</p>\n'
+        '  </section>\n'
+    )
 
 
 def plotly_js(div_id: str, fig: dict) -> str:
@@ -358,16 +357,14 @@ def export_fragments(data_dir: Path, plots_dir: Path,
         pctid_dir = plots_dir if plots_dir and plots_dir.is_dir() else data_dir / "plots"
         pctid = load_pctid_by_sf(pctid_dir)
         if pctid:
-            js = plotly_js("plot_pctid_kde", fig_pctid_divergence(pctid))
+            js = export_divergence_picker(pctid)
     if plots_dir and plots_dir.is_dir():
         counts = load_copy_counts_from_summary(
             data_dir / "summary.by_subfam.tsv" if data_dir else Path())
         gallery = build_gallery_section(
             plots_dir, counts, min_copies=min_copies,
             img_base_url=GALLERY_IMG_BASE)
-    return {"html": html, "js": js, "gallery": gallery,
-            "violins_js": plotly_js("plot_sim_violins", fig_pctid_violins(pctid))
-            if pctid else ""}
+    return {"html": html, "js": js, "gallery": gallery}
 
 
 def patch_divergence_section(text: str, data_dir: Path) -> Tuple[str, bool]:
@@ -523,11 +520,10 @@ def main():
             fragments["html"], encoding="utf-8")
         (out_dir / "divergence_extra.js").write_text(
             fragments["js"], encoding="utf-8")
+        (out_dir / "oma_divergence.js").write_text(
+            fragments["js"], encoding="utf-8")
         (out_dir / "gallery.html").write_text(
             fragments.get("gallery", ""), encoding="utf-8")
-        if fragments.get("violins_js"):
-            (out_dir / "violins.js").write_text(
-                fragments["violins_js"], encoding="utf-8")
         print("wrote fragments to", out_dir)
         return
 
