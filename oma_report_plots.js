@@ -3,8 +3,7 @@
   'use strict';
 
   function plotIds() {
-    return ['plot_div_kde', 'plot_div_kde_filtered', 'plot_pctid_kde',
-            'plot_sim_violins', 'plot_pca'];
+    return ['plot_pctid_kde', 'plot_sim_violins', 'plot_pca'];
   }
 
   function allTraces(divId) {
@@ -13,26 +12,26 @@
     return gd.data.map(function (_, i) { return i; });
   }
 
-  function setAllVisible(divId, visible) {
+  function setAllVisible(divId, show) {
     var gd = document.getElementById(divId);
     if (!gd || !gd.data || !gd.data.length) return;
-    var vis = gd.data.map(function () { return visible; });
+    var vis = gd.data.map(function () { return show ? true : 'legendonly'; });
     Plotly.restyle(gd, { visible: vis }, allTraces(divId));
   }
 
-  function addControls(divId, label) {
+  function addControls(divId) {
     var plot = document.getElementById(divId);
     if (!plot) return;
     var bar = document.createElement('div');
     bar.className = 'plot-controls';
-    bar.style.cssText = 'margin:6px 0 8px 0;font-size:.85rem;';
+    bar.style.cssText = 'margin:4px 0 6px 0;font-size:.72rem;';
     bar.innerHTML =
-      '<button type="button" class="plot-btn" data-act="none">Uncheck all</button> ' +
-      '<button type="button" class="plot-btn" data-act="all">Check all</button>' +
-      (label ? ' <span class="muted small">' + label + '</span>' : '');
+      '<button type="button" class="plot-btn" data-act="none">Hide all</button> ' +
+      '<button type="button" class="plot-btn" data-act="all">Show all</button>';
     plot.parentNode.insertBefore(bar, plot);
     bar.querySelectorAll('.plot-btn').forEach(function (btn) {
-      btn.style.cssText = 'margin-right:6px;padding:3px 10px;cursor:pointer;';
+      btn.style.cssText =
+        'margin-right:4px;padding:1px 6px;font-size:.72rem;line-height:1.2;cursor:pointer;';
       btn.addEventListener('click', function () {
         setAllVisible(divId, btn.getAttribute('data-act') === 'all');
         if (divId === 'plot_pca') restorePcaRange();
@@ -96,11 +95,9 @@
   }
 
   function init() {
-    addControls('plot_div_kde', 'bitscore divergence (all assigned copies)');
-    addControls('plot_div_kde_filtered', 'same metric, copies above step2 similarity floor');
-    addControls('plot_pctid_kde', 'ssearch36 %identity (step4, Tal gallery metric)');
-    addControls('plot_sim_violins', '');
-    addControls('plot_pca', 'axes stay fixed when toggling legend');
+    addControls('plot_pctid_kde');
+    addControls('plot_sim_violins');
+    addControls('plot_pca');
     setTimeout(function () {
       capturePcaRange();
       wirePcaLegendLock();

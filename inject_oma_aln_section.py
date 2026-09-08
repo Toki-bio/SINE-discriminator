@@ -276,8 +276,10 @@ def build(subfams, aln_dir: Path, copy_counts: dict) -> str:
         "<strong>Links</strong> open ~100-copy MAFFT alignments (50&nbsp;bp left, "
         "70&nbsp;bp right flanks) in the MSA viewer; the <strong>consensus is "
         "row&nbsp;1</strong>. "
-        "<strong>Coloured chips</strong> are automated checks on the top-100 view "
-        "&mdash; hover any chip for the measurement behind it."
+        "The last four columns show automated checks on the top-100 view "
+        "(<strong>Flanks</strong>, <strong>Flank context</strong>, "
+        "<strong>Element</strong>, <strong>Overall</strong>) &mdash; "
+        "each cell is a coloured label; hover for the measurement."
         + intro_links
         + "</p>"
         "<details class='legend'><summary>How these alignments were built "

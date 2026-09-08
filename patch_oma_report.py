@@ -178,19 +178,18 @@ def plotly_js(div_id: str, fig: dict) -> str:
 
 def patch_header(text: str) -> str:
     old = re.search(
-        r'(<header>\s*<h1>.*?</h1>\s*)<div class="sub">.*?</div>(\s*</header>)',
+        r'(<header>\s*<h1>.*?</h1>\s*)<div class="sub">.*?</div>'
+        r'(?:\s*<p class="small".*?</p>)?(\s*</header>)',
         text, re.DOTALL)
     if not old:
         return text
     new_sub = (
-        '<div class="sub">Genome: <code>oma.fna</code> (926 Mb, '
-        '<i>Opistophthalmus</i>) &middot; '
-        'Query consensuses: <code>oma_seeds.fa</code> '
+        '<div class="sub">Genome: <i>Olivierus martensii</i> (Chinese scorpion) '
+        '&middot; assembly <code>GCA_000484575.1</code> '
+        '(<i>M_martensii_Version_1</i>, ~901&nbsp;Mb WGS, AYEL010 contigs) '
+        '&middot; Query consensuses: <code>oma_seeds.fa</code> '
         '(23 AnnoSINE seeds, 26 curated families) &middot; '
-        'Generated 2026-09-07 12:17 UTC</div>\n'
-        '  <p class="small" style="opacity:.82;margin:4px 0 0;font-size:.82rem;">'
-        'Charts use <a href="https://plot.ly" style="color:#fff;">Plotly</a> '
-        'from a public CDN (hosted chart library, not part of your data).</p>'
+        'Generated 2026-09-07 12:17 UTC</div>'
     )
     return text[:old.start(1)] + old.group(1) + new_sub + old.group(2) + text[old.end(2):]
 
@@ -198,7 +197,8 @@ def patch_header(text: str) -> str:
 def patch_overview_genome(text: str) -> str:
     return text.replace(
         "searched <b>this genome</b>",
-        "searched <b><i>Opistophthalmus</i> (oma.fna, 926 Mb)</b>",
+        "searched <b><i>Olivierus martensii</i> "
+        "(GCA_000484575.1, ~901&nbsp;Mb)</b>",
         1,
     )
 
