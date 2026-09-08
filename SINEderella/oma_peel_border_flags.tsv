@@ -1,0 +1,13 @@
+# Oma peel step4 — subfamilies needing border loop before publish
+# Source: OMA_PEEL_LOG.md step4 (both-sided + flagged one-sided)
+oma_SINE16	both
+oma_SINE10	one_3prime
+oma_SINE2	pending_eye
+oma_SINE25	one
+oma_SINE4	one
+oma_SINE31	one
+oma_SINE5	one
+oma_SINE18	one
+oma_SINE21	one
+oma_SINE9	mild
+oma_SINE32	mild

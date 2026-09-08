@@ -27,13 +27,61 @@ Starting from the consensus's own supported core, walk outward on each side and
 stop after MISS consecutive failing columns, so a single ragged column does not
 end the element. That both trims an over-extended consensus and extends an
 under-extended one, with the same rule and no per-set tuning.
+
+CONS_EDGE (0.50) is stricter: used when assigning letters to the consensus row
+after step8a (`rebuild_consensus_row.py`).  Columns at 0.45-0.49 are elevated
+but ambiguous vs random DNA (~0.25-0.30) and must not become consensus bases.
+Display justify keeps the 0.45 walk; consensus rebuild does not re-derive span
+from copy walks (span stays from border-loop geometry in row 0).
 """
 import numpy as np
 
 OCC = 0.50      # half the copies must reach the column
-CONS = 0.45     # step7's elevated cutoff
+CONS = 0.45     # step7's elevated cutoff — element window walk / display
+CONS_EDGE = 0.50  # consensus row: letter only when clearly above noise
 MISS = 8        # consecutive failures that end the element
 GAPS = set("-.")
+
+
+def column_supported(rows, j, cons_min=CONS):
+    """True when copies treat column j as part of the element at cons_min."""
+    o, c = column_stats(rows, j)
+    return o >= OCC and c >= cons_min
+
+
+def trim_consensus_edges(letters, rows, lo, hi, cons_min=CONS_EDGE):
+    """Drop outermost consensus letters that fail the stricter edge cutoff.
+
+    Skips internal gaps so a trailing gap cannot block trimming spurious
+    letters on the far side of it (oma_SINE18 3 prime ATT case).
+    """
+    def leftmost():
+        for j in range(lo, hi + 1):
+            if letters[j] != "-":
+                return j
+        return None
+
+    def rightmost():
+        for j in range(hi, lo - 1, -1):
+            if letters[j] != "-":
+                return j
+        return None
+
+    while True:
+        j = leftmost()
+        if j is None or column_supported(rows, j, cons_min):
+            break
+        letters[j] = "-"
+    while True:
+        j = rightmost()
+        if j is None or column_supported(rows, j, cons_min):
+            break
+        letters[j] = "-"
+    j = leftmost()
+    k = rightmost()
+    if j is None or k is None:
+        return lo, hi
+    return j, k
 
 
 def column_stats(rows, j):
@@ -46,8 +94,13 @@ def column_stats(rows, j):
     return occ, top / float(len(u))
 
 
-def element_window(cons, rows):
-    """Return (lo, hi, diagnostics) for the element, measured on the copies."""
+def element_window(cons, rows, cons_min=CONS):
+    """Return (lo, hi, diagnostics) for the element, measured on the copies.
+
+    cons_min controls how strict the per-column test is.  Display justify uses
+    the default CONS=0.45 (step7 elevated cutoff).  Consensus rebuild uses
+    CONS_EDGE=0.50 so borderline columns at 0.45-0.49 never become letters.
+    """
     L = len(cons)
     nz = [i for i, c in enumerate(cons) if c not in GAPS]
     if not nz or not rows:
@@ -59,7 +112,7 @@ def element_window(cons, rows):
     def good(j):
         if j not in ok:
             o, c = column_stats(rows, j)
-            ok[j] = (o >= OCC and c >= CONS)
+            ok[j] = (o >= OCC and c >= cons_min)
         return ok[j]
 
     # start from the consensus columns that are themselves supported; if none

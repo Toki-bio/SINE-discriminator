@@ -23,6 +23,7 @@ negatives, which is the thing this project has been careful not to do.
 import json, glob, os, sys
 import numpy as np
 import measure_c as M
+from fix_alignments import consensus_index
 
 W = {                       # evidence group -> weight
     "element": 0.45,        # is there an element supported by the copies
@@ -276,10 +277,9 @@ def core_window(el, pres, cons_el, bg, min_len=50, min_gain=0.15, max_frac=0.80)
 
 def parts(path):
     names, A = M.read_aln(path)
-    ci = [i for i, n in enumerate(names) if "CONSENSUS_" in n]
-    if not ci:
+    if A is None:
         return None
-    k = ci[0]
+    k = consensus_index(names)
     cons = A[k]
     nz = np.where(cons != M.GAP)[0]
     if len(nz) < 60:

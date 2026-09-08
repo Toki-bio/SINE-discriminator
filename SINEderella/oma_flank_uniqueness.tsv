@@ -1,0 +1,105 @@
+set	tier	side	measured	n_measured	unique_frac	shared_copy_frac	largest_cluster_frac	largest_cluster	worst_flag
+oma_SINE10_top100	top100	left	True	100	0.92	0.08	0.02	2	
+oma_SINE10_top100	top100	right	True	100	0.92	0.08	0.02	2	
+oma_SINE16_top100	top100	left	True	90	0.289	0.711	0.333	30	high
+oma_SINE16_top100	top100	right	False	3					high
+oma_SINE18_top100	top100	left	True	97	0.34	0.66	0.32	31	high
+oma_SINE18_top100	top100	right	True	100	0.96	0.04	0.02	2	high
+oma_SINE19_top100	top100	left	True	96	0.781	0.219	0.052	5	high
+oma_SINE19_top100	top100	right	True	99	0.495	0.505	0.152	15	high
+oma_SINE21_top100	top100	left	True	98	0.276	0.724	0.663	65	high
+oma_SINE21_top100	top100	right	True	99	0.303	0.697	0.586	58	high
+oma_SINE22_top100	top100	left	True	100	0.92	0.08	0.02	2	medium
+oma_SINE22_top100	top100	right	True	100	0.66	0.34	0.15	15	medium
+oma_SINE24_top100	top100	left	True	100	0.14	0.86	0.76	76	high
+oma_SINE24_top100	top100	right	True	100	0.25	0.75	0.64	64	high
+oma_SINE25_top100	top100	left	True	67	0.343	0.657	0.299	20	high
+oma_SINE25_top100	top100	right	True	98	0.184	0.816	0.796	78	high
+oma_SINE26_top100	top100	left	True	100	0.79	0.21	0.16	16	medium
+oma_SINE26_top100	top100	right	True	100	1.0	0.0	0.01	1	medium
+oma_SINE27_top100	top100	left	True	62	0.806	0.194	0.113	7	medium
+oma_SINE27_top100	top100	right	True	68	0.956	0.044	0.044	3	medium
+oma_SINE2_top100	top100	left	True	75	0.28	0.72	0.573	43	high
+oma_SINE2_top100	top100	right	True	96	1.0	0.0	0.01	1	high
+oma_SINE31_top100	top100	left	True	15	0.333	0.667	0.4	6	high
+oma_SINE31_top100	top100	right	True	99	0.98	0.02	0.02	2	high
+oma_SINE32_top100	top100	left	True	100	0.96	0.04	0.02	2	high
+oma_SINE32_top100	top100	right	True	99	0.364	0.636	0.333	33	high
+oma_SINE4_top100	top100	left	True	94	0.255	0.745	0.532	50	high
+oma_SINE4_top100	top100	right	True	100	0.93	0.07	0.03	3	high
+oma_SINE5_top100	top100	left	True	99	0.98	0.02	0.02	2	high
+oma_SINE5_top100	top100	right	True	93	0.323	0.677	0.634	59	high
+oma_SINE7_top100	top100	left	True	100	0.48	0.52	0.3	30	high
+oma_SINE7_top100	top100	right	True	100	0.4	0.6	0.26	26	high
+oma_SINE9_top100	top100	left	True	94	0.532	0.468	0.074	7	high
+oma_SINE9_top100	top100	right	True	96	0.083	0.917	0.656	63	high
+oma_ancient78_top100	top100	left	False	0					medium
+oma_ancient78_top100	top100	right	True	6	1.0	0.0	0.167	1	medium
+oma_big76_top100	top100	left	True	99	0.98	0.02	0.02	2	
+oma_big76_top100	top100	right	True	100	0.96	0.04	0.02	2	
+oma_g1_top100	top100	left	True	100	0.1	0.9	0.9	90	high
+oma_g1_top100	top100	right	True	99	0.96	0.04	0.02	2	high
+oma_group34_top100	top100	left	True	100	0.88	0.12	0.02	2	
+oma_group34_top100	top100	right	True	100	0.98	0.02	0.02	2	
+oma_grp080_top100	top100	left	True	97	0.979	0.021	0.021	2	
+oma_grp080_top100	top100	right	True	100	0.98	0.02	0.02	2	
+oma_grp128_top100	top100	left	True	100	0.92	0.08	0.02	2	
+oma_grp128_top100	top100	right	True	100	0.9	0.1	0.02	2	
+oma_grp321_top100	top100	left	True	100	0.88	0.12	0.05	5	
+oma_grp321_top100	top100	right	True	99	0.939	0.061	0.04	4	
+oma_long12_top100	top100	left	True	100	0.98	0.02	0.02	2	high
+oma_long12_top100	top100	right	True	100	0.07	0.93	0.93	93	high
+oma_sub515_top100	top100	left	True	49	0.959	0.041	0.041	2	
+oma_sub515_top100	top100	right	True	49	0.918	0.082	0.041	2	
+oma_SINE10_rand100	rand100	left	True	98	0.939	0.061	0.02	2	
+oma_SINE10_rand100	rand100	right	True	95	0.947	0.053	0.032	3	
+oma_SINE16_rand100	rand100	left	True	52	0.327	0.673	0.519	27	high
+oma_SINE16_rand100	rand100	right	True	100	0.77	0.23	0.17	17	high
+oma_SINE18_rand100	rand100	left	True	20	0.55	0.45	0.15	3	high
+oma_SINE18_rand100	rand100	right	True	98	1.0	0.0	0.01	1	high
+oma_SINE19_rand100	rand100	left	True	93	0.688	0.312	0.161	15	high
+oma_SINE19_rand100	rand100	right	True	100	0.76	0.24	0.11	11	high
+oma_SINE21_rand100	rand100	left	True	87	0.195	0.805	0.747	65	high
+oma_SINE21_rand100	rand100	right	True	12	0.333	0.667	0.417	5	high
+oma_SINE22_rand100	rand100	left	True	100	1.0	0.0	0.01	1	high
+oma_SINE22_rand100	rand100	right	True	99	0.747	0.253	0.101	10	high
+oma_SINE24_rand100	rand100	left	True	100	0.21	0.79	0.75	75	high
+oma_SINE24_rand100	rand100	right	True	100	0.2	0.8	0.73	73	high
+oma_SINE25_rand100	rand100	left	True	8	0.75	0.25	0.25	2	high
+oma_SINE25_rand100	rand100	right	True	4	0.5	0.5	0.5	2	high
+oma_SINE26_rand100	rand100	left	True	99	0.828	0.172	0.111	11	medium
+oma_SINE26_rand100	rand100	right	True	100	0.98	0.02	0.02	2	medium
+oma_SINE27_rand100	rand100	left	True	62	0.887	0.113	0.113	7	medium
+oma_SINE27_rand100	rand100	right	True	68	0.956	0.044	0.044	3	medium
+oma_SINE2_rand100	rand100	left	True	11	0.636	0.364	0.364	4	high
+oma_SINE2_rand100	rand100	right	True	19	0.579	0.421	0.211	4	high
+oma_SINE31_rand100	rand100	left	False	3					
+oma_SINE31_rand100	rand100	right	True	100	0.98	0.02	0.02	2	
+oma_SINE32_rand100	rand100	left	True	100	0.98	0.02	0.02	2	high
+oma_SINE32_rand100	rand100	right	True	95	0.263	0.737	0.516	49	high
+oma_SINE4_rand100	rand100	left	True	40	0.475	0.525	0.275	11	high
+oma_SINE4_rand100	rand100	right	True	88	1.0	0.0	0.011	1	high
+oma_SINE5_rand100	rand100	left	True	91	0.934	0.066	0.022	2	high
+oma_SINE5_rand100	rand100	right	True	68	0.25	0.75	0.662	45	high
+oma_SINE7_rand100	rand100	left	True	100	0.5	0.5	0.22	22	high
+oma_SINE7_rand100	rand100	right	True	100	0.53	0.47	0.35	35	high
+oma_SINE9_rand100	rand100	left	True	69	0.942	0.058	0.029	2	high
+oma_SINE9_rand100	rand100	right	True	52	0.442	0.558	0.269	14	high
+oma_ancient78_rand100	rand100	left	False	0					high
+oma_ancient78_rand100	rand100	right	True	6	1.0	0.0	0.167	1	high
+oma_big76_rand100	rand100	left	True	98	0.898	0.102	0.061	6	
+oma_big76_rand100	rand100	right	True	99	0.949	0.051	0.03	3	
+oma_g1_rand100	rand100	left	True	100	0.27	0.73	0.55	55	high
+oma_g1_rand100	rand100	right	True	100	0.96	0.04	0.02	2	high
+oma_group34_rand100	rand100	left	True	99	0.909	0.091	0.03	3	
+oma_group34_rand100	rand100	right	True	99	0.96	0.04	0.02	2	
+oma_grp080_rand100	rand100	left	True	98	0.816	0.184	0.184	18	high
+oma_grp080_rand100	rand100	right	True	99	0.828	0.172	0.152	15	high
+oma_grp128_rand100	rand100	left	True	99	1.0	0.0	0.01	1	
+oma_grp128_rand100	rand100	right	True	99	0.929	0.071	0.04	4	
+oma_grp321_rand100	rand100	left	True	100	0.8	0.2	0.08	8	medium
+oma_grp321_rand100	rand100	right	True	100	0.96	0.04	0.02	2	medium
+oma_long12_rand100	rand100	left	True	96	0.958	0.042	0.042	4	high
+oma_long12_rand100	rand100	right	True	100	0.33	0.67	0.39	39	high
+oma_sub515_rand100	rand100	left	True	49	0.857	0.143	0.102	5	medium
+oma_sub515_rand100	rand100	right	True	49	0.857	0.143	0.061	3	medium

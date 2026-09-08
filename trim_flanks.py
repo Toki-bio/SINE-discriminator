@@ -26,6 +26,7 @@ import numpy as np
 
 sys.path.insert(0, ".")
 import measure_c as M
+from fix_alignments import consensus_index
 
 SYM = "ACGT-"
 PCTL = 75        # keep this percentile of flank length
@@ -50,46 +51,39 @@ def read_named(path):
     return names, seqs
 
 
+def width(lens, avail):
+    """Widest flank cap with at most MAXGAP fraction of gap columns."""
+    if not lens:
+        return min(MINCOL, avail)
+    lens = np.asarray(lens)
+    floor = int(max(5, min(MINCOL, np.median(lens))))
+    best = min(floor, avail)
+    for w in range(min(floor, avail), avail + 1, 5):
+        filled = np.minimum(lens, w).sum()
+        if filled / float(w * len(lens)) >= 1.0 - MAXGAP:
+            best = w
+    return best
+
+
 def trim(path, out, pctl=PCTL):
     names, seqs = read_named(path)
     if not seqs:
         return False
-    ci = [i for i, n in enumerate(names) if "CONSENSUS_" in n.upper()]
-    if not ci:
-        return False
-    k = ci[0]
+    k = consensus_index(names)
     cons = seqs[k]
-    nz = [i for i, c in enumerate(cons) if c != "-"]
-    if len(nz) < 40:
-        return False
-    lo, hi = nz[0], nz[-1]
+    upper = [i for i, c in enumerate(cons) if c.isupper()]
+    if upper:
+        lo, hi = upper[0], upper[-1]
+    else:
+        nz = [i for i, c in enumerate(cons) if c != "-"]
+        if len(nz) < 40:
+            return False
+        lo, hi = nz[0], nz[-1]
 
     others = [s for i, s in enumerate(seqs) if i != k]
     # how much flank does each copy actually carry?
     lb = [sum(1 for c in s[:lo] if c != "-") for s in others]
     rb = [sum(1 for c in s[hi + 1:] if c != "-") for s in others]
-    # A percentile is not enough when flank lengths are very skewed. On
-    # NEGCHIM__ccr__g1_180seqs the right flank has median 20 bases but 75th
-    # percentile 58, so a p75 cap still left the panel 53% gaps and Sergei
-    # rightly said the right flank was still not degapped.
-    #
-    # Choose instead the widest cap whose panel is at most MAXGAP gaps: the
-    # display is then sized for the copies that are actually there.
-    def width(lens, avail):
-        if not lens:
-            return min(MINCOL, avail)
-        lens = np.asarray(lens)
-        # The floor must follow the copies, not a constant. With MINCOL=25 and a
-        # median right flank of 10 bases the panel is 60% gaps no matter what -
-        # which is what Sergei was still seeing on NEGCHIM__ccr__g3_71seqs.
-        floor = int(max(5, min(MINCOL, np.median(lens))))
-        best = min(floor, avail)
-        for w in range(min(floor, avail), avail + 1, 5):
-            filled = np.minimum(lens, w).sum()
-            if filled / float(w * len(lens)) >= 1.0 - MAXGAP:
-                best = w
-        return best
-
     keepL = width(lb, lo)
     keepR = width(rb, len(cons) - hi - 1)
 

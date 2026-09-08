@@ -11,6 +11,7 @@ Differences from measure.py, all following from the two corrections:
 """
 import os, sys, json, glob
 import numpy as np
+from fix_alignments import consensus_index
 
 GAP = 4
 CODE = {"a": 0, "c": 1, "g": 2, "t": 3, "A": 0, "C": 1, "G": 2, "T": 3}
@@ -78,11 +79,7 @@ def measure(path, seed=0):
         v["error"] = "too_few_sequences"
         return v
 
-    ci = [i for i, n in enumerate(names) if "CONSENSUS_" in n]
-    if not ci:
-        v["error"] = "no_consensus_row"
-        return v
-    k = ci[0]
+    k = consensus_index(names)
     cons = A[k]
     nz = np.where(cons != GAP)[0]
     if len(nz) < 60:
