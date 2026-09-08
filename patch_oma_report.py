@@ -177,47 +177,62 @@ def fig_pctid_histogram(sf: str, counts: Dict[float, int],
     }
 
 
-def export_divergence_picker(by_sf: Dict[str, List[float]]) -> str:
-    """JS: subfamily dropdown + one bar histogram at a time."""
-    bin_width = 1.0
-    per: Dict[str, dict] = {}
-    for sf in sorted(by_sf):
+def fig_pctid_spline_divergence(by_sf: Dict[str, List[float]],
+                                bin_width: float = 1.0) -> dict:
+    """Variant 3: spline through 1% bin midpoints, all subfamilies, Y = copies."""
+    sf_sorted = sorted(by_sf.keys())
+    traces = []
+    max_bin_end = 0.0
+    for i, sf in enumerate(sf_sorted):
         counts = bin_divergence(by_sf[sf], bin_width)
-        fig = fig_pctid_histogram(sf, counts, bin_width)
-        per[sf] = {
-            "n": len(by_sf[sf]),
-            "data": fig["data"],
-            "layout": fig["layout"],
-        }
-    default = max(by_sf, key=lambda s: len(by_sf[s]))
-    return (
-        "window.OMA_DIV=%s;\n"
-        "window.OMA_DIV_DEFAULT=%r;\n"
-        "(function(){var sel=document.getElementById('div_sf_select');"
-        "if(!sel)return;"
-        "Object.keys(window.OMA_DIV).sort().forEach(function(sf){"
-        "var o=document.createElement('option');o.value=sf;"
-        "o.textContent=sf+' ('+window.OMA_DIV[sf].n+' copies)';"
-        "sel.appendChild(o);});"
-        "sel.value=window.OMA_DIV_DEFAULT;"
-        "function draw(){var h=window.OMA_DIV[sel.value];"
-        "Plotly.react('plot_divergence',h.data,h.layout,{displayModeBar:false});}"
-        "sel.addEventListener('change',draw);draw();})();\n"
-    ) % (json.dumps(per, separators=(",", ":")), default)
+        if not counts:
+            continue
+        bins = sorted(counts)
+        max_bin_end = max(max_bin_end, max(bins) + bin_width)
+        traces.append({
+            "type": "scatter",
+            "mode": "lines",
+            "x": [round(b + bin_width / 2.0, 1) for b in bins],
+            "y": [counts[b] for b in bins],
+            "name": sf,
+            "line": {
+                "color": SF_PALETTE[i % len(SF_PALETTE)],
+                "width": 2,
+                "shape": "spline",
+            },
+            "hovertemplate": (
+                "%{fullData.name}<br>divergence ~%{x:.0f}%"
+                "<br>copies %{y:,d}<extra></extra>"),
+        })
+    x_range_max = min(100.0, max(5.0, math.ceil(max_bin_end / 5.0) * 5.0))
+    return {
+        "data": traces,
+        "layout": {
+            "title": "ssearch36 %identity divergence (step4)",
+            "xaxis": {
+                "title": "Divergence (100 − %identity to consensus)",
+                "range": [0, x_range_max],
+                "dtick": 5,
+            },
+            "yaxis": {"title": "Copies", "rangemode": "tozero"},
+            "legend": {"title": {"text": "Subfamily (click to toggle)"}},
+            "height": 460,
+            "margin": {"t": 60, "r": 20, "b": 60, "l": 70},
+        },
+    }
 
 
 def divergence_section_html() -> str:
     return (
         '  <section class="card" id="divergence">\n'
-        '    <h2>Divergence from consensus</h2>\n'
-        '    <p class="intro">Divergence = 100 &minus; ssearch36 %identity of each '
-        'assigned copy to its subfamily consensus. Bar height = number of copies in '
-        'that 1% bin (same as the Gallery histograms).</p>\n'
-        '    <p><label>Subfamily&nbsp; '
-        '<select id="div_sf_select" style="font-size:.85rem;max-width:100%"></select>'
-        '</label></p>\n'
-        '    <div class="plot" id="plot_divergence"></div>\n'
-        '    <p class="small muted">Source: step4 <code>*_pctid.tsv</code>.</p>\n'
+        '    <h2>Divergence from consensus &mdash; per copy</h2>\n'
+        '    <p class="intro"><b>Metric:</b> divergence = 100 &minus; ssearch36 '
+        '%identity to the subfamily consensus (same as Gallery histograms). '
+        'Copies binned at 1% divergence; line connects bin counts (smooth spline). '
+        'One line per subfamily; click legend to hide/show.</p>\n'
+        '    <div class="plot" id="plot_div_kde"></div>\n'
+        '    <p class="small muted">Source: step4 <code>*_pctid.tsv</code> on '
+        'assigned copies.</p>\n'
         '  </section>\n'
     )
 
@@ -357,7 +372,8 @@ def export_fragments(data_dir: Path, plots_dir: Path,
         pctid_dir = plots_dir if plots_dir and plots_dir.is_dir() else data_dir / "plots"
         pctid = load_pctid_by_sf(pctid_dir)
         if pctid:
-            js = export_divergence_picker(pctid)
+            js = plotly_js("plot_div_kde",
+                           fig_pctid_spline_divergence(pctid))
     if plots_dir and plots_dir.is_dir():
         counts = load_copy_counts_from_summary(
             data_dir / "summary.by_subfam.tsv" if data_dir else Path())
@@ -400,7 +416,8 @@ def patch_divergence_section(text: str, data_dir: Path) -> Tuple[str, bool]:
             'and pick which you trust.</p>'
             '<div class="plot" id="plot_pctid_kde"></div>'
         )
-        extra_js += plotly_js("plot_pctid_kde", fig_pctid_divergence(pctid))
+        extra_js += plotly_js("plot_pctid_kde",
+                              fig_pctid_spline_divergence(pctid))
 
     # Insert after first KDE plot div
     text, n = re.subn(

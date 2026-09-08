@@ -1,8 +1,8 @@
-/* PCA plot controls for oma_report.html */
+/* Plot controls for oma_report.html (divergence + PCA) */
 (function () {
   'use strict';
 
-  var axisLock = null;
+  var axisLock = {};
 
   function minMax(vals) {
     var lo = Infinity;
@@ -25,8 +25,8 @@
     return [lo - m, hi + m];
   }
 
-  function capturePcaAxes() {
-    var gd = document.getElementById('plot_pca');
+  function captureAxes(plotId, frac) {
+    var gd = document.getElementById(plotId);
     if (!gd || !gd.data || !gd.data.length) return;
     var xs = [];
     var ys = [];
@@ -36,22 +36,23 @@
     });
     var xr = minMax(xs);
     var yr = minMax(ys);
-    axisLock = {
-      'xaxis.range': padRange(xr[0], xr[1], 0.06),
-      'yaxis.range': padRange(yr[0], yr[1], 0.06),
+    var lock = {
+      'xaxis.range': padRange(xr[0], xr[1], frac || 0.06),
+      'yaxis.range': [0, Math.max(1, yr[1] * 1.05)],
       'xaxis.autorange': false,
       'yaxis.autorange': false,
     };
-    Plotly.relayout(gd, axisLock);
+    axisLock[plotId] = lock;
+    Plotly.relayout(gd, lock);
   }
 
-  function restorePcaAxes() {
-    var gd = document.getElementById('plot_pca');
-    if (gd && axisLock) Plotly.relayout(gd, axisLock);
+  function restoreAxes(plotId) {
+    var gd = document.getElementById(plotId);
+    if (gd && axisLock[plotId]) Plotly.relayout(gd, axisLock[plotId]);
   }
 
-  function init() {
-    var plot = document.getElementById('plot_pca');
+  function addLegendBar(plotId, frac) {
+    var plot = document.getElementById(plotId);
     if (!plot) return;
     var bar = document.createElement('div');
     bar.style.cssText = 'margin:4px 0 6px 0;font-size:.72rem;';
@@ -63,21 +64,26 @@
       btn.style.cssText =
         'margin-right:4px;padding:1px 6px;font-size:.72rem;cursor:pointer;';
       btn.addEventListener('click', function () {
-        var gd = document.getElementById('plot_pca');
+        var gd = document.getElementById(plotId);
         if (!gd || !gd.data) return;
         var show = btn.getAttribute('data-act') === 'all';
         var vis = gd.data.map(function () { return show ? true : 'legendonly'; });
         Plotly.restyle(gd, { visible: vis });
-        setTimeout(restorePcaAxes, 0);
+        setTimeout(function () { restoreAxes(plotId); }, 0);
       });
     });
     setTimeout(function () {
-      capturePcaAxes();
+      captureAxes(plotId, frac);
       plot.on('plotly_legendclick', function () {
-        setTimeout(restorePcaAxes, 0);
+        setTimeout(function () { restoreAxes(plotId); }, 0);
         return true;
       });
     }, 300);
+  }
+
+  function init() {
+    addLegendBar('plot_div_kde', 0.02);
+    addLegendBar('plot_pca', 0.06);
   }
 
   if (document.readyState === 'loading') {
