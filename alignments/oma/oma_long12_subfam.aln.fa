@@ -1,13 +1,13 @@
 >oma_long12
-nnnnnnntnnnnnnCNGNTTAACGCTGTTTCGATATAACGCGG-NTTTTTTCN---AATTCTATA---TTTTTATTGATT
-CACTTTGGCNTGGTTTTTCAAACCG-TTATTCTTACATAAATCCGAAATCGCAGGAATTTGTTGCATTGATACTCCTATG
+--------------CCGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA--TTTTTTATTGATT
+CACTTTGGCGTGGTTTTTCAAACCG-TTATACTTACATAAATCCGAAATCGCAGGAATTTGTTGCATTGATACTCCTATG
 CCGTCTCACAGTGCGTTTGATATCAGTGC------------AGT------------------------------------
 ------------------------------------------------------------------------GCAGTACA
 TACGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCNTTGTTTATAGTTTACT---------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTC-TTGTTTATAGTTTACT---------------------------
 ------------------------------------
 >input_010.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -18,7 +18,7 @@ TACGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_015.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -29,7 +29,7 @@ TACGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_018.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -40,7 +40,7 @@ TACGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_028.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -51,7 +51,7 @@ TACGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_042.bnk
 ---------------CGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -73,7 +73,7 @@ TACGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_016.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -95,7 +95,7 @@ TACGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCGTTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCGTTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_029.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -128,7 +128,7 @@ TATGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_033.bnk
 ---------------CGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -139,7 +139,7 @@ TACGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_022.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -150,7 +150,7 @@ TATGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAG-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTATTCTTTCATCAATATTTTTTCATTGTTTATAGCTTACTg--------------------------
+-AAGTTAGAACGTTATTCTTTCATCAATATTTTTTCATTGTTTATAGCTTACTG--------------------------
 ------------------------------------
 >input_011.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGG--TTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -183,7 +183,7 @@ TATGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_019.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGGTTTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -194,7 +194,7 @@ TACGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTGGTCC
-TAAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCGTTGTTTATAGTTTACTg--------------------------
+TAAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCGTTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_024.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -205,7 +205,7 @@ TATGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATA-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTATTCTTTCATCAATATTTTTTCATTGTTTATAGCTTACTg--------------------------
+-AAGTTAGAACGTTATTCTTTCATCAATATTTTTTCATTGTTTATAGCTTACTG--------------------------
 ------------------------------------
 >input_039.bnk
 --------------CCGCTTAACGCTGTTTCGATATAACGCGA-TTTTTTTCG---AATTCTATA---TTTTTATTGAGT
@@ -227,7 +227,7 @@ CCGTCTCACAATGCGTTTGATATC--TGC------------AGT------------------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATA-TTTTTCGTTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATA-TTTTTCGTTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_041.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGA-TTTTTTTCG---AATTCTATA---TTTTTATTGAGT
@@ -238,7 +238,7 @@ CCGTCTCACAATGCGTTTGATATCAGTGC------------AGT------------------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATA-TTTTTCGTTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATA-TTTTTCGTTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_025.bnk
 ---------------CGTTTAACGCTGTTTCGATATAACGCGG--TTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -249,7 +249,7 @@ TACGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCAGTCA-------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_027.bnk
 ---------------CGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -260,7 +260,7 @@ TACGAAAGTCTG---CTGCGGTCAGTAGCGGTGAGTTCATATTTATGATCTGTCA-------------------------
 ----------------------TCAATGTTATTTTACAGTAATAAAAATAACCAGAGTTCATATTGAGTCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCATTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_014.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -271,7 +271,7 @@ TACGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGGTCATCAATGTTATTTTACACTAGCGGTG
 AGTTCATATTTATGATCTGTCATCAATGTTATTTT--AGTAATAAAAATAA-------------AATTTTATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCGTTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCGTTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_005.bnk
 --------------CTGCTTAACGCTGTTTCGCTATAACGCGG-TTTTTTTCA---AATTCTATA--TTTTTTATTGATT
@@ -359,7 +359,7 @@ TACGAAAGTCTG---CTGCAGTCA--------CAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAACG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCACTTCGA
 ----------------ACTATAGTT-----------------------------TAGTAATGGATATAGTTCCTTG----
--AAGTTAGAA-GTTTTTCTTTCATCAATATTTTTTT-----------------t--------------------------
+-AAGTTAGAA-GTTTTTCTTTCATCAATATTTTTTT-----------------T--------------------------
 ------------------------------------
 >input_038.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTCG----AATTCTATA--TTTTTTATTGATT
@@ -436,7 +436,7 @@ TACGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAGTTTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACTATAGTTCCTTG----
--AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCGTTGTTTATAGTTTACTg--------------------------
+-AAGTTAGAACGTTTTTCTTTCATCAATATTTTTTCGTTGTTTATAGTTTACTG--------------------------
 ------------------------------------
 >input_009.bnk
 --------------CCGTTTAACGCTGTTTCGATATAACGCGG-TTTTTTTCG---AATTCTATA---TTTTTATTGATT
@@ -480,7 +480,7 @@ TACGAAAGTCTG---CTGCGGTCA--------GAGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATG-TT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCCCATTTTAA-TTTAAC-----CTGAATGCTGCCAC-----
 ---------------------------------------------------------TTTAAACCAGGGCTGGGGTGTCG
-GCAGTTTTAGATGTCGGTGTCGGCAATAACTTTCTCATTGCTCATAATTTATTa--------------------------
+GCAGTTTTAGATGTCGGTGTCGGCAATAACTTTCTCATTGCTCATAATTTATTA--------------------------
 ------------------------------------
 >input_044.bnk
 ---------------CGTTTAACGCTGTTTCAATATAACGCGG-TTTTTTTCA---AATTCTATA--TTTTTTATTGATT
@@ -491,7 +491,7 @@ TACGAAAGTCTG---CTGCGGTCA--------CAGTTCATATTTATGATCGT----------------------------
 --------------------------------------------------------------------TCATCAACG-TT
 A---TTTTACAGTTAA------AGTTTAGCCACTATTACAGAAATTATGGATCAGTTTATACAAAATGATCCAAA-----
 ---------------------------------------------------------TTTTGATAGAAGTTC--------
-AAAGAAAAAGTTGCTTGTAA--------ATTTTTTA-----------------t--------------------------
+AAAGAAAAAGTTGCTTGTAA--------ATTTTTTA-----------------T--------------------------
 ------------------------------------
 >input_045.bnk
 -------------tCCGTTTAACGCTGTTTCAATATAACGCGG-TTTTTTC-G---AATTCTATA--TTTTTTATTGATT
@@ -502,7 +502,7 @@ TACGAAAGTCTG---CTGCGGTCA--------CAGTTCATATTTATGATCGT----------------------------
 --------------------------------------------------------------------TCATCAACG-TT
 A---TTTTACAGTTAA------AGTTTAGCCACTATTACGGAAATTATGGATCAGTTTATACAAAATGATCCAAA-----
 ---------------------------------------------------------TTTTGATAGAAGTTC--------
-AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATCGACAGTTGCTTgctgaacgaaagaggaaaaggcaaacg
+AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATCGACAGTTGCTTGctgaacgaaagaggaaaaggcaaacg
 atttttcgttagatgattcttaacgaaaaaaaaa--
 >input_048.bnk
 ---------------CGTTTAACGCTGTTTCAATATAACGCGG-TTTTTTC-G---AATTCTATA--TTTTTTATTGATT
@@ -513,7 +513,7 @@ TACGAAAGTCTG---CTGCGGTCA--------CAGTTCATATTTATGATCGT----------------------------
 --------------------------------------------------------------------TCATCAACG-TT
 A---TTTTACAGTTAA------AGTTTAGCCACTATTACGGAAATTATGGATCAGTTTATACAAAATGATCCAAA-----
 ---------------------------------------------------------TTTTGATAGAAGTTC--------
-AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATCGACAGTTGCTTgctgaacgaaagaggaaaaggcaaacg
+AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATCGACAGTTGCTTGctgaacgaaagaggaaaaggcaaacg
 atttttcgttagatgattcttaaaaaaaaaaa----
 >_R_input_059.bnk
 --------------CCGCTTAACGCTGTTTCAATATAACGCGG-TTTTTTC-G---AATTCTATA--TTTTTTATTGATT
@@ -524,7 +524,7 @@ TACGAAAGTCTG---CTGCGGTCA--------CAGTTCATATTTATGATCGT----------------------------
 --------------------------------------------------------------------TCATCAACG-TT
 A---TTTTACAGTTAA------AGTTTAGCCACTATTACGGAAATTATGGATCAGTTTATACAAAATGATCCAAA-----
 ---------------------------------------------------------TTTTGATAGAAGTTC--------
-AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTA-CTATCGACAGTTGCTTgctgaacgaaagaggaaaaggcaaacg
+AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTA-CTATCGACAGTTGCTTGctgaacgaaagaggaaaaggcaaacg
 atttttcgttagatgattcttaacgaaaaaacaaaa
 >input_047.bnk
 --------------CCGTTTAACGCTGTTTCAATATAACGCGG-TTTTTTC-G---AATTCTATA--TTTTTTATTGATT
@@ -535,7 +535,7 @@ TACGAAAGTCTG---CTGCGGTCA--------CAGTTCATATTTATGATCGT----------------------------
 --------------------------------------------------------------------TCATCAACG-TT
 A---TTTTACAGTTAA------AGTTTAGCCACTATTACGGAAATTATGGATCAGTTTATACAAAATGATCCAAA-----
 ---------------------------------------------------------TTTTGATAGAAGTTC--------
-AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTA-CTATCGACAGTTGCTTgctgaagaaagaggaaaaggcaaacga
+AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTA-CTATCGACAGTTGCTTGctgaagaaagaggaaaaggcaaacga
 tttttcgttagatgattcttaacgaaaaaaaaa---
 >_R_input_057.bnk
 --------------CCGTTTAACGCTGTTTCAATATAACGCGG-TTTTTT------AATTCTATA--TTTTTTATTGATT
@@ -546,7 +546,7 @@ TACGAAAGTCTG---CTGCGGTCA--------CAGTTCATATTTATGATCGT----------------------------
 --------------------------------------------------------------------TCATCAACG-TT
 A---TTTTACAGTTAA------AGTTTAGCCACTATTACGGAAATTATGGATCAGTTTATACAAAATGATCCAAA-----
 ---------------------------------------------------------TTTTGATAGAAGTTC--------
-AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATCGACAGTTGCTTgctgaacgaaagaggaaaaggcaaacg
+AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATCGACAGTTGCTTGctgaacgaaagaggaaaaggcaaacg
 atttttcgttagatgattcttaacgaaaaaacaaaa
 >input_046.bnk
 -------------cCCGCTTAACGCTGTTTCAATATAACGCGG-TTTTTTTCG---AATTCTATA--TTTTTTATTGATT
@@ -557,7 +557,7 @@ TACGAAAGTCTG---CTGCGGTCA--------CAGTTCATATTTATGATCGT----------------------------
 --------------------------------------------------------------------TCATCAACG-TT
 A---TTTTACAGTTAA------AGTTTAGCCACTATTATGGAAATTATGGATCAGTTTATACAAAATGATCCAAA-----
 ---------------------------------------------------------TTTTGATAGAAGTTC--------
-AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATCGACAGTTGCTTgctgaacgaaagaggaaaaggcaaatg
+AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATCGACAGTTGCTTGctgaacgaaagaggaaaaggcaaatg
 atttttcgttagatgattcttaacgaaaaaacaaa-
 >_R_input_058.bnk
 ---------------CGTTTAACGCTGTTTCAATATAACGCGG-TTTTTTT-----AATTCTATA--TTTTTTATTGATT
@@ -568,7 +568,7 @@ TACGAAAGTCTG---CTGCGGTCA--------CAGTTCATATTTATGATCAT----------------------------
 --------------------------------------------------------------------TCATCAACG-TT
 A---TTTTACAGTTAA------AGTTTAGCCACTATTACGGAAATTATGGATCAGTTTATACAAAATGATCCAAA-----
 ---------------------------------------------------------TTTTGATAGAAGTTC--------
-AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATTGACAGTTGCTTgctgaacgaaagaggaaaaggcaaacg
+AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATTGACAGTTGCTTGctgaacgaaagaggaaaaggcaaacg
 atttttcgttagatgattcttaacgaaaaaacaaaa
 >_R_input_060.bnk
 ---------------CGTTTAACGCTGTTTCAATATAATGCGG-TTTTTTT-----AATTCTATA--TTTTTTATTGATT
@@ -579,7 +579,7 @@ TACGAAAGTCTG---CTGCGGTCA--------CAGTTCATATTTATGATCGT----------------------------
 --------------------------------------------------------------------TCATCAACG-TT
 A---TTTTACAGTTAA------AGTTTAGCCACTATTATGGAAATTATGGATCAGTTTATACAAAATGATCCAAA-----
 ---------------------------------------------------------TTTTGATAGAAGTTC--------
-AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATTGACAATTGCTTgctgaacgaaagaggaaaaggcaaaca
+AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATTGACAATTGCTTGctgaacgaaagaggaaaaggcaaaca
 ttttcgttagatgattcttaagaaaaaacaaaa---
 >input_049.bnk
 -------------tCCGTTTAACGCTGTTTCAATATAACGCGG-TTTTTTT-G---AATTCTATA--TTTTTTATTGATT
@@ -590,7 +590,7 @@ TACGAAAGTCTG---CTGCGGTCA--------CAGTTCATATTTATGATCGT----------------------------
 --------------------------------------------------------------------TCATCAACG-TT
 A---TTTTACAGTTAA------AGTTTAGCCACTATTACGGAAATTATGGATCAGTTTATACAAAATGATCCAAA-----
 ---------------------------------------------------------TTTTGATAGAAGTTC--------
-AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATACATTGTTGCT-gaaaaagagaaaaaaagattaatgatt
+AAAGGCAAGACGAAGTGTCATGGATGCGATGTCTTG-CTATACATTGTTGCT-Gaaaaagagaaaaaaagattaatgatt
 cttaagaaaaaaaa----------------------
 >input_050.bnk
 ---------------CGTTTAACGCTGTTTCAATATAACGCGG-TTTTTTTC----AATTCTATA--TTTTTTATTGATT
@@ -612,7 +612,7 @@ TATGAAAGTCTG---CTGCGGTCA---------AGTTCATATTTATGATCGG----------------------------
 --------------------------------------------------------------------TCATCAATGTTT
 A---TTTTACAGTA--------ATAAAAATAACAATTATCTCATTTTA-TTTTAAT-----TTGAAT-------------
 -----------------CTACA-----------------------------------TTTTAAATATAGTT---------
-ATAATTAA--------------------ATTTTTTA-----------------aat------------------------
+ATAATTAA--------------------ATTTTTTA-----------------Aat------------------------
 ------------------------------------
 >input_052.bnk
 --------------CCGTTTAACGCTGTTTCAATATAACGCGG-TTTTTTTCG---AATTCTATA--TTTTTTATTGATT

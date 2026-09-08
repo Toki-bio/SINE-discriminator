@@ -2,14 +2,14 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-----nnNTTTTTTNTNTNTNN------TTTT---ACGCCNCTTTCCANNNNG--TGN-------------NTACT-AAGC
--GGNNGG----------------------NCATTNCANTNCCC------------------------------ACCANNG
-GCNGCC---------CAC-------------------------------A-CCCNTGNT--------------GGGNTCA
---------------------GCCNTCAGN---TGNAG-----------------GAT--------------------GGG
-GTTCA-------A---------------------NGNGCN-----------GGGCCNGGANNCCTCCTG-------AAAA
-A-----TNT---GGAGG-----TN---------TGG-----GANNCN----------GGA-ATT------GAACCCGGAT
-CCTCCANNNTGNAA-------------NNNNNNNNNN------------------------N--------TNNNANNNNN
-NN-------------NN---------------------------------------------------------------
+------TTTTTTT-T-T-T-G------TTTT---ATGCCGCTTTCCA-CT-G--TGG--------------TACT-AAGC
+-GGCGGG----------------------GCATTCCAGTGCCC------------------------------ACCATGG
+GC-GCC---------CAC-------------------------------A--CC-TGAT--------------GGGATCA
+--------------------GCCGTCAGA---TGAAG-----------------GAT--------------------GGG
+GTTCA-------A---------------------TGAGCT-----------GGGCCCGGACCC-TCCTG-------AAAA
+A-----TCT---GGAGA-----TA---------TGG-----GACCCG----------GGA-ATT------GAACC-GGAT
+CCTCCAGG-TGGAA-------------GCACA-CA-G------------------------C--------TTCCA-C-CG
+G---------------ATCC-GC--A---T-T---A--------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -24,7 +24,7 @@ GCAGTT---------CAC-------------------------------A-TTCCTGGT--------------GAAGTCA
 GTTTA-------A---------------------TGGGCC-----------GGGACCGGACCCTCCCTG------AAAAA
 A-----TCT---GGAGG-----TA---------TAG-----GACCCA----------GGA-AAT------AAACCCGGAT
 CCTTCAGGATAGAA-------------GCACAGTACG------------------------C--------TTCCACCGCA
-GC-------------CATCCGGCTGCCCCATTCT--ggattattgggttgtctgtgataggatctaaaagtaaccactgc
+GC-------------CATCCGGCTGCCCCATTCT--GGATTATTGggttgtctgtgataggatctaaaagtaaccactgc
 caaatatagtatattctatgtgcgatatactgtatttggcggtgtcatttttgtcatttacttct---------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -39,7 +39,7 @@ GCTATC---------TAT-------------------------------A-CCTCTGGT--------------AAGGTCA
 GTTCA-------A---------------------TGAGTC-----------ATGCCCACACCTCTCCTG-------AAAA
 A-----ACT---GGAGG-----TG---------TGG-----GACCCA----------GGA-ATT------GTATCCAGAT
 --TCCAGGGTGAAA-------------ACACAGC----------------------------------------------
----------------TATTTGGCTGATCCTCTACAAatgttggggacttgtgatagggcctggagtagcatagttgttta
+---------------TATTTGGCTGATCCTCTACAAATGTTGGGGacttgtgatagggcctggagtagcatagttgttta
 tagtgataagtgaataattgagaattaat---------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -54,7 +54,7 @@ GCCGTC---------CAC-------------------------------A-TCCCTGGT--------------GGAGTCA
 GTTCA-------A---------------------TGACCT-----------ATGCCTGAACCCTTTCCT------GAAAA
 A-----ACTTTAGATAG-----TG---------TGG-----GATCCG----------AGA-ATT------GAATTTGGAT
 CCTCAAAAGTGGAA-------------AAACAGCACT------------------------C--------TTCCACCGTG
-AC-------------CATTCGCCGACGAACTTGGAGggatttttttcttgttgacagatgtcgccactttctattcaagt
+AC-------------CATTCGCCGACGAACTTGGAGGGATTTTTTtcttgttgacagatgtcgccactttctattcaagt
 agggaactgatggggactgatgagccgggcccagatcccatgaa------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -69,7 +69,7 @@ GTTGCC---------CAC-------------------------------A-CCCTTGGT--------------GGGATCA
 ATTCA-------A---------------------CGAATT------------GGCCCAGACACCTCCT--------AAAA
 A-----GCT---GGAAA-----TA---------CGG------AATTG----------GGA-ATT------AAACATAGAT
 CCTCCAGAGTGGAA-------------GCGCAACACG------------------------C--------TTCCACAATA
-TA-------------TACAGGATGACAAGTAAC---ctcctattgaacatgaaatgcttgaaatggtacagcaatgtagt
+TA-------------TACAGGATGACAAGTAAC---CTCCTATTGaacatgaaatgcttgaaatggtacagcaatgtagt
 agagccagtggcggaatttaaaatttttggtcccgcaaaatattattcgagc----------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -84,7 +84,7 @@ GCCGTT---------CAC-------------------------------A-TCCTTGGT--------------GAGATCA
 ATTCA-------A---------------------AAAGCC-----------GGACCCGGATCATTCTTG-------AAGG
 A-----ACT---GGAGG-----TG---------TGA-----AACATG----------GAG-AAT------CGAATCTCAG
 GTTCGATAACCGGG-------------TTGTCCCA-----------------------------------CTCTGAAGAG
-AT-------------CCTCCAGTGTGAA-----A--cataatacgctttcaggatggaagaggaaacaagcaaaaacact
+AT-------------CCTCCAGTGTGAA-----A--CATAATACGctttcaggatggaagaggaaacaagcaaaaacact
 cacagttctgaaattcctctaggcc-------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -99,7 +99,7 @@ GTTGTC---------CAC-------------------------------A-CCCTTAGT--------------GGGATCA
 GTTTC------AA---------------------CGAACT------------AAACTGGACTTATCCTG-------AAAA
 A-----TCT---GGAGA----------------TGT-----AAACCC----------GGA-ATT------GATCCTGGAT
 CCTCCAGGGTGGAA-------------GCACAATATG------------------------C--------TTCCACCGCG
-GG-------------CATCCGACCGACTCAATT---ggaacattagtgtgcttccaagcaagcatcctattggtgtttat
+GG-------------CATCCGACCGACTCAATT---GGAACATTAgtgtgcttccaagcaagcatcctattggtgtttat
 tgccggccgaatgaccgcattaaagtgtcccatactttcaccctgaaggatgcgaattcactttttg-------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -114,7 +114,7 @@ GCCATC---------CAC-------------------------------A-CTTCTGGA--------------GGGATTA
 GTTCA-------A---------------------TGAGCT-----------ATGTCAGGATTTCTTATG-------AAAA
 A--ATTTTT---GGAAA-----TA---------TGG-----AACCTG----------AGA-ATT------GAATCTAGAT
 CCTCTAGGATGAAA-------------GCACAGCATA------------------------T--------TACTGCTGCG
-AG-------------TATTCGCCGACAAAGTT----attaatttggatacaaatggtggcttatacatgtgttaaacttc
+AG-------------TATTCGCCGACAAAGTT----ATTAATTTGgatacaaatggtggcttatacatgtgttaaacttc
 catttggaagagaatccgaaattaactctcaatata--------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -129,7 +129,7 @@ GCTACT---------TAT-------------------------------A-CCCGTGGT--------------GAGATTA
 GTTCA-------A---------------------CATGCA------------GATCCAGATCCGTTCTG-------AAAA
 TC----TTT---GTAAG-----TA---------TGT-----GACCTG----------GGA-ACT------AAACCTGGAT
 ACACCAG--------------------GCACAGCACG------------------------C--------TTCTACCGCG
-GC-------------CGTCCATCCTAAAATT-----gaatttttgaactgcttaataaataactttgtacttatcaaatg
+GC-------------CGTCCATCCTAAAATT-----GAATTTTTGaactgcttaataaataactttgtacttatcaaatg
 atgttatacaaaaaatattttggcacaactgttttg--------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -144,7 +144,7 @@ GTTACC---------TAT---------------------------------ATCCTGGT--------------GAAATTA
 GTTCA-------A---------------------CAGATA------------GATCCAGATCTGTTTTG-------AAAA
 AC----TTT---GGAAGTACTGTA---------TCA-----GACTCG----------GGA-ACT------AAGCCTGAAT
 ATACCAG--------------------ACACACTCGGGAACTAAACCTGAATATACCAGTAC--------TCCTATCGTG
-GC-------------CGTCCTTCCTAAAACT-----aactttttgaactgtttgataagtaattttgtatttatcaaaca
+GC-------------CGTCCTTCCTAAAACT-----AACTTTTTGaactgtttgataagtaattttgtatttatcaaaca
 gtgttatatata--------------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -159,7 +159,7 @@ GTTACC---------TAT---------------------------------ATCCTGGT--------------GAGATTA
 GTTCA-------A---------------------TAGGCA------------GATCCAGATCCGTTTTG-------AAAA
 CC----TTT---GGAAG-----TA---------TGA------AACCG----------AGA-ACT------AAACCTGGAT
 ATACTAC--------------------GCACAGCAAG-------------------------------------------
--------------------CATCCTAAAAT------taccttttaaactgtttgataagtaattttgtacttatcaaaca
+-------------------CATCCTAAAAT------TACCTTTTAaactgtttgataagtaattttgtacttatcaaaca
 atgttatatataaaatagtttattttggcacaactgctttgtgtggta--------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -174,7 +174,7 @@ GTTACC---------TAT-------------------------------A-CCCTTAGT--------------GAGATTA
 GTTCA-------G---------------------CAGGTA------------GATCCAGATCTGTTCTG-------AAAA
 CT----------GGAAG-----TA---------TGA-----GACTTG----------GAA-ACT------AAACCTGGAT
 ACACTAG--------------------ACACAGCACG------------------------C--------TTCTATCGCG
-AT-------------AGTCCATCCTAAAATT-----gatcttttgaactgtttagagcaactacaaaattaataagtaat
+AT-------------AGTCCATCCTAAAATT-----GATCTTTTGaactgtttagagcaactacaaaattaataagtaat
 tttgtacttatcaaacagggttatatataaaatagtttattttggcacgactgttttgggtagtagaca-----------
 --------------------------------------------------------------------------------
 ----------------------
@@ -189,7 +189,7 @@ ATTACC---------TAT-------------------------------A-CCTTTGGT--------------GAGATTA
 GTTCA-------A---------------------TAGGTA-------------GATCAGATCCGTTCTG-------AAAA
 AT----TTT------------GTA---------TGA-----GACCTG----------GGA-ACT------AAACCTGGAT
 ACACCAG--------------------GCACAGAATG------------------------T--------TCCTACAGCG
-GC-------------CGTCCATCCTAAAATT-----gactttttgaactgtttgataagtacaaaattatccgttctgaa
+GC-------------CGTCCATCCTAAAATT-----GACTTTTTGaactgtttgataagtacaaaattatccgttctgaa
 aaattttgtatgagacctgggaactaaacctggatac-------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -204,7 +204,7 @@ GCCGCC---------TAC-------------------------------A-TTTCTGGT--------------CGAGTCA
 GTTCG-------A---------------------CGACCG------------GGCTCGAACTTCT----------GAAAA
 A-----ACT---GGAGG-----TG---------TGG-----TACCCG----------GGA-ATC------GAAACCGGAT
 CCTCCAGATGGGCG-------------CGCCATCTGGAG----------------------TAA------AATAATATCG
-GC-------------CAGGTGGCCGACATTATTTTAttagttataattttgttttaaaaaatagaccgaaccgatggtta
+GC-------------CAGGTGGCCGACATTATTTTATTAGTTATAattttgttttaaaaaatagaccgaaccgatggtta
 agtattttgaaagacagcaccggtgataaggaaacgtctaatcatcgtcatccggattgaccgc----------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -219,7 +219,7 @@ ctgtctATTATGTTTATGTAA------TTTA---ACATCACTTTCCACCCGT--TAG-------------ATACT-TAGC
 ATTTA-------A---------------------TGAGTT-----------AGGCTTGAACTCCTCATG-------AAAA
 A---GAATT---GGAAA-----GA---------TGG-----GATGCG----------GGA-ATT------AAACGAGGAT
 TCTCCAGCATGGAA-------------GCATATTACA------------------------C--------TTCCACTGCA
-GC-------------CATCGGCCGATAATAAAAAGAgttaatattaagaatattcaaatttaaatcagtgtaaaaattat
+GC-------------CATCGGCCGATAATAAAAAGAGTTAATATTaagaatattcaaatttaaatcagtgtaaaaattat
 tcttgcaactaataacagtttttatataacacaataattaaaatctataatgctaaagctcta-----------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -234,7 +234,7 @@ GCGCCC---------AAC-------------------------------A-TCCTTAGT--------------AAGATCA
 GTTCA-----------------------------AGAATA-----------GTGTTTATACCTTATCTG-------AAAA
 A--ATCTCT---AGAAG-----TA---------TGG-----GATCCC----------AGA-AAT------GAATTCGGAT
 CTTCCAGGATGGAA-------------GCATAGAAGA------------------------C------CCTACCACCCTG
-GA----------GGATCTCTACCAATCGTATCTT--ggatttccaccctgaagaatccgagttcgattctcgacttccac
+GA----------GGATCTCTACCAATCGTATCTT--GGATTTCCAccctgaagaatccgagttcgattctcgacttccac
 tccttgaaaaatttattcatggaatccggg--------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -249,7 +249,7 @@ ATTGCC---------CAC-------------------------------A-TCCCTATT--------------GGGGTCA
 TTCTA-----------------------------CGAGCC-----------GTGCCTAGATCTTTCCTG-------AAAA
 T---CTTTT---GGAGA-----TG---------TGG-----GACCTG----------AGA-ATT------GAACGCGAAT
 CCTCCACGATGGAA-------------GAACAACACA------------------------C--------TTCTATCGCA
-GT-------------AATCTTCCAGTTGCCTGTT--aaaattttatagaaaaactgaagagatcttgaaatccaatttat
+GT-------------AATCTTCCAGTTGCCTGTT--AAAATTTTAtagaaaaactgaagagatcttgaaatccaatttat
 agcatctaaaaatttgaacacgtg--------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -264,7 +264,7 @@ GATGTC---------CAC-------------------------------A-CCCTAGGT--------------GGGATCA
 ATTAA-------A---------------------CGAGCT-----------------GGGCCCCCGTTG-------AAAA
 AT-ATTTCT---GAAGA-----TA---------TGG--------CCG----------GAA-ATT------AAACTTGGAT
 CCTCCAGGGTGAAA-------------GCACAGAACG------------------------C--------TTCTACTGCA
-GT-------------CATCTTTTTCTTCTTCTGCTAtggaggttatagctgcagccatctgaccgacgcgtcggtggctg
+GT-------------CATCTTTTTCTTCTTCTGCTATGGAGGTTAtagctgcagccatctgaccgacgcgtcggtggctg
 cagctataacctccataagctacagctataatctccatag----------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -279,7 +279,7 @@ ACCGCC---------TAC-------------------------------A-ACTCTGAT--------------GAGGTCA
 CTTAA-------A---------------------CGAGTC-----------AGTTCCGTACCCTTCCTG-------AAAA
 A-----ACT---AGAGA-----TG---------TAG-----GACCCG----------ATA-ATT------CAACCTGGAT
 CCTTCAAGAGGTAA------GCGAATGTTTTATCACG------------------------C--------GGCCATCACT
-TC-------------TATTAGAACTGATCCGTGTATtcactgggataaatcagtatttaataaccactggtttgaatttt
+TC-------------TATTAGAACTGATCCGTGTATTCACTGGGAtaaatcagtatttaataaccactggtttgaatttt
 gtataaaaacaaaaatgaagaaatgcaaaatttaaaaaatttaatataag------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -294,7 +294,7 @@ tttgagATTTTCCTTATAAAA------CTTT---ATGCCACTTTCCTCTTTA--TGG-------------GTACT-AAGA
 GTTTA-------A---------------------TAAACT-----------TGGTCTGAACCTTTCCTG-------AAAA
 A-----ACT---GGATA-----TA---------TGA-----AACCTA----------GGA-ATT------GAACTTAAAT
 TTTCCAATGTGGAA-------------GTACAGCTGTTGAG--------------------C--------TTCCACTACA
-GC-------------TGTCTGACCAATTTATAGTTGggaatggaatggatttcattatataataatcagataatgattgg
+GC-------------TGTCTGACCAATTTATAGTTGGGAATGGAAtggatttcattatataataatcagataatgattgg
 aaagtgatgttaaaattatttatttttgc---------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -309,7 +309,7 @@ ATTGCC---------CAT-------------------------------T-TTCCTAAT--------------GAAGTCA
 GTTCA-------AT-----------------------GCT-----------AGACCCGGACCAGCCTTG-------AAAA
 A--ACTTTT---GGAAG-----TG---------TAA-----GACCCG----------AGA-ATT------TAATCCAGAT
 CCATCAGGATGGAA-------------GTACAACATG------------------------C--------TTCCACCGCG
-GC-------------TATTTAGCCAACACACATTTTctattggaatatttaaatttccacattttataaaattcaatatt
+GC-------------TATTTAGCCAACACACATTTTCTATTGGAAtatttaaatttccacattttataaaattcaatatt
 aaaatgtgattgatataaaaaacgattttatta-----------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -324,7 +324,7 @@ GCTGCC---------CAT-------------------------------A-CCCCTGGT--------------GAGGTCA
 GTTCA-------A---------------------TGAACC-----------AGGCTCGGCCTTCCTGAA-------AAAA
 C-----TCT---GAATG-----TC---------TGG-----GATCG-----------GGA-ATT------GAATCCGTAT
 TCTCCAGCTGGAAA-------------GCGTGTCGAT------------------------C------------------
----------------GATTAAATTAATTATGAATAAgtaaaaaatttgaacgctttcttattattcacttttaatggcaa
+---------------GATTAAATTAATTATGAATAAGTAAAAAATttgaacgctttcttattattcacttttaatggcaa
 ttaaaagtgaataataagagactataa-----------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -339,7 +339,7 @@ GCCACC---------CAT-------------------------------A----------------------C----CCA
 ATTTA-------A---------------------CGAACC-----------GGAACTGGACCTATCCTG-------AAAA
 A-----ATT---GGAGA-----TA---------TAG-----TACCTG----------GGA-ATT------GAACCCGGA-
 CCTCTAGAATGGAA------------------GTACG------------------------C--------TTCCATCGCG
-GA-------------GATCCGGTCGAACATTTTA--gaactatcataagccacatatatgtgaaatatttgctatggtag
+GA-------------GATCCGGTCGAACATTTTA--GAACTATCAtaagccacatatatgtgaaatatttgctatggtag
 atggagggtgaaaataagtgggatgcatctataatcctctgaaaaaatcgcgaaatatgctagtgt--------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -354,7 +354,7 @@ tctgaaGATTTTTTTGTGCAG------TTTT---ACGCCGCTTTTCATCTTT-----T-----------CATACT-GAGC
 GTTCA-------A---------------------CGTGCC-----------AGGCCCATACTCTTCCTA-------AAAA
 TA----TCT---GAAAA----------------TGG----GAGCACG----------GGA-ATT------TAACCCAGAT
 TCTCCAGAATGGAA-------------GAACAGCACG------------------------G--------TTCCACTGCG
-AC-------------CATCCGGCTAATCCCCTAAAAactgagcgtcataataaaacctttgaacggttgaaactatagac
+AC-------------CATCCGGCTAATCCCCTAAAAACTGAGCGTcataataaaacctttgaacggttgaaactatagac
 gaaaccaacacgaaaatactttaggacaaaacttttgaccacagtaactttttcaaagtattt-----------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -369,7 +369,7 @@ GC----A--------TGG-------------------------------A-TTCTTGAT--------------AGGTTCA
 GTTCA-------A---------------------TAATTT-----------GAGCCCGGACCCCTCTTG-------AAAA
 AA----CCCG-CGAAAATCCT-TGGAA-----GTGG-----GATCCG----------GGA-ATT------GAACCCAGAT
 TTTCCAGAATGAAA-CA----CACACTACACAATACA------------------------C--------ATATACCACG
-CTGATCACCG-CGGGCATCCGGCCGACTATAGG---ggtgttttattcaatagagtcgggaattcactttggaagagcag
+CTGATCACCG-CGGGCATCCGGCCGACTATAGG---GGTGTTTTAttcaatagagtcgggaattcactttggaagagcag
 tgactttctgtatcaagcaaaa----------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -384,7 +384,7 @@ ATTGCC---------TAT-------------------------------C-TCCTTGAT--------------GAAATCA
 GTTCA-------A---------------------TGAACC-----------------AAACTTCCTTAA-------AATA
 C-----TCT---GGTGG-----TA---------TAG-----GACCCA----------GGA-ATT------AAACCCAGAT
 TCTCCAATGTGAAA-------------GTATAGAACA--------------------------------ATTCCATCACA
-GT-------------CATCCAGGCGATAAATAT---actaatttggataagcaaaagtataagctatttagcagataaac
+GT-------------CATCCAGGCGATAAATAT---ACTAATTTGgataagcaaaagtataagctatttagcagataaac
 atatttcgcaatttatttaacttgtgtaacgtttt---------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -399,7 +399,7 @@ GCTGC----------CAC-------------------------------A-TTCCTAGT--------------GGGGTCA
 GTTCA-------A---------------------CGAGCC-----------GGGCCCGGATTCCTCCAG-------AAAA
 A-----TTT---GGCGG-----TG---------TGA-----GACCTA----------AGA-ATT------GAATCTGGGT
 CCTCTAGGATGATA-------------TCATGGCACT------------------------C--------TTCTACCAAA
-AC-------------TATCCGATAAAACATAAT---gttatgttgatgcgacgatggcgtcatttttgttgggattctgt
+AC-------------TATCCGATAAAACATAAT---GTTATGTTGatgcgacgatggcgtcatttttgttgggattctgt
 caaaattccagaattatcctaacgatgatatct-----------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -414,7 +414,7 @@ GCCGTT---------TAC-------------------------------T-CCCTTGAT--------------GGTGTCA
 ATTCA-------A---------------------CGAGCC-----------GAGCTAGATCCGCCTGAA-------AAAT
 T-----TTC---AGAGG-----TA---------TGG-----GACTC-----------GGG-ATT------GAACCCAGAT
 TCTCC-GAGTGGAA-------------ATATAGCACG------------------------C--------TTTTACCCTG
-AC-------------CATCAAGCCAACTAGTAG---actaaatcggattttattttgttttcatctttgatatatcaata
+AC-------------CATCAAGCCAACTAGTAG---ACTAAATCGgattttattttgttttcatctttgatatatcaata
 ttttctatacaattggacggaattgcaataaataagtaatagtgtttaaaatactttttccctatgt-------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -429,7 +429,7 @@ ATTCC----------CAC-------------------------------A-CATCTGGT--------------GAAATCA
 ATTCA-------A---------------------CGAGCT-----------GAGCCCGGATCTCCCTTT-------AAAA
 A--ACTTTTT--AAAGAT---------------TAG-----TACTCG----------GGC-AAT------GAACTCGGAT
 GCTCCAGAATAGAA-------------GAACAGCAGG---------------------------------TTCCACCGCC
-GC-------------AATCCGGTCTATTATATAAAAtaatataaaattatatttttatttttacaacatatttaatgatt
+GC-------------AATCCGGTCTATTATATAAAATAATATAAAattatatttttatttttacaacatatttaatgatt
 attttttaacgatatgaatggaaattttgtacattaattaaaata-----------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -444,7 +444,7 @@ ACTACC---------CAT-------------------------------A-TCTATAAT--------------GAATTCA
 ATTCA-------A---------------------TGAGTT-----------GAGCCTGGATTCTTCCTG-----ACAAAA
 C-----TCT---GAAAA-----TG---------TGA-----GAATCA----------GAA-ACT------AAACCTGGAT
 TCTCCAAGATGGAA-------------GCAAAACATG---------------------------------TTTTCAAACT
-GC-------------AATCCGGCCAACTAAGTGGAAtcttcatcatatatctctagtaaattttttcaagttaggctaaa
+GC-------------AATCCGGCCAACTAAGTGGAATCTTCATCAtatatctctagtaaattttttcaagttaggctaaa
 ctagttaagttagttaagccgtcatatcacacttggaatattctggaggcgaccaattttagaa----------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -459,7 +459,7 @@ ggtgttTTTTTTCTTGTGTTG------CTTT---ATGCTGTTTTCTAACTGG--CGG-------------TCACT-AAGC
 CTTTA-------A---------------------CGATCC-----------GAGTTCAAAATACTTT-------------
 ------TTT---GAAGA-----TG---------TCA-----AACCCG----------GTA-ATT------GAACCCGGAA
 CCTTAATACTACGT-------------TCACATTGCCAA----------------------T--------TTTAATCCCA
-AT-------------CAAGTCATTAACTCCGATCAActagcgaggatgttaacataattccgtt----------------
+AT-------------CAAGTCATTAACTCCGATCAACTAGCGAGGatgttaacataattccgtt----------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -474,7 +474,7 @@ aaagggATTTATTTATTTTGA------TTTT---ATGCCACTTTCCATTCGG--TGA-------------ATACT-AAGC
 GTTCA-------A---------------------TGCACC-----------TGGCACAGGTTCATCTTG-------AAAA
 A-----TCT---AAAAA-----TG---------CGG-----GACTTG----------GGA-ATT------GAATCCA-AT
 CCTCCAAGACAGAA-------------ACACAGCATA------------------------C--------TTCCACTGCG
-AC-------------CATCTGATCGAACAATTTTCCaagggataaaatccggaataaaaccgcatctctggatagaaatc
+AC-------------CATCTGATCGAACAATTTTCCAAGGGATAAaatccggaataaaaccgcatctctggatagaaatc
 ccaaacatttttcgcggttaatccaactgataatgaccatgtggcaaagcattcgtt-----------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -489,7 +489,7 @@ AT-------------GAT-------------------------------A-CCCCTGGT--------------GAGATTA
 TTCAA-------A---------------------AGGG-------------AGATCCAGATCCATTCTG-------AAAA
 AC----TTT---GGA------------------TGA-----GAACCG----------AGA-AAT------GAACCTGGAT
 ACACTGATGAGTCTAGGGTA-GTGTTGGCACAGCACA------------------------C--------TTCTATCGCA
-CCATC----------CATC-----------------ctaaaattgaccttttgaaatgttttataagttattttgtgctt
+CCATC----------CATC-----------------CTAAAATTGaccttttgaaatgttttataagttattttgtgctt
 atcaaacagtgttacatataaaata-------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -504,7 +504,7 @@ CCTGCC---------AAT-------------------------------A-CTCCTAGT--------------AGGGTCA
 ATTCA-------A---------------------CAAATC------------GGGCTGGACTCTTCCTG-------AAAA
 A---TTTTT---GAAAA-----TG---------TGA-----GACCTA----------TGA-ATT-----AGAATCCAGAT
 ATTCTAGAATGAAA-------------GCACCGCATG------------------------C--------TTCCATCGCA
-GC-------------CACCTGGCCGACAGTGATTATggttagtttaggttcgtttaattatgccgccgaatctcacaagt
+GC-------------CACCTGGCCGACAGTGATTATGGTTAGTTTaggttcgtttaattatgccgccgaatctcacaagt
 ttggaactggaaaatatatattatatagccaaattgaaatttgaa-----------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -519,7 +519,7 @@ GTCGTCATCATG--------GTCGTCATA---TGGAT-----------------GAT--------------------GGA
 ATAGA-------A---------------------CGAGTC-----------GAACCCGAACGCTTCCTG-------AAAA
 A---ATTTT---GAAGG-----TG---------TAT-----AACCCT----------AGA--------------------
 TCCCCAGGATGGAA-------------GCATATCAGG------------------------C--------TATATAAATA
-AA-------------TAATAAATCTA----------tatatttcaatttgtattattattttttaaataatattctaaaa
+AA-------------TAATAAATCTA----------TATATTTCAatttgtattattattttttaaataatattctaaaa
 ttatgtaacatatttcgaaaagtgcgatagacccagcattattg------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -534,7 +534,7 @@ ACCGCC---------CAT-------------------------------ATCCTTTGAT--------------GAGGTGA
 GTTCA-------AACAAGGATGTTTTGAAGTTCAACAATC-----------AGGACAGGATTCCTCCTG-------AAAA
 A-----ATT---AGAGT-----TA----------GG-----GATCCA----------GGA-ATT------GAACCTA-AT
 CTTCCAGGATGGAA-------------GCATAATACA------------------------C--------TTTCATCATG
-GCT------------GACATTGTTCATTATTTTTCAatctatatagtatgactatttttttgtcaacagatgacgccaca
+GCT------------GACATTGTTCATTATTTTTCAATCTATATAgtatgactatttttttgtcaacagatgacgccaca
 ctccattctcgtagaatactatgtggcggggcga----------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -549,7 +549,7 @@ GCCGCC---------CAT-------------------------------A-CCCCTAAT--------------AGAATTA
 ATATA-------A---------------------TGAACT-----------GGACTTAAAACTTTTATA-----ATATAA
 A-----ACT---GGAAG-----TG---------TAC-----CTCCC-----------GGC-ATT------AAATTCGGAT
 TCTATACGGTGGAA-------------GCAAAACACG--A------------------------------TTCCAGCTCC
-GC-------------CTTCCAGCTGACCATATT---gatgaattgggatttacgccaatattgaaaatacagcagtaaca
+GC-------------CTTCCAGCTGACCATATT---GATGAATTGggatttacgccaatattgaaaatacagcagtaaca
 tacatattacatcttgtaaattttcttttctgcaga--------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -564,7 +564,7 @@ GCAGATATA------AAC-------------------------------A----------------------GCCTGTAA
 GTTGG-------A---------------------CAGACT------------AGTGTGGACACCT---------AAAAAA
 C-----TCT---GGAGA-----TA---------TAA-----GATAC-----------AAA-ATT------AAATATGAAT
 AATGCATGGTGAAA-------------ACAAAGCATG------------------------C--------TTCCATCTGA
----------------TAGCTATTAGACA--------tctagtcaattagctatcattactacaaaatgagatacatgcac
+---------------TAGCTATTAGACA--------TCTAGTCAAttagctatcattactacaaaatgagatacatgcac
 actttggaatcgaggttactccaaatcatgtgatagaaggaa--------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -579,7 +579,7 @@ GCTGTT---------CAC-------------------------------A-CCAGTGTT-------------AAGAGTGT
 GTTGA-------A---------------------TGGATT-----------GAGCCTGAACATCT----------GAAAA
 A---TA----------------CA---------AGG-----AGCCT-----------GAA-ATT------AAATATGAAT
 ACTGTATGGAGGCC-------------ACACAACATG------------------------C--------TTCCTCTTGC
-A--------------GATACTTTGGTTA--------tccgatcaattggatgctattattgcaaaattcttgatggcagc
+A--------------GATACTTTGGTTA--------TCCGATCAAttggatgctattattgcaaaattcttgatggcagc
 cattgtaatacagactttcagcataaataa--------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -594,7 +594,7 @@ AACTCT---------AAC-------------------------------A-CTCATAGC-------------AATAATGG
 -----------AA---------------------TGAGTT-----------CAGCCTGGATACCT-----------AAAA
 A-----TCT---GGAGG-----AA---------TGA-----GATTC-----------AAA-ATT------AAATATAAAT
 ACTGCATAGTGGAA-------------ATACAACAT----------------------------------TTCCATCTTA
-AT-------------GATAATTCAGCCA--------tttgatcaattggtcaccattattgcaaaatcatttatgatagt
+AT-------------GATAATTCAGCCA--------TTTGATCAAttggtcaccattattgcaaaatcatttatgatagt
 tatcaaaaatatagatttttatcttaagttggggacttcctgc-------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -609,7 +609,7 @@ TCCATTC--------CAC-------------------------------A-CTCATAAC-------------AACAATGG
 GTTGA-------A---------------------TGGGCT-----------GAGCTTGGACATCT-----------AAAA
 A-----TCT---GGAGT-----TT---------AGA-----AACCT-----------GGA-ATT------AAATATGAAT
 TCTCCATAGCACAC--------------------------------------------------------TTCCATCCTT
-G--------------TGACTGCTTAATC--------attggtcacaaggccaccattattgtataatcattgatggcaac
+G--------------TGACTGCTTAATC--------ATTGGTCACaaggccaccattattgtataatcattgatggcaac
 tgttgtaagtacagatcgtcataagtcagggacctcctgtataat-----------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -624,7 +624,7 @@ GCTGCC---------CAC-------------------------------A---CCTGAC-------------AACAATAG
 GTTGA-------A---------------------TGGGCC-----------AATCCTAGATACT-----------AAAAA
 A-----TCT---GGAGA-----TA---------TGA-----GACTT-----------GGA-ATT------AAGTAAAAAT
 ATTCCATGGTGGAA-------------ACACAGCATG------------------------C--------TTTCATTCTG
-AT-------------GACTGTTTAGTTA--------tccaatcaattggccaccattattacaaaatcattgatggcaac
+AT-------------GACTGTTTAGTTA--------TCCAATCAAttggccaccattattacaaaatcattgatggcaac
 tcttgtaaatacagatcataacttggacaattttaagtta----------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -639,7 +639,7 @@ ACTGTG---------TAT-------------------------------A-CCAGCATT-------------AAGGATCA
 ATTGA-------A---------------------TGGGCT-----------AGATCTTGGCCCTTCCTG------AAAAC
 A-----TCT---GGAAA-----TA---------TGG-----GATTT-----------GGA-ATT------AAAC---AAT
 ACCCCAGATTGGAA-------------ATATAGCATG------------------------C--------TTCCATATGA
----------------TGACCAGCTGACC--------agttttggttaactggtcaccattattgtaaaattaatgatagt
+---------------TGACCAGCTGACC--------AGTTTTGGTtaactggtcaccattattgtaaaattaatgatagt
 gattatttacaataattgctgtcttaaccatcataggttgaaa-------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -654,7 +654,7 @@ ACCATC---------TAC-------------------------------A---TGTAAT-------------AAGGGTCA
 GTTCAGCAGTGAA---------------------TGAGTT-----------AGGTCTGGATCTGTCCTGAAAAAAAAAAA
 A-----ACT---GGAGA-----TA---------TGG-----GATTC-----------AAA-ATT------AAAAATGAAT
 ACTC--GAGTGAAA-------------GTACAGCATG------------------------C--------TTTCACCTTA
-GC-------------TGTTAAT--------------caccattcagtctactgatgccattattgcaaaattattaatag
+GC-------------TGTTAAT--------------CACCATTCAgtctactgatgccattattgcaaaattattaatag
 tgaatgtcagaagtaaaattttgtaagatgggaactacctg---------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -669,7 +669,7 @@ GCTGTG---------CAC-------------------------------A-TATATTA---------------AGAATCA
 ATTGA-------A---------------------TGGGTC-----------AGGC--------ATCTTG-----AAAAAA
 A-----TCT---AAAGA-----TG---------TGG-----GATTT-----------GGA-ATT------AAACAAAAAT
 ATTTCAGGATGGAA-------------GTATAATATG------------------------C--------TTCCATCTAG
----------------CAGCCTATTGACTGGATGAT-tgcatttctgtcaaatcaatgatgatagcacaatcaatcacact
+---------------CAGCCTATTGACTGGATGAT-TGCATTTCTgtcaaatcaatgatgatagcacaatcaatcacact
 acaatcacaatcaatgatgattgtaagtagggattt--------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -684,7 +684,7 @@ ACTATT---------TAC-------------------------------A-TGTCTTAT--------------AGGGTTA
 GTTTG-------A---------------------CGAGCC-----------TGGCTCGGCCCCATTTGT------AAAAT
 T-----TCT---GCAGA-----TA---------TGA-----GATAAG----------GGA-TTT------GAACCAGGGT
 TTTATTTGATGAAA-----------------------------------------------C--------TATTATCAAA
-CA-------------TGAATGGATGGAAATGTTACAcattatttctacaaatttttgaaagtagtatttccacacattaa
+CA-------------TGAATGGATGGAAATGTTACACATTATTTCtacaaatttttgaaagtagtatttccacacattaa
 ttgttatcgtattaaataattatgctatattattttaaggttt-------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -699,7 +699,7 @@ GCTGTC---------CAC-------------------------------A-TTCAAAAT--------------GATGTTG
 ATTTA-------A---------------------CAAGTC-----------CAGCCCCGTATCTTTTT--------AAAA
 A-----ACC---GGAAG-----TG---------TGG-----GATCCA----------GAA-ATT------GAAACTGGGT
 AGAGCATACAAAGA-------------TGTAAATATA------------------------T--------TAAAATCGTT
-GA-------------TCAGAGTACAAAT--------tctttatcagtttgtcggccggatgtccacgtggtaaaggtgtg
+GA-------------TCAGAGTACAAAT--------TCTTTATCAgtttgtcggccggatgtccacgtggtaaaggtgtg
 gcttatcactctggaggatctgggtcc-----------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -714,7 +714,7 @@ ATTGCC-------------------------------------------A-TATTATAT--------------AGAATTA
 GAATG-------A---------------------TAAGCT-----------AAGCCTGCACTTTTCTGA-------AAAT
 A-----TCT---AGAGA-----TA---------TGA-----GACTGA--------------ATT------TATTCTCAAT
 CGTTCAGTGGAAGT-----------CTATCTAGTATA------------------------C--------TTTCCTGAAT
-GGACT----------TATGCAACCTAAGTCCATTCAggaaagtgtattagatggactataatctactcaataatctaata
+GGACT----------TATGCAACCTAAGTCCATTCAGGAAAGTGTattagatggactataatctactcaataatctaata
 ctagctttttacagtatgat------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -729,7 +729,7 @@ GTTGCT---------TAT-------------------------------A-TTCATAAT----------------GATCA
 GTTCA-------A---------------------TGAACT------------GGGCTAAACTTTCTTGA-------AAAA
 A-----TCA---GGAGA-----TA---------TGG-----AACCT-----------GGA-ATT------GAACC-AAAT
 TTTCCAAGATGAAG--------------TGCAACACA---------------------------------ATTCCATGTA
-GT-------------TTACTTATTATTTTCTGTAAAttgatagtagtagttaagattttcagccagaatcaaatctgaat
+GT-------------TTACTTATTATTTTCTGTAAATTGATAGTAgtagttaagattttcagccagaatcaaatctgaat
 cttacattgataaatagacagtttttggagccag----------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -744,7 +744,7 @@ tggtgaAGTCTTCTTTTCTTG------TTTT---AAATTGCTTTCCTGTTTG--AAA-------------TAACT-AAAT
 GTTCA-------A---------------------CAAGCT------------GGGCTAAATCCTTCTTG------AAGAA
 A-----TCT---GGAGG-----TA---------TAG-----AGCAT-----------GGA-ATT------GAACCAAAAT
 TCTCCAGAATGAAG--------------TGCAATACA-----------------A---------------TTCCTATGCA
-AT-------------TGATTTATTTTTCACTCTAAAtcagtggaagaaagtttggtttttcatctagaggccaggctcaa
+AT-------------TGATTTATTTTTCACTCTAAATCAGTGGAAgaaagtttggtttttcatctagaggccaggctcaa
 atctgggtcctaactcaacagatagaattagt------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -759,7 +759,7 @@ GCTGCC---------TAA---------------------------------ATTGTAGT---------------GAGTTG
 GTTCA-------A---------------------TGAGCC------------ATGCTAAATCTTTCTTG------AAGAA
 A-----TAT---GGAAG-----TA---------TGG-----AATCT-----------GGA-ATG------GAATCCAGAT
 TCTCCAGGATGAAG--------------TACAACATA---------------------------------ATTCCACATA
-AC-------------TGGCTCATTTTTTGCTTTATAtcaataaaggtttgaattttcacccagaggtcaggctcaaattt
+AC-------------TGGCTCATTTTTTGCTTTATATCAATAAAGgtttgaattttcacccagaggtcaggctcaaattt
 ggatcctagctcaatggatagaattatgtagtt-----------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -774,7 +774,7 @@ GCCACT---------TAT-------------------------------A-TCTGTAGT--------------GGGATCA
 ATTCA-------A---------------------TGAGTTC--------TAAACACCATGTCCTTCTTG------AAAAA
 A-----TCT---GGAGG-----TA---------TAG-----GACCT-----------GGA-ATT------AATCCAAAAT
 CATTCAGGATGAAG--------------TGCATCATA---------------------------------TTTCTATGCA
-AT-------------TGAATTGTTCTCCATTATAATtggcagaaatttaactttccttttagagaattacaatcaaatct
+AT-------------TGAATTGTTCTCCATTATAATTGGCAGAAAtttaactttccttttagagaattacaatcaaatct
 attttctagattgatgattaaattaggcaagtgt----------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -789,7 +789,7 @@ GTCAC----------CAT-------------------------------A-CACATTAT--------------AGGATTA
 ATTTA-------A---------------------TAGTTA-----------AGGCCTAGATTCCTCCTG-------AAAA
 A-----TAT---GGAGG-----TA---------TGG-----TACTT-----------AGA-ATT------GAACCTT-AT
 CTTTCAGGGTAAAA-------------GCATGGAAGA-----G----------CAATTGATCAGATGGTACTTCCATGTG
-GC-------------CATCAGATCAATTGCTCTTCAatgccaaattttcatctttgttcacggttgtgttcaatgacaaa
+GC-------------CATCAGATCAATTGCTCTTCAATGCCAAATtttcatctttgttcacggttgtgttcaatgacaaa
 aacaatgtcaagttt-----------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -804,7 +804,7 @@ GCCTC----------CAC-------------------------------A-CCCATAAT--------------TGAATTG
 GTTTG-------A---------------------TGGGCC-----------AGACCTGGATTACTCCTG-----TAAATA
 A-----TTT---GGAGG-----TG---------TGG-----ATTCT-----------GGA-TTT------TATTCTAGAT
 CCTCCAGGTAGAAG----------TCTGTCTAGTACA---------------------------------CTTTTGCATG
-GC-------------CAGCCAGCTCACTTAATG---aaaattcttaagaaaactactattttagatttatgaagattatt
+GC-------------CAGCCAGCTCACTTAATG---AAAATTCTTaagaaaactactattttagatttatgaagattatt
 gaagtaacattaaacttggttttttacattga------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -819,7 +819,7 @@ GCCACA---------TAC-------------------------------A-CACCTGGTG------------GGAGGTTA
 ATCCA-------A---------------------TAATTC-----------GGGCCGGACTCCT----------GAAAAA
 A-----TCT---GGATA-----TA---------TGG-----AACTT-----------AGA-ATT------GAACCGGATT
 TTTCAAGCGGTAAG-------------CTAACACATA---------------------------------TTTTTTGCTA
-TT-------------TATTTTCTGGAATATAGAATAaaagaggcaatttttaaggaaaaataaatatgttagtaccgtaa
+TT-------------TATTTTCTGGAATATAGAATAAAAGAGGCAatttttaaggaaaaataaatatgttagtaccgtaa
 taataatatcattatcattattattattattagagtt-------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -834,7 +834,7 @@ GCCATCTC-------TAC-------------------------------A-TATATGAT--------------AGGATCA
 AATCA-------A---------------------CTAGCT-----------GAGCCTGAACCCC--------AGGAAAAA
 A-----TTT---GAAAG----------------TGG-------------G--------------------AAATTCAAAT
 TCTCCAGGTGGAAA----------TCTATCTAATATT------------------------TA-------TACTAACTAA
-AC----------------------------------tagaattattaggatcttctactaagaaaactgcctttttaaat
+AC----------------------------------TAGAATTATtaggatcttctactaagaaaactgcctttttaaat
 tacattatgataactattgccaattattgaagtaattttgttgtatttta------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -849,7 +849,7 @@ GTCACT---------CAC---------------------------------ACAACGAT--------------GAGGTCT
 ATTTA-------A---------------------AAAGTT-----------AGGTTCGAACCCTTCCTG-------AAAA
 A---TATTTA--GGAGA-----TA---------TGG-----AATCG-----------GGA-ATT------GAATCCGGAT
 CCTTCAGATGATAA--------------------------------------------------------TTTCATTTTG
-GAATGTAAAG--------------------------aaagaatcaaaaatcgaaaatattcaggattaaaatttcatatt
+GAATGTAAAG--------------------------AAAGAATCAaaaatcgaaaatattcaggattaaaatttcatatt
 tatttttattattgaattgatttttataagactatatggattatattta-------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -864,7 +864,7 @@ ATAGTC---------CAC-------------------------------A-TATCTGGC--------------CGGGTAA
 GTTCA-------A---------------------TAATCC-----------GGGTCCGAACTCTCTTAT------AAAAA
 C-----TCT---TAAAG-----TG---------TGG-----GCCCG-----------GAA-ATT------AAATTCAGAT
 CCTCTAGA-------------------------TACG------------------------C--------TCCCATCACA
-GC-------------CATCCGGATGACTCCAATTTTttgacatctgaattgacctttaaataatatttaatttatttcag
+GC-------------CATCCGGATGACTCCAATTTTTTGACATCTgaattgacctttaaataatatttaatttatttcag
 aaattataatcatttttattttaagataataattat--------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -879,7 +879,7 @@ GCC------------CAC---------------------------------ACAGGTAT--------------GGGTTTG
 ATTCA-------A---------------------CGTGAT-----------GGGTATGGACCTTTCCAA------AAAAC
 A---TTCTT---GGAGA-----TA---------CGA-----GACCCA----------AGA-AGT------GAATCTGGAT
 ATTCCAGTTGGTAAG------CAAATATTTAAACATA------------------------C--------TGCCACTACC
-TAC------------TCTCTTTCTAAGG--------ccaaaatcactccctctacaatttggaaattcattcttatttaa
+TAC------------TCTCTTTCTAAGG--------CCAAAATCActccctctacaatttggaaattcattcttatttaa
 ataatcaattatctgttggtataaagttaaagatgt--------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -894,7 +894,7 @@ ATTGCC---------TAT-----------------------------GTG-ATTTGAGT--------------CTGACAA
 GATCA-------A---------------------TGAGTT-----------GGGCCCAAATACCGTTAA-------AAAG
 A-----TAT---GCATA-----TA---------TGGTTTTGAACAT-----------GGA-ATT------GAATCTGGGT
 TCCTCAAGTAGCAA-------------------------------------------ACAGCAG------CTTCATGACA
-ATCAATGCAGAGGAAAATCTATATGATTATTCC---acaatggcaactacctatttattacgaactttaagaaaactgtc
+ATCAATGCAGAGGAAAATCTATATGATTATTCC---ACAATGGCAactacctatttattacgaactttaagaaaactgtc
 tttgtttagatttgttacaataatta------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -909,7 +909,7 @@ GTCCATTGTGCAATCCAC---------------------------------TCTCTGAT--------------TGGGTAG
 GATGA-----------------------------TGAGCT-----------AGACCCAGATCTCTTTTA------AAAAC
 A-----TAT---GGAGA-----TA---------TGG-----GACTCC----------AGA-AAT------GAATTCTAGA
 -CCCCAGAGCGATA-------------ATTAATAATT------------------------T--------TACTATATGG
-AT-------------TTTTCATATTAAAGTTTATATaacacttccatatctatctgttaaggactttctctaagcaaatt
+AT-------------TTTTCATATTAAAGTTTATATAACACTTCCatatctatctgttaaggactttctctaagcaaatt
 acattctttaagt-------------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -924,7 +924,7 @@ ATAATC---------CAC---------------------------------ACCATTAC--------------TGGAGAG
 ATTGA-----------------------------ATGGCT-----------GAATCCAGATATCTTT--------AAAAC
 A-----TGT---GAAGG-----TA---------CAG-----AATTT-----------AGA-ATT------GAATCTGTAT
 CTGTCATGTGATAA-----------------ATGATA-------------------G-------------CTTTACCAAA
-AACTAT---------CATTCATCACATG--------aaggattcaggcttttcagaagtgaaaatttagcttaacaaaca
+AACTAT---------CATTCATCACATG--------AAGGATTCAggcttttcagaagtgaaaatttagcttaacaaaca
 gaagtctatataaatgcttccatttca-----------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -939,7 +939,7 @@ GTCAAC---------CAT-------------------------------G-TCTATAGT--------------AGAGTCA
 GTTCA-------G---------------------GGAACC-----------GAGTCCGGAAAATTCCCG------AAAAA
 A---ATTAT---AGATC-----TA---------TGA-----AACCC-----------TAT-ATA------GAAGCCGAAT
 CCTTCAGGGTGAAA-------------GCACTGCACT---------------------------------CATTCATTCA
-GT-------------AATGTGGCCGACTCTGTA---gctaagtcagtcagatatagaggaagaaaatcactaactgggcc
+GT-------------AATGTGGCCGACTCTGTA---GCTAAGTCAgtcagatatagaggaagaaaatcactaactgggcc
 cgaatttaaccagagaaatcggattcgatcccggatc-------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -954,7 +954,7 @@ GCTGTC---------CAT-------------------------------A--------------------CATGAAGTTT
 GTTCA-------A---------------------TGAACT-----------TGCCCTGGACTTCTCTTG-------AAAG
 T-----TCT---TGAAA-----CA---------TGG-----GACCTA----------TGA-ATT------GAATCTAAAT
 CCTCCACAATGGAA-------------GTTCATCAAA---------------------------------TTTTTATGCA
-GT-------------TATCTGAATCATAATATATTTtactttttgtccaattcttgaattgcaaataatgcacatatgac
+GT-------------TATCTGAATCATAATATATTTTACTTTTTGtccaattcttgaattgcaaataatgcacatatgac
 tgcattgtttgaaaactaggctgcacctctctt-----------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -969,7 +969,7 @@ AATAT---------------CCCTTTAAA---TAGGA-------TTTAAATAAGGAT--------------------AGG
 ATTCA-------A---------------------TGAACC-----------GAACTCGGACCCTTCCTG-------AAAT
 A---TTTTT---TGAGA-----TA---------TGG-----AACCCA----------TGA-ATT------GAACCCAGAT
 TTCCTAGAGTGAAA-------------GTATAGCGCA-----------------------------------TTACCATG
-GAT------------CACCTAGCGAACCAATGTAACtatcagaagatcatggtttcgaaactttttgctgcgttcctttt
+GAT------------CACCTAGCGAACCAATGTAACTATCAGAAGatcatggtttcgaaactttttgctgcgttcctttt
 catgataaaaaattctttcacaatcttttttcattaaataatctacacaagt----------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -984,7 +984,7 @@ TCTGTC---------AAT---------------------------------CCTTCAAT-------------TGATAT--
 ATTCT-----------------------------TAAATC-----------GGGCCTGGGCTCATCCTG-------AAAA
 A---TATCT---GGAGG----------------TGA----GAGCCTG----------AGA-ACT------AAATTCAGAT
 TGTCTAAAATTGAC-------------ATACATGATA---------------------------------GTTCCACTCG
-GC-------------CATCAGGACACAAGACTACCAgttgtgagacttctttcgagattttacgtgactatattgtcgag
+GC-------------CATCAGGACACAAGACTACCAGTTGTGAGActtctttcgagattttacgtgactatattgtcgag
 tgataacgctatcgggtctggtctccggtt--------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -999,7 +999,7 @@ GTCACA---------CACACC--------------------------TAA-TGGGTGACCCAT--------GGAGGATTA
 ATTCA-------G---------------------TGAGCC-----------AGGCTCAGAGCCTTCCTG------AAAAA
 A-----------CAAGG-----CG---------TAG-----GATTTG----------GAA-ATT-------GAACCAGAA
 CCTTCAGGATGGAA-------------GAATAGCATT------------------------C--------TTTAACTGTG
-CC-------------CATTTGCAGGGTTTTATTTTTaatatgcagttttatgctgcttcccactgttggcactaagtagc
+CC-------------CATTTGCAGGGTTTTATTTTTAATATGCAGttttatgctgcttcccactgttggcactaagtagc
 gagcattccagttcccaccatggttgcccacat-----------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1014,7 +1014,7 @@ CCCGTC---------CAC-------------------------------A-ATCGTGGT--------------GGAGTCA
 TTTTA-------A---------------------CGAGCC-----------AGGTCCAGATCAGAATTG------TAAAA
 A-----ATT---GGACA-----CG---------TAG-----GAAAGG----------GGA-ACT------GGGCCCGTAT
 TTATCAGGGTGAAA-------------TAGCAGCATG------------------------C--------TTCCAACGCA
-GT-------------CATCTTGCCCATTTTGCTTATttgtcaacggatgaggctattttccattctatcagaacatgtga
+GT-------------CATCTTGCCCATTTTGCTTATTTGTCAACGgatgaggctattttccattctatcagaacatgtga
 cggggagaaagaagtcctttcacaggctaccc------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1029,7 +1029,7 @@ GCCGCC---------TAT-------------------------------A-TCCGTGTCTCGTGATGGTTATTGTGAGCA
 ATTCA-------A---------------------TTAGTC------------GGACCAGACCCATTCTG-------AAAA
 A-----CCT---GGAGG-----TA---------TGG-----GACAC------------GG-ATT------GAACTTAAAT
 TTTCCAAAATGGAA-----------TTTTGTAGTACA------------------------C--------TTTTATTTTG
-TC-------------TGGTACATTGAAG--------tagaaaacactactgtacaatttgtagacagaaattaccatttt
+TC-------------TGGTACATTGAAG--------TAGAAAACActactgtacaatttgtagacagaaattaccatttt
 aagaacccacttaccagcaagatatgttaacacggttg------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1044,7 +1044,7 @@ ACAGCC---------CTT-------------------------------A-ACTTTG----------------GGAGTCA
 ACTCA-------ACCTAAAACGTCCTTG----GTTCAATT-----------TAACCTAGTCTCTTAAAA------AAAAA
 A-----ACT---GGAGA-----TA---------TGG-----AATCTG----------GAA-ATT------AAACCCCGAT
 CCTTCAGAGTGGAA-------------GTATAGCATG------------------------C--------TTCCACCACT
-GC-------------TATCCATCCGACACATCT---taaaacttatatatgtatatatatatatttgtatttagtaataa
+GC-------------TATCCATCCGACACATCT---TAAAACTTAtatatgtatatatatatatttgtatttagtaataa
 attttgagattaaaaaatttcgaaacaatacttcg---------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1059,7 +1059,7 @@ GTCGCT---------CATATC------------------------------TCTATAGT--------------GGTGTCA
 ATCCC-------G---------------------TAGGCC-----------GAGCCCGGATCCATTCTG------TAAAA
 T-----TCT---GGAGG-----TA---------TGT-----GATCCG----------AGA-ATT------GAACCCCCAT
 CCTCCAGACTATAA-------------GCACAGCACA------------------------C--------TTCCATTGAG
-AC-------------CATCCGGCCGACGGGATCTAGgaattgaatccagaattttcaggtgataagggagtattttagca
+AC-------------CATCCGGCCGACGGGATCTAGGAATTGAATccagaattttcaggtgataagggagtattttagca
 aatagccatcggtggtaaaatactaggttaatccaaaacaattaatatcaactatttaatgtca----------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1074,7 +1074,7 @@ ACTGCC---------CAT-------------------------------A-TCCCTAAA--------------TGTGGCT
 CTTTA-------A---------------------AGGACT-----------GGTCCGGAATTCTTTTTA------AAAAA
 AT----GTT---GACGT-----TG---------TTG-----CCCCGA----------AGA-ATT------GAATCTAGAT
 CCTTCAATATGGAA-------------GCATAGCATG------------------------C--------TACCATCTCG
-AT-------------CATCCATCTGATTCTTCGATTaaaaaaaatgtgaatatgattaaatcaaagcatttggacaattt
+AT-------------CATCCATCTGATTCTTCGATTAAAAAAAATgtgaatatgattaaatcaaagcatttggacaattt
 gaattatcccattgatttccatttcattttatttttccaaa---------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1089,7 +1089,7 @@ ACCGCC---------CAC-------------------------------A-TCCAGCAT---------------------
 GATCA-------A---------------------CGAACC-----------TGAGGCGGATTCCATTTG------AAAAA
 A-----ATT---AGAGG-----TT---------TGG-----GACACA----------AGA-ACT------GAACCTAAAT
 -CTCCAGGGTAGAA--------------TACAATCCG------------------------T--------TTCCACCGCG
-GC-------------CATTCAGCCGTTATGATAGCGatattattttatttgttagtataaactttattatattaatgatg
+GC-------------CATTCAGCCGTTATGATAGCGATATTATTTtatttgttagtataaactttattatattaatgatg
 tttatggtgaaataccttttgaaaaaagaattctcttctaatttttatttgtttataataaaaa----------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1104,7 +1104,7 @@ GT----------------------------------------------------AGC--------------------CAG
 GTTCA-------A---------------------CGAGCC-----------TGGCCCACGCCCTTCTTG-------AAAA
 T-----ATG---GGAAG-----TA---------TGG------ACATA----------GGA-ATT--------AACCATAT
 CCTCCAGTGTGAAA-------------GCACAATAGG---------------------------------CTTTCCTCCA
-GC-------------CATCCGGCCGACTCCTCCGTTtgttaggttaaattactttgaattaaccctccaaatcacacagt
+GC-------------CATCCGGCCGACTCCTCCGTTTGTTAGGTTaaattactttgaattaaccctccaaatcacacagt
 gaatattttttgcagatatcattttagaattttattttaattcttaagacccattttagcaatc----------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1119,7 +1119,7 @@ ATCATC---------CAC-------------------------------A-TCACTGGC--------------GGGGTCA
 -TTCA-------A---------------------CGAGTC------------GAGTCGGACCCCTCCTA-------AAAA
 AT----------GAAGG-----TA---------TGG-----GACCC-----------AGA-ATT------TAACCTGGAT
 CCTATTGACGGAGG-------------ATGGAATTTA---GC---------------GAACCAGACTTGGATCCTTTCAG
-AA-------------TAACTTGTTGGAACTGTGGAAcccgggaattgaatccggatcctccagagttgaagc--------
+AA-------------TAACTTGTTGGAACTGTGGAACCCGGGAATtgaatccggatcctccagagttgaagc--------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1134,7 +1134,7 @@ GCTACC---------TAC------------------------------TA-CACATGAT--------------GGGATTG
 ATTCA-------A---------------------CAAATA-----------TAGAC--AATCTTTCACA------GAAAA
 A-----TTT---ATGGT-----TA---------TGA-----------------------------------AACCCAGAT
 TCTCCAAGATGGAA-------------GCACAAAACT------------------TA----C--------TATTATTTGA
-AG-------------TGATCATCCTTTAATG-----tcaactctatcttctttcacaattatattcaaatttaataagta
+AG-------------TGATCATCCTTTAATG-----TCAACTCTAtcttctttcacaattatattcaaatttaataagta
 tgaaatgttatcaaaaattaattcatgagttgaatt--------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1149,7 +1149,7 @@ GCCTTT---------CAC-------------------------------A-TCTGTGAT--------------AGAGTCA
 GTTCA-------A---------------------TGAGCT-----------AAATTTGGACCCTTCTTT-----AAAAAA
 A-----TCT---GGAAT-----TA---------TGG-----------------GTACGGA-ACT------GAAGCCGGAT
 CCTTCGAAGAGGAA-------------GTGTAA-------------------------------------ACTCCCCATA
-AT-------------CGAACAGAAAGAAATTAAATAttgattaaaatatcaacagattgctatatatttacaatgcaaat
+AT-------------CGAACAGAAAGAAATTAAATATTGATTAAAatatcaacagattgctatatatttacaatgcaaat
 ttatagtaaatttattgaaaacatttaataataatttc------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1164,7 +1164,7 @@ AGCAGTA--------TAC-------------------------------AATAAGTGGT--------------ATGATTG
 GTTCA-------A---------------------CAAGTT----------TGAGCCAGGACTCCTCCTAA---AAAAAAA
 A-----TCT---TGAGA-----TG---------TGG-----GAAT------------GAA-ATT------GAACCAGTAC
 TTACTTATATATAT-------------TTATGAAGTG--------------------TTGACA-------TTTTCTTGTG
-GT-------------TAATAGCACCATGGCA-----ggaaattgaatcatatatgcaaataaatcatatctctactgaaa
+GT-------------TAATAGCACCATGGCA-----GGAAATTGAatcatatatgcaaataaatcatatctctactgaaa
 attttagaagcactttc---------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1179,7 +1179,7 @@ ATAGCA---------TAT-------------------------------A-CAAATAGT--------------TTGATAG
 ATTAA-------A---------------------TGAATT------------GTGCTTGACCTCTCATA-------AAAA
 A-----TCT---GGAGA-----TG---------TTG-----AATCTGCT------------ATT-------GAACCAGAT
 ATATCAGAGTGGAA-------------GTAAAACACT---------------------------------CATCCATGCA
-GC----------AATTATCTTATGAAAGTGTCA---ggtagattacagagaactgattgacaagacagatctagaccttt
+GC----------AATTATCTTATGAAAGTGTCA---GGTAGATTAcagagaactgattgacaagacagatctagaccttt
 tatataaagttttgagatttgggattcatattg-----------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1194,7 +1194,7 @@ GTCATT---------CAC-------------------------------A-TATGTATT--------------AGGACGA
 ----------------------------------TTAGTTT----------GAGTTGGGACTCCTCCTG-------AGAA
 AT--------------------TA---------TGG-----ATCTT-----------GGA-TTT------GAAATTTCAG
 GTTATAAGGTAATG-------------CTATATCATA------------------------CAGC---------------
----------------CTTCCAGTTAATGCTGGAGA-aatgaattagattgtggaagaccaacagctgagtcagaactcta
+---------------CTTCCAGTTAATGCTGGAGA-AATGAATTAgattgtggaagaccaacagctgagtcagaactcta
 tgtataaattttgaggattgagactggattcaattctggctctgtaggcaaaagttgaaatcat----------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1209,7 +1209,7 @@ ACCACT---------CAA-------------------------------A-CCTGTAAT--------------GGAATGG
 GTTCA-------A---------------------TGAATA-----------------GGATTTCTCATA-------AAAA
 G-----------TCAGA-----TG---------TGT-----GATCC-----------AGA-ATT------GACTCTGACA
 CTATACATGGTAAG------------CCAACACTATG------------------------T------------------
----------------CATCCAGCCATCCATTGACACtatagggatcaaacagattatggagaatggtgatcagcagccaa
+---------------CATCCAGCCATCCATTGACACTATAGGGATcaaacagattatggagaatggtgatcagcagccaa
 ccagaatactttatataaattttaagcatgggatatataaggt-------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1224,7 +1224,7 @@ GTGTCCA--------CAC-------------------------------A-CCTGTGAT-----------------GTCA
 ATTCAACG-TCAA---------------------CGTGTC-----------GAATCCGGACCCTTCCTG-------GATA
 A---TCTTT---GGTGG-----TA---------TGC-----------------------------------TATCCGGAT
 CCACCAGGTTGGAA-------------ACACAGCACG---------------------------------CTTCCACGCG
-TT-------------CATCCGGTTTACATTTATCTAacaaacacaggagaaatattctgatgcgcttttatatatttcta
+TT-------------CATCCGGTTTACATTTATCTAACAAACACAggagaaatattctgatgcgcttttatatatttcta
 gatgggggtaaactggtatagagcatcggtactagttaatatcgactggtttccaataacta------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1239,7 +1239,7 @@ ACTCTGGA----ATGCACTCTCGTTTAGTCATCATCTTCCAGAAGGCTAA-TCCTTGATG-------------GGGATCA
 ATTCA-------A---------------------CGAACT-----------AGACTCGGACTTCT----------GAAAA
 A---CTTTT---AGAAA-----TG---------TAG-----GATTTT----------AAA-GCT------GAACCTCG-T
 CTTCCATAATGGAA-------------ACATCATGCT------------------------T--------AGTCGGCCGG
-AT-------------TGGCCGCGTGGAAACGCTTCGgctttccactctggaggacccggattcgagtctcgggtcccact
+AT-------------TGGCCGCGTGGAAACGCTTCGGCTTTCCACtctggaggacccggattcgagtctcgggtcccact
 cctggaaagtatttatcatgggatccgggccc------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1254,7 +1254,7 @@ TTTTCTATCTGACCCTTTGTAAGGTCTGA---TGGAT-----------------GAT--------------------AGA
 GTTTA-------A---------------------CGATTC---------CG----CCCGACCCATCCTG-------AAAA
 A-----TCT---GGAAG-----TA---------TAT-----TATTTG----------GAA-ATT------GAATCTAGAT
 CTTCCCAATGGGGA-----------------AACACG------------------------C--------TGTCATCATC
-GC-------------TATCCAGTCGATGACATAAAAgtcaaatgaattaacagcataaaaatacttcagtttaccattct
+GC-------------TATCCAGTCGATGACATAAAAGTCAAATGAattaacagcataaaaatacttcagtttaccattct
 agaggatctggattcgattctcgggtgc----------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1269,7 +1269,7 @@ GATACT---------TAG-------------------------------A-GCGTTGGC--------------AGGATCA
 GTTTA-------A---------------------TGA------------CGGAATCCGAACCCTCCTGA------TAAAA
 C-----TCT---GGATT----------------TGG----GGAGTAA----------ACA-ATT------GAATCCGGGT
 -CATCATCGTGGAA-------------CCATAAT------------------------------------GTTTTACCAG
-GC-------------TATTCGGTCAACTTTCTGCACtggatggtcacattttcaactgaattctgtgaaacttgaaatat
+GC-------------TATTCGGTCAACTTTCTGCACTGGATGGTCacattttcaactgaattctgtgaaacttgaaatat
 aattatttcttagcttatttaaacaccgaaatttcgt-------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1284,7 +1284,7 @@ GTCGAT---------CAC-------------------------------A-TCCATAGT------------------TTA
 ------------A---------------------AAGATT----------TTCCTTCCATCTCTTCCTA------GAAAA
 A-----TCT---GTAGT-----TA---------TGA-----GCTCC-----------GGA-AAT------GAACCCAAAC
 CTTTCAGGTAGCAA----------TTGACGCATTAAG-------------------------------------------
----------------CGCTTAGTAGATCTATTTTCTtctgggccatttaaatttttcatacatttttattataaaatcca
+---------------CGCTTAGTAGATCTATTTTCTTCTGGGCCAtttaaatttttcatacatttttattataaaatcca
 attttaaattatgattgataatttcaacataatttttttaaa--------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1299,7 +1299,7 @@ GTGTCT---------TAA---------------------------------CCCATGAT--------------GGGTTAA
 TATTG-------A---------------------CAAGCT-----------------------------------AGAAT
 A-----TGT---GGAGA-----TG---------CGA-----AATCT-----------GAA-ATC------AATCTTGGAT
 CCTTTAGATCAGGG-------------ATTCCCAAAG---------------------------------TTTTTCCTTG
-GT-------------GGGCCAAATTGTAAATTCCAAaatatttggcgggccaaaaaaggattatggaaaaatttgttcaa
+GT-------------GGGCCAAATTGTAAATTCCAAAATATTTGGcgggccaaaaaaggattatggaaaaatttgttcaa
 atcgataaaaagttagacacaa----------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1314,7 +1314,7 @@ GCAGCT---------CAC---------------------------------ATAATAAT--------------GGAAATG
 ATTGA-------A---------------------TGAACA-------------GATCGGACTTCT--------AAAACAA
 T-----CCT---GAAGA-----TG---------TGG-----GACCT-----------GAA-ATA------CAACCGGAAT
 CCTCTAGAGCAGTT-------------GTTCTCAACC------------------------T--------TTTTTCTGTT
-GA-----------GGAACACATTTTAATATTT----taaaatttggcagcacatctaaatatttttaaataagagtatac
+GA-----------GGAACACATTTTAATATTT----TAAAATTTGgcagcacatctaaatatttttaaataagagtatac
 aattaacaacgaattttggtacgaga------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1329,7 +1329,7 @@ GTTGAT---------TAT-------------------------------A-CCTATG----------------GAGGTCA
 GCTAG-------A---------------------CAAGCT-----------GGACCTGGATCCCTCGTA------TAAAT
 T-----TTC---CAAGT-----GG---------TGG-----GATCC-----------TAA-TTT------GATCCCATAT
 TTTCTACTTGGAAA--------------------------G--------------------T--------TGCTATGAGG
-AG-------------TATATGACCAATTATCCTTTAtcaatacaatttaacacaatgttcataactatgatcctactaaa
+AG-------------TATATGACCAATTATCCTTTATCAATACAAtttaacacaatgttcataactatgatcctactaaa
 gcattaaaaacagtatagaagtaatacactttaatactaac---------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1344,7 +1344,7 @@ ctgtatTTTTTTCGTGTATGG------TTTC---ATGCCTCTCTTGAAATGG--CTG-------------TTACT-AAGA
 GTTCA-----------------------------CAGGTC-----------AGGTCCGGTCCTTTTCTG-------AAAA
 AT----TCT---GGTGA----------------TGG-----CACCG-----------AGA-ATC------GAATACGGAT
 CTCCAGATAGTAAG-------CGAACACAACCATATG-------------------G-------------CCATCCTTCA
-AC-------------CTTCCTGTTGACCTATTATGGgtgttatccagcctatgatggattctacaagtggccaccaccag
+AC-------------CTTCCTGTTGACCTATTATGGGTGTTATCCagcctatgatggattctacaagtggccaccaccag
 atcaagtatataaacacggatctccagatggtaagcgaacacaaccata-------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1359,7 +1359,7 @@ tgttttTCCTTTTCTATGTGG------TTTC---ATGCCGCTTTCTAATCGG----C-------------------AGGT
 GTTCA-------A---------------------TGAACA-----------GGACCCAGATTCCATCCA----AAAAAAA
 A---TTCTT---GGAGA-----TA----------------TCACCCG----------GGTGATTA----CGTAACCCGAT
 TCTCTGGTGTTAAA-------------------TAAA------------------------CG-------TTTAACTATG
-TGC------------CATCCGGCTGATTAGAGATT-tcagattcaaggaaatttctaatggtactctttttaaacccaaa
+TGC------------CATCCGGCTGATTAGAGATT-TCAGATTCAaggaaatttctaatggtactctttttaaacccaaa
 aaaaaattcttggagatatcacccgggtgattacgtaacccctgattctctggtgttaaataaa----------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1374,7 +1374,7 @@ GCCGCC---------CAC-------------------------------A-CCCTACAT----------------GATCA
 GTTCA-------A---------------------CAAGCT-------------GATAGAACCTCTTCTA------GGAAA
 T-----CTT---GGAGG-----TG---------TGA-----GACCCA----------GGA-ATT------GAACTGGATC
 CTTCTAATGGTAGA-----------------------------------------------CGAACA---CTTAACTACG
-AGT------------CATCCTGCATATAAATCGGCAatttcgttgcgttaaagattcaaaattctaaaaaacttcaaatc
+AGT------------CATCCTGCATATAAATCGGCAATTTCGTTGcgttaaagattcaaaattctaaaaaacttcaaatc
 ccatcagatggacgtgtggttctttc------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1389,7 +1389,7 @@ GCTGCT---------AAC-------------------------------A-CTTCTAAT--------------GATGTTG
 ATTCA-------A---------------------CAGAAG-----------GGGTTTACGCTCTTTTTG-------ATAA
 A-----TCT-----------------------ACAA-----GAATCA----------AGA-ATC------GAACCTGAAA
 TCCTCCAGATCA---------------TCATTCCACA----G----------------------------TTATCTTTCA
-AA-------------TGTTCGGCGGAATGACTGTAGtttaaatgagttatgctttcaacctagagaattctagttcaatt
+AA-------------TGTTCGGCGGAATGACTGTAGTTTAAATGAgttatgctttcaacctagagaattctagttcaatt
 cttagctcttacgcttttgaaagcttt-----------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1404,7 +1404,7 @@ AAATATCAAAATGGGCACTCC-------------------------TTCG-CCATTGGT--------------GGGATCG
 GTTAAAA-----A---------------------CCAAGT------------GAGCAGGATGCCTACTG------AAAAA
 ATCATTCCT---GGAGA-----TG---------AGA-----GGCCCA----------GGA-ATT------AAGCCACGAT
 CTTCTAGTCATCTT-----------------------------------------------C--------ATCCTCCATG
-AT-------------CCTCCAGATGGCAAGCCATCTggaggatcatggaaccatcttccagtcatcttcattttgaggac
+AT-------------CCTCCAGATGGCAAGCCATCTGGAGGATCAtggaaccatcttccagtcatcttcattttgaggac
 cgtgagaccatcttccaactgcagaggaaacaaca---------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1419,7 +1419,7 @@ tcccatAACCTTCTTTTTAAG------TTTT---ACACTTCTTTTCCAATTA--CGGTAG-------AAGTTATT-AAGA
 ATTCA-------A---------------------TTGACC-----------------GGGTTGGTCTTG------CAATA
 AC--ATTTTG--AAAGA-----CGATT------TGA-----GACCT-----------GGA-ATT------GAACTGAGA-
 -CTCCAGGGTAGAA-------------CCGTGATAAG--------------------GTAGCAATA----CTTCTACGCG
-GT-------------CATTTCGCCCCTTCCCAACCCtaatataatgccagctggaagacaattcaagacgatccaggttc
+GT-------------CATTTCGCCCCTTCCCAACCCTAATATAATgccagctggaagacaattcaagacgatccaggttc
 aattc---------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1434,7 +1434,7 @@ GCGTT----------CAC-------------------------------A-CTCTTGAT--------------GGGATCA
 GACCA-------A---------------------CAATCT------------GGGCCGTATTCTTCCTG-------AAAA
 GTT---------GGAAG-----TA---------GAT-----CACTCG----------GGA-ATT------GAATCCGG--
 --TCCAGGAGGGAG-------------GCACAGCACG---------------------------------CTCCACTGAG
-GC-----------AGGGCTTGCCTCAGTGGAGCGAGaggttgccgagaggtcggcctgatattaaaggatgggaaggacg
+GC-----------AGGGCTTGCCTCAGTGGAGCGAGAGGTTGCCGagaggtcggcctgatattaaaggatgggaaggacg
 ctgactcctgaatatattttccaagaagtgggactcgaattcgattttttttgt--------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1449,7 +1449,7 @@ TTTATT---------CAACCT--------------------------C-A-TCCTTCAC--------------CTAATTG
 AATTA--------T--------------------TGAGAT------------GCCCAGCACTTTATTCA-----ATAAAA
 A-----------GGATA-----AG---------TGGCATATAATACAAAT-------AGA--------AAAAATTCCAGG
 TCTTCAAGGCTTAT--------------------------------------------------------TTTTTTTTTA
-TA----------------------------------taaaaattaatgattttatttatacaaaaatattttctgaaatg
+TA----------------------------------TAAAAATTAatgattttatttatacaaaaatattttctgaaatg
 tcaaatataatgtaagctatgaaa--------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1464,7 +1464,7 @@ tcaaatataatgtaagctatgaaa--------------------------------------------------------
 ATGCA-------G------------------------------------CCGGGCCTGGACCCTTCCTG-------AAAA
 A-----CTG---GAATACAGCATATTTCCACCGTGA----CCATCCGGCC---GACAGCATATT------GTCTTTGCAT
 CCTGAAGGACGTCG-------------GTTCAATTTCCAAGT---------------TCCACAACCACAGTTTTTGCAGG
-AT----------G--AGTCTGGCTCATTGAACCCTAtccaccacatggcgactgacccaacgaaggatgtagacaatctg
+AT----------G--AGTCTGGCTCATTGAACCCTATCCACCACAtggcgactgacccaacgaaggatgtagacaatctg
 tggagcggatggacatgccctgtcgcaccaattaaaatgctgcattaaaccatatagaaaaaacaaaaatagtatggaaa
 gttggtaaaaccagaaacaaagcacagcaaaaattatgacgaatccggacccagcatattgatcgccatcttctatccgg
 caaa------------------
@@ -1479,7 +1479,7 @@ GTCCCA---------TAC---------------------------------TTCCAGAT---------------------
 GCTCG--------------------------------------------TTGATCTCCTCCTCCTTCCG----ACGACTG
 A--CCCCAT---CAGGAT----TG---------TGGGC---GATTCATAATGGGTATGAAAATTCCTCGCCGAATAGTAC
 TCACAGAATAGAAAGCGTCGTAAAACCACACAGAAAAAA-------------------------------ATATACACTG
-TA-------------TATTCAATCATAAATACAAATtttgagaatttaatatatcacgtaatttagagcacacattttca
+TA-------------TATTCAATCATAAATACAAATTTTGAGAATttaatatatcacgtaatttagagcacacattttca
 tattttcaataaggttaaaggttag-------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------
@@ -1494,7 +1494,7 @@ atcggaTGCACCCGTGGTTAA-------------GCGTTTGTTCATACCTGG------------------AAGCT-AAAT
 GCCCG-------GCTTG----------------TTAAACC---CCTTCCTTCATCTGACAGCCGTCCCT----TTTAAGA
 A-----CTTG--GGAGGCC---CA---------TGG----TAAGCAA--------CTAGA-ATT--CCCCGCCATTTAAT
 AACTGGAGGTGAAA-------------ACACACAAGA-------------------G-------------GATATGCATA
-AA-------------CATTTGGGAATTATTTTAAGTtaaccagtactttattattcgggacgattctatatataaataat
+AA-------------CATTTGGGAATTATTTTAAGTTAACCAGTActttattattcgggacgattctatatataaataat
 ttatatttcaggataagaaaaacattacagttatatcaaaatttccaag-------------------------------
 --------------------------------------------------------------------------------
 ----------------------
