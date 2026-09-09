@@ -20,7 +20,16 @@ Universal rule (every species / subfamily — no per-set tuning):
   TRIM  — outermost letters still failing CONS_EDGE are dropped (handles internal
           gaps at the 3 prime edge).
 
-Run after step8a MAFFT, before boundary_justify (or re-run justify after).
+Run after boundary_justify, not before. boundary_justify is what establishes
+the element=upper/flank=lower case convention this file's element_rows() and
+consensus_span() depend on (boundary.column_stats folds case, so it doesn't
+need it -- but element_rows() here deliberately does not, "lowercase flanks
+treated as gaps" is intentional once the convention is real). Run before
+boundary_justify and case is whatever the raw genome's native soft-masking
+happens to be at each locus -- unrelated to element boundaries, and the
+per-column majority vote finds almost no columns where copies agree.
+Confirmed root cause of oma_SINE10's published top100 row-0 collapsing to
+5bp (2026-09-09) -- fixed in align_for_publish.sh by reordering the two.
 """
 import glob
 import io
@@ -55,10 +64,24 @@ def majority_base(rows, j):
 
 
 def consensus_span(seqs, ci, others):
-    """Row-0 uppercase span; fall back to copy-supported window only if empty."""
+    """Row-0 uppercase span, UNIONED with a fresh copy-supported window.
+
+    Row-0's own uppercase can under-report a genuine extension when the seed
+    consensus has a GAP where the copies carry real, well-supported sequence.
+    boundary_justify.py's element_window walk already finds the correct wider
+    window in that case (its own log line reads "extend L=6 R=3" etc.) -- but
+    justify() can only re-case EXISTING characters, and a gap has no case, so
+    the extension is computed and then silently dropped. This function used
+    to trust row-0's (still-unextended) uppercase span alone whenever it was
+    non-empty, so it never looked at the columns that needed filling in.
+
+    Confirmed on oma_SINE10 top100 (2026-09-09): the true element starts
+    "GTCGGCCGGATTGG..." (columns 97-102, 90-99% copy agreement, GTCGG),
+    while row-0's uppercase span started 6 columns later at "CCGGATTGG...".
+    Taking the union recovers it: the copy-supported walk correctly proposes
+    lo=97, and the majority-vote loop below fills in the real bases there.
+    """
     upper = [i for i, c in enumerate(seqs[ci]) if c.isupper()]
-    if upper:
-        return upper[0], upper[-1]
     seed = []
     for j in range(len(seqs[ci])):
         if B.column_supported(others, j, CONS_EDGE):
@@ -67,8 +90,10 @@ def consensus_span(seqs, ci, others):
         else:
             seed.append("-")
     seed = "".join(seed)
-    lo, hi, _ = B.element_window(seed, others, cons_min=CONS_EDGE)
-    return lo, hi
+    lo_w, hi_w, _ = B.element_window(seed, others, cons_min=CONS_EDGE)
+    if upper:
+        return min(upper[0], lo_w), max(upper[-1], hi_w)
+    return lo_w, hi_w
 
 
 def apply(path):
