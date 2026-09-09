@@ -463,6 +463,660 @@ Two rules:
 
 ---
 
+## 22. Diagnostic ENRICHMENT, not count, measures a subfamily call
+
+Across seven calls he made on ccr (2026-09-05), the number of diagnostic columns did
+not distinguish a confident call from a doubtful one - four of the seven calls had
+exactly seven columns and he described them from "good group" to "very unclear
+borders". What ranked them in his own stated order was how specific those columns are
+and whether they spread along the molecule.
+
+| his words | cols | enrichment | overlap with non-members |
+|---|---|---|---|
+| "good group" (unanchored) | 7 | 4 cols >300x | none, 0 of 306 |
+| "clearly distinct from neighbours" | 17 | 7-bp tract ~500x | none adjacent |
+| "not firmly sure but they seem to form a group" | 7 | 8-50x | soft top edge only |
+| (no comment) | 7 | 5-30x | 22 of 345 |
+| "very unclear borders" | 7, all inside 11% of the molecule | 5-25x | 30 of 482 |
+| "where my error most probably lives" | 2 | 6.0x, 4.3x | 25 outside carry both |
+
+Enrichment = (fraction of members carrying the state) / (fraction of non-members).
+Two secondary measures that agree with it:
+
+- **Spread.** The call he called "very unclear" had all seven columns inside cols
+  44-79, 11% of the length; nothing marked the other 230 columns. With so few
+  informative positions the membership score quantises to sevenths and rows genuinely
+  cannot be ranked finely. His unclear border was a property of the subfamily.
+- **block-vs-rest below the within-rest bar.** Only his two strongest calls produced a
+  block that was more unlike the rest of the alignment than the rest was unlike
+  itself. His weakest call scored 0.9280 against a 0.9265 bar - indistinguishable.
+
+## 23. A diagnostic set is valid only for the alignment it was computed in
+
+On ccr, four chunks carried ALL of g3's diagnostic columns while sitting outside his
+g3 cut. Three calls later they turned up in g6, a different subfamily entirely, and
+he assigned all four there. 4 of 4.
+
+The anomaly was real and the metric found it; the reading was wrong. g3's seven
+columns separated members from non-members perfectly *within that alignment*, and
+still admitted chunks belonging to another subfamily once the alignment was depleted.
+
+This is his own reason for gradual depletion, reached from the other side:
+
+> "diagnostics are relative to what's still in the alignment - thats kinda reason for
+> my gradual depletion"
+
+Two consequences for the discriminator:
+
+1. Recompute the diagnostic set at every peel step. A set carried forward is stale.
+2. "Carries the pattern but sits outside the block" is evidence of SOME structure, not
+   evidence of membership in the group whose pattern it matched. Report it as an
+   unexplained neighbour, never as a missed member.
+
+## 24. An outlier is not a low-identity copy - it carries its own changes at fixed positions
+
+Three chunks sat below his 60-chunk g6 group in the reorder. His verdict: one was a
+member ("i dont see much special, and its buried within"), two were "a bit like
+outliers but not dramatically".
+
+The measure that reproduces this is the count of PRIVATE DEVIATIONS at columns where
+the group is >=90% conserved:
+
+    the 60 members    median 1   range 0 - 6
+    the member                3   inside the range
+    outlier A                 7   just past the max
+    outlier B                13   double the max
+
+Two measures that FAIL:
+
+- **mean identity to the group.** The member sat at percentile 2 and one outlier at
+  percentile 0. Both were at the bottom; he called one a member and one an outlier.
+- **identity to the curated consensus.** One outlier scored inside the member range.
+
+So a copy can be last on average identity and still read as a normal member. What
+makes it read as an outlier is carrying its own changes where the group has agreed -
+the diagnostic-column logic applied in reverse, to a single sequence.
+
+First measure in the corpus to reproduce a WITHIN-group judgement; everything before
+it addressed where a boundary lies, not whether a given copy belongs inside one.
+
+**Scope limit, found on oma 2026-09-06.** The measure needs conserved columns to count
+deviations against, so it only works on a tight group. Applied to his oma 515-526
+subgroup - where he called input_525 and input_526 "a bit outliers but probably not
+worth separation" - every chunk including those two scored 0 private deviations, and
+the measure said nothing. The reason is the column supply:
+
+    ccr g6, where the measure worked          241 columns >=90% conserved
+    oma SINE_2, the tightest oma family       130
+    oma good group, 34 chunks                  38
+    oma 515-526 core, his 9                    15   <- measure fails here
+    oma discard, 12 chunks                      0
+
+Below roughly 40 conserved columns there is nothing to measure and the deviation count
+collapses to zero for members and outliers alike. Use it only where the group is tight
+enough to supply them, and check the column count first.
+
+## 25. A displaced consensus manufactures subfamily pairs that do not exist
+
+He looked at an alignment and said two curated consensuses were "very bad". Rebuilding
+each peeled group's consensus (realign with SubFam's L-INS-i parameters, 50% plurality
+- his viewalign step) confirmed it for one and cleared the rest:
+
+| group | members to OLD | members to NEW | gain | old columns wrong |
+|---|---|---|---|---|
+| g6 | 0.9452 | 0.9876 | +0.0424 | 16, six of them bases where the group has a gap |
+| g7 | 0.9755 | 0.9803 | +0.0047 | 5, all spurious insertions (3-seq consensus) |
+| g3, g4, g5 | 0.975-0.992 | +0.002-0.003 | | 0 |
+| g2 | 0.9689 | 0.9713 | +0.0024 | 1 |
+
+"Columns wrong" = positions where >=90% of members agree and the consensus disagrees.
+
+The consequence is out of proportion to the cause. That one displaced consensus
+created a hard subfamily pair that does not exist:
+
+    g1 vs OLD g6   0.9769   <- the pair that made ccr look like a hard-zone test
+    g1 vs NEW g6   0.9333
+
+It also produced an apparent labelling failure - "77% of g6 chunks sit within 0.005 of
+g1" - that evaporated with the corrected consensus.
+
+**Proposed check step for SINEderella.** After curation, compare each consensus with
+its own members and flag every column where the members are >=90% conserved and the
+consensus disagrees. It is cheap, it catches this immediately, and asSINEment scores
+every genomic copy against these consensuses - a consensus carrying a 4-bp insertion
+its subfamily does not have costs real copies real bitscore.
+
+## 26. The curation page already exists — `subfam_input/input.clw.al`
+
+**Do not build a curation page. step1 already built it**, and `SINEDERELLA.md`
+§step1 already said so - "That is the subfamily alignment with anchor rows, already
+built." On ccr I rebuilt it by hand without consulting that section. The last block of
+`step1_search_extract.sh` concatenates the 600 SubFam chunk representatives with the
+consensus file and runs SubFam's own ordering command over the lot:
+
+    cat input_reps.fasta "$CONSENSUS_PATH" > combined_input.fasta
+    mafft --localpair --maxiterate 1000 --ep 0.123 --nuc --reorder --preservecase           --quiet combined_input.fasta > input.clw.al
+
+So `<run>/genome.clean_step1/subfam_input/input.clw.al` is the chunks-plus-consensuses
+alignment, with the consensuses landing wherever the guide tree puts them. Verified
+present for ccr (2026-05-17) and teu (2026-04-27). Reconstructing it by hand from the
+surviving `.cons` files reproduces it exactly - 600/600 chunks at the same position -
+which is a useful determinism check but was wasted work.
+
+The rule that matters, since a page WILL sometimes have to be rebuilt (a curated
+consensus set that differs from the one the run used, as on ccr):
+
+**Never `mafft --nuc --reorder --add cons.fa chunks.fa`.** `--add` with `--reorder`
+re-sorts every chunk under a fresh fast guide tree and discards SubFam's L-INS-i
+ordering - the ordering he reads groups off. Measured on ccr's 600 chunks:
+
+| ordering | adjacent pairs kept | chunks at same position |
+|---|---|---|
+| SubFam line 60 rerun on the 600 alone | 599/599 (100%) | 600/600 |
+| `input.clw.al` / line 60 on 608 | 520/599 (86.8%) | 363/600 |
+| `--add --reorder` | 258/599 (43.1%) | 35/600 |
+
+Two things worth knowing from that table. SubFam's ordering is **exactly
+reproducible** - rerunning line 60 on the 600 alone regenerates `input.msf` position
+for position, so it can be recovered at any time from the surviving `.cons` files. And
+putting the consensuses in the tree costs 13% of adjacencies even done correctly: that
+is the price of having landmarks, and `input.clw.al` has already paid it.
+## 27. Chunk consensuses hide divergence — build a group's consensus from its loci
+
+A SubFam chunk consensus averages 50 copies, so a curation page built on chunks shows
+a group as far tighter than it is. Measured on two oma groups, chunk level against the
+underlying loci:
+
+| group | chunks | chunk-level identity | locus-level identity | overstated by |
+|---|---|---|---|---|
+| oma_SINE_5 | 17 | 0.9587 | 0.8065 | 0.15 |
+| the four-chunk group at the page bottom | 4 | 0.946-0.970 | 0.679 | 0.28 |
+
+The distortion is worst for the most divergent families - exactly the ones where the
+judgement is hard. It did not show on ccr because those subfamilies are young and
+tight, so chunk and locus level nearly agree there. On a de novo scan of an old genome
+it is a factor.
+
+**His instruction, 2026-09-05:** "such low numbers probably need consensus rebuilding
+from original loci". And when 900 loci were queued for MAFFT: "no need to align 900
+loci, its overwhelming for mafft, select 100-200 representatives."
+
+**Procedure.** For a called group, take 8-12 loci from each member chunk's `.bnk` (they
+hold 50 each), keeping the sample balanced across chunks so group structure survives,
+to a total of 100-200. Align with SubFam's L-INS-i parameters, take a 50% plurality
+consensus. Name rows `c<chunk>_<n>` so each chunk's loci can be seen to hang together
+or not. Runtime is ~30 s at 144 rows.
+
+**It also decides membership better than the chunk page.** On oma_SINE_5, input_345
+scored 0.7017 against the block at chunk level - ambiguous - and 0.6311 at locus level,
+0.6884 against the rebuilt consensus, against 0.7925 for the weakest member chunk. It
+was also internally TIGHTER than the block (0.8533 vs 0.8065), which reads as a
+related family rather than degraded members of this one. His verdict on seeing the
+alignment: "good consensus can be done from sequences starting from C, those from X
+are outliers" - confirming the measurement.
+
+## 28. Every group is expected to be edged by one flawed chunk consensus
+
+**His explanation, 2026-09-06, on why the weakest member of a called group sits at its
+edge:**
+
+> "yes 591 is the outlier here, but it nicely wraps them being the border case - it
+> includes this inherent drawback of blind split into 50 and probably includes enough
+> sequences from neighbouring subfamily which will distort the consensus. so this is
+> normal and expected for the group to be edged by flawed one consensus"
+
+The mechanism. SubFam sorts all copies by similarity (`mafft --retree 0 --reorder`)
+and then splits that ordering into chunks of 50 **by position**, blind to where the
+subfamily boundaries fall. At every boundary one chunk necessarily straddles two
+subfamilies, and `cons -plurality 18` over that mixture produces a consensus that
+belongs to neither. So a boundary chunk is contaminated **by construction**, not by
+any failure of the data or the tool.
+
+Consequences:
+
+1. **An anomalous chunk at a group's edge is an artifact, not a finding.** It is not
+   evidence of a subgroup, an intermediate form, or a mis-assignment. Report it as the
+   expected boundary effect and do not build on it.
+2. **Groups should be expected to have soft edges and hard centres**, and a call whose
+   weakest member sits at an edge is behaving normally. Observed three times so far:
+   ccr g4's soft top edge (four rows above his cut at 4-5 of 7 diagnostics against a
+   background of 0.055); oma_SINE_5 where the weakest chunk c137 is the FIRST row of
+   his block, 0.7925 against 0.9352 for the best; oma call 1 where input_591 is the
+   first row and sits at 0.738-0.748 against 0.946-0.970 among the other three.
+3. **It bounds what the boundary evidence can ever be worth.** Chasing a sharper cut
+   than one chunk's width is chasing an artifact. At 50 copies per chunk the boundary
+   is inherently +/- one chunk.
+4. It is an argument for locus-level work at the edges specifically (note 27): the
+   contamination is visible in the loci, where a boundary chunk's 50 copies split into
+   two identifiable sets, and invisible in its consensus, which just looks odd.
+
+This is also the cleanest available answer to "why not cluster the chunks properly
+instead of peeling by eye" — the chunking itself injects a known error at every
+boundary that no clustering of chunk consensuses can remove.
+
+## 29. AnnoSINE's header metadata, what it means and what it is worth
+
+He asked why AnnoSINE2 "works so poorly" on two of its oma seeds, and then challenged
+the filter I proposed: "not all sines are expected to have tsds, or i am mistaking it
+for something?" He is right, and my first explanation of `tsd_l` was wrong. Corrected
+from `AnnoSINE_v2.py`:
+
+- When the TSD search finds nothing, AnnoSINE writes the string **`tsd not exist`** and
+  falls back to MSA-derived boundaries (`process_tsd_output`, the `record_tsd[t] == 0`
+  branch). So a missing TSD is handled explicitly and is NOT an error state - exactly
+  his point, and AnnoSINE agrees with him.
+- A numeric `tsd_l` is therefore a TSD that WAS found: `len(hmm_pos[t][0])`, the length
+  of the left TSD match including alignment gaps.
+- AT-rich TSD matches are already rejected upstream (`is_at_seq` on both arms).
+
+So my earlier claim - that `tsd_l:45` meant "no TSD found, widest window reported" - was
+false. All 33 oma seeds carry a numeric `tsd_l`; none says `tsd not exist`.
+
+**What survives, and it is stronger than what I claimed.** The distribution over the full
+33-seed set is bimodal with an empty gap:
+
+    10,11,12,13,14,16,17,19,20,24,27,30,33   27 seeds
+    (nothing at 34-43)
+    44, 45, 46, 48, 50                        5 seeds
+
+A TPRT-generated TSD is typically 5-20 bp. The upper cluster is outside that range and
+separated from the main distribution by a 10 bp gap, which is a property of the data
+rather than of my threshold. Among the 23 deduplicated seeds the four in that cluster
+attracted 0, 0, 2 and 2 of 598 chunks, against a median of 8 for `tsd_l <= 20`.
+
+A 45-50 bp duplication flanking an element is more readily explained by the element
+sitting in a duplicated or repetitive context than by retrotransposition, which would
+also explain why those seeds pull few coherent copies.
+
+**But n = 4.** This is a flag worth printing, not a filter worth applying. The honest
+recommendation is: report `tsd_l` and `blast_count` beside every candidate in the
+SINEderella output so the operator sees them, and mark seeds in the upper `tsd_l`
+cluster for review. Dropping them automatically on four observations is not justified.
+
+**blast_count.** Three of the four seeds he flagged by eye sit in the bottom five of 23:
+SINE_1 rank 1 (29), SINE_32 rank 4 (40), SINE_8 rank 5 (45). Correlation of
+log10(blast_count) with log10(sear hits) across all 23 is r = +0.49.
+
+**What neither metric predicts.** SINE_5 has blast_count 1180 (rank 17) and a normal
+tsd_l of 33, and still shows no SINE signal in RepBase or SINEBase. The headers report
+*AnnoSINE's own confidence*, not whether the element is a SINE. Only the peel answers
+the second question.
+
+**A third, separate failure mode: redundancy.** Three seeds pulled thousands of hits and
+took zero chunks - SINE_3 (16,415 hits), SINE_15 (16,177), SINE_31 (3,761). They sit
+beside SINE_20, which took 115. AnnoSINE's own dedup (33 -> 23) did not catch these.
+High confidence plus high hit count plus zero chunks means subsumed by a better seed,
+not a bad seed.
+
+## 30. What "looks bad and I discard it" measures as — incoherence, not divergence
+
+First block he has labelled bad on oma: 12 chunks, input_523 down to input_507, "next
+chunk looks bad and i usually discard such data at this step". Immediately after, he
+called a 34-chunk group good. Both were taken to locus level and measured identically.
+
+| | his discard | his good group |
+|---|---|---|
+| mean pairwise identity | 0.505 | 0.771 |
+| mean WITHIN-chunk identity | **0.549** | **0.785** |
+| consensus positions failing 50% plurality | **36.6%** | **5.1%** |
+| mean locus fit to consensus | 0.711 | 0.873 |
+| loci below 0.70 fit | **43.8%** | **0.7%** |
+| core columns (>=50% occupied) | 15.4% | 14.5% |
+
+**The discriminating measure is whether a consensus can be DEFINED, not how similar the
+copies are.** His good group sits at 0.771 mean identity - lower than the oma_SINE_2
+family at 0.862 and comparable to plenty of material he keeps - and he accepts it,
+because 95% of its consensus positions reach 50% plurality and one locus in 136 falls
+below 0.70 fit. The discard fails on exactly those: over a third of its consensus is
+undefined and 44% of its loci do not reach 0.70.
+
+So the criterion is not a divergence threshold. He tolerates divergence and rejects
+incoherence.
+
+**The mechanism, and the sharpest single number: within-chunk identity 0.549.** A
+SubFam chunk holds 50 copies that the similarity sort placed adjacent. In the discard,
+those 50 do not agree with each other. The chunk consensus is therefore a consensus of
+nothing, and the whole block is an artifact of SubFam having to cut the ordering into
+fifties even where the ordering has no structure left to cut. This is the same
+mechanism as note 28's boundary contamination, in its extreme form: not one
+contaminated chunk at an edge, but a run of chunks with no coherent content at all.
+
+**A negative result worth keeping: gappiness does not discriminate.** Core columns are
+15.4% of the alignment in the discard and 14.5% in the good group. A wide, gappy
+alignment is not evidence of bad material - it is what aligning any 130+ scorpion loci
+produces.
+
+Practical: compute (a) mean within-chunk locus identity and (b) the fraction of
+consensus positions failing 50% plurality, per candidate block, and surface both. On
+this pair they separate at 0.549 vs 0.785 and 37% vs 5% - wide margins, one observation
+each.
+
+**Better single number, found 2026-09-06: columns at >=90% conservation, as a
+PERCENTAGE of occupied columns.** The raw count is not comparable between blocks - it
+scales with alignment width, which varies four-fold here (405 to 2169 columns) with the
+length spread of the loci. Corrected the same day, after the raw count ranked a
+100-locus block above a 136-locus one purely on width.
+
+    block                        rows   cols  occupied  cons90   % of occupied
+    ccr g6, a clean subfamily      63    268       258     242         93.8%
+    oma SINE_2, "cleanest here"   128    823       197     130         66.0%
+    oma SINE_5                    136    694       180      56         31.1%
+    oma SINE_7                    100    405       181      40         22.1%
+    oma good group of 34          136   1621       235      38         16.2%
+    oma 515-526, "difficult"       90   2169       228      15          6.6%
+    oma discard                   144   1504       232       0          0.0%
+
+Zero is what a block he discards looks like, and the bottom three are ordered exactly
+as he ranked them.
+
+**But it is not a complete stand-in for his judgement.** oma_SINE_7, of which he said
+"not looking like something very promising", scores 22.1% - above the 34-chunk block he
+called "a good group" at 16.2%. Coherence and promise are not the same axis: SINE_7 has
+a definable consensus that every one of its copies sits far from (mean locus fit
+0.7935), which is what an old degraded family looks like, while the 34-chunk group is
+younger and looser-aligned but its copies sit closer to their consensus. Report both
+numbers, not one.
+
+It is also the supply that note 24's outlier measure draws on, which is why that measure
+fails below ~40 raw columns - the same quantity governs both.
+
+## 31. One family with a gradient vs two subfamilies: the halo test
+
+His call on oma's 76-chunk block input_430 to input_514, 2026-09-06:
+
+> "the rest of the group (81 seq) cannot be readily separated. two possible approaches
+> fail: first one (diagnostic mutations) is weak and inconsistent, and other one (drop
+> in divergence) is not apparent because there is a smooth transition from highly
+> conservative (roughly 430-476) to more divergent (below). let it be one group."
+
+Both failures reproduce, and the second one has a clean mathematical signature.
+
+**The profile is smooth.** Mean identity of each chunk to the top six runs flat at
+0.96-0.98 from input_430 through input_476, then declines raggedly - 0.95, 0.91, 0.93,
+0.96, 0.87, 0.93, 0.88, 0.86, 0.85, 0.90, 0.82, 0.84, 0.88 - with no step anywhere.
+
+**The split scan finds no peak.** Over all 60 admissible cut points, separation
+`(withinA + withinB)/2 - between` has max 0.0237 against a median of 0.0071. A real
+boundary produces a peak far above its background; this produces a bump. The best cut
+(after input_491) is also not where he saw the transition (after input_476, separation
+0.0126), which is what "weak and inconsistent" looks like numerically.
+
+**The halo test — the criterion worth keeping.** For a genuine pair of subfamilies each
+side must be tighter internally than it is to the other:
+
+    two subfamilies       between < min(withinA, withinB)
+    one family, gradient  between > withinB, the looser side
+
+On this block, `between > withinB` at **all 60 cut points**, by +0.0112 to +0.0474
+(median +0.0295). Never once does the lower half form a group of its own. The divergent
+tail is a diffuse halo around the conserved core, not a second subfamily - which is
+exactly "smooth transition" stated as an inequality.
+
+At his own indicated transition: withinA 0.9789, withinB 0.8828, between 0.9182. The
+lower half is looser internally (0.8828) than its distance to the upper half (0.9182).
+That single comparison is the whole answer.
+
+**Why this is better than a divergence threshold.** It needs no cutoff and no
+calibration. It asks whether a candidate split produces two clusters or one cluster
+plus its own scatter, and the answer is scale-free. It is also cheap: one pass over
+cut points on the chunk-level identities, no locus extraction needed.
+
+**Caveat: one block, one species.** It should be run against a case where he DID split,
+to confirm that `between < both` actually fires there - the ccr subfamily pairs are the
+obvious test set, and SubFamSep already holds that material.
+
+## 32. MAFFT's chunk ordering recovers a real group perfectly, and a junk block not at all
+
+**His observation, 2026-09-06:** "Notice throughout the analysis how good predictive
+power the numbers of mafft chunks continuity creates."
+
+Tested directly. For each block he called, score all 598 page chunks by mean identity
+to that block's members and take the top |G|. Recovery is how many of those top |G| are
+the block's own members.
+
+    group          size   recovery      his verdict
+    call1             4       100%      kept
+    SINE_18           8       100%      "next reliable group"
+    SINE_32           8       100%      kept, "numerous flaws" in the seed
+    SINE_2            4       100%      kept, cleanest of the peel
+    SINE_7            2       100%      kept, "not very promising"
+    SINE_5           17       100%      kept
+    good34           34       100%      "a good group"
+    sub515-526       11        91%      inside a region he called difficult
+    DISCARD          12         0%      "looks bad, i discard such data"
+
+Mean recovery over the eight blocks he kept: 99%. For the block he discarded: **zero**.
+
+Not one of the top twelve chunks scored against the discard's members is a member. Each
+of its chunks is more similar to something else on the page than to the others in its
+own span. That is "this is not a group" expressed as a number, and it is the sharpest
+keep/discard separator found so far - binary, with no threshold to choose.
+
+Two things follow.
+
+1. **The ordering is trustworthy where it matters and self-reporting where it is not.**
+   For real groups MAFFT's contiguity already puts the right chunks together, so the
+   span he reads off the screen IS the group. Where the ordering has nothing to work
+   with, recovery collapses to zero rather than degrading gracefully - so the measure
+   flags its own failure.
+2. **91% is what "difficult" looks like.** The only kept block below 100% is the one he
+   independently described as difficult, and it missed by one chunk.
+
+Cheap to compute: it needs only the page alignment, no locus extraction, no consensus
+building. It should be run on every candidate span before any locus work.
+
+## 33. One body, two tails — and the halo test validated in both directions
+
+His call on oma input_380-391, 2026-09-06: "not look like SINE also but its a group
+with a bit different tails of 2 types."
+
+**The ambiguity is entirely at one end.** The 50%-plurality consensus over 96 loci has
+22 undefined positions, and **all 22 (100%) fall in the last quarter** of the 277
+occupied columns - positions 221 to 275. The body is clean; only the tail is not. A
+consensus that degenerates at one end and nowhere else is not noisy, it is bimodal.
+
+**The halo test (note 31) applied region-wise separates the two questions.** Splitting
+the loci by the length signal MAFFT already exposed - chunks 380, 386, 387, 388 at
+271-281 bp against 381-390 at 291-298 bp:
+
+    region   within A   within B   between    verdict
+    TAIL       0.7758     0.7244    0.6384    between < both  -> TWO GROUPS
+    BODY       0.8460     0.8225    0.8327    between > withinB -> ONE GROUP
+
+One family by its body, two by its tail. The two tail consensuses:
+
+    A (short chunks)  TTTTTTATTTTTGTATTTAnGGTAATACTGTGAATACAAAAATTGTTGATTAATT
+    B (long chunks)   TTTTTCACTTTTAAATTTTATGTTGAACTTCGAnTAATAAAAATATTAAAATATTTGTCCA
+
+Both begin with a T-run and then diverge completely - consistent with 3' variants of one
+element rather than two elements.
+
+**This closes the open caveat on note 31.** That note derived the halo test from a case
+where he declined to split, and warned it had never been shown to fire the other way.
+Here it fires both ways *within the same alignment*: two groups on the tail, one on the
+body. The test is therefore not merely a detector of "no structure" - it distinguishes
+structure from its absence, on the same data, using the same inequality.
+
+**Procedure this suggests.** When a consensus has ambiguous positions, check where they
+sit before treating them as noise. If they cluster in one region, run the halo test on
+that region alone and on the remainder separately. A group can be one family in its body
+and two in its tail, and reporting a single verdict for the whole element hides that.
+
+**Caveat.** The A/B split used here came from a length difference he could see on the
+page, not from an unsupervised clustering of the tails. The test confirmed a split that
+was proposed; it has not yet been shown to FIND one unaided.
+
+## 34. Measure conservation against the block's OWN base composition, not against plurality
+
+Found 2026-09-06 on oma's 78-chunk block, which he described as "either something
+extremely ancient or i dont know what, there is a signal but on the level of most
+ancient sines such as lf-sine".
+
+By plurality the block does appear to have a core - its best 20-column windows reach
+0.58 mean plurality against a 0.525 background. But every one of those windows is an
+A/T run:
+
+    TTTTANAATTTAAATNAAAA    AANATANNAAAAATNTNTNN    AAANAATTTATTNTTTTAAN
+
+The block is 82% A+T. With effectively two states instead of four, plurality is inflated
+by composition alone, and a plurality-based measure credits an A/T-rich block for being
+A/T-rich.
+
+**The fix: Kullback-Leibler divergence of each column against the block's own base
+composition.** A column scores zero when it looks like a random draw from that block's
+own nucleotide frequencies, and up to 2 bits when it is fixed. Composition cancels.
+
+    block                              rows   AT frac   mean KL   cols >=1 bit
+    SINE_9                               95      65%      1.494        86.2%
+    SINE_25, 31 chunks, "very short"    124      62%      1.457        89.2%
+    SINE_2, cleanest earlier            128      73%      1.418        87.3%
+    good group of 34                    136      44%      1.337        83.0%
+    ---
+    SINE_16, "the worst so far"         105      79%      0.717        22.8%
+    his DISCARD                         144      61%      0.691        12.5%
+    SINE_19, "weakest non-junk"         130      76%      0.658        20.2%
+    ---
+    the 78, "extremely ancient?"         78      82%      0.156         0.0%
+
+Three clean tiers with wide gaps: everything he kept as a real family sits at 1.34-1.49,
+everything weak or discarded at 0.66-0.72, and the 78-chunk block alone at 0.156 with
+**not one column reaching 1 bit**.
+
+**This is better than the conserved-column percentage of note 30**, which is not
+composition-aware and which mis-ordered two blocks (SINE_7 above a group he called good).
+KL orders every block on this genome exactly as he ranked them, across AT fractions from
+44% to 82%.
+
+**What it says about the 78-chunk block.** Within this alignment, after composition is
+accounted for, there is no positional signal - less than in the block he discarded. That
+is not proof the loci are not an ancient element; an element old enough could be beyond
+what any alignment recovers. It is the statement that nothing measurable survives here,
+and that the apparent core is composition. Worth noting the sample was thin, 2 loci per
+chunk over 78 chunks, and small samples inflate KL through sampling noise - so 0.156 is
+an upper bound, and the real value is lower still.
+
+## 35. The KL profile locates an element's real boundary
+
+His call on oma input_363 to oma_SINE_31, 2026-09-06: "more close but with strange
+discordant tails enriched in a/t content, no internal similarity there at all, but head
+part is good".
+
+Profiled with the composition-aware measure of note 34, in 25-column windows over 90
+loci:
+
+    window     mean KL    AT%   cols >=1 bit (of 25)
+    0-25         0.998    87%        14
+    25-50        1.402    56%        19
+    50-75        1.269    73%        23
+    75-100       1.334    65%        21
+    100-125      1.278    57%        15
+    125-150      1.268    65%        20
+    150-175      0.045    78%         0
+    175-200      0.099    76%         0
+    ... every window to 375 ...        0
+
+    HEAD (cols 0-190)   mean KL 1.005   AT 69%   112 of 190 columns >= 1 bit
+    TAIL (cols 191-381) mean KL 0.128   AT 76%     0 of 191 columns >= 1 bit
+
+The transition at column ~150 is abrupt - 1.268 to 0.045 between adjacent windows - and
+it is not composition: the AT fraction shifts only from 69% to 76% while KL falls
+twenty-fold. His "no internal similarity there at all" is literally true, zero columns
+carrying a bit anywhere in 191 columns.
+
+**So the element is ~150 bp and the extraction is ~380.** The rest is unalignable
+AT-rich genomic sequence that `sear` pulled in and that MAFFT cannot align because there
+is nothing to align. The consensus reflects it exactly: defined for 150 bp, then N to
+the end, 46% ambiguous overall purely from the tail.
+
+**This gives a boundary-finding procedure.** Scan the KL profile in windows; where it
+falls to the noise floor and stays there, the element has ended. It is composition-aware,
+so an AT-rich tail does not fool it, and it needs no reference or database. It is the
+complement of the extension problem he raised on call 4 ("the flanks being rugged and
+not unique points at element extension") - the same profile that says "extend" when
+signal continues past the boundary says "trim" when it stops early.
+
+Applied across a whole peel this would give each family a measured extent rather than
+whatever length the search happened to extract.
+
+**Structural note on this particular family.** Its defined head contains
+`CCCCGCGTTAAACGGGG` at positions 121-137 - `CCCCG` and `CGGGG` are reverse complements,
+so a potential stem with `TTAAA` in the loop. AnnoSINE typed this seed as 5S_rRNA
+derived, and 5S rRNA is defined by its secondary structure. Not pursued further.
+
+## 36. The flank test — and the window width that decides it
+
+His plan step 4: confirm each candidate fits before running SINEderella properly. The
+criterion is in METHOD.md and is his: **"its flanks are good - not alignable."** Copies of
+a real SINE sit in unrelated contexts, so similarity collapses to background immediately
+outside the element, sharply, on both sides. If the flanks resemble each other the copies
+are not independent insertions.
+
+Made measurable: take 80 hits per family, extend by a fixed flank, align, take the
+composition-aware KL profile of note 34, locate the element as the longest run above
+threshold, and report mean KL in each flank as a fraction of the core.
+
+**The window width decides the verdict, in both directions.** Run first at 200 bp:
+long12 read 0.11/0.58, apparently one-sided. Rerun at 500 bp: 0.12/0.10, clean. The
+reason is mechanical - if the window does not extend well past the element, part of the
+measured flank is still element and the ratio stays high. Conversely eight families had
+their detected core touch the alignment edge at 200 bp, leaving one flank unmeasurable,
+which must be reported as unmeasured rather than clean.
+
+**Rule: the flank must be comfortably longer than the element, and every family in a
+comparison must use the same width.** The 200 bp results were discarded, not merged.
+
+### oma at 500 bp flanks, 80 loci per family
+
+| family | coreKL | L/core | R/core | seed? | verdict |
+|---|---|---|---|---|---|
+| long12 | 1.129 | 0.12 | 0.10 | no seed | SINE signature |
+| SINE26 | 1.211 | 0.12 | 0.13 | AnnoSINE | SINE signature |
+| grp321 | 1.246 | 0.11 | 0.13 | no seed | SINE signature |
+| SINE10 | 1.097 | 0.14 | 0.14 | AnnoSINE | SINE signature |
+| SINE27 | 1.144 | 0.12 | 0.14 | AnnoSINE | SINE signature |
+| big76 | 1.182 | 0.11 | 0.14 | no seed | SINE signature |
+| g1 | 1.136 | 0.13 | 0.14 | AnnoSINE | SINE signature |
+| grp128 | 1.002 | 0.13 | 0.15 | no seed | SINE signature |
+| SINE22 | 0.881 | 0.16 | 0.15 | AnnoSINE | SINE signature |
+| group34 | 1.123 | 0.14 | 0.17 | no seed | SINE signature |
+| SINE24 | 1.129 | 0.18 | 0.17 | AnnoSINE | SINE signature |
+| grp080 | 1.083 | 0.18 | 0.13 | no seed | SINE signature |
+| SINE7 | 0.856 | 0.22 | 0.18 | AnnoSINE | SINE signature |
+| sub515 | 1.188 | 0.16 | 0.22 | no seed | SINE signature |
+| SINE19 | 1.018 | 0.15 | 0.25 | AnnoSINE | SINE signature |
+| SINE32 | 1.089 | 0.13 | 0.29 | AnnoSINE | one-sided, mild |
+| SINE9 | 1.233 | 0.12 | 0.31 | AnnoSINE | one-sided, mild |
+| SINE2 | 1.263 | 0.37 | 0.24 | AnnoSINE | one-sided, mild |
+| SINE25 | 1.154 | 0.42 | 0.16 | AnnoSINE | ONE-SIDED - grey zone / LINE-like |
+| SINE4 | 0.914 | 0.53 | 0.14 | AnnoSINE | ONE-SIDED - grey zone / LINE-like |
+| SINE31 | 1.075 | 0.60 | 0.13 | AnnoSINE | ONE-SIDED - grey zone / LINE-like |
+| SINE5 | 1.096 | 0.13 | 0.62 | AnnoSINE | ONE-SIDED - grey zone / LINE-like |
+| SINE18 | 1.066 | 0.69 | 0.14 | AnnoSINE | ONE-SIDED - grey zone / LINE-like |
+| SINE16 | 0.848 | 0.51 | 0.31 | AnnoSINE | BOTH flanks elevated |
+| SINE21 | 1.185 | 0.21 | 0.57 | AnnoSINE | ONE-SIDED - grey zone / LINE-like |
+| ancient78 | 0.519 | 0.84 | 0.99 | no seed | EXCLUDE (12 loci, no core, both flanks align) |
+
+**15 of 26 give the clean insertion signature**, including six of the eight families
+AnnoSINE never proposed a seed for.
+
+**Six are clearly one-sided** (SINE21 included: its left flank at 0.21 is clean and it lands here on the right only; an earlier automatic pass mis-binned it at a 0.20 cutoff) - the grey zone METHOD.md describes as "right end is fine
+but left one is really bad, good example of grey zone which looks more like LINE". Four fail on the left (SINE18, SINE31, SINE4, SINE25) and two on the right (SINE5, SINE21).
+SINE16 is the only family elevated on BOTH sides, 0.51/0.31.
+
+**SINE2 is the one to look at by eye.** It has the highest core conservation of any
+family on the genome, 1.263, and its left flank still sits at 0.37 after widening. High
+internal coherence with a flank that will not collapse is exactly the "copies inside one
+larger repeat" case the method warns about.
+
+**ancient78 fails on every axis** - 12 loci from a genome-wide search, no core, and both
+flanks as conserved as the element. Third independent line against it after note 34 and
+the 12-hit search result.
+
+**Caveat.** Thresholds here (0.25 clean, 0.40 failing) are read off one genome's
+distribution, which is bimodal enough to make the split obvious but does not establish
+where the boundary lies in general. The measure is a ratio, so it is at least
+scale-free; whether 0.25 transfers to another species is untested.
+
 ## 2026-09-02 — peel on diagnostic columns, not identity
 
 MANUAL §6.1.6 defines a subfamily as a **shared diagnostic pattern** — a
@@ -2547,3 +3201,47 @@ has now separated every pair in teu including the one everything else called hop
 
 **Priority change:** re-run the level-criterion benchmark on copies with L-INS-i
 before any further work on consensus-level statistics.
+
+## 37. A chunk-consensus halo test can manufacture a subfamily out of flank noise
+
+oma_SINE10's `subfam` page (201 chunk-consensus rows) has 13 rows at the bottom
+visibly more divergent from the main block and from each other, with two small
+apparent sub-clusters inside them: input_187-190 (4 chunks) and input_181-183
+(3 chunks). His read on sight, 2026-09-10: "these sequences are more distinct
+from each other and from main group... since they are not numerous their
+consensuses should be built from individual copies" — the correct next step per
+note 27, not a verdict on its own.
+
+**The halo test on the CHUNK CONSENSUSES said something false.** Measured at
+that level: within-g1 0.830, within-g2 0.827, g1-vs-g2 between 0.597, g1/g2 vs
+the main core 0.71-0.72, main core internal 0.998. `between < min(within)` by a
+wide margin — textbook two-subfamily signature (note 31's inequality) — and
+appeared to say g1 and g2 are two distinct things, each also distinct from the
+main family.
+
+**Locus-level, it collapses.** Pooled each group's real member loci (200 and
+150, from the actual `.bnk` chunks, not the chunk consensus) and windowed with
+`boundary.element_window` at `CONS_EDGE` support (not a blind whole-locus
+plurality vote, which is ~90% N given each locus carries ~400 bp of
+non-homologous flank). The resulting element-only consensuses:
+
+    main vs g1     0.969  (difflib ratio, alignment-aware)
+    main vs g2     0.984
+    g1  vs g2      0.977
+
+Same element, same 5' start (`GGCCGGATTGGCCGCGTGGAAACGCTTCGGCT...`), same 3'
+tail. Not a subfamily — just more decayed copies of oma_SINE10 itself.
+
+**Why the chunk-level test lied:** SubFam's `.cons` chunk consensus is built
+over the WHOLE locus, flanks included (note 27's point, applied one level
+deeper). Two chunks of genuinely diverged copies can share very little outside
+the ~240 bp element — 400+ bp of independent flanking DNA each — and that
+flank noise dominates a whole-sequence pairwise identity, producing exactly the
+`between < within` pattern the halo test looks for, with no real second
+subfamily behind it.
+
+**Rule: the halo test (note 31) is only valid on element-windowed sequence.**
+Applied to whole loci or their consensuses, it can return a clean two-subfamily
+signature from flank noise alone. Always window to copy-supported element span
+before running it — the same rule note 12 already states for measurement
+geometry generally, now shown to bite the halo test specifically.
