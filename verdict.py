@@ -765,7 +765,12 @@ def verdict(path):
     # middle part". n_core was already in the output but nothing said it out
     # loud, so a set held up by a quarter of its copies looked identical to one
     # held up by all of them.
-    if n >= 20 and n_core >= 1 and n_core / float(n) < 0.35:
+    # n_core == 0 used to slip past this entirely (the old `n_core >= 1` guard
+    # excluded exactly the worst case: a family with a small core still hit
+    # the flag and its cap, but the family with NO core at all -- SINE16 (oma),
+    # 0 of 100 -- did not). Zero is not a special case that deserves LESS
+    # scrutiny than one; if anything it deserves more. Found 2026-09-10.
+    if n >= 20 and n_core / float(n) < 0.35:
         flags.append({"code": "SMALL_CORE", "n": [n_core, n],
                       "text": "Only %d of %d copies form the core the consensus is "
                               "actually built on (%.0f %%). The rest are too divergent "
@@ -987,6 +992,70 @@ def main():
             for f in x["flags"]:
                 cnt[f["code"]] += 1
         print("  %-12s %s" % (c, dict(cnt) or "clean"))
+
+
+def full_verdict(path_top100, path_flank_L=None, path_flank_R=None):
+    """verdict() plus the edge_profile.py status/recommendation layer
+    (Sergei, 2026-09-10): every verdict must say not just a score but
+    whether the analysis is DONE (status "FINAL") or needs more work
+    (status "NEEDS_ADDITIONAL_WORK", with concrete steps) -- flank
+    extension, subgrouping, mosaicism resolution, etc.
+
+    path_flank_L/R are long-flank (up to edge_profile.MAX_OFF, typically
+    1000bp) validation alignments anchored on the current consensus --
+    NOT the short 50L/70R display alignment (this file's own flank_sharing
+    test already knows it can't see far enough; this is what CAN, when
+    those files exist). Pass None for a side that hasn't been built yet;
+    the function still returns the verdict() score, just without an edge
+    classification for that side (never silently assumed clean).
+    """
+    v = verdict(path_top100)
+    if v is None:
+        return {"verdict": None, "status": "NEEDS_ADDITIONAL_WORK",
+                "recommended_next_steps": ["no element found in top100 -- verdict() itself failed"]}
+
+    try:
+        import edge_profile as E
+    except ImportError:
+        return {"verdict": v, "edge": None, "status": "FINAL" if not v.get("flags") else "NEEDS_ADDITIONAL_WORK",
+                "recommended_next_steps": ["edge_profile.py not available -- edge pattern not checked"]}
+
+    edge_classifications = []
+    for side, path in (("L", path_flank_L), ("R", path_flank_R)):
+        if path:
+            try:
+                edge_classifications.append(E.classify(path, side))
+            except Exception as exc:
+                edge_classifications.append({"side": side, "pattern": "ERROR", "error": str(exc)})
+
+    edge_status, edge_steps = E.recommend([c for c in edge_classifications if c.get("pattern") not in (None, "ERROR")])
+
+    steps = list(edge_steps)
+    if v.get("flags"):
+        for f in v["flags"]:
+            steps.append("verdict flag %s: %s" % (f["code"], f.get("text", "")[:160]))
+
+    patterns = {c.get("pattern") for c in edge_classifications if c.get("pattern")}
+    score = v.get("score", 0)
+    if not steps and score >= 90:
+        label = "clean SINE (independent flanks, single sharp edge, high score)"
+    elif "GRADED_DECAY" in patterns:
+        label = "LINE-like: at least one edge decays gradually rather than a sharp SINE boundary"
+    elif "MULTI_GROUP" in patterns:
+        label = "mixed population: edge groups suggest real subgroup structure, not one family"
+    elif score < 55:
+        label = "not SINE-like on current evidence"
+    else:
+        label = "grey zone: score and edge pattern do not cleanly agree"
+
+    status = "FINAL" if not steps else "NEEDS_ADDITIONAL_WORK"
+    return {
+        "verdict": v,
+        "edge": {c["side"]: c for c in edge_classifications},
+        "label": label,
+        "status": status,
+        "recommended_next_steps": steps,
+    }
 
 
 if __name__ == "__main__":
