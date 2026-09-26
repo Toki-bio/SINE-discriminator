@@ -60,11 +60,28 @@ def best_identity(query, target):
     return best
 
 
+K = 8
+
+
+def kmer_share(ref, body, k=K):
+    """Fraction of ref's k-mers that occur in body. An indel costs k k-mers, not the
+    rest of an ungapped placement, so old and indel-rich consensuses still score."""
+    ks = {ref[i:i + k] for i in range(len(ref) - k + 1)}
+    if not ks:
+        return 0.0
+    kb = {body[i:i + k] for i in range(len(body) - k + 1)}
+    return len(ks & kb) / float(len(ks))
+
+
 def should_flip(cons, ref):
+    """Turn the file when the consensus shares clearly more k-mers with the
+    seed's reverse complement than with the seed. The ungapped identity test
+    (rev >= 0.65) left the diverged hla Rhin-1 SubFam file backwards
+    (fwd 0.338, rev 0.486)."""
     body = ungapped(cons)
-    fwd = best_identity(ref, body)
-    rev = best_identity(revcomp(ref), body)
-    return rev >= 0.65 and rev > fwd + 0.12, fwd, rev
+    fwd = kmer_share(ref.upper(), body)
+    rev = kmer_share(revcomp(ref.upper()), body)
+    return rev >= 0.10 and rev > 2 * fwd, round(fwd, 3), round(rev, 3)
 
 
 def uppercase_bounds(seq):

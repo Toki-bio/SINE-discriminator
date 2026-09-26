@@ -24,6 +24,13 @@ AGREE = 0.45
 MISS = 8
 # Largest shared group still allowed. 4 means no five copies share a flank.
 CLUSTER_CAP = 4
+# Extension starts only if the group sharing flank at the current edge holds at
+# least MIN_SHARED of the measurable copies, and at least MIN_MEASURED copies can be
+# measured. Calibrated 2026-09-27 on rsi peel + 13 bat alignments: real missing element
+# 0.30-0.97 (rsi r3 top100 0.74, r6 rand100 0.30, rmi VES rand100 0.97); noise <= 0.24
+# (hla Rhin-1 rand100 0.24 -> 50 bp of scattered majority bases, read as AAAAAAC).
+MIN_SHARED = 0.30
+MIN_MEASURED = 20
 # A run of this many A's is polyA, not element. The 3' A-tail already inside
 # the seed consensus is left alone; this only stops an extension, and a run
 # that is already the 5' end of the consensus.
@@ -229,6 +236,12 @@ def extension_edge(flanks, cap=CLUSTER_CAP, polya="outer"):
     head stayed outside the consensus.
     """
     rows = slide(flanks)
+    # Missing element is carried by a large share of copies (rsi r3 head: 74 of 100
+    # top copies). A small group sharing flank (copies sitting in the same older
+    # repeat, say) is not element, and an edge that is already unique must not creep
+    # outward on per-position agreement alone (it did by 1-16 bp on most files).
+    if not rows or rows[0][2] < MIN_MEASURED or rows[0][1] < MIN_SHARED * rows[0][2]:
+        return 0
     d = first_depth(rows, cap, len(flanks))
     if d is None:
         d = 0
