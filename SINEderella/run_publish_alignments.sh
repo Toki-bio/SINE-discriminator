@@ -12,6 +12,10 @@
 #   5. rebuild_consensus_row.py  — row 0 = copy majority at CONS_EDGE (0.50)
 #   6. boundary_justify.py       — copy-supported element window + display justify
 #   7. trim_display_flanks.py      — drop abandoned end columns (occupancy or hybrid)
+#   8. correct_published_aln.py   — flip the file back to the forward seed if
+#      MAFFT --adjustdirection rebuilt a reverse-complement consensus, then
+#      move the edge out through sequence the copies still share. A polyA run
+#      stays flank. Do not run rebuild_consensus_row again after this step.
 #
 # Usage:
 #   run_publish_alignments.sh <RUN_ROOT> <SPECIES_CODE> [OUT_DIR]
@@ -149,6 +153,23 @@ if [[ "$OUT_DIR" != "$STEP8_OUT" ]]; then
   for f in "$OUT_DIR"/*.aln.fa; do
     [[ -f "$f" ]] || continue
     python3 "$DISC/trim_display_flanks.py" "$f" --mode "$TRIM_MODE" || true
+  done
+fi
+
+[[ -f "$DISC/correct_published_aln.py" ]] || {
+  echo "ERROR: missing $DISC/correct_published_aln.py" >&2; exit 1; }
+BANK="$RUN_ROOT/consensuses.publish.fa"
+[[ -f "$BANK" ]] || {
+  echo "ERROR: missing forward seed bank $BANK" >&2; exit 1; }
+log "orient to the forward seed and extend shared flanks into the consensus"
+for f in "$STEP8_OUT"/*_top100.aln.fa "$STEP8_OUT"/*_rand100.aln.fa "$STEP8_OUT"/*_subfam.aln.fa; do
+  [[ -f "$f" ]] || continue
+  python3 "$DISC/correct_published_aln.py" "$BANK" "$f" --write
+done
+if [[ "$OUT_DIR" != "$STEP8_OUT" ]]; then
+  for f in "$OUT_DIR"/*_top100.aln.fa "$OUT_DIR"/*_rand100.aln.fa "$OUT_DIR"/*_subfam.aln.fa; do
+    [[ -f "$f" ]] || continue
+    python3 "$DISC/correct_published_aln.py" "$BANK" "$f" --write
   done
 fi
 
