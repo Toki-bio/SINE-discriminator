@@ -82,6 +82,13 @@ def consensus_span(seqs, ci, others):
     lo=97, and the majority-vote loop below fills in the real bases there.
     """
     upper = [i for i, c in enumerate(seqs[ci]) if c.isupper()]
+    if B.MODE != "walk":
+        # Seed mode: the span boundary_justify set from the seed row. The SINE10-style
+        # missing head is taken per copy afterwards by correct_published_aln.py.
+        if upper:
+            return upper[0], upper[-1]
+        lo_s, hi_s, _ = B.seed_window(seqs[ci])
+        return lo_s, hi_s
     seed = []
     for j in range(len(seqs[ci])):
         if B.column_supported(others, j, CONS_EDGE):

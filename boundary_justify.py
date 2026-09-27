@@ -23,7 +23,10 @@ def flanked_element_window(cons, rows):
     consensus must fix the anchor row before publish; do not cap 3' extension
     back to the seed consensus span (that blocked SINE10 GAC recovery).
     """
-    lo_b, hi_b, diag = B.element_window(cons, rows)
+    if B.MODE == "walk":
+        lo_b, hi_b, diag = B.element_window(cons, rows)
+    else:
+        lo_b, hi_b, diag = B.seed_window(cons)
     lo = lo_b
     hi = hi_b
     diag["display_lo"] = lo

@@ -34,7 +34,17 @@ but ambiguous vs random DNA (~0.25-0.30) and must not become consensus bases.
 Display justify keeps the 0.45 walk; consensus rebuild does not re-derive span
 from copy walks (span stays from border-loop geometry in row 0).
 """
+import os
+
 import numpy as np
+
+# BOUNDARY_MODE=seed (opt-in, 2026-09-27; default stays walk until tested): the element is the seed consensus row's
+# own span, first to last nucleotide - the project's consensus-anchored rule. No outward
+# column walk; growth past the seed is done per copy on ungapped flanks by
+# correct_published_aln.py (extend_unique_flank). The column walk took A-rich columns that
+# pass 45 % agreement easily (rsi r7 rand100 5' TATAAATAAAAA) and loses shared sequence
+# that MAFFT scatters over columns. BOUNDARY_MODE=walk (default) is the old column walk.
+MODE = os.environ.get("BOUNDARY_MODE", "walk")
 
 OCC = 0.50      # half the copies must reach the column
 CONS = 0.45     # step7's elevated cutoff — element window walk / display
@@ -92,6 +102,14 @@ def column_stats(rows, j):
     u = [x.upper() for x in b]
     top = max(u.count(c) for c in set(u))
     return occ, top / float(len(u))
+
+
+def seed_window(cons):
+    """The seed consensus row's first and last non-gap column."""
+    nz = [i for i, c in enumerate(cons) if c not in GAPS]
+    if not nz:
+        return 0, len(cons) - 1, {"mode": "seed", "note": "empty consensus row"}
+    return nz[0], nz[-1], {"mode": "seed", "old_span": nz[-1] - nz[0] + 1}
 
 
 def element_window(cons, rows, cons_min=CONS):
