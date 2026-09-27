@@ -23,7 +23,7 @@ negatives, which is the thing this project has been careful not to do.
 import json, glob, os, sys
 import numpy as np
 import measure_c as M
-from fix_alignments import consensus_index
+from fix_alignments import consensus_index, is_seed
 
 W = {                       # evidence group -> weight
     "element": 0.45,        # is there an element supported by the copies
@@ -285,7 +285,7 @@ def parts(path):
     if len(nz) < 60:
         return None
     lo, hi = int(nz[0]), int(nz[-1])
-    idx = [i for i in range(len(names)) if i != k]
+    idx = [i for i in range(len(names)) if i != k and not is_seed(names[i])]
     C = A[idx]
     el = C[:, lo:hi + 1]
     pres = el != M.GAP

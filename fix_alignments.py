@@ -56,6 +56,15 @@ def read_fa(p):
     return names, seqs
 
 
+SEED_TAG = "_seed_as_searched"
+
+
+def is_seed(name):
+    """Row 2 of a published plate: the consensus exactly as searched (SINEderella add_seed_row.py).
+    It is a reference row, not a copy: every per-copy measurement must skip it."""
+    return SEED_TAG in name
+
+
 def consensus_index(names):
     for i, h in enumerate(names):
         if "CONSENSUS" in h.upper():

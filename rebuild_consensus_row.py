@@ -39,7 +39,7 @@ from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import boundary as B
-from fix_alignments import consensus_index, read_fa
+from fix_alignments import consensus_index, is_seed, read_fa
 
 GAPS = set("-.")
 CONS_EDGE = B.CONS_EDGE
@@ -110,7 +110,7 @@ def apply(path):
     ci = consensus_index(names)
     length = max(len(s) for s in seqs)
     seqs = [s.ljust(length, "-") for s in seqs]
-    others = element_rows([seqs[i] for i in range(len(seqs)) if i != ci])
+    others = element_rows([seqs[i] for i in range(len(seqs)) if i != ci and not is_seed(names[i])])
     lo, hi = consensus_span(seqs, ci, others)
 
     new = list("-" * length)

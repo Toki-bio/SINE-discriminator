@@ -173,4 +173,15 @@ if [[ "$OUT_DIR" != "$STEP8_OUT" ]]; then
   done
 fi
 
+# Last: the consensus exactly as searched goes back on as row 2 (<subfamily>_seed_as_searched).
+# The DISC tools skip rows with that name. Idempotent: a plate that has the row is left alone.
+SEED_TOOL="$SINEDERELLA_BIN/tools/add_seed_row.py"
+if [[ "${SKIP_SEED_ROW:-0}" != "1" && -f "$SEED_TOOL" ]]; then
+  log "add the consensus as searched as row 2"
+  for d in "$STEP8_OUT" "$OUT_DIR"; do
+    python3 "$SEED_TOOL" "$RUN_ROOT/consensuses.clean.fa" "$SPECIES"       "$d"/*_top100.aln.fa "$d"/*_rand100.aln.fa "$d"/*_subfam.aln.fa       --threads "${THREADS:-4}" || log "WARNING: add_seed_row failed in $d"
+    [[ "$OUT_DIR" != "$STEP8_OUT" ]] || break
+  done
+fi
+
 log "Done. Alignments in $STEP8_OUT (and $OUT_DIR if different)"

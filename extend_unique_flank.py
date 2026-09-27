@@ -71,11 +71,12 @@ def element_bounds(seq):
     return (nz[0], nz[-1]) if nz else (0, len(seq) - 1)
 
 
-def flanks_of(seqs, ci):
+def flanks_of(seqs, ci, skip=()):
+    """skip: row indices that are not copies (the seed-as-searched row)."""
     lo, hi = element_bounds(seqs[ci])
     lefts, rights = [], []
     for i, s in enumerate(seqs):
-        if i == ci:
+        if i == ci or i in skip:
             continue
         left = "".join(c for c in s[:lo] if c not in "-.").upper()
         right = "".join(c for c in s[hi + 1:] if c not in "-.").upper()

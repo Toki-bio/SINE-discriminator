@@ -23,7 +23,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import extend_unique_flank as U
-from fix_alignments import justify
+from fix_alignments import SEED_TAG, justify
 
 COMP = str.maketrans("ACGTNacgtn", "TGCANTGCAN")
 
@@ -153,7 +153,8 @@ def correct(names, seqs, ref):
         lo = lo2
     # flanks against the (possibly trimmed) edge
     seqs[ci] = cons
-    lefts, rights, lo, hi = U.flanks_of(seqs, ci)
+    skip = {i for i, n in enumerate(names) if SEED_TAG in n}
+    lefts, rights, lo, hi = U.flanks_of(seqs, ci, skip)
     # Both sides stop at a polyA run. The A-tail already inside the seed
     # stays; a run out in the flank is not added to the consensus.
     left_n = U.extension_edge(lefts, polya="stop")

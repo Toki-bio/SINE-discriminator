@@ -13,7 +13,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import boundary as B
-from fix_alignments import consensus_index, justify, read_fa
+from fix_alignments import consensus_index, is_seed, justify, read_fa
 
 
 def flanked_element_window(cons, rows):
@@ -41,7 +41,7 @@ def apply(path):
         return None
     ci = consensus_index(names)
     cons = seqs[ci]
-    others = [s for i, s in enumerate(seqs) if i != ci]
+    others = [s for i, s in enumerate(seqs) if i != ci and not is_seed(names[i])]
     lo, hi, diag = flanked_element_window(cons, others)
 
     out = []
