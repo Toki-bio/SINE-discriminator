@@ -267,7 +267,8 @@ def build_section(species: str, subfams, aln_dir: Path,
     thead = (
         "<th>Subfamily</th><th>Copies</th>"
         f"<th title='{html.escape(TOP_RULE, quote=True)}'>Top 100 by bitscore</th>"
-        f"<th title='{html.escape(RAND_RULE, quote=True)}'>100 random copies</th>"
+        f"<th title='{html.escape(RAND_RULE, quote=True)}'>100 random copies "
+        f"(seed {html.escape(os.environ.get('RAND_SEED', '42'))})</th>"
         "<th>SubFam (chunk consensuses)</th>"
         "<th>Flanks</th><th>Flank context</th><th>Element</th>"
         "<th title='Verdict score on the top-100 plate. Below 30 copies no score is given: the call is "
