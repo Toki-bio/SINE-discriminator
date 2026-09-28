@@ -142,7 +142,17 @@ def _side_note(side):
 
 
 def status_flank_context(top, rand):
-    """Per-side flank clustering: rand100 high, top100 medium."""
+    """Per-side flank clustering: rand100 high, top100 medium. Tooltip: overall.flank_context_text."""
+    from overall import flank_context_text
+    if not top and not rand:
+        return _chip("n/a", "muted", "no alignment")
+    worst, lines = flank_context_text(top, rand)
+    label, kind = {None: ("Independent", "ok"), "medium": ("Subgroup", "edge"),
+                   "high": ("Shared context", "warn")}[worst]
+    return _chip(label, kind, "\n".join(lines))
+
+
+def _status_flank_context_old(top, rand):
     parts = []
     worst = None
     for label, r in (("rand", rand), ("top", top)):

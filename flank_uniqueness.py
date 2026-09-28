@@ -186,6 +186,10 @@ def flag_side(side, tier):
         return None
     frac = side.get("shared_copy_frac", 0.0)
     largest = side.get("largest_cluster_frac", 0.0)
+    # a "group" of one copy is not shared: with few measured copies a singleton alone passed the
+    # 15 % largest-group bar (cse MEG-TR rand100, 6 copies, all unique -> flagged "high", 2026-09-28)
+    if side.get("largest_cluster", 0) < 2:
+        return None
     if largest < 0.10 and frac < 0.15:
         return None
     if tier == "rand100":

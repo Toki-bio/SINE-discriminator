@@ -33,19 +33,61 @@ NEGATIVE = {
 }
 
 
+# Plain wording (his review 2026-09-28: "Flank context and Overall comments should be more standardized,
+# more readable without jargon"). One fixed layout for every row; no internal codes on the page.
+CAP_WORDS = {code: text for code, text in NEGATIVE.items()}
+
+
+def side_line(side_name, side):
+    """'left side: 12 of 97 copies share flanking DNA with another copy (largest group: 5 copies)'"""
+    if not side or not side.get("measured"):
+        why = (side or {}).get("reason", "no flank sequence")
+        return "%s side: not measured (%s)" % (side_name, str(why).replace("_", " "))
+    n = int(side.get("n_measured", side.get("n", 0)) or 0)
+    k = int(round(side.get("shared_copy_frac", 0) * n))
+    if k == 0:
+        return "%s side: all %d copies have their own flanking DNA" % (side_name, n)
+    return ("%s side: %d of %d copies share flanking DNA with another copy (largest group: %d copies)"
+            % (side_name, k, n, side.get("largest_cluster", 0)))
+
+
+def flank_context_text(top, rand):
+    """(worst severity, tooltip lines) for the Flank context chip - same layout on every row."""
+    lines = ["Are the copies independent insertions? Checked by comparing the DNA just outside each copy."]
+    worst = None
+    for label, r in (("Top 100", top), ("100 random", rand)):
+        if not r:
+            continue
+        if r.get("error"):
+            lines.append("%s: not measured (%s)." % (label, str(r["error"]).replace("_", " ")))
+            continue
+        lines.append("%s - %s; %s." % (label, side_line("left", r.get("left")), side_line("right", r.get("right"))))
+        w = r.get("worst_flag")
+        if w == "high" or (w == "medium" and worst is None):
+            worst = w
+    lines.append({
+        None: "Reading: flanking DNA differs between copies, as expected for independent insertions.",
+        "medium": "Reading: a small group of copies shares flanking DNA - common in real families (tandem "
+                  "copies, duplicated regions); worth a look, it does not change the call.",
+        "high": "Reading: many randomly chosen copies share flanking DNA, so some of these loci may not be "
+                "independent insertions - look for tandem copies, duplicated regions, or copies inside a "
+                "larger repeat.",
+    }[worst])
+    return worst, lines
+
+
 def _flags(v):
     return {f["code"]: f for f in v.get("flags", [])}
 
 
 def _context(top, rand):
-    """(severity, reasons) from flank_uniqueness scans of top100 and rand100."""
+    """(severity, short plain lines) for the flagged sides of the top100 / rand100 flank scans."""
     sev, out = None, []
-    for label, r in (("random copies", rand), ("top copies", top)):
+    for label, r in (("100 random", rand), ("top 100", top)):
         if not r or r.get("error"):
             continue
         for f in r.get("flags", []):
-            first = f["text"].split(". ")[0].rstrip(".")
-            out.append("%s, %s" % (label, first[0].lower() + first[1:]))
+            out.append("%s, %s" % (label, side_line(f["side"], r.get(f["side"]))))
         w = r.get("worst_flag")
         if w == "high" or (w == "medium" and sev is None):
             sev = w
@@ -69,7 +111,7 @@ def overall_call(v, top_scan=None, rand_scan=None):
     # the two ELEMENT_CONTINUES/FRAGMENT texts are identical; keep one
     neg = list(dict.fromkeys(neg))
     sev, ctx = _context(top_scan, rand_scan)
-    also = (["Also seen (does not change the call) - shared flank groups:"] + ["- " + c for c in ctx]
+    also = (["Also noted (does not change the call): some copies share flanking DNA -"] + ["- " + c for c in ctx]
             if ctx else [])
 
     if not v.get("assessable", True):
@@ -77,19 +119,16 @@ def overall_call(v, top_scan=None, rand_scan=None):
         if "INSUFFICIENT_COPIES" in fl:
             why.append("only %d copies (a score needs about 30)" % n)
         if "NO_FLANKS_PRESENT" in fl:
-            why.append("no flank sequence could be measured")
-        head = "Too little evidence for a score: " + "; ".join(why) + "."
+            why.append("no flanking DNA to measure")
+        head = "No score: not enough evidence - " + "; ".join(why) + "."
         if neg:
             return {"label": "Doubtful", "kind": "warn",
-                    "reasons": [head, "What the copies do show is negative:"]
+                    "reasons": [head, "Evidence against:"]
                     + ["- " + r for r in neg] + also}
         return {"label": "Cannot assess", "kind": "muted",
-                "reasons": [head, "Nothing negative observed."] + also}
+                "reasons": [head, "Nothing against it was seen."] + also}
 
     s = float(v.get("score", 0))
-    head = "Score %.0f/100" % s
-    if v.get("capped_by"):
-        head += " (capped: %s)" % ", ".join(v["capped_by"])
     if s >= 90:
         label, kind = "SINE", "ok"
     elif s >= 75:
@@ -98,6 +137,13 @@ def overall_call(v, top_scan=None, rand_scan=None):
         label, kind = "Grey zone", "edge"
     else:
         label, kind = "Not SINE", "warn"
-    reasons = [head + "."]
-    reasons += ["- " + r for r in neg] + also
+    reasons = ["Score %.0f of 100: %s." % (s, label)]
+    if v.get("capped_by"):
+        reasons.append("The score is held down because: %s."
+                       % "; ".join(CAP_WORDS.get(c, c.lower().replace("_", " ")) for c in v["capped_by"]))
+    shown = set(CAP_WORDS.get(c) for c in v.get("capped_by", []))
+    rest = [r for r in neg if r.split(" (")[0] not in shown]
+    if rest:
+        reasons += ["Evidence against:"] + ["- " + r for r in rest]
+    reasons += also
     return {"label": label, "kind": kind, "reasons": reasons}

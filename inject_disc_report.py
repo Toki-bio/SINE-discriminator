@@ -68,9 +68,10 @@ TOP_RULE = ("Top 100 by bitscore: the firmly assigned copies (10/10 votes, above
             "the highest bitscore to the consensus. If fewer than 100 are firmly assigned, the plate is "
             "filled up to 100 with soft-assigned copies (found by this query but not unanimous), ranked "
             "by search score and marked [soft] in the row name.")
-RAND_RULE = ("100 random copies of the firmly assigned set. If fewer than 100 are firmly assigned, all of "
-             "them are used and the plate is filled up to 100 with random soft-assigned copies, marked "
-             "[soft] in the row name.")
+RAND_RULE = ("100 random copies of the firmly assigned set, drawn with a fixed random seed (%s), so the same "
+             "copies come back on every rebuild. If fewer than 100 are firmly assigned, all of them are used "
+             "and the plate is filled up to 100 with random soft-assigned copies, marked [soft] in the row "
+             "name." % os.environ.get("RAND_SEED", "42"))
 ROWS_NOTE = ("Row 1 (<subfamily>_extended) is the consensus rebuilt from these copies. Its lowercase letters "
              "are proposals, none applied: past the original's ends they are proposed additions; at an end "
              "inside the original they are original bases the copies do not carry (proposed trims), kept so "
