@@ -36,7 +36,8 @@ def record_continuation(path, ex):
         if os.path.isfile(tsv):
             with io.open(tsv, encoding="utf-8") as fh:
                 rows = [l.rstrip("\n").split("\t") for l in fh if l.strip()][1:]
-        rows = [r for r in rows if len(r) == len(CONT_FIELDS) and r[0] != plate]
+        rows = [r for r in rows if len(r) == len(CONT_FIELDS) and r[0] != plate
+                and not r[0].endswith("_subfam.aln.fa")]
         for side in ("5", "3"):
             e = ex[side]
             rows.append([plate, side, e["status"], str(e["bp"]), str(e["cover_at_end"])])
@@ -90,7 +91,9 @@ def apply(path):
     lo, hi, diag = flanked_element_window(cons, others)
     # Sequence the copies still share past the original's ends stays ALIGNED: the window is widened
     # to it, so justify() packs only what lies beyond (continuation.py; rsi r1_9seqs 3' +189 bp).
-    if os.environ.get("CONTINUATION", "1") == "1":
+    # Not for SubFam plates (his call 2026-09-28): their rows are chunk consensuses, element only - no
+    # copy runs past the element, so "shared past the end" has no meaning and read "unresolved 0 bp".
+    if os.environ.get("CONTINUATION", "1") == "1" and not path.endswith("_subfam.aln.fa"):
         # measured from the element WINDOW, not from row 0's own first/last letter: a consensus the
         # border loop widened into the flanks (cth Rhin-1: row 0 from column 0) put the edge where few
         # copies reach, and the ~80 bp the copies share past the element went unseen (cover 0.26)
