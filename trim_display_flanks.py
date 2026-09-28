@@ -23,7 +23,7 @@ import sys
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from fix_alignments import consensus_index, read_fa
+from fix_alignments import consensus_index, is_seed, read_fa
 import trim_flanks as TF
 
 MIN_FLANK_BP = 25
@@ -137,7 +137,10 @@ def trim_inplace(path, mode="occupancy", min_flank_bp=MIN_FLANK_BP):
     if len(seqs) < 2:
         return None
     ci = consensus_index(names)
-    left, right, diag = compute_window(seqs, ci, mode=mode, min_flank_bp=min_flank_bp)
+    # the window is measured on the consensus and the copies; the original row (row 2) has no flank
+    keep = [i for i in range(len(seqs)) if i == ci or not is_seed(names[i], names[ci])]
+    ci_k = keep.index(ci)
+    left, right, diag = compute_window([seqs[i] for i in keep], ci_k, mode=mode, min_flank_bp=min_flank_bp)
     if left is None:
         return diag
 

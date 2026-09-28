@@ -12,6 +12,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from verdict import verdict  # noqa: E402
 from flank_uniqueness import scan as flank_scan  # noqa: E402
 from overall import overall_call  # noqa: E402
+from fix_alignments import is_seed  # noqa: E402
 
 MSA = "https://toki-bio.github.io/MSA-viewer/"
 
@@ -70,25 +71,54 @@ TOP_RULE = ("Top 100 by bitscore: the firmly assigned copies (10/10 votes, above
 RAND_RULE = ("100 random copies of the firmly assigned set. If fewer than 100 are firmly assigned, all of "
              "them are used and the plate is filled up to 100 with random soft-assigned copies, marked "
              "[soft] in the row name.")
-ROWS_NOTE = ("Row 1 is the consensus rebuilt from these copies; row 2 (<subfamily>_seed_as_searched) is the "
-             "consensus the genome was searched with.")
+ROWS_NOTE = ("Row 1 (<subfamily>_extended) is the consensus rebuilt from these copies: lowercase letters are "
+             "proposed additions past the original, not applied. Row 2 (<subfamily>) is the consensus the "
+             "genome was searched with; the uppercase span of the copies is its span.")
 
 
 def plate_counts(path: Path):
-    """(copies, soft) on a published plate: rows other than the consensus and the seed row."""
+    """(copies, soft) on a published plate: rows other than the consensus and the original."""
     n = soft = 0
-    first = True
+    first = None
     for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
         if not line.startswith(">"):
             continue
-        if first:
-            first = False
+        name = line[1:].strip()
+        if first is None:
+            first = name
             continue
-        if "_seed_as_searched" in line:
+        if is_seed(name, first):
             continue
         n += 1
         soft += "[soft]" in line
     return n, soft
+
+
+def load_proposals(aln_dir: Path) -> dict:
+    """proposals.tsv (SINEderella tools/add_seed_row.py): plate -> row."""
+    p = aln_dir / "proposals.tsv"
+    if not p.is_file():
+        return {}
+    lines = p.read_text(encoding="utf-8").splitlines()
+    head = lines[0].split("\t") if lines else []
+    return {r[0]: dict(zip(head, r)) for r in (l.split("\t") for l in lines[1:]) if r}
+
+
+def proposal_note(row) -> str:
+    """One line per proposed edit, with the copies' support (ungapped identity; unrelated DNA ~0.25)."""
+    if not row:
+        return ""
+    out = []
+    for end, lab in (("5", "5'"), ("3", "3'")):
+        a = int(row.get("add%s_bp" % end) or 0)
+        t = int(row.get("trim%s_bp" % end) or 0)
+        if a:
+            out.append("%s: %d bp proposed in lowercase (copies' identity to them %s; ~0.25 is unrelated DNA)"
+                       % (lab, a, row.get("add%s_ungapped" % end) or "n/a"))
+        if t:
+            out.append("%s: the copies do not carry the original's %d bp at this end (identity %s) - "
+                       "trim proposed, not applied" % (lab, t, row.get("trim%s_support" % end) or "n/a"))
+    return ("\nProposed edits to the original:\n- " + "\n- ".join(out)) if out else "\nNo edits proposed."
 
 # Re-use chip helpers from inject_oma_aln_section (same logic)
 from inject_oma_aln_section import (  # noqa: E402
@@ -170,6 +200,7 @@ def scan_flanks(aln_dir: Path, species: str, sf: str, tier: str):
 def build_section(species: str, subfams, aln_dir: Path,
                   copy_counts: dict, raw_base: str) -> str:
     dash = "<span class='muted small'>&mdash;</span>"
+    props = load_proposals(aln_dir)
     rows = []
     for sf in sorted(subfams):
         t100 = aln_name(species, sf, "top100")
@@ -193,7 +224,7 @@ def build_section(species: str, subfams, aln_dir: Path,
                     label += f" ({n_soft} soft)"
                 tip = (f"{rule}\n\nThis plate: {n_c - n_soft} firm + {n_soft} soft = {n_c} copies."
                        + ("" if n_c >= 100 else " The run has no more copies of this subfamily.")
-                       + "\n" + ROWS_NOTE)
+                       + "\n" + ROWS_NOTE + proposal_note(props.get(fn)))
             href = msa_href(raw_base, fn, f"{species} {sf} {label}") if raw_base else fn
             cls = "aln-link" + (f" {css}" if css else "")
             t = f" title='{html.escape(tip, quote=True)}'" if tip else ""

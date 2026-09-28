@@ -56,13 +56,106 @@ def read_fa(p):
     return names, seqs
 
 
-SEED_TAG = "_seed_as_searched"
+SEED_TAG = "_seed_as_searched"   # row-2 name before 2026-09-28; now the original keeps its plain name
+EXT_SUFFIX = "_extended"         # row 1, the consensus rebuilt from the copies, since 2026-09-28
 
 
-def is_seed(name):
-    """Row 2 of a published plate: the consensus exactly as searched (SINEderella add_seed_row.py).
-    It is a reference row, not a copy: every per-copy measurement must skip it."""
-    return SEED_TAG in name
+def base_name(name):
+    """<subfamily> from a consensus row name (drops _R_, the description and the _extended suffix)."""
+    n = name.split()[0] if name.split() else name
+    n = n[3:] if n.startswith("_R_") else n
+    return n[:-len(EXT_SUFFIX)] if n.endswith(EXT_SUFFIX) else n
+
+
+def is_seed(name, cons_name=None):
+    """The original consensus row, not a copy: every per-copy measurement must skip it.
+
+    Row 2 of a published plate is the consensus exactly as searched (SINEderella add_seed_row.py):
+    named <subfamily>, with row 1 named <subfamily>_extended; before 2026-09-28 it was
+    <subfamily>_seed_as_searched. Pass the consensus row's name to recognise the new form."""
+    if SEED_TAG in name:
+        return True
+    return bool(cons_name) and base_name(name) == base_name(cons_name) and name != cons_name
+
+
+ADD_SUPPORT_MIN = 0.50   # an addition counts toward the judged element only if the copies carry it
+
+
+def _addition_support(path):
+    """{'5': support, '3': support} for this plate from proposals.tsv next to it (ungapped identity
+    of the copies' own flanks to the proposed bases; unrelated DNA ~0.25), or {}."""
+    if not path:
+        return {}
+    tsv = os.path.join(os.path.dirname(os.path.abspath(path)), "proposals.tsv")
+    if not os.path.isfile(tsv):
+        return {}
+    plate = os.path.basename(path)
+    with io.open(tsv, encoding="utf-8") as fh:
+        lines = [l.rstrip("\n").split("\t") for l in fh if l.strip()]
+    if not lines:
+        return {}
+    head = lines[0]
+    for r in lines[1:]:
+        if r and r[0] == plate:
+            d = dict(zip(head, r))
+            out = {}
+            for s in ("5", "3"):
+                try:
+                    out[s] = float(d.get("add%s_ungapped" % s) or "nan")
+                except ValueError:
+                    pass
+            return out
+    return {}
+
+
+def _continuation_sides(path):
+    """{'5','3'} sides with shared sequence past the original (continuation.tsv next to the plate)."""
+    if not path:
+        return set()
+    tsv = os.path.join(os.path.dirname(os.path.abspath(path)), "continuation.tsv")
+    if not os.path.isfile(tsv):
+        return set()
+    plate = os.path.basename(path)
+    with io.open(tsv, encoding="utf-8") as fh:
+        return {r[1] for r in (l.rstrip("\n").split("\t") for l in fh)
+                if len(r) >= 4 and r[0] == plate and r[2] in ("ends", "unresolved") and r[3] != "0"}
+
+
+def judged_span(names, seqs, ci, path=None):
+    """(lo, hi) of the element as the verdict judges it: the consensus row's letters without its
+    lowercase TRIM proposals (lowercase inside the original's span, row 2 since 2026-09-28), and
+    with its lowercase ADDITIONS only where the copies carry them (proposals.tsv ungapped support
+    >= ADD_SUPPORT_MIN; without a proposals.tsv all additions count, as before the marking).
+    Judging only the uppercase span pushed A-tails and TSDs into the flank (rsi r3 core 82 -> 1);
+    judging every addition let background junk decide the call (msc MEG-RS: +205/+84 bp of a
+    tandem copy group's shared flank at support 0.28/0.31 -> NO_ELEMENT).
+    Plates without an original row: uppercase span, else all letters (the old rule)."""
+    row = seqs[ci]
+    orig = [i for i in range(len(names)) if i != ci and is_seed(names[i], names[ci])]
+    if orig:
+        oc = [j for j, c in enumerate(seqs[orig[0]]) if c not in GAPS]
+        if oc:
+            # the original's MAIN block (stray end blocks the copies do not reach are trim proposals,
+            # not the span - SINEderella add_seed_row.mark does the same)
+            from continuation import main_block
+            oc = main_block(oc, [s for i, s in enumerate(seqs) if i != ci and i not in orig], seqs[orig[0]])
+        sup = _addition_support(path)
+        # A side where continuation.py found sequence the copies share past the original keeps its
+        # additions whatever their position-by-position support: that measure collapses at the
+        # first indel (rsi r10 3' 0.39, r2 3' 0.37 - shared tails), and dropping them turned the
+        # shared tail into "shared flank" and the core to SMALL_CORE (Not SINE 45).
+        cont = _continuation_sides(path)
+        drop5 = sup.get("5", 1.0) < ADD_SUPPORT_MIN and "5" not in cont
+        drop3 = sup.get("3", 1.0) < ADD_SUPPORT_MIN and "3" not in cont
+        o_row = seqs[orig[0]]
+        keep = [j for j, c in enumerate(row) if c not in GAPS
+                and not (c.islower() and oc and oc[0] <= j <= oc[-1])
+                and not (c.islower() and o_row[j] not in GAPS)      # a restored stray original letter
+                and not (c.islower() and oc and j < oc[0] and drop5)
+                and not (c.islower() and oc and j > oc[-1] and drop3)]
+    else:
+        keep = [j for j, c in enumerate(row) if c.isupper()] or [j for j, c in enumerate(row) if c not in GAPS]
+    return (keep[0], keep[-1]) if keep else (0, len(row) - 1)
 
 
 def consensus_index(names):

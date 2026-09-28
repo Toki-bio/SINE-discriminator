@@ -13,7 +13,52 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import boundary as B
+import continuation as CT
 from fix_alignments import consensus_index, is_seed, justify, read_fa
+
+CONT_FIELDS = ["plate", "side", "status", "bp", "cover_at_end"]
+
+
+def record_continuation(path, ex):
+    """continuation.tsv next to the plate: one row per plate and side, replaced on re-run."""
+    tsv = os.path.join(os.path.dirname(os.path.abspath(path)), "continuation.tsv")
+    plate = os.path.basename(path)
+    # plates of one directory may be processed in parallel: serialise the read-modify-write
+    # (a parallel test run on the bat corpus interleaved rows without this)
+    lock = io.open(tsv + ".lock", "w")
+    try:
+        import fcntl
+        fcntl.flock(lock, fcntl.LOCK_EX)
+    except ImportError:          # Windows: no fcntl; the chain there runs one plate at a time
+        pass
+    try:
+        rows = []
+        if os.path.isfile(tsv):
+            with io.open(tsv, encoding="utf-8") as fh:
+                rows = [l.rstrip("\n").split("\t") for l in fh if l.strip()][1:]
+        rows = [r for r in rows if len(r) == len(CONT_FIELDS) and r[0] != plate]
+        for side in ("5", "3"):
+            e = ex[side]
+            rows.append([plate, side, e["status"], str(e["bp"]), str(e["cover_at_end"])])
+        tmp = "%s.%d.tmp" % (tsv, os.getpid())
+        with io.open(tmp, "w", encoding="utf-8") as fh:
+            fh.write("\t".join(CONT_FIELDS) + "\n")
+            for r in sorted(rows):
+                fh.write("\t".join(r) + "\n")
+        os.replace(tmp, tsv)
+    finally:
+        lock.close()
+
+
+def continuation_sides(path):
+    """Sides of this plate with sequence shared past the original ('5', '3') - from continuation.tsv."""
+    tsv = os.path.join(os.path.dirname(os.path.abspath(path)), "continuation.tsv")
+    if not os.path.isfile(tsv):
+        return set()
+    plate = os.path.basename(path)
+    with io.open(tsv, encoding="utf-8") as fh:
+        return {r[1] for r in (l.rstrip("\n").split("\t") for l in fh)
+                if r[0] == plate and r[2] in ("ends", "unresolved") and r[3] != "0"}
 
 
 def flanked_element_window(cons, rows):
@@ -41,13 +86,29 @@ def apply(path):
         return None
     ci = consensus_index(names)
     cons = seqs[ci]
-    others = [s for i, s in enumerate(seqs) if i != ci and not is_seed(names[i])]
+    others = [s for i, s in enumerate(seqs) if i != ci and not is_seed(names[i], names[ci])]
     lo, hi, diag = flanked_element_window(cons, others)
+    # Sequence the copies still share past the original's ends stays ALIGNED: the window is widened
+    # to it, so justify() packs only what lies beyond (continuation.py; rsi r1_9seqs 3' +189 bp).
+    if os.environ.get("CONTINUATION", "1") == "1":
+        # measured from the element WINDOW, not from row 0's own first/last letter: a consensus the
+        # border loop widened into the flanks (cth Rhin-1: row 0 from column 0) put the edge where few
+        # copies reach, and the ~80 bp the copies share past the element went unseen (cover 0.26)
+        ref = "".join(c if lo <= j <= hi else "-" for j, c in enumerate(cons))
+        ex = CT.extents(names, [ref] + others, 0)
+        if ex["5"]["col"] is not None and ex["5"]["col"] < lo:
+            diag["continuation_left"] = lo - ex["5"]["col"]
+            lo = ex["5"]["col"]
+        if ex["3"]["col"] is not None and ex["3"]["col"] > hi:
+            diag["continuation_right"] = ex["3"]["col"] - hi
+            hi = ex["3"]["col"]
+        record_continuation(path, ex)
 
     out = []
     for i, s in enumerate(seqs):
         s = s.ljust(len(cons), "-")
-        out.append(justify(s, lo, hi))
+        # the original consensus (row 2) is carried unchanged: never packed or recased
+        out.append(s if (i != ci and is_seed(names[i], names[ci])) else justify(s, lo, hi))
 
     order = [ci] + [i for i in range(len(names)) if i != ci]
     with io.open(path, "w", encoding="utf-8") as fh:

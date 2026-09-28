@@ -29,6 +29,7 @@ NEGATIVE = {
     "FRAGMENT_OF_LONGER": "the element continues past the consensus (part of a longer repeat)",
     "ELEMENT_CONTINUES": "the element continues past the consensus (part of a longer repeat)",
     "CONSENSUS_OVEREXTENDED": "the consensus is longer than the element the copies support",
+    "TANDEM_ARRAY": "many copies sit in tandem clusters: copies of a repeated unit, not insertions",
 }
 
 

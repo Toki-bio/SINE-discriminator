@@ -23,7 +23,8 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import extend_unique_flank as U
-from fix_alignments import SEED_TAG, justify
+import boundary_justify as BJ
+from fix_alignments import base_name, is_seed, justify
 
 COMP = str.maketrans("ACGTNacgtn", "TGCANTGCAN")
 
@@ -131,7 +132,21 @@ def fill_consensus(cons, lo, hi, lefts, rights, left_n, right_n):
     return "".join(row)
 
 
-def correct(names, seqs, ref):
+def copies_upper_span(names, seqs, ci):
+    """First and last uppercase column over the copies: boundary_justify's window, which already
+    includes any sequence the copies share past the original (it is left aligned there)."""
+    ups = [[j for j, c in enumerate(s) if c.isupper()] for i, s in enumerate(seqs)
+           if i != ci and not is_seed(names[i], names[ci])]
+    ups = [u for u in ups if u]
+    if not ups:
+        return None
+    return min(u[0] for u in ups), max(u[-1] for u in ups)
+
+
+def correct(names, seqs, ref, cont_sides=()):
+    """cont_sides: '5'/'3' sides where the copies share sequence past the original
+    (boundary_justify.continuation_sides). There the aligned continuation is kept: no ungapped
+    extension (it assumes packed flanks, where a distance in bases is a column) and no repacking."""
     ci = U.consensus_index(names)
     flipped = False
     fwd = rev = None
@@ -153,7 +168,7 @@ def correct(names, seqs, ref):
         lo = lo2
     # flanks against the (possibly trimmed) edge
     seqs[ci] = cons
-    skip = {i for i, n in enumerate(names) if SEED_TAG in n}
+    skip = {i for i, n in enumerate(names) if i != ci and is_seed(n, names[ci])}
     lefts, rights, lo, hi = U.flanks_of(seqs, ci, skip)
     # Both sides stop at a polyA run. The A-tail already inside the seed
     # stays; a run out in the flank is not added to the consensus.
@@ -161,15 +176,27 @@ def correct(names, seqs, ref):
     right_n = U.extension_edge(rights, polya="stop")
     left_n = min(left_n, lo)
     right_n = min(right_n, len(cons) - hi - 1)
+    # a flipped plate swaps the sides the continuation was recorded on
+    sides = {{"5": "3", "3": "5"}[x] for x in cont_sides} if flipped else set(cont_sides)
+    if "5" in sides:
+        left_n = 0
+    if "3" in sides:
+        right_n = 0
     cons = fill_consensus(cons, lo, hi, lefts, rights, left_n, right_n)
     seqs[ci] = cons
     new_lo = lo - left_n
     new_hi = hi + right_n
+    w = copies_upper_span(names, seqs, ci) if sides else None
+    if w and "5" in sides:
+        new_lo = min(new_lo, w[0])
+    if w and "3" in sides:
+        new_hi = max(new_hi, w[1])
     width = len(cons)
     out = []
-    for s in seqs:
+    for i, s in enumerate(seqs):
         s = s.ljust(width, "-")[:width]
-        out.append(justify(s, new_lo, new_hi))
+        # the original consensus (row 2) is carried unchanged: never packed or recased
+        out.append(s if (i != ci and is_seed(names[i], names[ci])) else justify(s, new_lo, new_hi))
     info = {
         "flipped": flipped,
         "fwd": fwd,
@@ -214,7 +241,7 @@ def ref_for(bank, path, names):
     filename pattern is only a fallback for a header that no longer matches.
     """
     ci = U.consensus_index(names)
-    key = names[ci].split()[0]
+    key = base_name(names[ci])
     if key in bank:
         return bank[key]
     sf = subfam_of(path)
@@ -232,7 +259,7 @@ def main(argv):
     for path in args[1:]:
         names, seqs = U.read_fa(path)
         ref = ref_for(bank, path, names)
-        names2, seqs2, info = correct(names, seqs, ref)
+        names2, seqs2, info = correct(names, seqs, ref, BJ.continuation_sides(path))
         # info['consensus'] includes lowercase flank; show the element only
         ci = U.consensus_index(names2)
         body = "".join(c for c in seqs2[ci] if c.isupper())

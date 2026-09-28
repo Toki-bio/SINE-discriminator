@@ -23,7 +23,7 @@ negatives, which is the thing this project has been careful not to do.
 import json, glob, os, sys
 import numpy as np
 import measure_c as M
-from fix_alignments import consensus_index, is_seed
+from fix_alignments import consensus_index, is_seed, judged_span, read_fa as _read_text
 
 W = {                       # evidence group -> weight
     "element": 0.45,        # is there an element supported by the copies
@@ -282,10 +282,24 @@ def parts(path):
     k = consensus_index(names)
     cons = A[k]
     nz = np.where(cons != M.GAP)[0]
+    # Since 2026-09-28 row 1 (<sf>_extended) marks every automatic change in lowercase and row 2
+    # is the original (SINEderella add_seed_row.py). The verdict judges the element as REBUILT -
+    # row 1 without its lowercase TRIM proposals (original bases the copies do not carry, lowercase
+    # inside the original's span) but WITH its lowercase additions - which is exactly what it
+    # judged before the marking. Judging only the uppercase span instead was tried on the bat
+    # corpus and is wrong: the A-tail and the TSDs the rebuild had placed at the ends fell into the
+    # "flank", every copy's flank then began with the same A-run, SHARED flanks collapsed the core
+    # (rsi r3_58seqs 82 -> 1 of 100 copies) and the TSD score went to 0. (read_aln folds case, so
+    # the case is read from the text.)
+    orig = [i for i in range(len(names)) if i != k and is_seed(names[i], names[k])]
+    if orig:
+        _n, _txt = _read_text(path)
+        _lo, _hi = judged_span(_n, _txt, k, path)
+        nz = np.array([j for j in nz if _lo <= j <= _hi])
     if len(nz) < 60:
         return None
     lo, hi = int(nz[0]), int(nz[-1])
-    idx = [i for i in range(len(names)) if i != k and not is_seed(names[i])]
+    idx = [i for i in range(len(names)) if i != k and not is_seed(names[i], names[k])]
     C = A[idx]
     el = C[:, lo:hi + 1]
     pres = el != M.GAP
@@ -382,6 +396,39 @@ def subfamily_split(el, pres, ident, min_grp=12, thr=None):
             "sizes": [int(g.sum()), int((~g).sum())],
             "within": float(within), "between": float(between),
             "members": [int(sel[i]) for i in np.where(g)[0]]}
+
+
+TANDEM_GAP = 50000     # neighbours on one contig this close belong to one cluster (hla MEG-RL array period ~27 kb)
+TANDEM_MIN = 3         # copies needed to call a cluster
+TANDEM_NOTE = 0.10     # share of copies in clusters that is reported
+TANDEM_CAP = 0.50      # share that caps the score (half the plate is one repeated unit)
+_LOCUS = __import__("re").compile(r"^(?:_R_)?(\S+?):(\d+)-(\d+)\(")
+
+
+def tandem_clusters(names):
+    """Copies whose loci cluster on one contig. Bat corpus, 2026-09-28: the MEG-RS top100 plates of
+    vmu, tbr, fho, tni and cse had 99, 98, 95, 87 and 82 of 100 copies in such clusters (spacing
+    ~1-5 kb, near-identical flanks) - copies of a tandemly repeated unit that crowd the top of the
+    bitscore ranking - while no Rhin-1, VES or rsi r-subfamily plate had any. A plate is a sample of
+    ~100 loci; drawn at random from a ~2 Gb genome they essentially never cluster."""
+    loci = []
+    for nm in names:
+        m = _LOCUS.match(nm.split()[0])
+        if m:
+            loci.append((m.group(1), int(m.group(2))))
+    loci.sort()
+    n, inc, ncl, sp, i = len(loci), 0, 0, [], 0
+    while i < n:
+        j = i
+        while j + 1 < n and loci[j + 1][0] == loci[j][0] and loci[j + 1][1] - loci[j][1] <= TANDEM_GAP:
+            j += 1
+        if j - i + 1 >= TANDEM_MIN:
+            inc += j - i + 1
+            ncl += 1
+            sp += [loci[k + 1][1] - loci[k][1] for k in range(i, j)]
+        i = j + 1
+    return {"n": n, "in_clusters": inc, "clusters": ncl, "share": inc / float(n) if n else 0.0,
+            "spacing": int(np.median(sp)) if sp else "-"}
 
 
 def verdict(path):
@@ -905,9 +952,21 @@ def verdict(path):
     # calls "no problems good sine" - into a 45. That is the exact mistake
     # already written down as a rule: an absent measurement must never be scored
     # as guilt. It now sets a separate state instead of moving the score.
+    ta = tandem_clusters(p["names"])
+    if ta["share"] >= TANDEM_NOTE:
+        flags.append({"code": "TANDEM_ARRAY", "n": [ta["in_clusters"], ta["n"]],
+                      "text": "%d of %d copies sit in %d tandem clusters on the same contig (>= %d "
+                              "copies, neighbours <= %d bp apart; median spacing %s bp). They are "
+                              "copies of a repeated unit, not independent insertions: 100 loci drawn "
+                              "at random from a genome almost never fall like this."
+                              % (ta["in_clusters"], ta["n"], ta["clusters"], TANDEM_MIN, TANDEM_GAP,
+                                 ta["spacing"])})
+
     capped_by = []
     for f in flags:
         if f["code"] in ("MICROSATELLITE_ELEMENT", "SMALL_CORE"):
+            capped_by.append(f["code"])
+        if f["code"] == "TANDEM_ARRAY" and ta["share"] >= TANDEM_CAP:
             capped_by.append(f["code"])
     if capped_by and score > 45.0:
         score = 45.0

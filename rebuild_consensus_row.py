@@ -110,7 +110,7 @@ def apply(path):
     ci = consensus_index(names)
     length = max(len(s) for s in seqs)
     seqs = [s.ljust(length, "-") for s in seqs]
-    others = element_rows([seqs[i] for i in range(len(seqs)) if i != ci and not is_seed(names[i])])
+    others = element_rows([seqs[i] for i in range(len(seqs)) if i != ci and not is_seed(names[i], names[ci])])
     lo, hi = consensus_span(seqs, ci, others)
 
     new = list("-" * length)

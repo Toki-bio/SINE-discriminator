@@ -22,7 +22,7 @@ import sys
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from fix_alignments import consensus_index, read_fa
+from fix_alignments import consensus_index, is_seed, judged_span, read_fa
 
 SHARE_THR = 0.55          # match verdict.FLANK_SHARE
 MIN_FLANK_BP = 25         # copies with shorter flanks skipped in matrix
@@ -46,12 +46,13 @@ def element_bounds(seq):
     return (nz[0], nz[-1]) if nz else (0, len(seq) - 1)
 
 
-def extract_flanks(seqs, ci):
+def extract_flanks(seqs, ci, names=None, path=None):
     cons = seqs[ci]
-    lo, hi = element_bounds(cons)
+    # judged_span: the element as rebuilt, without the lowercase trim proposals (fix_alignments)
+    lo, hi = judged_span(names, seqs, ci, path) if names else element_bounds(cons)
     lefts, rights, idx = [], [], []
     for i, s in enumerate(seqs):
-        if i == ci:
+        if i == ci or (names and is_seed(names[i], names[ci])):
             continue
         l = "".join(c for c in s[:lo] if c != "-")
         r = "".join(c for c in s[hi + 1:] if c != "-")
@@ -206,7 +207,7 @@ def scan(path, share_thr=SHARE_THR, maxlen=120):
         return {"set": os.path.basename(path).replace(".aln.fa", ""),
                 "error": "too_few_sequences"}
     ci = consensus_index(names)
-    lefts, rights, lo, hi = extract_flanks(seqs, ci)
+    lefts, rights, lo, hi = extract_flanks(seqs, ci, names, path)
     tier = tier_from_path(path)
     L = side_report(lefts)
     R = side_report(rights)
