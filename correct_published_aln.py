@@ -24,7 +24,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import extend_unique_flank as U
 import boundary_justify as BJ
-from fix_alignments import base_name, is_seed, justify
+from fix_alignments import base_name, is_seed, justify, read_fa as read_fa_full
 
 COMP = str.maketrans("ACGTNacgtn", "TGCANTGCAN")
 
@@ -257,7 +257,9 @@ def main(argv):
         raise SystemExit("usage: correct_published_aln.py BANK.fa ALIGNMENT.fa... [--write]")
     bank = load_bank(args[0])
     for path in args[1:]:
-        names, seqs = U.read_fa(path)
+        # full headers: U.read_fa keeps only the first word, and write_fa below then dropped the plate
+        # marks " [soft]" / " [array]" from every row (found on the cse republish, 2026-09-28)
+        names, seqs = read_fa_full(path)
         ref = ref_for(bank, path, names)
         names2, seqs2, info = correct(names, seqs, ref, BJ.continuation_sides(path))
         # info['consensus'] includes lowercase flank; show the element only
