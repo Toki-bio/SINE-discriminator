@@ -161,10 +161,15 @@ def extents(names, seqs, ci=0, skip=()):
 def main(argv):
     path = argv[1]
     names, seqs = read_fa(path)
-    ex = extents(names, seqs)
     if "--need" in argv:
+        # Tandem-array units (" [array]", SINEderella tools/array_order.py) share their flank far past
+        # the element; if they alone drive "unresolved", re-extraction loops to the +600 bp cap for
+        # nothing (cse MEG-RS rand100: 4 rounds, > 30 min). Decide on the independent copies only.
+        skip = {i for i, n in enumerate(names) if i != 0 and "[array]" in n}
+        ex = extents(names, seqs, 0, skip) if len(names) - 1 - len(skip) >= 3 else {s: {"status": "none"} for s in ("5", "3")}
         print(" ".join(str(STEP_BP if ex[s]["status"] == "unresolved" else 0) for s in ("5", "3")))
         return
+    ex = extents(names, seqs)
     for s in ("5", "3"):
         print("%s'  %s" % (s, ex[s]))
 
