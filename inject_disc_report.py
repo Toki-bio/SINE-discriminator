@@ -71,9 +71,11 @@ TOP_RULE = ("Top 100 by bitscore: the firmly assigned copies (10/10 votes, above
 RAND_RULE = ("100 random copies of the firmly assigned set. If fewer than 100 are firmly assigned, all of "
              "them are used and the plate is filled up to 100 with random soft-assigned copies, marked "
              "[soft] in the row name.")
-ROWS_NOTE = ("Row 1 (<subfamily>_extended) is the consensus rebuilt from these copies: lowercase letters are "
-             "proposed additions past the original, not applied. Row 2 (<subfamily>) is the consensus the "
-             "genome was searched with; the uppercase span of the copies is its span.")
+ROWS_NOTE = ("Row 1 (<subfamily>_extended) is the consensus rebuilt from these copies. Its lowercase letters "
+             "are proposals, none applied: past the original's ends they are proposed additions; at an end "
+             "inside the original they are original bases the copies do not carry (proposed trims), kept so "
+             "nothing of the original is lost. Row 2 (<subfamily>) is the consensus the genome was searched "
+             "with; the uppercase span of the copies is its span.")
 
 
 def plate_counts(path: Path):
