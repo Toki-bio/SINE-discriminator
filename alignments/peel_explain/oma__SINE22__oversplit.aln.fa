@@ -1,5 +1,5 @@
->DIAG_A__step57_level1_12cols_pool66
-------------------------------------------------------------------------------------------------------------------------C----------TG------------------------------------------------A--GT------------------G--------------------G-------TT-----TT------------------------------
+>DIAG_A__step34_level1_26cols_pool68
+ACT--T------------------------------------------------------------------------------------T-----------------------------------------G---G--------------G-G-T--T-------------AT-A-----AG------------------G--G-------------------GG----------------------------------------------
 >A|input_154.bnk
 ----------a-cttactATtAt-AtAgTgatgTAATt-At---AAATTCTgT-ATTggTCAATgcAattaatgtt-at--------------accaAtg--ttgATAtATgAAAg-caTcT---tTTTTaTaTCTgaTTcTTgtAatTTT---TTttTTaTgTTTATTAAgATAATaTAtA--TT-CctagTAAA-aTTAgTtgTGAAAAAT-CATAAATTTTggATTTT-------aATTa--TgAtaTtAaT-----TATa--------
 >A|input_155.bnk
@@ -126,13 +126,15 @@ acttAt------AcatTACTTATGAcagTGATgTAATtaaT---AAATTcTgTGATT-gTCAATGCAATTC-AATG-A--
 -ATTAtaAtCA-cTcaTACTTATgATA-TGATGTAATtaAT----AATTtTgTGATTGGTCAATgcAATTCAcATG-a---TAaAGTcCATGa--CAATggTcTGATATAcTggcAgTATCC---aTTTTGTgTCTgGTTcCTTTAGTTTTGTgTTT-TTAAgTTTA-TATgATaaTgTATTGTGT-TATAATAAATAaTGaTAgTGggaAATtaATAAATaTAaaT-----ATTTTGACTTA--TGAtaatta------------------
 >A|input_212.bnk
 AcTTA---------------TAtatTa-TgAtATgATtAATTgTAAATTcT-TGATTGATCAATGCAATTCAtATg-AT----AaaTccATGC---AATgATCTgATATAcaacAg-cATCc----TTTTgTaTCTggTTCcTtTA-TTTTGTgTTT-TTAAgTTTATTATAATAaTgTATTGTgt-tATAATAAATAtT-GTAGTgGGaAAT--ATAAATtTAggAtAT---TTctAcTTta--cttTtaAcTT-----AtA---------
+>A|input_226.bnk
+acTTAt------aAATTAcTTAcaAta-TGATgTAATCAAT----AAATTT-gTATTGgTCAATGCAATT-ACATg-gT----tTgATCCTGC---AATGGTCTGATATACAAaAG-tATtc----TTTTTGTTcTggTTcTTgTA-TTTTgTgTTT-TTAAGTTTATTAtAATAatgTAtTg----tatAATAAATAtT-gTAaTgggcAAT-cAtAAATTTtgaATTT---AcTTataAa------------------------------
 >A|input_378.bnk
 -------attaaAcTtTAcTT---AaAaTgATgTaATCaAT---AAATTCTgTGAtT-GTCAATgcAaTTAtggTT-aG--------tcctAC---AaTgaT-TgATATAtAAAG--CATcC--TTTTtTgTgTcTgTTCTTTA---TTTTgTgTTtTTATTTATTAATAA------TTATagTgT--cTAATAAATATTAGTAgTGaGaAATccATAAATTTtgATTT----AcTTaAttta-----------------------------
->DIAG_B__step58_level1_0cols_pool2
+>DIAG_B__no_own_columns_(left_over_inside_a_refined_group)
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
->B|input_226.bnk
-acTTAt------aAATTAcTTAcaAta-TGATgTAATCAAT----AAATTT-gTATTGgTCAATGCAATT-ACATg-gT----tTgATCCTGC---AATGGTCTGATATACAAaAG-tATtc----TTTTTGTTcTggTTcTTgTA-TTTTgTgTTT-TTAAGTTTATTAtAATAatgTAtTg----tatAATAAATAtT-gTAaTgggcAAT-cAtAAATTTtgaATTT---AcTTataAa------------------------------
 >B|input_231.bnk
 -------attaAcAtTTAcTTAtgAtaGtgATgTcATTgAT---AAATTCTGTGATTGGTCAATGCAATTa-AAag-ga--TttAgTCCTaAC---AATGGTcTgATATAtAAAAAATcTTT--TTTgTTggTTcTTTATTTTGTaTTTTT----------AATTTaTTAtATaAtTAAgTTaTAA-TaAaTTtaaTAT--------aAAAATccATAAATTTtaaATTt---AAtTaaa--------------------------------
->unassigned|input_348.bnk
+>B|input_348.bnk
 ----------------------------------aataaat----aATTATatGATT-TTCaATATAaTTTATatt-aa-ATaaA-----------caATATcTAatATAtATtAtAGATcc---ATTTggTaagtTATTCTt-tAatTTTattt---ATAAGTTTaT---------AtAtc-TgT-ATTtgcTaTAAaaAATAttaAaaAGtAAATaAAtaTaatttat---tt-------------------------------------
+>B|NOT_SINE22|unlabelled|input_423.bnk
+-gataagatattTCatcAagtgcacAGATGGcgCAcTcAat---AAATgcatggacgTTGTAATc-gAAGAAAgtg-gG-tTtGaATCTa-------aaaGATtgaTGTGCAaaaga------aaTTtTtgcaact----------------------ctaaat------------------------gtcataacagTTTTccatgcgaAacAaataatttTTaTgCATtATTTtTTaTttt--tcatttttta-----aatttcattaca

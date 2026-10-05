@@ -1,11 +1,11 @@
 >EVIDENCE_clean
------------------------------------------------------------------------------------------------------------------------------------GT-------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------A--------------------------------------~------------------------------------------------------------------------------------~~------------------------------
 >EVIDENCE_1or2_exceptions
--------------A----------------------------------------------------------------------------------------------------------T------------------------------------------------------------T-----T------------~------------------------A-------A-----A--~---~-------------------------
->X|input_226.bnk
-acTTAt------aAATTAcTTAcaAta-TGATgTAATCAAT----AAATTT-gTATTGgTCAATGCAATT-ACATg-gT----tTgATCCTGC---AATGGTCTGATATACAAaAG-tATtc----TTTTTGTTcTggTTcTTgTA-TTTTgTgTTT-TTAAGTTTATTAtAATAatgTAtTg----tatAATAAATAtT-gTAaTgggcAAT-cAtAAATTTtgaATTT---AcTTataAa------------------------------
+-~~~~-----------------------------------------------------------------------------------------------------------------------------------T-------------------~-------------------------------------------------------------------A-----------------~---~-------------------------
 >X|input_231.bnk
 -------attaAcAtTTAcTTAtgAtaGtgATgTcATTgAT---AAATTCTGTGATTGGTCAATGCAATTa-AAag-ga--TttAgTCCTaAC---AATGGTcTgATATAtAAAAAATcTTT--TTTgTTggTTcTTTATTTTGTaTTTTT----------AATTTaTTAtATaAtTAAgTTaTAA-TaAaTTtaaTAT--------aAAAATccATAAATTTtaaATTt---AAtTaaa--------------------------------
+>X|input_348.bnk
+----------------------------------aataaat----aATTATatGATT-TTCaATATAaTTTATatt-aa-ATaaA-----------caATATcTAatATAtATtAtAGATcc---ATTTggTaagtTATTCTt-tAatTTTattt---ATAAGTTTaT---------AtAtc-TgT-ATTtgcTaTAAaaAATAttaAaaAGtAAATaAAtaTaatttat---tt-------------------------------------
 >Y|input_154.bnk
 ----------a-cttactATtAt-AtAgTgatgTAATt-At---AAATTCTgT-ATTggTCAATgcAattaatgtt-at--------------accaAtg--ttgATAtATgAAAg-caTcT---tTTTTaTaTCTgaTTcTTgtAatTTT---TTttTTaTgTTTATTAAgATAATaTAtA--TT-CctagTAAA-aTTAgTtgTGAAAAAT-CATAAATTTTggATTTT-------aATTa--TgAtaTtAaT-----TATa--------
 >Y|input_155.bnk
@@ -132,7 +132,7 @@ acttAt------AcatTACTTATGAcagTGATgTAATtaaT---AAATTcTgTGATT-gTCAATGCAATTC-AATG-A--
 -ATTAtaAtCA-cTcaTACTTATgATA-TGATGTAATtaAT----AATTtTgTGATTGGTCAATgcAATTCAcATG-a---TAaAGTcCATGa--CAATggTcTGATATAcTggcAgTATCC---aTTTTGTgTCTgGTTcCTTTAGTTTTGTgTTT-TTAAgTTTA-TATgATaaTgTATTGTGT-TATAATAAATAaTGaTAgTGggaAATtaATAAATaTAaaT-----ATTTTGACTTA--TGAtaatta------------------
 >Y|input_212.bnk
 AcTTA---------------TAtatTa-TgAtATgATtAATTgTAAATTcT-TGATTGATCAATGCAATTCAtATg-AT----AaaTccATGC---AATgATCTgATATAcaacAg-cATCc----TTTTgTaTCTggTTCcTtTA-TTTTGTgTTT-TTAAgTTTATTATAATAaTgTATTGTgt-tATAATAAATAtT-GTAGTgGGaAAT--ATAAATtTAggAtAT---TTctAcTTta--cttTtaAcTT-----AtA---------
+>Y|input_226.bnk
+acTTAt------aAATTAcTTAcaAta-TGATgTAATCAAT----AAATTT-gTATTGgTCAATGCAATT-ACATg-gT----tTgATCCTGC---AATGGTCTGATATACAAaAG-tATtc----TTTTTGTTcTggTTcTTgTA-TTTTgTgTTT-TTAAGTTTATTAtAATAatgTAtTg----tatAATAAATAtT-gTAaTgggcAAT-cAtAAATTTtgaATTT---AcTTataAa------------------------------
 >Y|input_378.bnk
 -------attaaAcTtTAcTT---AaAaTgATgTaATCaAT---AAATTCTgTGAtT-GTCAATgcAaTTAtggTT-aG--------tcctAC---AaTgaT-TgATATAtAAAG--CATcC--TTTTtTgTgTcTgTTCTTTA---TTTTgTgTTtTTATTTATTAATAA------TTATagTgT--cTAATAAATATTAGTAgTGaGaAATccATAAATTTtgATTT----AcTTaAttta-----------------------------
->Y|input_348.bnk
-----------------------------------aataaat----aATTATatGATT-TTCaATATAaTTTATatt-aa-ATaaA-----------caATATcTAatATAtATtAtAGATcc---ATTTggTaagtTATTCTt-tAatTTTattt---ATAAGTTTaT---------AtAtc-TgT-ATTtgcTaTAAaaAATAttaAaaAGtAAATaAAtaTaatttat---tt-------------------------------------
