@@ -1,0 +1,14 @@
+>EVIDENCE_clean
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+>EVIDENCE_1or2_exceptions
+------------------------------------------------------------------------------------------------------------------------------A-------------T--------------------C-------------------------------------------------------------------------------------A-T--------------------
+>X|input_123.bnk
+ggccctccctggtggcgcagcgggttaaagcacagcactgagaatctgaagccacttccgcatgagttcgattcccgcctgccgcctgccccggaggagaccacatggcgagccagacctctcctgacccgcccgctgcttccctcagcagtgtacttcgtcgatctgcctgttctgctccccactctgtctctggtgaagcctctcaccgcccctgagcctctggcctgtaccccagttctgtatgaataaataaataaat----cttt
+>X|input_125.bnk
+ggccctccctggtggcgcagcgggttaaagcacagcactgagaatctgaagccacttccgcatgagttcgattcccgcctgccgcctgccccggaggagaccacatggcgagccagacctctcctgacccgcccgctgcttccctcagcagtgtacttcgtcgatctgcctgttctgctccccactctgtctctggtgaagcctctcaccgcccctgagcctctggcctgtaccccagttctgtatgaataaataaataaat----cttt
+>Y|input_121.bnk
+ggccctccctggtggcgcagcgggttaaagcacagcactgagaatctgaagccacttccgcatgagttcgattcccgcctgccgcctgccccggaggagaccacatggcgagccagacctctcctgacccgcccgctgctcccctcagcagtgtacttcgtcgatctgcctgttctgctccccactctgtctctggtgaagcctctcaccgcccctgagcctctggcctgtaccccagttctgtatgaataaataaataaat----cttt
+>Y|input_122.bnk
+ggccctccctggtggcgcagcgggttaaagcacagcactgagaatctgaagccacttccgcatgagttcgattcccgcctgccgcctgccccggaggagaccacatggcgagccagacctctcctgacccgcccgctgctcccctcagcagtgtacttcgtcgatctgcctgttctgctccccactctgtctctggtgaagcctctcaccgcccctgagcctctggcctgtaccccagttctgtatgaataaataaataaat----cttt
+>Y|input_124.bnk
+ggccctccctggtggcgcagcgggttaaagcacagcactgagaatctgaagccacttccgcatgagttcgattcccgcctgccgcctgccccggaggagaccacatggcgagccagacctctcctggcccgcccgctgcttccctcagcagtgtacttcgtagatctgcctgttctgctccccactctgtctctggtgaagcctctcaccgcccctgagcctctggcctgtaccccagttctgtatgcacaaataaataaataaatcttt
