@@ -21,11 +21,11 @@ File: `peel_explain/ccr__g3__oversplit.aln.fa`
 
 | piece | his chunks | other chunks in it | peeled at | pool then | diag columns | within | to other pieces |
 |---|---|---|---|---|---|---|---|
-| A | 75 | 1 | step 6, level 0 | 571 | 4 | 0.020 | 0.058 |
-| B | 33 | 40 | step 7, level 0 | 495 | 4 | 0.017 | 0.056 |
-| C | 29 | 71 | step 13, level 1 | 323 | 4 | 0.020 | 0.053 |
+| A | 73 | 1 | step 6, level 0 | 571 | 4 | 0.019 | 0.057 |
+| B | 33 | 40 | step 7, level 0 | 497 | 4 | 0.017 | 0.056 |
+| C | 31 | 71 | step 13, level 1 | 325 | 4 | 0.023 | 0.052 |
 
-Pattern sharing: B carries 1% of A's 4 diagnostic characters; C carries 5% of A's 4 diagnostic characters; A carries 26% of B's 4 diagnostic characters; C carries 3% of B's 4 diagnostic characters; A carries 100% of C's 4 diagnostic characters; B carries 99% of C's 4 diagnostic characters.
+Pattern sharing: B carries 1% of A's 4 diagnostic characters; C carries 6% of A's 4 diagnostic characters; A carries 26% of B's 4 diagnostic characters; C carries 5% of B's 4 diagnostic characters; A carries 100% of C's 4 diagnostic characters; B carries 99% of C's 4 diagnostic characters.
 
 ## g6 (61 chunks) -> 2 pieces
 
@@ -33,8 +33,8 @@ File: `peel_explain/ccr__g6__oversplit.aln.fa`
 
 | piece | his chunks | other chunks in it | peeled at | pool then | diag columns | within | to other pieces |
 |---|---|---|---|---|---|---|---|
-| A | 60 | 40 | step 13, level 1 | 323 | 4 | 0.027 | 0.048 |
-| B | 1 | 75 | step 6, level 0 | 571 | 4 | NaN | 0.048 |
+| A | 60 | 42 | step 13, level 1 | 325 | 4 | 0.027 | 0.048 |
+| B | 1 | 73 | step 6, level 0 | 571 | 4 | NaN | 0.048 |
 
 Pattern sharing: B carries 100% of A's 4 diagnostic characters; A carries 1% of B's 4 diagnostic characters.
 
@@ -44,8 +44,8 @@ File: `peel_explain/ccr__g2__oversplit.aln.fa`
 
 | piece | his chunks | other chunks in it | peeled at | pool then | diag columns | within | to other pieces |
 |---|---|---|---|---|---|---|---|
-| A | 64 | 22 | step 11, level 0 | 412 | 2 | 0.055 | 0.063 |
-| B | 3 | 0 | step 8, level 0 | 422 | 3 | 0.014 | 0.058 |
-| C | 2 | 98 | step 13, level 1 | 323 | 4 | 0.031 | 0.073 |
+| A | 64 | 22 | step 11, level 0 | 414 | 2 | 0.055 | 0.063 |
+| B | 3 | 0 | step 8, level 0 | 424 | 3 | 0.014 | 0.058 |
+| C | 2 | 100 | step 13, level 1 | 325 | 4 | 0.031 | 0.073 |
 
 Pattern sharing: B carries 100% of A's 2 diagnostic characters; C carries 25% of A's 2 diagnostic characters; A carries 1% of B's 3 diagnostic characters; C carries 0% of B's 3 diagnostic characters; A carries 49% of C's 4 diagnostic characters; B carries 50% of C's 4 diagnostic characters.

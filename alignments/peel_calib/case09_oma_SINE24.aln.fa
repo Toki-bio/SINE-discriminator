@@ -1,7 +1,7 @@
 >EVIDENCE_clean
----------------------~-------------------------------------------------------------------------------------------------------------------
+----------------------G------------------------------------------------------------------------------------------------------------------
 >EVIDENCE_1or2_exceptions
-----------------------G-A-----------AAA-------------------------------------C------------------------------------------------------------
+---------------------~--A----------AAAA--A----------------------------------C------------------------------------------------------------
 >X|input_530.bnk
 -TTTGTTTTTTCGTTAA-----GAATCATCTAACGAAAA--ATCGTTTGCCTTTTCCTCTTTCGTTCAGCAAGCAACTGTCGATAGCGAGACATCGC-ATCCATGACACTTCGTCTTGCCTTTGAACTTCTATCAA-
 >X|input_532.bnk
@@ -16,8 +16,6 @@
 -TTTGTTTTTTCGTTAA-----GAATCATCTAACGAAAA--ATCGTTTGCCTTTTCCTCTTTCGTTCAGCAAGCAACTGTCGATAGTAAGACATCGC-ATCCATGACACTTCGTCTTGCCTTTGAACATCTATCAA-
 >X|input_550.bnk
 -TTTgTTTTTTcGTTAA-----GAATCATcTAACG-------TtGTTTGCCTTTTCCTCTTTCGTTCAGCAAGCAATTGTCGATAGCAAGACATCGC-ATCCATGACACTTCGTCTTGCCTTTGAACTTCTATCAA-
->X|input_553.bnk
-aTtTGtTTTttTtagAA---------CATctAa---------tTtTTTGCCTTTTcattTtTTcACAAtCaA-----TTTtgAtAgcaAGaCATcC--ATcCATgacAcTTc-TCTtgctTT--aAATtcTATCAAa
 >Y|input_534.bnk
 -TTTGTTTTTTCATTAA----GAAGTCATCTAACG-------TCGTTTGCCTTTTCCTcTTTCGTTCAGCAAGCAATTGTCGATAGCAAGACATtGC-ATCCATGACACTTCGTCTTGCCTTTGAACTTCTATCAA-
 >Y|input_537.bnk
@@ -50,3 +48,5 @@ aTtTGtTTTttTtagAA---------CATctAa---------tTtTTTGCCTTTTcattTtTTcACAAtCaA-----TTT
 -TTTGTTTTTTCGTTAA----GAAaTCATCTAACGa---aaaTCGTTTGCCTTTTCCTCTTTCGTTCAGCAAGCAATTGTCGATAGCaAGACATCGC-ATCCATGACACTTCgTCTTGCCTTTGAACTTCTATCAA-
 >Y|input_540.bnk
 -TTTGTTTTTTCGTTAATTAAGAAGTCATCTAACG-------TCGTTTGCCTTTTCCTCTTTCGTTCAGCAAGCAATTGTCGATAGCCAGACATCGCAACCCATGACACTTCGTCTTGCCTTTGAACTTCTATcAA-
+>Y|input_553.bnk
+aTtTGtTTTttTtagAA---------CATctAa---------tTtTTTGCCTTTTcattTtTTcACAAtCaA-----TTTtgAtAgcaAGaCATcC--ATcCATgacAcTTc-TCTtgctTT--aAATtcTATCAAa

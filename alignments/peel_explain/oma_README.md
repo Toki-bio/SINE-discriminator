@@ -11,14 +11,40 @@ sequences still in the pool at that moment had it. Everything else in the DIAG r
 
 | his group | chunks | pieces | mean distance inside his group | how it was split |
 |---|---|---|---|---|
+| SINE27 | 37 | 2 | 0.070 | split inside a group the loop had first peeled as one (the refine step found a sub-group with its own columns); part of it was absorbed into a group made mostly of OTHER chunks |
+| grp128 | 8 | 3 | 0.361 | split inside a group the loop had first peeled as one (the refine step found a sub-group with its own columns) |
 | SINE22 | 67 | 2 | 0.209 | split inside a group the loop had first peeled as one (the refine step found a sub-group with its own columns) |
 | long12 | 12 | 2 | 0.083 | peeled separately from the start: each piece had its own pattern against the whole pool |
 | SINE25 | 31 | 2 | 0.066 | split inside a group the loop had first peeled as one (the refine step found a sub-group with its own columns) |
 | SINE19 | 10 | 2 | 0.444 | peeled separately from the start: each piece had its own pattern against the whole pool |
-| SINE24 | 24 | 2 | 0.054 | split inside a group the loop had first peeled as one (the refine step found a sub-group with its own columns) |
+| SINE24 | 24 | 2 + 1 unassigned | 0.054 | split inside a group the loop had first peeled as one (the refine step found a sub-group with its own columns) |
 | SINE21 | 12 | 3 | 0.119 | split inside a group the loop had first peeled as one (the refine step found a sub-group with its own columns); a piece is defined mostly by GAP columns (shared truncation / indel) |
 | SINE18 | 8 | 2 + 1 unassigned | 0.129 | split inside a group the loop had first peeled as one (the refine step found a sub-group with its own columns) |
 | SINE5 | 17 | 2 | 0.055 | split inside a group the loop had first peeled as one (the refine step found a sub-group with its own columns) |
+| g1 | 4 | 2 | 0.198 | peeled separately from the start: each piece had its own pattern against the whole pool; part of it was absorbed into a group made mostly of OTHER chunks |
+
+## SINE27 (37 chunks) -> 2 pieces
+
+File: `peel_explain/oma__SINE27__oversplit.aln.fa`
+
+| piece | his chunks | other chunks in it | peeled at | pool then | diag columns | within | to other pieces |
+|---|---|---|---|---|---|---|---|
+| A | 36 | 0 | step 26, level 1 | 87 | 25 | 0.061 | 0.233 |
+| B | 1 | 4 | leftover of a refined group | - | 0 | NaN | 0.233 |
+
+Pattern sharing: B carries 48% of A's 27 diagnostic characters.
+
+## grp128 (8 chunks) -> 3 pieces
+
+File: `peel_explain/oma__grp128__oversplit.aln.fa`
+
+| piece | his chunks | other chunks in it | peeled at | pool then | diag columns | within | to other pieces |
+|---|---|---|---|---|---|---|---|
+| A | 3 | 2 | leftover of a refined group | - | 0 | 0.444 | 0.383 |
+| B | 3 | 0 | step 28, level 1 | 8 | 4 | 0.175 | 0.359 |
+| C | 2 | 1 | step 21, level 0 | 100 | 7 | 0.404 | 0.378 |
+
+Pattern sharing: A carries 0% of B's 4 diagnostic characters; C carries 25% of B's 4 diagnostic characters; A carries 76% of C's 7 diagnostic characters; B carries 100% of C's 7 diagnostic characters.
 
 ## SINE22 (67 chunks) -> 2 pieces
 
@@ -26,10 +52,10 @@ File: `peel_explain/oma__SINE22__oversplit.aln.fa`
 
 | piece | his chunks | other chunks in it | peeled at | pool then | diag columns | within | to other pieces |
 |---|---|---|---|---|---|---|---|
-| A | 65 | 0 | step 34, level 1 | 68 | 26 | 0.193 | 0.459 |
-| B | 2 | 1 | leftover of a refined group | - | 0 | 0.579 | 0.459 |
+| A | 64 | 0 | step 37, level 1 | 67 | 6 | 0.189 | 0.410 |
+| B | 3 | 0 | leftover of a refined group | - | 0 | 0.500 | 0.410 |
 
-Pattern sharing: B carries 0% of A's 20 diagnostic characters.
+Pattern sharing: B carries 0% of A's 6 diagnostic characters.
 
 ## long12 (12 chunks) -> 2 pieces
 
@@ -48,10 +74,10 @@ File: `peel_explain/oma__SINE25__oversplit.aln.fa`
 
 | piece | his chunks | other chunks in it | peeled at | pool then | diag columns | within | to other pieces |
 |---|---|---|---|---|---|---|---|
-| A | 29 | 0 | step 35, level 1 | 32 | 9 | 0.050 | 0.180 |
-| B | 2 | 1 | leftover of a refined group | - | 0 | 0.000 | 0.180 |
+| A | 27 | 0 | step 36, level 1 | 31 | 4 | 0.041 | 0.143 |
+| B | 4 | 0 | leftover of a refined group | - | 0 | 0.156 | 0.143 |
 
-Pattern sharing: B carries 0% of A's 8 diagnostic characters.
+Pattern sharing: B carries 8% of A's 3 diagnostic characters.
 
 ## SINE19 (10 chunks) -> 2 pieces
 
@@ -59,19 +85,19 @@ File: `peel_explain/oma__SINE19__oversplit.aln.fa`
 
 | piece | his chunks | other chunks in it | peeled at | pool then | diag columns | within | to other pieces |
 |---|---|---|---|---|---|---|---|
-| A | 6 | 0 | step 21, level 0 | 99 | 11 | 0.379 | 0.506 |
+| A | 6 | 0 | step 20, level 0 | 106 | 11 | 0.379 | 0.506 |
 | B | 4 | 0 | step 8, level 0 | 546 | 28 | 0.358 | 0.506 |
 
-Pattern sharing: B carries 89% of A's 11 diagnostic characters; A carries 48% of B's 28 diagnostic characters.
+Pattern sharing: B carries 80% of A's 11 diagnostic characters; A carries 48% of B's 28 diagnostic characters.
 
-## SINE24 (24 chunks) -> 2 pieces
+## SINE24 (24 chunks) -> 2 pieces + 1 unassigned
 
 File: `peel_explain/oma__SINE24__oversplit.aln.fa`
 
 | piece | his chunks | other chunks in it | peeled at | pool then | diag columns | within | to other pieces |
 |---|---|---|---|---|---|---|---|
-| A | 16 | 0 | step 33, level 1 | 24 | 4 | 0.025 | 0.076 |
-| B | 8 | 0 | leftover of a refined group | - | 0 | 0.074 | 0.076 |
+| A | 16 | 0 | step 34, level 1 | 23 | 4 | 0.025 | 0.052 |
+| B | 7 | 0 | step 35, level 1 | 7 | 0 | 0.018 | 0.052 |
 
 Pattern sharing: B carries 0% of A's 3 diagnostic characters.
 
@@ -93,8 +119,8 @@ File: `peel_explain/oma__SINE18__oversplit.aln.fa`
 
 | piece | his chunks | other chunks in it | peeled at | pool then | diag columns | within | to other pieces |
 |---|---|---|---|---|---|---|---|
-| A | 4 | 0 | step 32, level 1 | 4 | 0 | 0.055 | 0.112 |
-| B | 3 | 0 | step 31, level 1 | 7 | 11 | 0.039 | 0.112 |
+| A | 4 | 0 | step 33, level 1 | 4 | 0 | 0.055 | 0.112 |
+| B | 3 | 0 | step 32, level 1 | 7 | 11 | 0.039 | 0.112 |
 
 Pattern sharing: A carries 0% of B's 10 diagnostic characters.
 
@@ -108,3 +134,14 @@ File: `peel_explain/oma__SINE5__oversplit.aln.fa`
 | B | 5 | 1 | leftover of a refined group | - | 0 | 0.042 | 0.083 |
 
 Pattern sharing: B carries 0% of A's 4 diagnostic characters.
+
+## g1 (4 chunks) -> 2 pieces
+
+File: `peel_explain/oma__g1__oversplit.aln.fa`
+
+| piece | his chunks | other chunks in it | peeled at | pool then | diag columns | within | to other pieces |
+|---|---|---|---|---|---|---|---|
+| A | 3 | 0 | step 13, level 0 | 250 | 24 | 0.055 | 0.342 |
+| B | 1 | 2 | step 21, level 0 | 100 | 7 | NaN | 0.342 |
+
+Pattern sharing: B carries 75% of A's 24 diagnostic characters; A carries 86% of B's 7 diagnostic characters.

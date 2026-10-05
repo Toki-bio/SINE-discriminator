@@ -10,40 +10,50 @@ viewer's ruler numbers for that file.
 
 | case | your group | X | Y | clean substitutions | clean indels | with 1 exception | with 2 | distance in X / in Y / X-Y | your call |
 |---|---|---|---|---|---|---|---|---|---|
-| [01](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case01_ccr_g3.aln.fa&title=case%2001) | ccr g3 | 29 | 108 | 0 | 0 | 0 | 0 | 0.020 / 0.037 / 0.053 | |
-| [02](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case02_ccr_g3.aln.fa&title=case%2002) | ccr g3 | 33 | 104 | 0 | 0 | 1 | 3 | 0.017 / 0.034 / 0.056 | |
-| [03](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case03_ccr_g2.aln.fa&title=case%2003) | ccr g2 | 2 | 67 | 0 | 0 | 1 | 0 | 0.031 / 0.055 / 0.073 | |
-| [04](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case04_oma_SINE21.aln.fa&title=case%2004) | oma SINE21 | 3 | 9 | 0 | 0 | 4 | 3 | 0.181 / 0.097 / 0.141 | |
-| [05](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case05_ccr_g2.aln.fa&title=case%2005) | ccr g2 | 3 | 66 | 1 | 0 | 2 | 0 | 0.014 / 0.056 / 0.058 | |
-| [06](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case06_oma_SINE24.aln.fa&title=case%2006) | oma SINE24 | 8 | 16 | 0 | 1 | 1 | 5 | 0.074 / 0.025 / 0.076 | |
-| [07](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case07_oma_SINE22.aln.fa&title=case%2007) | oma SINE22 | 2 | 65 | 1 | 2 | 3 | 6 | 0.579 / 0.193 / 0.459 | |
-| [08](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case08_oma_SINE21.aln.fa&title=case%2008) | oma SINE21 | 3 | 9 | 1 | 1 | 10 | 17 | 0.036 / 0.117 / 0.130 | |
-| [09](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case09_oma_SINE5.aln.fa&title=case%2009) | oma SINE5 | 5 | 12 | 3 | 1 | 8 | 5 | 0.042 / 0.032 / 0.083 | |
-| [10](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case10_oma_SINE25.aln.fa&title=case%2010) | oma SINE25 | 2 | 29 | 7 | 2 | 1 | 1 | 0.000 / 0.050 / 0.180 | |
-| [11](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case11_oma_SINE18.aln.fa&title=case%2011) | oma SINE18 | 3 | 5 | 8 | 1 | 3 | 3 | 0.039 / 0.130 / 0.146 | |
-| [12](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case12_oma_long12.aln.fa&title=case%2012) | oma long12 | 3 | 9 | 3 | 1 | 24 | 1 | 0.161 / 0.036 / 0.136 | |
-| [13](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case13_oma_SINE19.aln.fa&title=case%2013) | oma SINE19 | 4 | 6 | 9 | 2 | 29 | 56 | 0.358 / 0.379 / 0.506 | |
+| [01](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case01_oma_SINE25.aln.fa&title=case%2001) | oma SINE25 | 4 | 27 | 0 | 0 | 0 | 5 | 0.156 / 0.041 / 0.143 | |
+| [02](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case02_ccr_g3.aln.fa&title=case%2002) | ccr g3 | 31 | 106 | 0 | 0 | 0 | 0 | 0.023 / 0.037 / 0.052 | |
+| [03](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case03_ccr_g3.aln.fa&title=case%2003) | ccr g3 | 33 | 104 | 0 | 0 | 1 | 3 | 0.017 / 0.034 / 0.056 | |
+| [04](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case04_ccr_g2.aln.fa&title=case%2004) | ccr g2 | 2 | 67 | 0 | 0 | 1 | 0 | 0.031 / 0.055 / 0.073 | |
+| [05](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case05_oma_SINE21.aln.fa&title=case%2005) | oma SINE21 | 3 | 9 | 0 | 0 | 4 | 3 | 0.181 / 0.097 / 0.141 | |
+| [06](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case06_ccr_g2.aln.fa&title=case%2006) | ccr g2 | 3 | 66 | 1 | 0 | 2 | 0 | 0.014 / 0.056 / 0.058 | |
+| [07](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case07_oma_grp128.aln.fa&title=case%2007) | oma grp128 | 2 | 6 | 1 | 1 | 2 | 7 | 0.404 / 0.344 / 0.378 | |
+| [08](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case08_oma_SINE22.aln.fa&title=case%2008) | oma SINE22 | 3 | 64 | 0 | 0 | 8 | 9 | 0.500 / 0.189 / 0.410 | |
+| [09](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case09_oma_SINE24.aln.fa&title=case%2009) | oma SINE24 | 7 | 17 | 1 | 0 | 6 | 2 | 0.018 / 0.051 / 0.063 | |
+| [10](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case10_oma_SINE21.aln.fa&title=case%2010) | oma SINE21 | 3 | 9 | 1 | 1 | 10 | 17 | 0.036 / 0.117 / 0.130 | |
+| [11](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case11_oma_SINE5.aln.fa&title=case%2011) | oma SINE5 | 5 | 12 | 3 | 1 | 8 | 5 | 0.042 / 0.032 / 0.083 | |
+| [12](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case12_oma_SINE18.aln.fa&title=case%2012) | oma SINE18 | 3 | 5 | 8 | 1 | 3 | 3 | 0.039 / 0.130 / 0.146 | |
+| [13](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case13_oma_grp128.aln.fa&title=case%2013) | oma grp128 | 3 | 5 | 7 | 0 | 13 | 38 | 0.175 / 0.418 / 0.359 | |
+| [14](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case14_oma_long12.aln.fa&title=case%2014) | oma long12 | 3 | 9 | 3 | 1 | 24 | 1 | 0.161 / 0.036 / 0.136 | |
+| [15](https://toki-bio.github.io/MSA-viewer/?url=https://raw.githubusercontent.com/Toki-bio/SINE-discriminator/main/alignments/peel_calib/case15_oma_SINE19.aln.fa&title=case%2015) | oma SINE19 | 4 | 6 | 9 | 2 | 29 | 56 | 0.358 / 0.379 / 0.506 | |
 
 `~` in an EVIDENCE row marks a gap in X where Y has bases (a deletion in X).
 
 ## Columns per case
 
-### Case 01: ccr g3, X = 29, Y = 108
+### Case 01: oma SINE25, X = 4, Y = 27
+
+- column 41: T - exceptions: input_416.bnk (in X, has C); input_415.bnk (outside X, has T)
+- column 88: T - exceptions: input_397.bnk (in X, has A); input_398.bnk (in X, has A)
+- column 94: T - exceptions: input_397.bnk (in X, has A); input_398.bnk (in X, has A)
+- column 100: A - exceptions: input_395.bnk (in X, has C); input_416.bnk (in X, has -)
+- column 104: A - exceptions: input_395.bnk (in X, has C); input_416.bnk (in X, has -)
+
+### Case 02: ccr g3, X = 31, Y = 106
 
 - no column at all with 2 or fewer exceptions
 
-### Case 02: ccr g3, X = 33, Y = 104
+### Case 03: ccr g3, X = 33, Y = 104
 
 - column 211: gap (deletion in X) - exceptions: input_052.bnk (in X, has T); input_064.bnk (in X, has C)
 - column 215: T - exceptions: input_052.bnk (in X, has C)
 - column 217: C - exceptions: input_052.bnk (in X, has T); input_064.bnk (in X, has T)
 - column 249: A - exceptions: input_115.bnk (in X, has C); input_116.bnk (outside X, has A)
 
-### Case 03: ccr g2, X = 2, Y = 67
+### Case 04: ccr g2, X = 2, Y = 67
 
 - column 73: A - exceptions: input_227.bnk (outside X, has A)
 
-### Case 04: oma SINE21, X = 3, Y = 9
+### Case 05: oma SINE21, X = 3, Y = 9
 
 - column 141: A - exceptions: input_390.bnk (in X, has G)
 - column 142: T - exceptions: input_390.bnk (in X, has C)
@@ -53,39 +63,59 @@ viewer's ruler numbers for that file.
 - column 300: gap (deletion in X) - exceptions: input_386.bnk (outside X, has -); input_383.bnk (outside X, has -)
 - column 301: gap (deletion in X) - exceptions: input_386.bnk (outside X, has -)
 
-### Case 05: ccr g2, X = 3, Y = 66
+### Case 06: ccr g2, X = 3, Y = 66
 
 - column 206: G - exceptions: input_325.bnk (outside X, has G)
 - column 233: T - exceptions: input_317.bnk (outside X, has T)
 - column 253: A - clean
 
-### Case 06: oma SINE24, X = 8, Y = 16
+### Case 07: oma grp128, X = 2, Y = 6
 
-- column 22: gap (deletion in X) - clean
-- column 23: G - exceptions: input_553.bnk (in X, has -)
-- column 25: A - exceptions: input_553.bnk (in X, has -); input_539.bnk (outside X, has A)
-- column 37: A (Y mostly gapped: insertion in X) - exceptions: input_550.bnk (in X, has -); input_553.bnk (in X, has -)
-- column 38: A (Y mostly gapped: insertion in X) - exceptions: input_550.bnk (in X, has -); input_553.bnk (in X, has -)
-- column 39: A (Y mostly gapped: insertion in X) - exceptions: input_550.bnk (in X, has -); input_553.bnk (in X, has -)
-- column 77: C - exceptions: input_550.bnk (in X, has T); input_553.bnk (in X, has -)
+- column 2: gap (deletion in X) - exceptions: input_134.bnk (outside X, has -); input_136.bnk (outside X, has -)
+- column 41: G - exceptions: input_134.bnk (outside X, has G); input_136.bnk (outside X, has G)
+- column 91: C (Y mostly gapped: insertion in X) - exceptions: input_128.bnk (outside X, has C); input_136.bnk (outside X, has C)
+- column 166: C - clean
+- column 170: G - exceptions: input_130.bnk (outside X, has G)
+- column 171: A - exceptions: input_130.bnk (outside X, has A); input_134.bnk (outside X, has A)
+- column 215: A (Y mostly gapped: insertion in X) - clean
+- column 224: T - exceptions: input_136.bnk (outside X, has T)
+- column 239: gap (deletion in X) - exceptions: input_132.bnk (outside X, has -); input_136.bnk (outside X, has -)
+- column 240: gap (deletion in X) - exceptions: input_132.bnk (outside X, has -); input_136.bnk (outside X, has -)
+- column 241: gap (deletion in X) - exceptions: input_132.bnk (outside X, has -); input_136.bnk (outside X, has -)
 
-### Case 07: oma SINE22, X = 2, Y = 65
+### Case 08: oma SINE22, X = 3, Y = 64
 
-- column 2: gap (deletion in X) - exceptions: input_154.bnk (outside X, has -); input_378.bnk (outside X, has -)
-- column 3: gap (deletion in X) - exceptions: input_154.bnk (outside X, has -); input_378.bnk (outside X, has -)
-- column 4: gap (deletion in X) - exceptions: input_154.bnk (outside X, has -); input_378.bnk (outside X, has -)
-- column 5: gap (deletion in X) - exceptions: input_154.bnk (outside X, has -); input_378.bnk (outside X, has -)
-- column 117: A - clean
-- column 137: T - exceptions: input_197.bnk (outside X, has T)
-- column 156: gap (deletion in X) - clean
-- column 157: gap (deletion in X) - exceptions: input_230.bnk (outside X, has -)
-- column 225: A - exceptions: input_208.bnk (outside X, has A)
-- column 241: gap (deletion in X) - clean
-- column 242: gap (deletion in X) - clean
-- column 243: gap (deletion in X) - exceptions: input_180.bnk (outside X, has -); input_226.bnk (outside X, has -)
-- column 247: gap (deletion in X) - exceptions: input_226.bnk (outside X, has -); input_378.bnk (outside X, has -)
+- column 14: A - exceptions: input_348.bnk (in X, has -); input_159.bnk (outside X, has A)
+- column 45: gap (deletion in X) - exceptions: input_231.bnk (in X, has A); input_208.bnk (outside X, has -)
+- column 117: A - exceptions: input_226.bnk (in X, has -)
+- column 132: G - exceptions: input_348.bnk (in X, has T)
+- column 133: T - exceptions: input_348.bnk (in X, has A)
+- column 137: T - exceptions: input_226.bnk (in X, has G); input_197.bnk (outside X, has T)
+- column 156: gap (deletion in X) - exceptions: input_226.bnk (in X, has T)
+- column 157: gap (deletion in X) - exceptions: input_226.bnk (in X, has T); input_230.bnk (outside X, has -)
+- column 201: gap (deletion in X) - exceptions: input_348.bnk (in X, has A); input_212.bnk (outside X, has -)
+- column 225: A - exceptions: input_226.bnk (in X, has G); input_208.bnk (outside X, has A)
+- column 234: A - exceptions: input_348.bnk (in X, has T); input_378.bnk (outside X, has A)
+- column 240: A - exceptions: input_348.bnk (in X, has -); input_154.bnk (outside X, has A)
+- column 241: gap (deletion in X) - exceptions: input_226.bnk (in X, has A)
+- column 242: gap (deletion in X) - exceptions: input_226.bnk (in X, has A)
+- column 243: gap (deletion in X) - exceptions: input_180.bnk (outside X, has -)
+- column 246: gap (deletion in X) - exceptions: input_163.bnk (outside X, has -); input_378.bnk (outside X, has -)
+- column 247: gap (deletion in X) - exceptions: input_378.bnk (outside X, has -)
 
-### Case 08: oma SINE21, X = 3, Y = 9
+### Case 09: oma SINE24, X = 7, Y = 17
+
+- column 22: gap (deletion in X) - exceptions: input_553.bnk (outside X, has -)
+- column 23: G - clean
+- column 25: A - exceptions: input_539.bnk (outside X, has A)
+- column 36: A (Y mostly gapped: insertion in X) - exceptions: input_550.bnk (in X, has -); input_539.bnk (outside X, has A)
+- column 37: A (Y mostly gapped: insertion in X) - exceptions: input_550.bnk (in X, has -)
+- column 38: A (Y mostly gapped: insertion in X) - exceptions: input_550.bnk (in X, has -)
+- column 39: A (Y mostly gapped: insertion in X) - exceptions: input_550.bnk (in X, has -)
+- column 42: A (Y mostly gapped: insertion in X) - exceptions: input_550.bnk (in X, has -); input_539.bnk (outside X, has A)
+- column 77: C - exceptions: input_550.bnk (in X, has T)
+
+### Case 10: oma SINE21, X = 3, Y = 9
 
 - column 226: gap (deletion in X) - exceptions: input_380.bnk (outside X, has -); input_391.bnk (outside X, has -)
 - column 232: gap (deletion in X) - exceptions: input_380.bnk (outside X, has -); input_391.bnk (outside X, has -)
@@ -118,7 +148,7 @@ viewer's ruler numbers for that file.
 - column 303: gap (deletion in X) - exceptions: input_380.bnk (outside X, has -); input_391.bnk (outside X, has -)
 - column 304: gap (deletion in X) - exceptions: input_380.bnk (outside X, has -); input_391.bnk (outside X, has -)
 
-### Case 09: oma SINE5, X = 5, Y = 12
+### Case 11: oma SINE5, X = 5, Y = 12
 
 - column 17: T - exceptions: input_139.bnk (in X, has C); input_141.bnk (in X, has C)
 - column 38: T - exceptions: input_140.bnk (in X, has -); input_141.bnk (in X, has G)
@@ -141,22 +171,7 @@ viewer's ruler numbers for that file.
 - column 199: gap (deletion in X) - exceptions: input_153.bnk (outside X, has -); input_152.bnk (outside X, has -)
 - column 200: gap (deletion in X) - exceptions: input_153.bnk (outside X, has -); input_152.bnk (outside X, has -)
 
-### Case 10: oma SINE25, X = 2, Y = 29
-
-- column 33: T - exceptions: input_411.bnk (outside X, has T)
-- column 38: gap (deletion in X) - clean
-- column 39: gap (deletion in X) - clean
-- column 40: gap (deletion in X) - clean
-- column 41: T - exceptions: input_415.bnk (outside X, has T); input_395.bnk (outside X, has T)
-- column 44: T - clean
-- column 45: T - clean
-- column 93: A - clean
-- column 94: A - clean
-- column 96: A - clean
-- column 100: A - clean
-- column 104: A - clean
-
-### Case 11: oma SINE18, X = 3, Y = 5
+### Case 12: oma SINE18, X = 3, Y = 5
 
 - column 17: T - clean
 - column 35: G - clean
@@ -174,7 +189,68 @@ viewer's ruler numbers for that file.
 - column 131: A - clean
 - column 155: C - clean
 
-### Case 12: oma long12, X = 3, Y = 9
+### Case 13: oma grp128, X = 3, Y = 5
+
+- column 2: T (Y mostly gapped: insertion in X) - exceptions: input_128.bnk (outside X, has T)
+- column 3: T (Y mostly gapped: insertion in X) - exceptions: input_128.bnk (outside X, has T); input_131.bnk (outside X, has T)
+- column 4: T (Y mostly gapped: insertion in X) - exceptions: input_128.bnk (outside X, has T); input_131.bnk (outside X, has T)
+- column 5: T (Y mostly gapped: insertion in X) - exceptions: input_128.bnk (outside X, has T); input_131.bnk (outside X, has T)
+- column 17: T - exceptions: input_131.bnk (outside X, has T); input_134.bnk (outside X, has T)
+- column 26: G - exceptions: input_128.bnk (outside X, has G); input_131.bnk (outside X, has G)
+- column 35: C - exceptions: input_128.bnk (outside X, has C); input_134.bnk (outside X, has C)
+- column 36: G (Y mostly gapped: insertion in X) - exceptions: input_130.bnk (in X, has -)
+- column 37: T (Y mostly gapped: insertion in X) - exceptions: input_130.bnk (in X, has G)
+- column 41: gap (deletion in X) - exceptions: input_129.bnk (in X, has A)
+- column 42: G - exceptions: input_128.bnk (outside X, has G); input_131.bnk (outside X, has G)
+- column 43: G - exceptions: input_128.bnk (outside X, has G); input_136.bnk (outside X, has G)
+- column 59: C - exceptions: input_129.bnk (in X, has A); input_136.bnk (outside X, has C)
+- column 64: C - exceptions: input_129.bnk (in X, has A); input_136.bnk (outside X, has C)
+- column 68: T - exceptions: input_130.bnk (in X, has G)
+- column 69: C - exceptions: input_128.bnk (outside X, has C); input_131.bnk (outside X, has C)
+- column 70: C - exceptions: input_128.bnk (outside X, has C); input_131.bnk (outside X, has C)
+- column 76: C - exceptions: input_132.bnk (in X, has T); input_131.bnk (outside X, has C)
+- column 79: G (Y mostly gapped: insertion in X) - exceptions: input_128.bnk (outside X, has G); input_131.bnk (outside X, has G)
+- column 80: C (Y mostly gapped: insertion in X) - exceptions: input_128.bnk (outside X, has C); input_131.bnk (outside X, has C)
+- column 81: C (Y mostly gapped: insertion in X) - exceptions: input_131.bnk (outside X, has C)
+- column 82: G (Y mostly gapped: insertion in X) - exceptions: input_130.bnk (in X, has -); input_131.bnk (outside X, has G)
+- column 91: gap (deletion in X) - exceptions: input_132.bnk (in X, has T); input_134.bnk (outside X, has -)
+- column 109: G (Y mostly gapped: insertion in X) - exceptions: input_129.bnk (in X, has A); input_128.bnk (outside X, has G)
+- column 110: T (Y mostly gapped: insertion in X) - exceptions: input_128.bnk (outside X, has T); input_131.bnk (outside X, has T)
+- column 111: C (Y mostly gapped: insertion in X) - exceptions: input_128.bnk (outside X, has C); input_131.bnk (outside X, has C)
+- column 114: A - exceptions: input_128.bnk (outside X, has A); input_131.bnk (outside X, has A)
+- column 115: G - exceptions: input_128.bnk (outside X, has G); input_131.bnk (outside X, has G)
+- column 136: A - exceptions: input_131.bnk (outside X, has A)
+- column 143: C - exceptions: input_135.bnk (outside X, has C)
+- column 155: C - clean
+- column 156: T - clean
+- column 157: G - clean
+- column 163: A (Y mostly gapped: insertion in X) - exceptions: input_130.bnk (in X, has -); input_135.bnk (outside X, has A)
+- column 165: C - exceptions: input_130.bnk (in X, has -)
+- column 167: G - exceptions: input_130.bnk (in X, has T); input_136.bnk (outside X, has G)
+- column 171: G - exceptions: input_130.bnk (in X, has A); input_128.bnk (outside X, has G)
+- column 172: A - exceptions: input_130.bnk (in X, has G)
+- column 174: G - exceptions: input_134.bnk (outside X, has G); input_135.bnk (outside X, has G)
+- column 185: G - exceptions: input_131.bnk (outside X, has G); input_136.bnk (outside X, has G)
+- column 207: G - exceptions: input_135.bnk (outside X, has G)
+- column 208: A - exceptions: input_129.bnk (in X, has G)
+- column 209: T - clean
+- column 210: G - clean
+- column 211: G - clean
+- column 213: A - clean
+- column 214: G - exceptions: input_128.bnk (outside X, has G); input_131.bnk (outside X, has G)
+- column 215: C - exceptions: input_132.bnk (in X, has -); input_128.bnk (outside X, has C)
+- column 218: A (Y mostly gapped: insertion in X) - exceptions: input_128.bnk (outside X, has A); input_131.bnk (outside X, has A)
+- column 219: G (Y mostly gapped: insertion in X) - exceptions: input_132.bnk (in X, has A); input_128.bnk (outside X, has G)
+- column 224: G - exceptions: input_128.bnk (outside X, has G); input_134.bnk (outside X, has G)
+- column 225: C - exceptions: input_128.bnk (outside X, has C); input_131.bnk (outside X, has C)
+- column 226: T - exceptions: input_128.bnk (outside X, has T); input_134.bnk (outside X, has T)
+- column 231: C - exceptions: input_128.bnk (outside X, has C); input_134.bnk (outside X, has C)
+- column 233: G - exceptions: input_128.bnk (outside X, has G); input_134.bnk (outside X, has G)
+- column 238: C - exceptions: input_128.bnk (outside X, has C); input_136.bnk (outside X, has C)
+- column 242: C (Y mostly gapped: insertion in X) - exceptions: input_132.bnk (in X, has -); input_128.bnk (outside X, has C)
+- column 243: G (Y mostly gapped: insertion in X) - exceptions: input_132.bnk (in X, has -)
+
+### Case 14: oma long12, X = 3, Y = 9
 
 - column 41: C - exceptions: input_223.bnk (in X, has T)
 - column 60: A - exceptions: input_224.bnk (in X, has G)
@@ -206,7 +282,7 @@ viewer's ruler numbers for that file.
 - column 445: gap (deletion in X) - exceptions: input_214.bnk (outside X, has -)
 - column 446: gap (deletion in X) - exceptions: input_214.bnk (outside X, has -)
 
-### Case 13: oma SINE19, X = 4, Y = 6
+### Case 15: oma SINE19, X = 4, Y = 6
 
 - column 8: gap (deletion in X) - exceptions: input_302.bnk (outside X, has -); input_306.bnk (outside X, has -)
 - column 9: gap (deletion in X) - clean
