@@ -1,0 +1,37 @@
+species	N	rep	r	option	lost	double	end_n	purity	info	lost_groups	ref_purity	tail_labels
+small7	108	0	8	A_drop	8	0	0			0	0.55	g2:3,g7:5
+small7	108	0	8	B_keep_short_plur18	0	0	8	0.625	0.0	0	0.55	g7
+small7	108	0	8	B2_keep_short_scaled	0	0	8	0.625	0.857	0	0.55	g7
+small7	108	0	8	C_last50_overlap	0	42	50	0.52	0.438	0	0.55	g2
+small7	108	0	8	D_merge_previous	0	0	58	0.448	0.383	0	0.55	g2
+small7	108	0	8	E_balanced	0	0	36	0.389	0.462	0	0.55	sizes 36-36, mean purity of all chunks 0.472
+small7	108	1	8	A_drop	8	0	0			1	0.56	g2:2,g7:6
+small7	108	1	8	B_keep_short_plur18	0	0	8	0.75	0.0	0	0.56	g7
+small7	108	1	8	B2_keep_short_scaled	0	0	8	0.75	0.831	0	0.56	g7
+small7	108	1	8	C_last50_overlap	0	42	50	0.56	0.739	0	0.56	g2
+small7	108	1	8	D_merge_previous	0	0	58	0.483	0.741	0	0.56	g2
+small7	108	1	8	E_balanced	0	0	36	0.667	0.769	0	0.56	sizes 36-36, mean purity of all chunks 0.574
+small7	108	2	8	A_drop	8	0	0			0	0.54	g2:3,g6:1,g7:4
+small7	108	2	8	B_keep_short_plur18	0	0	8	0.5	0.0	0	0.54	g7
+small7	108	2	8	B2_keep_short_scaled	0	0	8	0.5	0.858	0	0.54	g7
+small7	108	2	8	C_last50_overlap	0	42	50	0.42	0.414	0	0.54	g2
+small7	108	2	8	D_merge_previous	0	0	58	0.362	0.41	0	0.54	g2
+small7	108	2	8	E_balanced	0	0	36	0.417	0.414	0	0.54	sizes 36-36, mean purity of all chunks 0.528
+small7	108	3	8	A_drop	8	0	0			1	0.51	g2:5,g7:3
+small7	108	3	8	B_keep_short_plur18	0	0	8	0.625	0.0	0	0.51	g2
+small7	108	3	8	B2_keep_short_scaled	0	0	8	0.625	0.859	0	0.51	g2
+small7	108	3	8	C_last50_overlap	0	42	50	0.44	0.586	0	0.51	g2
+small7	108	3	8	D_merge_previous	0	0	58	0.431	0.602	0	0.51	g2
+small7	108	3	8	E_balanced	0	0	36	0.583	0.647	0	0.51	sizes 36-36, mean purity of all chunks 0.556
+small7	108	4	8	A_drop	8	0	0			0	0.5	g2:4,g3:1,g7:3
+small7	108	4	8	B_keep_short_plur18	0	0	8	0.5	0.0	0	0.5	g2
+small7	108	4	8	B2_keep_short_scaled	0	0	8	0.5	0.767	0	0.5	g2
+small7	108	4	8	C_last50_overlap	0	42	50	0.44	0.431	0	0.5	g2
+small7	108	4	8	D_merge_previous	0	0	58	0.379	0.299	0	0.5	g2
+small7	108	4	8	E_balanced	0	0	36	0.528	0.468	0	0.5	sizes 36-36, mean purity of all chunks 0.556
+small7	108	5	8	A_drop	8	0	0			0	0.56	g2:3,g3:1,g7:4
+small7	108	5	8	B_keep_short_plur18	0	0	8	0.5	0.0	0	0.56	g7
+small7	108	5	8	B2_keep_short_scaled	0	0	8	0.5	0.833	0	0.56	g7
+small7	108	5	8	C_last50_overlap	0	42	50	0.54	0.647	0	0.56	g2
+small7	108	5	8	D_merge_previous	0	0	58	0.483	0.647	0	0.56	g2
+small7	108	5	8	E_balanced	0	0	36	0.5	0.692	0	0.56	sizes 36-36, mean purity of all chunks 0.500

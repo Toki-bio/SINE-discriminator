@@ -1,0 +1,31 @@
+species	N	rep	r	option	lost	double	end_n	purity	info	lost_groups	ref_purity	tail_labels
+pair23	1049	0	49	A_drop	49	0	0			0	1.0	g2:48,g3:1
+pair23	1049	0	49	B_keep_short_plur18	0	0	49	0.98	0.508	0	1.0	g2
+pair23	1049	0	49	B2_keep_short_scaled	0	0	49	0.98	0.508	0	1.0	g2
+pair23	1049	0	49	C_last50_overlap	0	1	50	0.98	0.51	0	1.0	g2
+pair23	1049	0	49	D_merge_previous	0	0	99	0.96	0.439	0	1.0	g2
+pair23	1049	0	49	E_balanced	0	0	49	0.98	0.508	0	1.0	sizes 49-50, mean purity of all chunks 0.950
+pair23	1049	1	49	A_drop	49	0	0			0	1.0	g2:48,g3:1
+pair23	1049	1	49	B_keep_short_plur18	0	0	49	0.98	0.431	0	1.0	g2
+pair23	1049	1	49	B2_keep_short_scaled	0	0	49	0.98	0.431	0	1.0	g2
+pair23	1049	1	49	C_last50_overlap	0	1	50	0.98	0.426	0	1.0	g2
+pair23	1049	1	49	D_merge_previous	0	0	99	0.96	0.356	0	1.0	g2
+pair23	1049	1	49	E_balanced	0	0	49	0.98	0.431	0	1.0	sizes 49-50, mean purity of all chunks 0.923
+pair23	1049	2	49	A_drop	49	0	0			0	1.0	g2:48,g3:1
+pair23	1049	2	49	B_keep_short_plur18	0	0	49	0.98	0.715	0	1.0	g2
+pair23	1049	2	49	B2_keep_short_scaled	0	0	49	0.98	0.715	0	1.0	g2
+pair23	1049	2	49	C_last50_overlap	0	1	50	0.98	0.696	0	1.0	g2
+pair23	1049	2	49	D_merge_previous	0	0	99	0.96	0.607	0	1.0	g2
+pair23	1049	2	49	E_balanced	0	0	49	0.98	0.715	0	1.0	sizes 49-50, mean purity of all chunks 0.935
+pair23	1049	3	49	A_drop	49	0	0			0	0.9966666666666667	g2:49
+pair23	1049	3	49	B_keep_short_plur18	0	0	49	1.0	0.654	0	0.9966666666666667	g2
+pair23	1049	3	49	B2_keep_short_scaled	0	0	49	1.0	0.654	0	0.9966666666666667	g2
+pair23	1049	3	49	C_last50_overlap	0	1	50	1.0	0.668	0	0.9966666666666667	g2
+pair23	1049	3	49	D_merge_previous	0	0	99	0.949	0.59	0	0.9966666666666667	g2
+pair23	1049	3	49	E_balanced	0	0	49	1.0	0.654	0	0.9966666666666667	sizes 49-50, mean purity of all chunks 0.954
+pair23	1049	4	49	A_drop	49	0	0			0	0.9366666666666666	g2:49
+pair23	1049	4	49	B_keep_short_plur18	0	0	49	1.0	0.656	0	0.9366666666666666	g2
+pair23	1049	4	49	B2_keep_short_scaled	0	0	49	1.0	0.656	0	0.9366666666666666	g2
+pair23	1049	4	49	C_last50_overlap	0	1	50	1.0	0.627	0	0.9366666666666666	g2
+pair23	1049	4	49	D_merge_previous	0	0	99	0.949	0.564	0	0.9366666666666666	g2
+pair23	1049	4	49	E_balanced	0	0	49	1.0	0.656	0	0.9366666666666666	sizes 49-50, mean purity of all chunks 0.934
