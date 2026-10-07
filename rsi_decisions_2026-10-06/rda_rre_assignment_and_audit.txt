@@ -1,0 +1,116 @@
+=== rda  /home/toki/rhin/rda_cross/run_20261006_124835
+Subfamily	Assigned	TopN_Bitscore	Threshold
+r1_r3_P1	12229	4211	1895
+r9_15seqs	7129	1212	545
+r7_133seqs	6953	1698	764
+r6_210seqs	6759	2317	1043
+r1_r3_P2	6542	2976	1339
+r5_r6_P26	5859	3426	1542
+r10_r8_P18	4392	3029	1363
+r8_83seqs	3338	1860	837
+r5_27seqs	1931	1817	818
+r5_r3_P34	1650	3346	1506
+r1_r2_r3_r3_C11	1325	5201	2340
+r10_19seqs	816	1435	646
+r5_r5_P48	523	2627	1182
+MEG-T2	102	370	167
+r3_58seqs	46	1774	798
+r1_9seqs	39	1265	569
+MEG-RS	34	689	310
+MEG-TR	21	345	155
+r2_3seqs	14	370	167
+r4_32seqs	13	340	153
+MEG-RL	12	359	162
+--- length variants
+r5_r5_P48__r5_r6_P26.copies.tsv
+r5_r5_P48__r5_r6_P26.ends.tsv
+r5_r5_P48__r5_r6_P26.report.txt
+short	long	consensus_identity	extra_bp	verdict	copies_5prime_complete	mode_ends	valley_ratio	linkage_index	diagnostic_columns	tsd_excess_points	notes
+r9_15seqs	r7_133seqs	89.5	49	TWO_VERSIONS	13858	114,151	0.036	0.96	11	46,49	
+r9_15seqs	r8_83seqs	85.7	76	TWO_VERSIONS	10308	113,178	0.036	0.96	13	48,49	
+r7_133seqs	r5_27seqs	89.0	24	UNLINKED_ENDS	8702	147,175	0.028	0.00	0	45,53	internal bases do not follow the length (index 0.00, 0 diagnostic columns)
+r7_133seqs	r8_83seqs	93.5	27	TWO_VERSIONS	10077	152,178	0.030	0.55	7	46,49	
+r5_r5_P48	r5_r6_P26	88.0	68	SINGLE_MODE	6047	373			0		1 end mode(s): no second length version; copies ending away from it are decay or a variable end
+MEG-RS	MEG-RL	97.0	72	NOT_TESTED							too few assigned copies (MEG-RS: 34, MEG-RL: 12; need 100 each): test on another species with more copies
+r4_32seqs	r3_58seqs	92.4	57	NOT_TESTED							too few assigned copies (r4_32seqs: 13, r3_58seqs: 46; need 100 each): test on another species with more copies
+--- audit
+family	copies	bank_bp	rebuilt_bp_s1	mismatches_s1	gap_columns_s1	rebuilt_bp_s2	mismatches_s2	gap_columns_s2	rebuilds_differ_mm	verdict
+MEG-RL	12	207								SKIPPED
+MEG-RS	34	135	89	1	46	89	1	46	0	SHORTER
+MEG-T2	102	232	52	0	180	52	0	180	3	SHORTER
+MEG-TR	21	196	43	0	153	46	0	150	5	UNSTABLE
+r10_19seqs	869	146	145	0	9	147	0	7	0	MATCH
+r10_r8_P18	5037	426	351	1	75	360	1	66	4	SHORTER
+r1_9seqs	64	155	109	0	46	109	0	46	0	SHORTER
+r1_r2_r3_r3_C11	1469	608	622	7	36	620	6	38	0	DIVERGED
+r1_r3_P1	12365	448	445	1	3	444	1	4	0	MATCH
+r1_r3_P2	6610	304	308	3	8	305	1	11	1	MATCH
+r2_3seqs	14	146								SKIPPED
+r3_58seqs	54	201	190	1	11	190	1	11	0	SHORTER
+r4_32seqs	13	144								SKIPPED
+r5_27seqs	1961	178	176	0	2	176	0	2	0	MATCH
+r5_r3_P34	1677	370	379	2	11	380	2	14	0	MATCH
+r5_r5_P48	565	308	305	5	29	299	2	29	0	DIVERGED
+r5_r6_P26	6045	376	375	0	1	373	0	3	0	MATCH
+r6_210seqs	6925	225	227	1	6	227	0	4	1	MATCH
+r7_133seqs	6986	154	178	0	24	176	0	22	0	LONGER
+r8_83seqs	3410	181	183	0	2	182	0	1	0	MATCH
+r9_15seqs	7173	105	105	0	0	104	0	1	0	MATCH
+=== rre  /home/toki/rhin/rre_cross/run_20261006_124835
+Subfamily	Assigned	TopN_Bitscore	Threshold
+r1_r2_r3_r3_C11	26359	5747	2586
+r1_r3_P1	21627	4132	1859
+r1_r3_P2	7451	2921	1314
+r9_15seqs	6810	1202	541
+r6_210seqs	6783	2277	1025
+r7_133seqs	6742	1678	755
+r5_r6_P26	5495	3358	1511
+r10_r8_P18	4173	3000	1350
+r8_83seqs	3321	1846	831
+r5_27seqs	1878	1784	803
+r5_r3_P34	1605	3281	1476
+r10_19seqs	757	1421	639
+r5_r5_P48	461	2600	1170
+MEG-T2	101	359	162
+r3_58seqs	52	1773	798
+r1_9seqs	34	1149	517
+MEG-RS	26	964	434
+MEG-TR	17	332	149
+r2_3seqs	16	336	151
+r4_32seqs	14	340	153
+MEG-RL	12	358	161
+--- length variants
+r5_r5_P48__r5_r6_P26.copies.tsv
+r5_r5_P48__r5_r6_P26.ends.tsv
+r5_r5_P48__r5_r6_P26.report.txt
+short	long	consensus_identity	extra_bp	verdict	copies_5prime_complete	mode_ends	valley_ratio	linkage_index	diagnostic_columns	tsd_excess_points	notes
+r9_15seqs	r7_133seqs	89.5	49	TWO_VERSIONS	13317	114,151	0.033	0.96	11	45,47	
+r9_15seqs	r8_83seqs	85.7	76	TWO_VERSIONS	9960	113,178	0.038	0.96	13	46,50	
+r7_133seqs	r5_27seqs	89.0	24	UNLINKED_ENDS	8428	147,175	0.027	0.00	0	46,53	internal bases do not follow the length (index 0.00, 0 diagnostic columns)
+r7_133seqs	r8_83seqs	93.5	27	TWO_VERSIONS	9832	152,178	0.029	0.56	7	46,54	
+r5_r5_P48	r5_r6_P26	88.0	68	SINGLE_MODE	5676	373			0		1 end mode(s): no second length version; copies ending away from it are decay or a variable end
+MEG-RS	MEG-RL	97.0	72	NOT_TESTED							too few assigned copies (MEG-RS: 26, MEG-RL: 12; need 100 each): test on another species with more copies
+r4_32seqs	r3_58seqs	92.4	57	NOT_TESTED							too few assigned copies (r4_32seqs: 14, r3_58seqs: 52; need 100 each): test on another species with more copies
+--- audit
+family	copies	bank_bp	rebuilt_bp_s1	mismatches_s1	gap_columns_s1	rebuilt_bp_s2	mismatches_s2	gap_columns_s2	rebuilds_differ_mm	verdict
+MEG-RL	12	207								SKIPPED
+MEG-RS	41	135	120	3	15	120	3	15	0	SHORTER
+MEG-T2	101	232	55	0	177	52	0	180	5	UNSTABLE
+MEG-TR	17	196								SKIPPED
+r10_19seqs	827	146	144	0	8	144	0	10	0	MATCH
+r10_r8_P18	4780	426	360	1	66	360	2	66	3	SHORTER
+r1_9seqs	53	155	116	0	39	116	0	39	0	SHORTER
+r1_r2_r3_r3_C11	26822	608	604	2	10	604	2	10	0	MATCH
+r1_r3_P1	21779	448	487	4	43	486	4	44	0	LONGER
+r1_r3_P2	7533	304	305	2	11	307	3	9	0	MATCH
+r2_3seqs	16	146								SKIPPED
+r3_58seqs	59	201	192	1	9	192	1	9	0	MATCH
+r4_32seqs	14	144								SKIPPED
+r5_27seqs	1910	178	177	0	1	177	0	1	0	MATCH
+r5_r3_P34	1650	370	381	2	15	380	2	12	0	MATCH
+r5_r5_P48	484	308	304	3	24	301	2	31	0	MATCH
+r5_r6_P26	5650	376	372	0	4	370	0	6	0	MATCH
+r6_210seqs	6862	225	228	0	5	227	0	4	0	MATCH
+r7_133seqs	6767	154	179	0	25	176	0	22	0	LONGER
+r8_83seqs	3392	181	183	0	2	182	0	1	0	MATCH
+r9_15seqs	6863	105	104	0	1	105	0	0	0	MATCH
