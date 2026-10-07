@@ -1,0 +1,275 @@
+<title>SubFam last chunk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column; the evidence (strips, lanes, consensus rows) sits in scrollable panels inside it.
+   Palette: neutral ink on a cool grey ground; seven group colours carry the data; vermilion marks what SubFam deletes. */
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --fg: #1d2330; --muted: #5d6677; --line: #d9dde5; --soft: #eceff4;
+  --accent: #1f5fbf; --del: #c4411f; --good: #1d7a4a;
+  --g2: #3b6fb6; --g3: #e08a2b; --g4: #4c9a5a; --g5: #9a5fa8; --g6: #c9a21b; --g7: #d4442a; --g8: #2a9d9a;
+  --nt-a: #1d7a4a; --nt-c: #1f5fbf; --nt-g: #b9770e; --nt-t: #c4411f; --gapdot: #b6bdc9;
+  --font: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12151b; --panel: #1a1f28; --fg: #e6e9ef; --muted: #9aa3b4; --line: #2f3643; --soft: #232a35;
+  --accent: #6aa1f0; --del: #ef7a58; --good: #5fcf91;
+  --g2: #6fa0e4; --g3: #f0a04c; --g4: #72c07f; --g5: #c392d0; --g6: #e4c24a; --g7: #f0694f; --g8: #55c4c1;
+  --nt-a: #5fcf91; --nt-c: #6aa1f0; --nt-g: #f0b255; --nt-t: #ef7a58; --gapdot: #4a5262; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #12151b; --panel: #1a1f28; --fg: #e6e9ef; --muted: #9aa3b4; --line: #2f3643; --soft: #232a35;
+  --accent: #6aa1f0; --del: #ef7a58; --good: #5fcf91;
+  --g2: #6fa0e4; --g3: #f0a04c; --g4: #72c07f; --g5: #c392d0; --g6: #e4c24a; --g7: #f0694f; --g8: #55c4c1;
+  --nt-a: #5fcf91; --nt-c: #6aa1f0; --nt-g: #f0b255; --nt-t: #ef7a58; --gapdot: #4a5262; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 15px; line-height: 1.55; padding-inline: 16px; }
+.wrap { max-width: 980px; margin-inline: auto; padding-block: 28px 64px; display: flex; flex-direction: column; gap: 36px; }
+h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.1; margin: 0; letter-spacing: -0.02em; text-wrap: balance; }
+h2 { font-size: 21px; margin: 0 0 6px; letter-spacing: -0.01em; text-wrap: balance; }
+h3 { font-size: 15px; margin: 0; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.lead { font-size: 17px; color: var(--fg); max-width: 62ch; }
+.muted { color: var(--muted); }
+section { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 16px; min-width: 0; }
+.scroll { overflow-x: auto; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tab { font: inherit; font-size: 13px; padding: 6px 11px; border: 1px solid var(--line); background: var(--panel); color: var(--fg); border-radius: 4px; cursor: pointer; }
+.tab[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 11px; height: 11px; border-radius: 2px; display: inline-block; }
+.c-a { background: var(--g2); } .c-b { background: var(--g3); } .c-c { background: var(--g4); } .c-d { background: var(--g5); }
+.c-e { background: var(--g6); } .c-f { background: var(--g7); } .c-g { background: var(--g8); }
+/* chunk composition strip */
+.comp { display: flex; align-items: stretch; height: 70px; gap: 1px; min-width: 520px; }
+.comp .chunk { flex: 1 1 0; display: flex; flex-direction: column; min-width: 3px; }
+.comp .chunk i { display: block; }
+.axis { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--muted); margin-top: 4px; min-width: 520px; font-variant-numeric: tabular-nums; }
+.tailrow { display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+.cells { display: flex; gap: 1px; }
+.cells i { width: 13px; height: 22px; display: block; border-radius: 1px; }
+.del { position: relative; outline: 1.5px dashed var(--del); outline-offset: 2px; padding: 0; }
+.tag { font-size: 12px; font-weight: 600; color: var(--del); }
+/* lanes */
+.lane { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 4px 14px; padding-block: 14px; border-top: 1px solid var(--line); }
+.lane:first-child { border-top: 0; }
+.lane h3 { font-size: 14px; }
+.lane .what { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.strip-wrap { overflow-x: auto; min-width: 0; }
+.strip { position: relative; --u: 10px; height: 64px; }
+.strip .row { display: flex; gap: 1px; }
+.strip .row i { width: 9px; height: 18px; display: block; border-radius: 1px; flex: 0 0 auto; }
+.strip .row i.off { opacity: 0.28; }
+.strip .row i.gone { opacity: 1; background-image: repeating-linear-gradient(135deg, transparent 0 3px, var(--bg) 3px 5px); }
+.br { position: absolute; height: 5px; border-radius: 3px; background: var(--accent); }
+.br.second { background: var(--g3); }
+.br.dele { background: var(--del); }
+.br.merge { background: var(--g5); }
+.metrics { grid-column: 2; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.metrics b { font-weight: 600; }
+.cons { grid-column: 2; font-family: var(--mono); font-size: 11.5px; line-height: 1.25; letter-spacing: 0; white-space: pre; overflow-x: auto; padding: 6px 8px; background: var(--soft); border-radius: 4px; }
+.cons .gp { color: var(--gapdot); }
+.cons .A { color: var(--nt-a); } .cons .C { color: var(--nt-c); } .cons .G { color: var(--nt-g); } .cons .T { color: var(--nt-t); }
+.cons.empty { color: var(--del); }
+/* bias bars */
+.bias { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.bias h3 { margin-bottom: 8px; }
+.brow { display: grid; grid-template-columns: 54px minmax(0, 1fr) 70px; align-items: center; gap: 8px; font-size: 12.5px; padding-block: 3px; }
+.bars { display: flex; flex-direction: column; gap: 2px; }
+.bar { height: 7px; border-radius: 2px; min-width: 1px; }
+.bar.pop { background: var(--line); }
+.nums { font-variant-numeric: tabular-nums; text-align: right; color: var(--muted); }
+.nums b { color: var(--fg); }
+.key { display: flex; gap: 16px; font-size: 12.5px; color: var(--muted); margin-bottom: 4px; flex-wrap: wrap; }
+.key span { display: inline-flex; align-items: center; gap: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
+td.best { font-weight: 700; color: var(--good); }
+pre { margin: 0; font-family: var(--mono); font-size: 12.5px; background: var(--soft); padding: 10px 12px; border-radius: 4px; overflow-x: auto; }
+code { font-family: var(--mono); font-size: 0.92em; background: var(--soft); padding: 1px 5px; border-radius: 3px; }
+.verdict { border-left: 4px solid var(--good); }
+a { color: var(--accent); }
+@media (max-width: 720px) { .lane { grid-template-columns: 1fr; } .metrics, .cons { grid-column: 1; } }
+</style>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:12px">
+    <div class="eyebrow">SubFam · tested on 17,550 ccr loci with known groups</div>
+    <h1>What SubFam does with the loci left over after the last full chunk</h1>
+    <p class="lead">SubFam cuts the ordered loci into chunks of 50 and, since the 2026-09-05 repo version, deletes the final chunk if it has fewer than 50. The deleted loci are not a random sample: they are the end of the guide-tree order, so the same group is removed again and again. Keeping the short chunk with a consensus threshold scaled to its size loses nothing and gives the purest consensus. Overlapping the last 50 loci mixes the tail with its neighbour and counts about 25 loci twice.</p>
+  </header>
+
+  <section id="ex">
+    <div>
+      <h2>One real run, six ways to handle the leftover loci</h2>
+      <p class="muted" id="exsub"></p>
+    </div>
+    <div class="tabs" id="tabs" role="group" aria-label="Example run"></div>
+    <div class="panel">
+      <h3 style="margin-bottom:4px">The loci in SubFam's order, one column per chunk of 50</h3>
+      <p class="muted" style="font-size:13px;margin-bottom:10px">Colour = the group the locus belongs to in your ccr peel. Groups sit side by side because the order is a similarity order; the last loci belong to whatever the tree puts last.</p>
+      <div class="scroll"><div class="comp" id="comp"></div><div class="axis" id="axis"></div></div>
+      <div class="tailrow"><span class="tag" id="tailtag"></span><div class="cells del" id="tailcells"></div><span class="muted" id="tailtxt" style="font-size:13px"></span></div>
+      <div class="legend" id="legend" style="margin-top:12px"></div>
+    </div>
+    <div class="panel">
+      <h3 style="margin-bottom:2px">The last 70 loci, and what each option makes of them</h3>
+      <p class="muted" style="font-size:13px;margin-bottom:4px">Blue bar = chunk, orange bar = a second chunk that overlaps it, red = deleted. Below each: the group purity of the end chunk, the share of its consensus columns that carry a base, and its consensus (first 150 alignment columns; a dot is a gap).</p>
+      <div id="lanes"></div>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <h2>The dropped loci are always the same group</h2>
+      <p class="muted">Share of the dropped loci that belong to each group (coloured bar), against that group's share of all loci in the sample (grey bar). 20 to 42 replicates per composition, leftover r = 1 to 49.</p>
+    </div>
+    <div class="panel"><div class="key"><span><i class="sw" style="background:var(--g7)"></i>share of the dropped loci</span><span><i class="sw" style="background:var(--line)"></i>share of all loci</span></div><div class="bias" id="bias"></div></div>
+    <div class="panel"><p><b>In runs of about 100 loci</b> (the size of a per-family SubFam run) the dropped tail removed an entire group in <b>0.81 of every replicate</b>: a subfamily present in the input had no locus left in any chunk.</p></div>
+  </section>
+
+  <section>
+    <div>
+      <h2>Which option is best depends on how many loci are left over</h2>
+      <p class="muted">Mean over the compositions with several groups (all seven, three, and the 100-locus runs). Purity = share of the end chunk's loci from its commonest group. Informative = share of consensus columns that carry a base.</p>
+    </div>
+    <div class="panel scroll">
+      <table>
+        <thead><tr><th>leftover r</th><th>option</th><th>end chunk (loci)</th><th>purity</th><th>informative</th><th>loci lost</th><th>loci counted twice</th></tr></thead>
+        <tbody id="bins"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <h2>The patched script</h2>
+      <p class="muted">Tested on KIT with 112 loci (SubFam's chunk size 50). Nothing is installed anywhere; this is a proposal for the SubFam repository.</p>
+    </div>
+    <div class="panel">
+      <pre>SUBFAM_LAST=keep      bash SubFam.last_chunk.sh loci.fa      # default: chunks 50 / 50 / 12, last consensus threshold scaled
+SUBFAM_LAST=balanced  bash SubFam.last_chunk.sh loci.fa      # chunks 38 / 37 / 37, nothing lost or doubled
+SUBFAM_LAST=drop      bash SubFam.last_chunk.sh loci.fa      # chunks 50 / 50 (the 2026-09-05 behaviour)</pre>
+      <p class="muted" style="margin-top:10px;font-size:13px">The consensus threshold becomes 36 % of the chunk's loci (<code>cons -plurality</code> 18 for 50 loci, so full chunks are unchanged; 4 for 12; never below 2). A one-locus leftover is skipped because MAFFT needs two sequences. With nothing left over the output matches the original up to MAFFT's own run-to-run variation: the original SubFam gave different consensus files when run twice on the same input.</p>
+    </div>
+    <div class="panel verdict">
+      <h3>Recommendation</h3>
+      <p style="margin-top:6px">Keep the short chunk and scale its consensus threshold (<b>keep</b>). If every chunk must have about the same size, use the <b>balanced</b> split, not the overlap: purity is the same as the overlap and no locus is counted twice.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>How this was tested, and what it cannot show</h2>
+    <p class="muted">Loci come from the 600 ccr chunk banks (50 loci each) of the SubFam run on KIT. The group of a locus is the group you peeled its chunk into (351 of 600 chunks, 17,550 loci, 7 groups), so labels are chunk-level, not per locus. Each replicate samples N loci from the chosen groups, orders them with <code>mafft --retree 0 --reorder</code> as SubFam does, cuts chunks of 50 and applies each option to the leftover. Results: 26 sample sets, 5 to 6 replicates each. A per-locus truth was not available for another species (the teu truth file is chunk-level with repeated names). Purity is higher for small chunks by construction, so options are compared within the same leftover size.</p>
+    <p class="muted">Files: <a href="https://github.com/Toki-bio/SINE-discriminator/tree/main/subfam_last_chunk">SINE-discriminator / subfam_last_chunk</a> (script, test code, all result tables).</p>
+  </section>
+</div>
+
+<script>
+const DATA = /*DATA*/;
+const NAMES = {a:'g2', b:'g3', c:'g4', d:'g5', e:'g6', f:'g7', g:'new13'};
+const OPT = [
+  {k:'A_drop', t:'A · drop', w:'what SubFam does now'},
+  {k:'B_keep_short_plur18', t:'B · keep, threshold 18', w:'what SubFam did before 2026-09-05'},
+  {k:'B2_keep_short_scaled', t:'B2 · keep, scaled threshold', w:'recommended'},
+  {k:'C_last50_overlap', t:'C · last 50 loci', w:'overlaps the previous chunk'},
+  {k:'D_merge_previous', t:'D · merge into previous', w:'one chunk of 50 + r loci'},
+  {k:'E_balanced', t:'E · balanced split', w:'all chunks 49-50'}
+];
+const $ = id => document.getElementById(id);
+const pct = x => (x == null || x === '') ? '–' : Math.round(x * 100) + ' %';
+function consHTML(s) {
+  let out = '';
+  for (const ch of s) { const u = ch.toUpperCase(); out += (u === '-' ) ? '<span class="gp">·</span>' : (('ACGT'.includes(u)) ? '<span class="' + u + '">' + ch + '</span>' : ch); }
+  return out;
+}
+function cells(str, from, to, extra) {
+  let h = '';
+  for (let i = from; i < to; i++) h += '<i class="c-' + str[i] + (extra ? ' ' + extra(i) : '') + '"></i>';
+  return h;
+}
+function render(ix) {
+  const E = DATA.examples[ix], N = E.N, r = E.r, full = E.full, ord = E.order;
+  $('exsub').textContent = E.sub;
+  [...$('tabs').children].forEach((b, i) => b.setAttribute('aria-pressed', i === ix ? 'true' : 'false'));
+  // composition strip
+  let comp = '';
+  for (let c = 0; c < full; c++) {
+    const seg = ord.slice(c * 50, c * 50 + 50), cnt = {};
+    for (const ch of seg) cnt[ch] = (cnt[ch] || 0) + 1;
+    let col = '';
+    for (const g of 'abcdefg') if (cnt[g]) col += '<i class="c-' + g + '" style="height:' + (100 * cnt[g] / 50) + '%" title="chunk ' + (c + 1) + ', ' + NAMES[g] + ': ' + cnt[g] + ' of 50"></i>';
+    comp += '<div class="chunk">' + col + '</div>';
+  }
+  $('comp').innerHTML = comp;
+  $('axis').innerHTML = '<span>chunk 1</span><span>chunk ' + Math.ceil(full / 2) + '</span><span>chunk ' + full + '</span>';
+  const tail = ord.slice(full * 50), tc = {};
+  for (const ch of tail) tc[ch] = (tc[ch] || 0) + 1;
+  $('tailtag').textContent = r + ' left over';
+  $('tailcells').innerHTML = cells(ord, full * 50, N);
+  $('tailtxt').textContent = 'SubFam deletes these: ' + Object.entries(tc).sort((a, b) => b[1] - a[1]).map(([g, n]) => n + ' ' + NAMES[g]).join(', ');
+  // lanes
+  const W = Math.min(N, 70), w0 = N - W, U = 10;
+  const baseCh = [[Math.max(0, (full - 1) * 50), full * 50]];
+  let lanes = '';
+  for (const o of OPT) {
+    const v = E.opts[o.k];
+    let chunks = [], dele = null, merge = null;
+    if (o.k === 'A_drop') { chunks = baseCh.slice(); dele = [full * 50, N]; }
+    else if (o.k === 'B_keep_short_plur18' || o.k === 'B2_keep_short_scaled') chunks = baseCh.concat([[full * 50, N]]);
+    else if (o.k === 'C_last50_overlap') chunks = baseCh.concat([[N - Math.min(50, N), N]]);
+    else if (o.k === 'D_merge_previous') chunks = [[(full - 1) * 50, N]];
+    else { // balanced: rebuild all chunk boundaries from the sizes
+      let p = 0; const all = E.sizesE.map(s => { const a = [p, p + s]; p += s; return a; }); chunks = all.slice(-2);
+    }
+    chunks = chunks.map(c => [Math.max(c[0], w0), c[1]]).filter(c => c[1] > c[0]);
+    const inLast = new Set(); const lastc = dele ? null : chunks[chunks.length - 1];
+    let strip = '<div class="row">' + cells(ord, w0, N, i => { return dele && i >= dele[0] ? 'gone' : ''; }) + '</div>';
+    chunks.forEach((c, k) => {
+      const cls = o.k === 'D_merge_previous' ? 'merge' : (k % 2 ? 'second' : '');
+      const top = 24 + (k % 2) * 8;
+      strip += '<div class="br ' + cls + '" style="left:' + ((c[0] - w0) * U) + 'px;width:' + ((c[1] - c[0]) * U - 1) + 'px;top:' + top + 'px"></div>';
+    });
+    if (dele) strip += '<div class="br dele" style="left:' + ((dele[0] - w0) * U) + 'px;width:' + ((dele[1] - dele[0]) * U - 1) + 'px;top:24px"></div>';
+    let metrics, cons = '';
+    if (o.k === 'A_drop') {
+      metrics = '<span><b>' + r + '</b> loci deleted</span><span>no consensus for them</span>';
+    } else {
+      const n = v.members.length;
+      const dbl = o.k === 'C_last50_overlap' ? 50 - r : 0;
+      metrics = '<span>end chunk <b>' + n + '</b> loci</span><span>purity <b>' + pct(v.purity) + '</b></span><span>informative <b>' + pct(v.info) + '</b></span>' +
+        '<span>threshold <b>' + v.plurality + '</b></span>' + (dbl ? '<span style="color:var(--del)"><b>' + dbl + '</b> loci counted twice</span>' : '');
+      const empty = !/[ACGT]/i.test(v.consensus);
+      cons = '<div class="cons' + (empty ? ' empty' : '') + '">' + (empty ? 'no column reaches the threshold of ' + v.plurality + ' with only ' + n + ' loci: every position is a gap\n' : '') + consHTML(v.consensus) + '</div>';
+    }
+    lanes += '<div class="lane"><div><h3>' + o.t + '</h3><div class="what">' + o.w + '</div></div><div class="strip-wrap"><div class="strip" style="width:' + (W * U) + 'px">' + strip + '</div></div><div class="metrics">' + metrics + '</div>' + cons + '</div>';
+  }
+  $('lanes').innerHTML = lanes;
+}
+// tabs and legend
+DATA.examples.forEach((e, i) => { const b = document.createElement('button'); b.className = 'tab'; b.textContent = e.title; b.onclick = () => render(i); $('tabs').appendChild(b); });
+$('legend').innerHTML = Object.entries(NAMES).map(([k, n]) => '<span><i class="sw c-' + k + '"></i>' + n + '</span>').join('');
+// bias
+const BIAS = [
+  ['All seven groups', [['g2',36,20,'a'],['g3',0,39,'b'],['g4',0,11,'c'],['g5',0,1,'d'],['g6',3,17,'e'],['g7',59,7,'f'],['new13',2,4,'g']]],
+  ['g4 + g6 + g7', [['g4',0,31,'c'],['g6',9,48,'e'],['g7',91,20,'f']]],
+  ['g2 + g3', [['g2',97,33,'a'],['g3',3,67,'b']]],
+  ['g5 + new13', [['g5',0,28,'d'],['new13',100,72,'g']]]
+];
+$('bias').innerHTML = BIAS.map(([t, rows]) => '<div><h3>' + t + '</h3>' + rows.map(([g, d, p, c]) =>
+  '<div class="brow"><span>' + g + '</span><div class="bars"><div class="bar c-' + c + '" style="width:' + Math.max(d, 0.8) + '%"></div><div class="bar pop" style="width:' + p + '%"></div></div><span class="nums"><b>' + d + '</b> / ' + p + ' %</span></div>').join('') + '</div>').join('');
+// leftover-size table
+const BINS = [
+  ['1 – 10', [['A · drop','0','–','–','r','0'],['B · keep, threshold 18','3.9','83 %','0 %','0','0'],['B2 · keep, scaled threshold','3.9','83 %','92 %','0','0'],['C · last 50 loci','50','56 %','55 %','0','50 − r'],['D · merge into previous','54','55 %','53 %','0','0'],['E · balanced split','42','59 %','58 %','0','0']]],
+  ['11 – 35', [['A · drop','0','–','–','r','0'],['B · keep, threshold 18','25','65 %','35 %','0','0'],['B2 · keep, scaled threshold','25','65 %','69 %','0','0'],['C · last 50 loci','50','60 %','58 %','0','50 − r'],['D · merge into previous','75','53 %','52 %','0','0'],['E · balanced split','46','61 %','59 %','0','0']]],
+  ['36 – 49', [['A · drop','0','–','–','r','0'],['B · keep, threshold 18','46','58 %','57 %','0','0'],['B2 · keep, scaled threshold','46','58 %','57 %','0','0'],['C · last 50 loci','50','57 %','56 %','0','50 − r'],['D · merge into previous','96','49 %','45 %','0','0'],['E · balanced split','49','57 %','57 %','0','0']]]
+];
+$('bins').innerHTML = BINS.map(([r, rows]) => rows.map((x, i) => '<tr><td>' + (i === 0 ? r : '') + '</td><td>' + x[0] + '</td><td>' + x[1] + '</td><td' + (x[0].startsWith('B2') ? ' class="best"' : '') + '>' + x[2] + '</td><td' + (x[0].startsWith('B2') ? ' class="best"' : '') + '>' + x[3] + '</td><td>' + x[4] + '</td><td>' + x[5] + '</td></tr>').join('')).join('');
+render(0);
+</script>
