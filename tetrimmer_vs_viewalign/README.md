@@ -84,3 +84,11 @@ Not worth borrowing: IQ-TREE/DBSCAN (needs a model, a tree and a fixed epsilon; 
 
 - Do you want items 1-2 built (they touch the Trimming panel), or only noted?
 - For item 1, the right test is your manual cleaning of a plate: if you can name two or three alignments where you removed a flank from single rows by hand, I can score the crop against those, as with the peel calls.
+
+## 8. His decisions (2026-10-11)
+
+- **Per-row end crop:** asked how it differs from the Trim ends tool (answer given in chat: Trim cuts the same columns from every row and judges by gap percentage; the crop cuts per row and judges by agreement with the column). Not decided.
+- **Gappy-column removal (trimAl-style):** FUTURE PLAN, not a priority. Wanted only in a non-destructive form: hide the columns (like Soft trim), never delete them. He plans to bring more trimAl features in the same hiding form.
+- **Redundancy filter:** dropped. Clustering is the tool for duplicates; revisit only if a real use case appears.
+- **Indel blocks as single features:** not decided; he wants SINEderella's code read first, in case it is already handled. Reading so far (local prototypes only, not SubFam proper or the server): `site/peel_features.py` already treats a gap as a state and groups features that co-occur into a block (Jaccard 0.45), so the columns of one indel fall into one block; but `MIN_BLOCK = 3` counts features, so one 6-bp indel alone can form a block, and `level_test.py` `diagnostics()` / ViewAlign Peel count columns.
+- **Quality grade:** not wanted as a grade; at most a plain summary line of numbers.
