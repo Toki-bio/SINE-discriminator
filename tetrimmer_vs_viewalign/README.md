@@ -92,3 +92,27 @@ Not worth borrowing: IQ-TREE/DBSCAN (needs a model, a tree and a fixed epsilon; 
 - **Redundancy filter:** dropped. Clustering is the tool for duplicates; revisit only if a real use case appears.
 - **Indel blocks as single features:** not decided; he wants SINEderella's code read first, in case it is already handled. Reading so far (local prototypes only, not SubFam proper or the server): `site/peel_features.py` already treats a gap as a state and groups features that co-occur into a block (Jaccard 0.45), so the columns of one indel fall into one block; but `MIN_BLOCK = 3` counts features, so one 6-bp indel alone can form a block, and `level_test.py` `diagnostics()` / ViewAlign Peel count columns.
 - **Quality grade:** not wanted as a grade; at most a plain summary line of numbers.
+
+## 9. Per-row crop: rejected (2026-10-11)
+
+His reason: uneven per-row polishing of the ends hides true variability and makes ends of different sizes look like missing data. Not built, not planned. Trim ends stays the only end tool (same columns for every row).
+
+## 10. Indel blocks as single features: test on ViewAlign Peel (2026-10-11)
+
+First, what the code already does (`peel.js` `diagCandidates`, lines 74-92): a run of adjacent indel columns is counted as ONE event (`indels++` only when the previous column was not an indel column), and a candidate's score is `subs + indelWeight * indels`. Defaults: top level `indelWeight` unset, so the score is the plain column count; refine pass `refineIndelWeight` 2. So "indel blocks as single features" exists, but only when `indelWeight` is set, and by default only in the refine pass.
+
+Scripts here: `indel_test.js` (variants), `indel_sweep.js` (refine weight x refine min columns), `indel_diff.js` (which of his groups change), `loader.js`. Agreement with his final ccr and oma groups (ARI), 600 and 598 chunks:
+
+| variant | ccr ARI | oma ARI |
+|---|---|---|
+| baseline (top level = columns, refine indel weight 2) | 0.546 | 0.687 |
+| top level counts indel runs, weight 1 / 2 / 3 | 0.543 / 0.546 / 0.546 | 0.681 / 0.682 / 0.682 |
+| refine indel weight 0 or 1 (refine min 4) | 0.546 | 0.830 / 0.827 |
+| refine indel weight 1.5 / 2 / 3 (refine min 4) | 0.546 | 0.700 / 0.687 / 0.687 |
+
+- Collapsing runs at the top level changes nothing measurable (differences of 0.003-0.006).
+- The refine weight matters on oma only: weight 2 (current default) splits four of his groups that weight 1 leaves whole: SINE25 (27+4), SINE24 (16+7), SINE21 (6+3+3), sub515. ccr is identical at every weight.
+- Agreement with his FINAL groups is not agreement with his calibration calls. In chat he called the SINE25 split (case 01) wrong and the SINE24 split (X about 7-8) correct. Weight 2 produces both splits and weight 1 neither, so by his own calls each weight gets one right and one wrong; the final groups reward weight 1 because they are coarser than what he accepts on inspection.
+- The calibration table has a "your call" column that is still empty in `alignments/peel_calib/README.md`; his calls exist only in chat. Cases with clean indels are 07, 10, 11, 12, 14 (1 each) and 15 (2); the splits above (01, 09) have none, so they are not decided by indels.
+
+Conclusion: no change. Runs are already collapsed where it counts; the weight 1 vs 2 question cannot be settled without his marks on the cases it changes (01, 09, 05/10, and sub515). If he marks them, rerun `indel_diff.js`.
